@@ -6,6 +6,8 @@ namespace Expressions
 {
     public sealed class Import
     {
+        private int? _hashCode;
+
         public Type Type { get; private set; }
 
         public string Namespace { get; private set; }
@@ -22,6 +24,35 @@ namespace Expressions
 
             Type = type;
             Namespace = ns;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            var other = obj as Import;
+
+            return
+                other != null &&
+                Type == other.Type &&
+                Namespace == other.Namespace;
+        }
+
+        public override int GetHashCode()
+        {
+            if (!_hashCode.HasValue)
+            {
+                unchecked
+                {
+                    _hashCode = ObjectUtil.CombineHashCodes(
+                        Type.GetHashCode(),
+                        Namespace == null ? 0 : Namespace.GetHashCode()
+                    );
+                }
+            }
+
+            return _hashCode.Value;
         }
     }
 }

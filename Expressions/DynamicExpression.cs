@@ -23,12 +23,29 @@ namespace Expressions
             ParseResult = DynamicExpressionCache.GetOrCreateParseResult(expression, language);
         }
 
-        public BoundExpression Bind(IExpressionBinder binder)
+        public BoundExpression Bind(IBindingContext binder)
         {
             if (binder == null)
                 throw new ArgumentNullException("binder");
 
             return BoundExpressionCache.GetOrCreateBoundExpression(this, binder);
+        }
+
+        public object Invoke(IExpressionContext expressionContext)
+        {
+            if (expressionContext == null)
+                throw new ArgumentNullException("expressionContext");
+
+            return Bind(expressionContext).Invoke(expressionContext);
+        }
+
+        public static bool IsLanguageCaseSensitive(ExpressionLanguage language)
+        {
+            switch (language)
+            {
+                case ExpressionLanguage.Flee: return false;
+                default: throw new ArgumentOutOfRangeException("language");
+            }
         }
     }
 }
