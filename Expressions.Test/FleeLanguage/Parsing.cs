@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading;
 using Antlr.Runtime;
 using NUnit.Framework;
 using Expressions.Flee;
@@ -11,6 +13,13 @@ namespace Expressions.Test.FleeLanguage
     [TestFixture]
     public class Parsing
     {
+        [TestFixtureSetUp]
+        public void SetCulture()
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+        }
+
         [Test]
         public void ValidExpressions()
         {
@@ -35,6 +44,13 @@ namespace Expressions.Test.FleeLanguage
             RunTestCase("LongBranchLogicalTest.txt");
         }
 
+        [Test]
+        public void SimpleTest()
+        {
+            FleeParser.Parse("##1.11:22# > (identifier.property.method() + ##1.01:22#)");
+            FleeParser.Parse("cast(null, string[])");
+        }
+
         private void RunTestCase(string resourceName)
         {
             using (var stream = GetType().Assembly.GetManifestResourceStream(GetType().Namespace + ".TestScripts." + resourceName))
@@ -44,9 +60,10 @@ namespace Expressions.Test.FleeLanguage
 
                 var parser = ParseExpression(expression);
 
-                if (!parser.Success)
+                if (parser.Exception != null)
                 {
                     Console.WriteLine("Failed expression: {0}", expression);
+                    Console.WriteLine("({0},{1}): {2}", parser.Exception.Token.Line, parser.Exception.Token.CharPositionInLine, parser.Exception.Message);
                     Assert.Fail();
                 }
             }
@@ -58,11 +75,21 @@ namespace Expressions.Test.FleeLanguage
 
             foreach (var testCase in GetTests(resourceName))
             {
-                var parser = ParseExpression(testCase.Expression);
+                try
+                {
+                    var parser = ParseExpression(testCase.Expression);
 
-                if (!parser.Success)
+                    if (parser.Exception != null)
+                    {
+                        Console.WriteLine("Failed expression({0}): {1}", testCase.LineNumber, testCase.Expression);
+                        Console.WriteLine("({0},{1}): {2}", parser.Exception.Token.Line, parser.Exception.Token.CharPositionInLine, parser.Exception.Message);
+                        success = false;
+                    }
+                }
+                catch (Exception ex)
                 {
                     Console.WriteLine("Failed expression({0}): {1}", testCase.LineNumber, testCase.Expression);
+                    Console.WriteLine("Message: {0}", ex.Message);
                     success = false;
                 }
             }
@@ -77,7 +104,9 @@ namespace Expressions.Test.FleeLanguage
             var lexer = new FleeLexer(inputStream);
             var tokenStream = new CommonTokenStream(lexer);
             var parser = new FleeParser(tokenStream);
+
             parser.Parse();
+
             return parser;
         }
 

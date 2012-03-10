@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Expressions.Ast
+{
+    internal class Index : IAstNode
+    {
+        public IAstNode Operand { get; private set; }
+
+        public AstNodeCollection Arguments { get; private set; }
+
+        public Index(IAstNode operand, AstNodeCollection arguments)
+        {
+            if (operand == null)
+                throw new ArgumentNullException("operand");
+            if (arguments == null)
+                throw new ArgumentNullException("arguments");
+
+            Operand = operand;
+            Arguments = arguments;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.Append(Operand);
+            sb.Append('[');
+
+            for (int i = 0; i < Arguments.Nodes.Count; i++)
+            {
+                if (i > 0)
+                    sb.Append(", ");
+
+                sb.Append(Arguments.Nodes[i]);
+            }
+
+            sb.Append(']');
+
+            return sb.ToString();
+        }
+    }
+}

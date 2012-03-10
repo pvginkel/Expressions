@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Expressions.Ast;
 
 namespace Expressions
 {
-    internal interface IParser
+    internal interface IIdentifierResolver
     {
-        ParseResult Parse(string expression);
     }
 }
