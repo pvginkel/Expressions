@@ -17,31 +17,19 @@ prog
 	;
 
 expression
-	: logical_xor_expression (OR logical_xor_expression)*
+	: logical_xor_expression ( OR logical_xor_expression )*
 	;
 
 logical_xor_expression
-	: logical_and_expression (XOR logical_and_expression)*
+	: logical_and_expression ( XOR logical_and_expression )*
 	;
 
 logical_and_expression
-	: inclusive_or_expression (AND inclusive_or_expression)*
-	;
-
-inclusive_or_expression
-	: exclusive_or_expression ('|' exclusive_or_expression)*
-	;
-
-exclusive_or_expression
-	: and_expression ('^' and_expression)*
-	;
-
-and_expression
-	: equality_expression ('&' equality_expression)*
+	: equality_expression ( AND equality_expression )*
 	;
 
 equality_expression
-	: in_expression (('='|'<>') in_expression)*
+	: in_expression ( ( '=' | '<>' ) in_expression )*
 	;
 
 in_expression
@@ -49,11 +37,11 @@ in_expression
 	;
 
 relational_expression
-	: shift_expression (('<'|'>'|'<='|'>=') shift_expression)*
+	: shift_expression ( ( '<' | '>' | '<=' | '>=' ) shift_expression )*
 	;
 
 shift_expression
-	: additive_expression (('<<'|'>>') additive_expression)*
+	: additive_expression ( ( '<<' | '>>' ) additive_expression )*
 	;
 
 additive_expression
@@ -61,41 +49,29 @@ additive_expression
 	;
 
 multiplicative_expression
-	: cast_expression ( '*' cast_expression | '/' cast_expression | '%' cast_expression )*
+	: cast_expression ( '^' cast_expression | '*' cast_expression | '/' cast_expression | '%' cast_expression )*
 	;
 
 cast_expression
-	: CAST cast_argument_list
+	: CAST '(' expression ',' IDENTIFIER ( '[' ',' * ']' )? ')'
 	| unary_expression
-	;
-
-cast_argument_list
-	: '(' expression ',' type_specifier ')'
-	;
-
-type_specifier
-	: IDENTIFIER ( '[' ']' )?
 	;
 
 unary_expression
 	: postfix_expression
-	| '++' unary_expression
-	| '--' unary_expression
 	| unary_operator cast_expression
 	;
 
 argument_expression_list
-	: expression (',' expression)*
+	: expression ( ',' expression )*
 	;
 
 postfix_expression
 	: primary_expression
-		(   '[' argument_expression_list ']'
-        |   '(' ')'
-        |   '(' argument_expression_list ')'
-        |   '.' IDENTIFIER
-        |   '++'
-        |   '--'
+		( '[' argument_expression_list ']'
+        | '(' ')'
+        | '(' argument_expression_list ')'
+        | '.' IDENTIFIER
         )*
 	;
 
@@ -112,7 +88,12 @@ unary_operator
 	;
 
 constant
-    : HEX_LITERAL
+    : TRUE
+	| FALSE
+	| NULL
+	| DATETIME_LITERAL
+	| TIMESPAN_LITERAL
+    | HEX_LITERAL
     | OCTAL_LITERAL
     | DECIMAL_LITERAL
     | CHARACTER_LITERAL
@@ -144,9 +125,29 @@ NOT
 	: ('N'|'n')('O'|'o')('T'|'t')
 	;
 
+TRUE
+	: ('T'|'t')('R'|'r')('U'|'u')('E'|'e')
+	;
+
+FALSE
+	: ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e')
+	;
+
+NULL
+	: ('N'|'n')('U'|'u')('L'|'l')('L'|'l')
+	;
+
 CHARACTER_LITERAL
     : '\'' ( ~('\\'|'\'') | EscapeSequence ) '\''
     ;
+
+TIMESPAN_LITERAL
+	: '#' '#' ( ~'#' )* '#'
+	;
+
+DATETIME_LITERAL
+	: '#' ( ~'#' )* '#'
+	;
 
 STRING_LITERAL
 	:  '"' ( ~('\\'|'"') | EscapeSequence )* '"'
@@ -194,6 +195,7 @@ fragment
 EscapeSequence
     : '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
     | OctalEscape
+    | UnicodeEscape
     ;
 
 fragment
@@ -202,6 +204,11 @@ OctalEscape
     | '\\' ('0'..'7') ('0'..'7')
     | '\\' ('0'..'7')
     ;
+
+fragment
+UnicodeEscape
+	: '\\' ('u'|'U') HexDigit HexDigit HexDigit HexDigit
+	;
 
 IDENTIFIER
 	: LETTER (LETTER|'0'..'9')*
