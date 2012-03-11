@@ -19,6 +19,9 @@ namespace Expressions.Test.Resolving
 
         private void PrintNode(IResolvedAstNode node, int indent)
         {
+            if (node == null)
+                return;
+
             AppendLine(indent, "{" + node.GetType().Name + "}");
 
             if (node is ResolvedBinaryExpression)
@@ -60,8 +63,6 @@ namespace Expressions.Test.Resolving
 
         private void PrintResolvedMethodCall(ResolvedMethodCall node, int indent)
         {
-            AppendLine(indent, "Operand =");
-            PrintNode(node.Operand, indent + 1);
             AppendLine(indent, "Method =");
             PrintNode(node.Method, indent + 1);
             AppendLine(indent, "Arguments =");

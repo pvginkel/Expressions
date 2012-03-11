@@ -96,18 +96,9 @@
     <Compile Include="IExecutionContext.cs" />
     <Compile Include="IExpressionContext.cs" />
     <Compile Include="IBindingContext.cs" />
-    <Compile Include="IIdentifierResolver.cs" />
     <Compile Include="Import.cs" />
-    <Compile Include="ImportFieldResolver.cs" />
-    <Compile Include="ImportMethodResolver.cs" />
-    <Compile Include="ImportNamespaceResolver.cs" />
-    <Compile Include="ImportPropertyResolver.cs" />
     <Compile Include="IParser.cs" />
-    <Compile Include="NullResolver.cs" />
     <Compile Include="ObjectUtil.cs" />
-    <Compile Include="OwnerFieldResolver.cs" />
-    <Compile Include="OwnerMethodResolver.cs" />
-    <Compile Include="OwnerPropertyResolver.cs" />
     <Compile Include="ParseResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolvedAst\IResolvedAstNode.cs" />
@@ -124,7 +115,6 @@
     <Compile Include="ResolvedAst\VariableIdentifier.cs" />
     <Compile Include="Variable.cs" />
     <Compile Include="VariableCollection.cs" />
-    <Compile Include="VariableResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Antlr3 Include="Flee\Flee.g">

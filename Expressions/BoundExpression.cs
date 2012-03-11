@@ -13,6 +13,7 @@ namespace Expressions
         private readonly Import[] _imports;
         private readonly Type[] _identifierTypes;
         private readonly int[] _parameterMap;
+#pragma warning disable 0649
         private readonly DynamicSignature _compiledMethod;
 
 #if DEBUG
@@ -68,21 +69,21 @@ namespace Expressions
             return parameterMap.ToArray();
         }
 
-        //private DynamicSignature CompileExpression()
-        //{
-        //    var method = new DynamicMethod(
-        //        "DynamicMethod",
-        //        typeof(object),
-        //        new[] { typeof(object[]) },
-        //        false /* restrictedSkipVisibility */
-        //    );
+        private DynamicSignature CompileExpression()
+        {
+            var method = new DynamicMethod(
+                "DynamicMethod",
+                typeof(object),
+                new[] { typeof(object[]) },
+                false /* restrictedSkipVisibility */
+            );
 
-        //    var il = method.GetILGenerator();
+            var il = method.GetILGenerator();
 
-        //    new Compiler(_dynamicExpression, _ownerType, _imports, _identifierTypes, _parameterMap, il).Compile();
+            new Compiler(_dynamicExpression, _ownerType, _imports, _identifierTypes, _parameterMap, il).Compile();
 
-        //    return (DynamicSignature)method.CreateDelegate(typeof(DynamicSignature));
-        //}
+            return (DynamicSignature)method.CreateDelegate(typeof(DynamicSignature));
+        }
 
         public object Invoke(IExecutionContext executionContext)
         {

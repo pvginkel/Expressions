@@ -8,11 +8,34 @@ namespace Expressions.Test.Resolving
 {
     internal abstract class ResolvingTestBase
     {
+        protected void Resolve(string expression)
+        {
+            Resolve(null, expression);
+        }
+
+        protected void Resolve(ExpressionContext expressionContext, string expression)
+        {
+            Resolve(expressionContext, expression, null);
+        }
+
+        protected void Resolve(string expression, IResolvedAstNode expectedResult)
+        {
+            Resolve(null, expression, expectedResult);
+        }
+
         protected void Resolve(ExpressionContext expressionContext, string expression, IResolvedAstNode expectedResult)
         {
-            var boundExpression = new DynamicExpression(expression, ExpressionLanguage.Flee).Bind(expressionContext);
+            if (expression == null)
+                throw new ArgumentNullException("expression");
 
-            if (!Equals(expectedResult, boundExpression.ResolvedTree))
+            var boundExpression = new DynamicExpression(
+                expression,
+                ExpressionLanguage.Flee
+            ).Bind(
+                expressionContext ?? new ExpressionContext()
+            );
+
+            if (expectedResult != null && !Equals(expectedResult, boundExpression.ResolvedTree))
             {
                 string expected = new ResolvedNodePrinter(expectedResult).ToString();
                 string actual = new ResolvedNodePrinter(boundExpression.ResolvedTree).ToString();

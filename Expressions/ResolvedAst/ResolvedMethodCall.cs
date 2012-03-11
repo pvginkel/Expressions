@@ -10,8 +10,6 @@ namespace Expressions.ResolvedAst
 {
     internal class ResolvedMethodCall : IResolvedAstNode
     {
-        public IResolvedAstNode Operand { get; private set; }
-
         public MethodIdentifier Method { get; private set; }
 
         public IList<IResolvedAstNode> Arguments { get; private set; }
@@ -39,7 +37,7 @@ namespace Expressions.ResolvedAst
 
         public IResolvedIdentifier Resolve(Resolver resolver, string member)
         {
-            return resolver.Resolve(Operand.Identifier, Type, member, false);
+            return resolver.Resolve(Method, Type, member, false);
         }
 
         public override bool Equals(object obj)
@@ -51,7 +49,6 @@ namespace Expressions.ResolvedAst
 
             if (
                 other == null ||
-                !Equals(Operand, other.Operand) ||
                 !Equals(Method, other.Method) ||
                  Arguments.Count != other.Arguments.Count
             )

@@ -45,6 +45,12 @@ namespace Expressions.Test.FleeLanguage
         }
 
         [Test]
+        public void SpecialConstructs()
+        {
+            RunTestCases("SpecialConstructs.txt");
+        }
+
+        [Test]
         public void SimpleTest()
         {
             FleeParser.Parse("##1.11:22# > (identifier.property.method() + ##1.01:22#)");

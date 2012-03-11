@@ -54,6 +54,8 @@
     <Compile Include="MethodCalls.cs" />
     <Compile Include="FleeLanguage\Parsing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resolving\BinaryExpressions.cs" />
+    <Compile Include="Resolving\Casting.cs" />
     <Compile Include="Resolving\MethodCalls.cs" />
     <Compile Include="Resolving\ResolvedNodePrinter.cs" />
     <Compile Include="Resolving\ResolvingTestbase.cs" />
@@ -78,6 +80,9 @@
     <EmbeddedResource Include="FleeLanguage\TestScripts\SimpleCalcEngineTests.txt" />
     <EmbeddedResource Include="FleeLanguage\TestScripts\ValidCasts.txt" />
     <EmbeddedResource Include="FleeLanguage\TestScripts\ValidExpressions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FleeLanguage\TestScripts\SpecialConstructs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -169,7 +169,7 @@ namespace Expressions.ResolvedAst
                 var result = Resolve(new VariableIdentifier(_ownerType, 0), _ownerType, member, false, false);
 
                 if (result == null)
-                    Resolve(new TypeIdentifier(_ownerType), _ownerType, member, true, false);
+                    result = Resolve(new TypeIdentifier(_ownerType), _ownerType, member, true, false);
 
                 if (result != null)
                     return result;
