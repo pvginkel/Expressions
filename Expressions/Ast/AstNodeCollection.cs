@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using Expressions.ResolvedAst;
 
 namespace Expressions.Ast
 {
@@ -54,6 +55,11 @@ namespace Expressions.Ast
             sb.Append(')');
 
             return sb.ToString();
+        }
+
+        public IResolvedAstNode Resolve(Resolver resolver)
+        {
+            throw new NotSupportedException();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Expressions.ResolvedAst;
 
 namespace Expressions.Ast
 {
@@ -20,6 +21,11 @@ namespace Expressions.Ast
         public override string ToString()
         {
             return Value == null ? "null" : Value.ToString();
+        }
+
+        public IResolvedAstNode Resolve(Resolver resolver)
+        {
+            return new ResolvedConstant(Value);
         }
     }
 }

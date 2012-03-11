@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Expressions.Ast
 {
-    internal class IdentifierCollection : KeyedCollection<string, Identifier>
+    internal class IdentifierCollection : KeyedCollection<string, IdentifierAccess>
     {
         public IdentifierCollection()
         {
@@ -21,7 +21,7 @@ namespace Expressions.Ast
         {
         }
 
-        protected override string GetKeyForItem(Identifier item)
+        protected override string GetKeyForItem(IdentifierAccess item)
         {
             return item.Name;
         }

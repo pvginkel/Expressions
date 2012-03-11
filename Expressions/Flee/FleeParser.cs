@@ -195,7 +195,7 @@ namespace Expressions.Flee
             }
         }
 
-        private Identifier CreateIdentifier(string text)
+        private IdentifierAccess CreateIdentifier(string text)
         {
             if (_identifiers.Contains(text))
             {
@@ -203,7 +203,7 @@ namespace Expressions.Flee
             }
             else
             {
-                var identifier = new Identifier(text);
+                var identifier = new IdentifierAccess(text);
 
                 _identifiers.Add(identifier);
 

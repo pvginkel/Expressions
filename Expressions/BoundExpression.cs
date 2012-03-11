@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Text;
+using Expressions.ResolvedAst;
 
 namespace Expressions
 {
@@ -9,43 +10,79 @@ namespace Expressions
     {
         private readonly DynamicExpression _dynamicExpression;
         private readonly Type _ownerType;
-        private readonly Import[] _import;
+        private readonly Import[] _imports;
         private readonly Type[] _identifierTypes;
         private readonly int[] _parameterMap;
         private readonly DynamicSignature _compiledMethod;
 
-        internal BoundExpression(DynamicExpression dynamicExpression, Type ownerType, Import[] import, Type[] identifierTypes)
+#if DEBUG
+        // For unit testing
+        internal IResolvedAstNode ResolvedTree { get; private set; }
+#endif
+
+        internal BoundExpression(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes)
         {
             if (dynamicExpression == null)
                 throw new ArgumentNullException("dynamicExpression");
-            if (ownerType == null)
-                throw new ArgumentNullException("ownerType");
-            if (import == null)
-                throw new ArgumentNullException("import");
+            if (imports == null)
+                throw new ArgumentNullException("imports");
             if (identifierTypes == null)
                 throw new ArgumentNullException("identifierTypes");
 
             _dynamicExpression = dynamicExpression;
             _ownerType = ownerType;
-            _import = import;
+            _imports = imports;
             _identifierTypes = identifierTypes;
 
-            _compiledMethod = CompileExpression();
+            _parameterMap = BuildParameterMap();
+
+            Resolve();
+
+            //_compiledMethod = CompileExpression();
         }
 
-        private DynamicSignature CompileExpression()
+        private void Resolve()
         {
-            var method = new DynamicMethod(
-                "DynamicMethod",
-                typeof(object),
-                new[] { typeof(object[]) },
-                true
-            );
+            var resolver = new Resolver(_dynamicExpression, _ownerType, _imports, _identifierTypes, _parameterMap);
 
-            var il = method.GetILGenerator();
+            var resolvedTree = _dynamicExpression.ParseResult.RootNode.Resolve(resolver);
 
-            return (DynamicSignature)method.CreateDelegate(typeof(DynamicSignature));
+#if DEBUG
+            ResolvedTree = resolvedTree;
+#endif
         }
+
+        private int[] BuildParameterMap()
+        {
+            var parameterMap = new List<int>();
+
+            if (_ownerType != null)
+                parameterMap.Add(-1);
+
+            for (int i = 0; i < _identifierTypes.Length; i++)
+            {
+                if (_identifierTypes[i] != null)
+                    parameterMap.Add(i);
+            }
+
+            return parameterMap.ToArray();
+        }
+
+        //private DynamicSignature CompileExpression()
+        //{
+        //    var method = new DynamicMethod(
+        //        "DynamicMethod",
+        //        typeof(object),
+        //        new[] { typeof(object[]) },
+        //        false /* restrictedSkipVisibility */
+        //    );
+
+        //    var il = method.GetILGenerator();
+
+        //    new Compiler(_dynamicExpression, _ownerType, _imports, _identifierTypes, _parameterMap, il).Compile();
+
+        //    return (DynamicSignature)method.CreateDelegate(typeof(DynamicSignature));
+        //}
 
         public object Invoke(IExecutionContext executionContext)
         {

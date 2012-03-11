@@ -16,28 +16,5 @@ namespace Expressions
 
             MethodInfo = methodInfo;
         }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            var other = obj as ImportMethodResolver;
-
-            return
-                other != null &&
-                    MethodInfo == other.MethodInfo;
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ObjectUtil.CombineHashCodes(
-                    GetType().GetHashCode(),
-                    MethodInfo.GetHashCode()
-                    );
-            }
-        }
     }
 }

@@ -16,28 +16,5 @@ namespace Expressions
 
             PropertyInfo = propertyInfo;
         }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            var other = obj as ImportPropertyResolver;
-
-            return
-                other != null &&
-                    PropertyInfo == other.PropertyInfo;
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ObjectUtil.CombineHashCodes(
-                    GetType().GetHashCode(),
-                    PropertyInfo.GetHashCode()
-                    );
-            }
-        }
     }
 }

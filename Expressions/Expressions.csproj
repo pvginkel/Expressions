@@ -51,16 +51,40 @@
     <Compile Include="Ast\ExpressionType.cs" />
     <Compile Include="Ast\Constant.cs" />
     <Compile Include="Ast\IAstNode.cs" />
-    <Compile Include="Ast\Identifier.cs" />
+    <Compile Include="Ast\IdentifierAccess.cs" />
     <Compile Include="Ast\IdentifierCollection.cs" />
     <Compile Include="Ast\Index.cs" />
     <Compile Include="Ast\MemberAccess.cs" />
     <Compile Include="Ast\MethodCall.cs" />
     <Compile Include="Ast\TypeIdentifier.cs" />
     <Compile Include="Ast\UnaryExpression.cs" />
+    <Compile Include="BoundAst\Binder.cs" />
+    <Compile Include="BoundAst\BoundBinaryExpression.cs" />
+    <Compile Include="BoundAst\BoundCast.cs" />
+    <Compile Include="BoundAst\BoundConstant.cs" />
+    <Compile Include="BoundAst\BoundField.cs" />
+    <Compile Include="BoundAst\BoundMethod.cs" />
+    <Compile Include="BoundAst\BoundParameter.cs" />
+    <Compile Include="BoundAst\BoundUnaryExpression.cs" />
+    <Compile Include="ResolvedAst\ConstantIdentifier.cs" />
+    <Compile Include="ResolvedAst\FieldIdentifier.cs" />
+    <Compile Include="ResolvedAst\GlobalIdentifier.cs" />
+    <Compile Include="BoundAst\IBoundAstNode.cs" />
+    <Compile Include="ResolvedAst\ImportIdentifier.cs" />
+    <Compile Include="ResolvedAst\IResolvedIdentifier.cs" />
+    <Compile Include="ResolvedAst\ITypedResolvedIdentifier.cs" />
+    <Compile Include="ResolvedAst\MethodGroupIdentifier.cs" />
+    <Compile Include="ResolvedAst\MethodIdentifier.cs" />
+    <Compile Include="ResolvedAst\NullIdentifier.cs" />
+    <Compile Include="ResolvedAst\PropertyGroupIdentifier.cs" />
+    <Compile Include="ResolvedAst\PropertyIdentifier.cs" />
+    <Compile Include="ResolvedAst\BinaryIdentifier.cs" />
+    <Compile Include="ResolvedAst\ResolvedType.cs" />
+    <Compile Include="ResolvedAst\TypeIdentifier.cs" />
     <Compile Include="BoundExpression.cs" />
     <Compile Include="BoundExpressionCache.cs" />
     <Compile Include="CompilationException.cs" />
+    <Compile Include="Compiler.cs" />
     <Compile Include="DynamicExpression.cs" />
     <Compile Include="DynamicExpressionCache.cs" />
     <Compile Include="ExpressionContext.cs" />
@@ -71,17 +95,33 @@
     <Compile Include="Flee\Generated\FleeParser.cs" />
     <Compile Include="IExecutionContext.cs" />
     <Compile Include="IExpressionContext.cs" />
-    <Compile Include="IIdentifierResolver.cs" />
     <Compile Include="IBindingContext.cs" />
+    <Compile Include="IIdentifierResolver.cs" />
     <Compile Include="Import.cs" />
+    <Compile Include="ImportFieldResolver.cs" />
     <Compile Include="ImportMethodResolver.cs" />
+    <Compile Include="ImportNamespaceResolver.cs" />
     <Compile Include="ImportPropertyResolver.cs" />
     <Compile Include="IParser.cs" />
+    <Compile Include="NullResolver.cs" />
     <Compile Include="ObjectUtil.cs" />
+    <Compile Include="OwnerFieldResolver.cs" />
     <Compile Include="OwnerMethodResolver.cs" />
     <Compile Include="OwnerPropertyResolver.cs" />
     <Compile Include="ParseResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResolvedAst\IResolvedAstNode.cs" />
+    <Compile Include="ResolvedAst\ResolvedBinaryExpression.cs" />
+    <Compile Include="ResolvedAst\ResolvedCast.cs" />
+    <Compile Include="ResolvedAst\ResolvedConstant.cs" />
+    <Compile Include="ResolvedAst\ResolvedIdentifierAccess.cs" />
+    <Compile Include="ResolvedAst\ResolvedIndex.cs" />
+    <Compile Include="ResolvedAst\ResolvedMemberAccess.cs" />
+    <Compile Include="ResolvedAst\ResolvedMethodCall.cs" />
+    <Compile Include="ResolvedAst\ResolvedUnaryExpression.cs" />
+    <Compile Include="ResolvedAst\Resolver.cs" />
+    <Compile Include="ResolvedAst\TypeUtil.cs" />
+    <Compile Include="ResolvedAst\VariableIdentifier.cs" />
     <Compile Include="Variable.cs" />
     <Compile Include="VariableCollection.cs" />
     <Compile Include="VariableResolver.cs" />
@@ -94,6 +134,7 @@
   <ItemGroup>
     <None Include="Key.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Flee\Flee.g -o $(ProjectDir)Flee\Generated</PreBuildEvent>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Expressions.ResolvedAst;
 
 namespace Expressions.Ast
 {
@@ -19,6 +20,15 @@ namespace Expressions.Ast
 
             Operand = operand;
             Member = member;
+        }
+
+        public IResolvedAstNode Resolve(Resolver resolver)
+        {
+            var operand = Operand.Resolve(resolver);
+
+            var member = operand.Resolve(resolver, Member);
+
+            return new ResolvedMemberAccess(operand, member);
         }
 
         public override string ToString()

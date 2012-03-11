@@ -126,7 +126,8 @@ namespace Expressions
 
                         for (int i = 0; i < IdentifierTypes.Length; i++)
                         {
-                            hashCode = ObjectUtil.CombineHashCodes(hashCode, IdentifierTypes[i].GetHashCode());
+                            if (IdentifierTypes[i] != null)
+                                hashCode = ObjectUtil.CombineHashCodes(hashCode, IdentifierTypes[i].GetHashCode());
                         }
 
                         _hashCode = hashCode;

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Expressions.ResolvedAst;
 
 namespace Expressions.Ast
 {
-    internal class Identifier : IAstNode
+    internal class IdentifierAccess : IAstNode
     {
         public string Name { get; private set; }
 
-        public Identifier(string name)
+        public IdentifierAccess(string name)
         {
             if (name == null)
                 throw new ArgumentNullException("name");
@@ -19,6 +20,13 @@ namespace Expressions.Ast
         public override string ToString()
         {
             return Name;
+        }
+
+        public IResolvedAstNode Resolve(Resolver resolver)
+        {
+            var identifier = GlobalIdentifier.Instance.Resolve(resolver, Name);
+
+            return new ResolvedIdentifierAccess(identifier);
         }
     }
 }
