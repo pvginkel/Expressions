@@ -46,7 +46,7 @@ namespace Expressions.Ast
             else
                 throw new NotImplementedException();
 
-            return new ResolvedMethodCall(operand, method, arguments);
+            return new ResolvedMethodCall(method, arguments);
         }
 
         public override string ToString()

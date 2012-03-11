@@ -21,19 +21,18 @@ namespace Expressions.ResolvedAst
             get { return Method.Type; }
         }
 
-        public IResolvedIdentifier Identifier
+        IResolvedIdentifier IResolvedAstNode.Identifier
         {
-            get { return Operand.Identifier; }
+            get { return Method; }
         }
 
-        public ResolvedMethodCall(IResolvedAstNode operand, MethodIdentifier method, IResolvedAstNode[] arguments)
+        public ResolvedMethodCall(MethodIdentifier method, IResolvedAstNode[] arguments)
         {
             if (method == null)
                 throw new ArgumentNullException("method");
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            Operand = operand;
             Method = method;
             Arguments = new ReadOnlyCollection<IResolvedAstNode>(arguments);
         }

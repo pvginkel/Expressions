@@ -19,12 +19,6 @@ namespace Expressions.Test.Resolving
                 new ExpressionContext(new[] { new Import(typeof(Guid)) }),
                 "NewGuid()",
                 new ResolvedMethodCall(
-                    new ResolvedIdentifierAccess(
-                        new MethodIdentifier(
-                            new TypeIdentifier(typeof(Guid)),
-                            typeof(Guid).GetMethod("NewGuid")
-                        )
-                    ),
                     new MethodIdentifier(
                         new TypeIdentifier(typeof(Guid)),
                         typeof(Guid).GetMethod("NewGuid")
@@ -43,15 +37,6 @@ namespace Expressions.Test.Resolving
                 new ExpressionContext(new[] { import }),
                 "Guid.NewGuid()",
                 new ResolvedMethodCall(
-                    new ResolvedMemberAccess(
-                        new ResolvedIdentifierAccess(
-                            new ImportIdentifier(import)
-                        ),
-                        new MethodIdentifier(
-                            new ImportIdentifier(import),
-                            typeof(Guid).GetMethod("NewGuid")
-                        )
-                    ),
                     new MethodIdentifier(
                         new ImportIdentifier(import),
                         typeof(Guid).GetMethod("NewGuid")
@@ -68,21 +53,6 @@ namespace Expressions.Test.Resolving
                 new ExpressionContext(null, new Owner { Variable = 7 }),
                 "Variable.ToString()",
                 new ResolvedMethodCall(
-                    new ResolvedMemberAccess(
-                        new ResolvedIdentifierAccess(
-                            new PropertyIdentifier(
-                                new VariableIdentifier(typeof(Owner), 0),
-                                typeof(Owner).GetMethod("get_Variable")
-                            )
-                        ),
-                        new MethodGroupIdentifier(
-                            new PropertyIdentifier(
-                                new VariableIdentifier(typeof(Owner), 0),
-                                typeof(Owner).GetMethod("get_Variable")
-                            ),
-                            TypeExtensions.GetMethods(typeof(int), "ToString", BindingFlags.Instance | BindingFlags.Public)
-                        )
-                    ),
                     new MethodIdentifier(
                         new PropertyIdentifier(
                             new VariableIdentifier(typeof(Owner), 0),
@@ -102,21 +72,6 @@ namespace Expressions.Test.Resolving
                 new ExpressionContext(new[] { new Import(typeof(DateTime)) }),
                 "Now.ToString()",
                 new ResolvedMethodCall(
-                    new ResolvedMemberAccess(
-                        new ResolvedIdentifierAccess(
-                            new PropertyIdentifier(
-                                new TypeIdentifier(typeof(DateTime)),
-                                typeof(DateTime).GetMethod("get_Now")
-                            )
-                        ),
-                        new MethodGroupIdentifier(
-                            new PropertyIdentifier(
-                                new TypeIdentifier(typeof(DateTime)),
-                                typeof(DateTime).GetMethod("get_Now")
-                            ),
-                            TypeExtensions.GetMethods(typeof(DateTime), "ToString", BindingFlags.Instance | BindingFlags.Public)
-                        )
-                    ),
                     new MethodIdentifier(
                         new PropertyIdentifier(
                             new TypeIdentifier(typeof(DateTime)),
@@ -138,24 +93,6 @@ namespace Expressions.Test.Resolving
                 new ExpressionContext(new[] { import }),
                 "DateTime.Now.ToString()",
                 new ResolvedMethodCall(
-                    new ResolvedMemberAccess(
-                        new ResolvedMemberAccess(
-                            new ResolvedIdentifierAccess(
-                                new ImportIdentifier(import)
-                            ),
-                            new PropertyIdentifier(
-                                new ImportIdentifier(import),
-                                typeof(DateTime).GetMethod("get_Now")
-                            )
-                        ),
-                        new MethodGroupIdentifier(
-                            new PropertyIdentifier(
-                                new ImportIdentifier(import),
-                                typeof(DateTime).GetMethod("get_Now")
-                            ),
-                            TypeExtensions.GetMethods(typeof(DateTime), "ToString", BindingFlags.Instance | BindingFlags.Public)
-                        )
-                    ),
                     new MethodIdentifier(
                         new PropertyIdentifier(
                             new ImportIdentifier(import),
