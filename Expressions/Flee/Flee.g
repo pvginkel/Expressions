@@ -131,10 +131,10 @@ argument_expression_list returns [AstNodeCollection value]
 postfix_expression returns [IAstNode value]
 	: p=primary_expression { $value = $p.value; }
 		( '[' e=argument_expression_list ']' { $value = new Index($value, $e.value); }
-        | '(' ')' { $value = new MethodCall($value); }
-        | '(' e=argument_expression_list ')' { $value = new MethodCall($value, $e.value); }
-        | '.' IDENTIFIER { $value = new MemberAccess($value, $IDENTIFIER.text); }
-        )*
+		| '(' ')' { $value = new MethodCall($value); }
+		| '(' e=argument_expression_list ')' { $value = new MethodCall($value, $e.value); }
+		| DOT IDENTIFIER { $value = new MemberAccess($value, $IDENTIFIER.text); }
+		)*
 	;
 
 primary_expression returns [IAstNode value]
@@ -144,38 +144,38 @@ primary_expression returns [IAstNode value]
 	;
 
 constant returns [Constant value]
-    : TRUE { $value = Constant.True; }
+	: TRUE { $value = Constant.True; }
 	| FALSE { $value = Constant.False; }
 	| NULL { $value = Constant.Null; }
 	| DATETIME_LITERAL { $value = ParseDateTime($DATETIME_LITERAL.text); }
 	| TIMESPAN_LITERAL { $value = ParseTimeSpan($TIMESPAN_LITERAL.text); }
-    | HEX_LITERAL { $value = ParseHex($HEX_LITERAL.text); }
-    | DECIMAL_LITERAL { $value = ParseDecimal($DECIMAL_LITERAL.text); }
-    | CHARACTER_LITERAL { $value = ParseCharacter($CHARACTER_LITERAL.text); }
+	| HEX_LITERAL { $value = ParseHex($HEX_LITERAL.text); }
+	| DECIMAL_LITERAL { $value = ParseDecimal($DECIMAL_LITERAL.text); }
+	| CHARACTER_LITERAL { $value = ParseCharacter($CHARACTER_LITERAL.text); }
 	| STRING_LITERAL { $value = ParseString($STRING_LITERAL.text); }
-    | FLOATING_POINT_LITERAL { $value = ParseFloatingPoint($FLOATING_POINT_LITERAL.text); }
-    ;
+	| FLOATING_POINT_LITERAL { $value = ParseFloatingPoint($FLOATING_POINT_LITERAL.text); }
+	;
 
 AND
 	: ('A'|'a')('N'|'n')('D'|'d')
 	;
-	
+
 IN
 	: ('I'|'i')('N'|'n')
 	;
-	
+
 OR
 	: ('O'|'o')('R'|'r')
 	;
-	
+
 XOR
 	: ('X'|'x')('O'|'o')('R'|'r')
 	;
-	
+
 CAST
 	: ('C'|'c')('A'|'a')('S'|'s')('T'|'t')
 	;
-	
+
 NOT
 	: ('N'|'n')('O'|'o')('T'|'t')
 	;
@@ -192,9 +192,13 @@ NULL
 	: ('N'|'n')('U'|'u')('L'|'l')('L'|'l')
 	;
 
+DOT
+	: // '.'
+	;
+
 CHARACTER_LITERAL
-    : '\'' ( ~('\\'|'\'') | EscapeSequence ) '\''
-    ;
+	: '\'' ( ~('\\'|'\'') | EscapeSequence ) '\''
+	;
 
 TIMESPAN_LITERAL
 	: '#' '#' ( ~'#' )* '#'
@@ -206,35 +210,98 @@ DATETIME_LITERAL
 
 STRING_LITERAL
 	:  '"' ( ~('\\'|'"') | EscapeSequence )* '"'
-    ;
-
-HEX_LITERAL
-	: '0' ('x'|'X') HexDigit+ IntegerTypeSuffix?
 	;
 
+fragment
+HEX_LITERAL
+	: // '0' ('x'|'X') HexDigit+ NumericTypeSuffix?
+	;
+
+fragment
 DECIMAL_LITERAL
-	: ('0' | '1'..'9' '0'..'9'*) IntegerTypeSuffix?
+	: // ('0' | '1'..'9' '0'..'9'*) NumericTypeSuffix?
 	;
 
 fragment
 HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
 
-fragment
-IntegerTypeSuffix
-	: ('u' | 'U') ('l' | 'L')?
-	| ('l' | 'L')
+FLOATING_POINT_LITERAL
+@init
+{
+	bool rangeError = false;
+}
+	:
+		'0'
+		(
+			('x'|'X') { $type = HEX_LITERAL; }
+			(
+				( ('0'..'9'|'a'..'f'|'A'..'F')
+				| ('g'..'z' |'G'..'Z') { rangeError = true; }
+				)+
+					{
+						Text = Text.Substring(2);
+
+						if  (rangeError)
+						{
+							EmitErrorMessage("Malformed hex constant");
+							Text = "0";
+						}
+					}
+				(
+					'.' ('0'..'9'|'a'..'f'|'A'..'F'|'g'..'z' |'G'..'Z')*
+						{
+							EmitErrorMessage("Malformed hex constant");
+							Text = "0";
+						}
+				|
+					// Empty for correct match
+				)
+				{
+					EmitErrorMessage("Malformed hex constant");
+					Text = "0";
+				}
+			)
+			| '.' Digits Exponent? FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
+			| NumericTypeSuffix? { $type = DECIMAL_LITERAL; }
+		)
+	|	('1'..'9') Digits?
+		(
+			{ char.IsDigit((char)input.LA(2)) }? => '.' Digits? Exponent? FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
+		|
+			( Exponent FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
+			| NumericTypeSuffix? { $type = DECIMAL_LITERAL; }
+			)
+		)
+	|
+		'.'
+		( Digits Exponent? FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
+		| { $type = DOT; }
+		)
 	;
 
-FLOATING_POINT_LITERAL
-    : ('0'..'9')+ '.' ('0'..'9')* Exponent? FloatTypeSuffix?
-    | '.' ('0'..'9')+ Exponent? FloatTypeSuffix?
-    | ('0'..'9')+ Exponent FloatTypeSuffix?
-    | ('0'..'9')+ FloatTypeSuffix
+
+fragment
+Digits
+	:   ('0'..'9')+
 	;
 
 fragment
 Exponent
-	: ('e'|'E') ('+'|'-')? ('0'..'9')+
+	:   ('e'|'E') ('+'|'-')?
+		( Digits
+		|
+			{
+				EmitErrorMessage("Malformed exponent");
+				Text = "0.0";
+			}
+		)
+	;
+
+fragment
+NumericTypeSuffix
+	: ('u' | 'U') ('l' | 'L')?
+	| ('l' | 'L')
+	| FloatTypeSuffix
 	;
 
 fragment
@@ -244,9 +311,9 @@ FloatTypeSuffix
 
 fragment
 EscapeSequence
-    : '\\' ('B'|'b'|'T'|'t'|'N'|'n'|'F'|'f'|'R'|'r'|'\"'|'\''|'\\')
-    | UnicodeEscape
-    ;
+	: '\\' ('B'|'b'|'T'|'t'|'N'|'n'|'F'|'f'|'R'|'r'|'\"'|'\''|'\\')
+	| UnicodeEscape
+	;
 
 fragment
 UnicodeEscape
@@ -256,7 +323,7 @@ UnicodeEscape
 IDENTIFIER
 	: LETTER (LETTER|'0'..'9')*
 	;
-	
+
 fragment
 LETTER
 	: 'A'..'Z'

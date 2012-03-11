@@ -27,7 +27,8 @@ namespace Expressions.Flee
             var tokenStream = new CommonTokenStream(lexer);
             var parser = new FleeParser(tokenStream);
 
-            var result = parser.prog().value;
+            var progResult = parser.prog();
+            var result = progResult.value;
 
             if (parser.Exception != null)
                 throw new CompilationException("Expression could not be compiled", parser.Exception);
@@ -60,9 +61,7 @@ namespace Expressions.Flee
 
         private Constant ParseHex(string text)
         {
-            Debug.Assert(text.Substring(0, 2) == "0x");
-
-            return ParseDecimal(text.Substring(2), NumberStyles.AllowHexSpecifier);
+            return ParseDecimal(text, NumberStyles.AllowHexSpecifier);
         }
 
         private Constant ParseDecimal(string text)
@@ -72,14 +71,26 @@ namespace Expressions.Flee
 
         private Constant ParseDecimal(string text, NumberStyles numberStyles)
         {
+            bool isHex = (numberStyles & NumberStyles.AllowHexSpecifier) != 0;
+
             if (text.EndsWith("ul", StringComparison.OrdinalIgnoreCase))
                 return new Constant(ulong.Parse(text.Substring(0, text.Length - 2), numberStyles, CultureInfo.InvariantCulture));
             else if (text.EndsWith("l", StringComparison.OrdinalIgnoreCase))
                 return new Constant(long.Parse(text.Substring(0, text.Length - 1), numberStyles, CultureInfo.InvariantCulture));
             else if (text.EndsWith("u", StringComparison.OrdinalIgnoreCase))
                 return new Constant(uint.Parse(text.Substring(0, text.Length - 1), numberStyles, CultureInfo.InvariantCulture));
-            else
-                return new Constant(int.Parse(text, numberStyles, CultureInfo.InvariantCulture));
+            else if (
+                !isHex && (
+                    text.EndsWith("f", StringComparison.OrdinalIgnoreCase) ||
+                    text.EndsWith("d", StringComparison.OrdinalIgnoreCase) ||
+                    text.EndsWith("m", StringComparison.OrdinalIgnoreCase)
+                )
+            )
+                return ParseFloatingPoint(text);
+
+            Debug.Assert(isHex || Char.IsDigit(text[text.Length - 1]));
+
+            return new Constant(int.Parse(text, numberStyles, CultureInfo.InvariantCulture));
         }
 
         private Constant ParseCharacter(string text)
@@ -191,7 +202,10 @@ namespace Expressions.Flee
                 case 'f': return new Constant(float.Parse(text.Substring(0, text.Length - 1), NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
                 case 'd': return new Constant(double.Parse(text.Substring(0, text.Length - 1), NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
                 case 'm': return new Constant(decimal.Parse(text.Substring(0, text.Length - 1), NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
-                default: return new Constant(double.Parse(text, NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
+                default:
+                    Debug.Assert(Char.IsDigit(suffix) || suffix == '.');
+
+                    return new Constant(double.Parse(text, NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
             }
         }
 
