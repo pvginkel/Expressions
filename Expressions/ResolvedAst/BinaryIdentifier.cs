@@ -22,12 +22,9 @@ namespace Expressions.ResolvedAst
 
         public BinaryIdentifier(IResolvedIdentifier left, IResolvedIdentifier right, Type type)
         {
-            if (left == null)
-                throw new ArgumentNullException("left");
-            if (right == null)
-                throw new ArgumentNullException("right");
-            if (type == null)
-                throw new ArgumentNullException("type");
+            Require.NotNull(left, "left");
+            Require.NotNull(right, "right");
+            Require.NotNull(type, "type");
 
             Debug.Assert(left.IsStatic == right.IsStatic);
 

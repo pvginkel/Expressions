@@ -15,10 +15,8 @@ namespace Expressions.ResolvedAst
 
         public ResolvedMemberAccess(IResolvedAstNode operand, IResolvedIdentifier identifier)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
-            if (identifier == null)
-                throw new ArgumentNullException("identifier");
+            Require.NotNull(operand, "operand");
+            Require.NotNull(identifier, "identifier");
 
             Operand = operand;
             Identifier = identifier;

@@ -17,8 +17,7 @@ namespace Expressions.ResolvedAst
 
         public TypeIdentifier(Type type)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
+            Require.NotNull(type, "type");
 
             Type = type;
         }

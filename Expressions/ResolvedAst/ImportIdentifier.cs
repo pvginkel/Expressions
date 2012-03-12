@@ -17,8 +17,7 @@ namespace Expressions.ResolvedAst
 
         public ImportIdentifier(Import import)
         {
-            if (import == null)
-                throw new ArgumentNullException("import");
+            Require.NotNull(import, "import");
 
             Import = import;
         }

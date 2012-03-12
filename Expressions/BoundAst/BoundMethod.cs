@@ -21,10 +21,8 @@ namespace Expressions.BoundAst
 
         public BoundMethod(MethodInfo method, IBoundAstNode @object, IList<IBoundAstNode> arguments)
         {
-            if (method == null)
-                throw new ArgumentNullException("method");
-            if (arguments == null)
-                throw new ArgumentNullException("arguments");
+            Require.NotNull(method, "method");
+            Require.NotNull(arguments, "arguments");
 
             Method = method;
             Object = @object;

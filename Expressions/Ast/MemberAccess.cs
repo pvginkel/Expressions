@@ -13,10 +13,8 @@ namespace Expressions.Ast
 
         public MemberAccess(IAstNode operand, string member)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
-            if (member == null)
-                throw new ArgumentNullException("member");
+            Require.NotNull(operand, "operand");
+            Require.NotNull(member, "member");
 
             Operand = operand;
             Member = member;

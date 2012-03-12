@@ -20,8 +20,7 @@ namespace Expressions.ResolvedAst
 
         public FieldIdentifier(FieldInfo fieldInfo)
         {
-            if (fieldInfo == null)
-                throw new ArgumentNullException("fieldInfo");
+            Require.NotNull(fieldInfo, "fieldInfo");
 
             Field = fieldInfo;
         }

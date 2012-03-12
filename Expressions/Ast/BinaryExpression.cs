@@ -15,10 +15,8 @@ namespace Expressions.Ast
 
         public BinaryExpression(IAstNode left, IAstNode right, ExpressionType type)
         {
-            if (left == null)
-                throw new ArgumentNullException("left");
-            if (right == null)
-                throw new ArgumentNullException("right");
+            Require.NotNull(left, "left");
+            Require.NotNull(right, "right");
 
             Left = left;
             Right = right;

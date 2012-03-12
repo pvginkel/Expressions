@@ -22,10 +22,8 @@ namespace Expressions.ResolvedAst
 
         public MethodIdentifier(IResolvedIdentifier operand, MethodInfo method)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
-            if (method == null)
-                throw new ArgumentNullException("method");
+            Require.NotNull(operand, "operand");
+            Require.NotNull(method, "method");
 
             Operand = operand;
             Method = method;

@@ -14,8 +14,7 @@ namespace Expressions.Ast
 
         public AstNodeCollection(IAstNode node)
         {
-            if (node == null)
-                throw new ArgumentNullException("node");
+            Require.NotNull(node, "node");
 
             _nodes = new[] { node };
 
@@ -24,10 +23,8 @@ namespace Expressions.Ast
 
         public AstNodeCollection(AstNodeCollection other, IAstNode node)
         {
-            if (other == null)
-                throw new ArgumentNullException("other");
-            if (node == null)
-                throw new ArgumentNullException("node");
+            Require.NotNull(other, "other");
+            Require.NotNull(node, "node");
 
             _nodes = new IAstNode[other._nodes.Length + 1];
 

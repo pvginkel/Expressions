@@ -22,12 +22,9 @@ namespace Expressions.ResolvedAst
 
         public ResolvedBinaryExpression(IResolvedAstNode left, IResolvedAstNode right, Type type, ExpressionType expressionType)
         {
-            if (left == null)
-                throw new ArgumentNullException("left");
-            if (right == null)
-                throw new ArgumentNullException("right");
-            if (type == null)
-                throw new ArgumentNullException("type");
+            Require.NotNull(left, "left");
+            Require.NotNull(right, "right");
+            Require.NotNull(type, "type");
 
             Left = left;
             Right = right;

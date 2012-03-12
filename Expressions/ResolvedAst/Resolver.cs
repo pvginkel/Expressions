@@ -18,14 +18,10 @@ namespace Expressions.ResolvedAst
 
         public Resolver(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, int[] parameterMap)
         {
-            if (dynamicExpression == null)
-                throw new ArgumentNullException("dynamicExpression");
-            if (imports == null)
-                throw new ArgumentNullException("imports");
-            if (identifierTypes == null)
-                throw new ArgumentNullException("identifierTypes");
-            if (parameterMap == null)
-                throw new ArgumentNullException("parameterMap");
+            Require.NotNull(dynamicExpression, "dynamicExpression");
+            Require.NotNull(imports, "imports");
+            Require.NotNull(identifierTypes, "identifierTypes");
+            Require.NotNull(parameterMap, "parameterMap");
 
             _dynamicExpression = dynamicExpression;
             _ownerType = ownerType;
@@ -90,10 +86,8 @@ namespace Expressions.ResolvedAst
 
         private IResolvedIdentifier Resolve(IResolvedIdentifier operand, Type type, string member, bool isStatic, bool throwOnError)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
-            if (member == null)
-                throw new ArgumentNullException("member");
+            Require.NotNull(type, "type");
+            Require.NotNull(member, "member");
 
             // First try properties and methods.
 
@@ -148,8 +142,7 @@ namespace Expressions.ResolvedAst
 
         public IResolvedIdentifier ResolveGlobal(string member)
         {
-            if (member == null)
-                throw new ArgumentNullException("member");
+            Require.NotNull(member, "member");
 
             // First try variables.
 
@@ -213,10 +206,8 @@ namespace Expressions.ResolvedAst
 
         public Type ResolveExpressionType(Type left, Type right, ExpressionType type)
         {
-            if (left == null)
-                throw new ArgumentNullException("left");
-            if (right == null)
-                throw new ArgumentNullException("right");
+            Require.NotNull(left, "left");
+            Require.NotNull(right, "right");
 
             if (left == right)
                 return left;

@@ -19,8 +19,7 @@ namespace Expressions.ResolvedAst
 
         public VariableIdentifier(Type type, int parameterIndex)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
+            Require.NotNull(type, "type");
 
             Type = type;
             ParameterIndex = parameterIndex;

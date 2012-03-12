@@ -23,12 +23,9 @@ namespace Expressions
 
         internal BoundExpression(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes)
         {
-            if (dynamicExpression == null)
-                throw new ArgumentNullException("dynamicExpression");
-            if (imports == null)
-                throw new ArgumentNullException("imports");
-            if (identifierTypes == null)
-                throw new ArgumentNullException("identifierTypes");
+            Require.NotNull(dynamicExpression, "dynamicExpression");
+            Require.NotNull(imports, "imports");
+            Require.NotNull(identifierTypes, "identifierTypes");
 
             _dynamicExpression = dynamicExpression;
             _ownerType = ownerType;
@@ -87,8 +84,7 @@ namespace Expressions
 
         public object Invoke(IExecutionContext executionContext)
         {
-            if (executionContext == null)
-                throw new ArgumentNullException("executionContext");
+            Require.NotNull(executionContext, "executionContext");
 
             var parameters = new object[_parameterMap.Length];
 

@@ -19,8 +19,7 @@ namespace Expressions.Ast
 
         public MethodCall(IAstNode operand, AstNodeCollection arguments)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
+            Require.NotNull(operand, "operand");
 
             Operand = operand;
             Arguments = arguments;

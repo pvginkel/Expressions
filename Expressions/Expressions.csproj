@@ -66,6 +66,7 @@
     <Compile Include="BoundAst\BoundMethod.cs" />
     <Compile Include="BoundAst\BoundParameter.cs" />
     <Compile Include="BoundAst\BoundUnaryExpression.cs" />
+    <Compile Include="Require.cs" />
     <Compile Include="ResolvedAst\ConstantIdentifier.cs" />
     <Compile Include="ResolvedAst\FieldIdentifier.cs" />
     <Compile Include="ResolvedAst\GlobalIdentifier.cs" />

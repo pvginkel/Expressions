@@ -13,10 +13,8 @@ namespace Expressions
 
         public ParseResult(IAstNode rootNode, IdentifierCollection identifiers)
         {
-            if (rootNode == null)
-                throw new ArgumentNullException("rootNode");
-            if (identifiers == null)
-                throw new ArgumentNullException("identifiers");
+            Require.NotNull(rootNode, "rootNode");
+            Require.NotNull(identifiers, "identifiers");
 
             RootNode = rootNode;
             Identifiers = identifiers;

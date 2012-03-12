@@ -13,10 +13,8 @@ namespace Expressions.Ast
 
         public Index(IAstNode operand, AstNodeCollection arguments)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
-            if (arguments == null)
-                throw new ArgumentNullException("arguments");
+            Require.NotNull(operand, "operand");
+            Require.NotNull(arguments, "arguments");
 
             Operand = operand;
             Arguments = arguments;

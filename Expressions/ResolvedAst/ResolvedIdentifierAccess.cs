@@ -13,8 +13,7 @@ namespace Expressions.ResolvedAst
 
         public ResolvedIdentifierAccess(IResolvedIdentifier identifier)
         {
-            if (identifier == null)
-                throw new ArgumentNullException("identifier");
+            Require.NotNull(identifier, "identifier");
 
             Identifier = identifier;
         }

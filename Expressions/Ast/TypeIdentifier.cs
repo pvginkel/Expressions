@@ -13,8 +13,7 @@ namespace Expressions.Ast
 
         public TypeIdentifier(string name, int arrayIndex)
         {
-            if (name == null)
-                throw new ArgumentNullException("name");
+            Require.NotNull(name, "name");
 
             Name = name;
             ArrayIndex = arrayIndex;

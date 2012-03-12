@@ -12,8 +12,7 @@ namespace Expressions
 
         public Variable(string name)
         {
-            if (name == null)
-                throw new ArgumentNullException("name");
+            Require.NotNull(name, "name");
 
             Name = name;
         }

@@ -24,10 +24,8 @@ namespace Expressions.ResolvedAst
 
         public MethodGroupIdentifier(IResolvedIdentifier operand, MethodInfo[] methods)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
-            if (methods == null)
-                throw new ArgumentNullException("methods");
+            Require.NotNull(operand, "operand");
+            Require.NotNull(methods, "methods");
 
             Operand = operand;
             Methods = new ReadOnlyCollection<MethodInfo>(methods);

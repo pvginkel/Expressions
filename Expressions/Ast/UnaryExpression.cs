@@ -13,8 +13,7 @@ namespace Expressions.Ast
 
         public UnaryExpression(IAstNode operand, ExpressionType type)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
+            Require.NotNull(operand, "operand");
 
             Operand = operand;
             Type = type;

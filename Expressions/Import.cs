@@ -19,8 +19,7 @@ namespace Expressions
 
         public Import(Type type, string ns)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
+            Require.NotNull(type, "type");
 
             Type = type;
             Namespace = ns;

@@ -24,10 +24,8 @@ namespace Expressions.ResolvedAst
 
         public PropertyGroupIdentifier(IResolvedIdentifier operand, MethodInfo[] properties)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
-            if (properties == null)
-                throw new ArgumentNullException("properties");
+            Require.NotNull(operand, "operand");
+            Require.NotNull(properties, "properties");
 
             Operand = operand;
             Properties = new ReadOnlyCollection<MethodInfo>(properties);

@@ -17,14 +17,10 @@ namespace Expressions.BoundAst
 
         public Binder(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, int[] parameterMap)
         {
-            if (dynamicExpression == null)
-                throw new ArgumentNullException("dynamicExpression");
-            if (imports == null)
-                throw new ArgumentNullException("imports");
-            if (identifierTypes == null)
-                throw new ArgumentNullException("identifierTypes");
-            if (parameterMap == null)
-                throw new ArgumentNullException("parameterMap");
+            Require.NotNull(dynamicExpression, "dynamicExpression");
+            Require.NotNull(imports, "imports");
+            Require.NotNull(identifierTypes, "identifierTypes");
+            Require.NotNull(parameterMap, "parameterMap");
 
             _dynamicExpression = dynamicExpression;
             _ownerType = ownerType;

@@ -28,12 +28,9 @@ namespace Expressions.ResolvedAst
 
         public ResolvedIndex(IResolvedAstNode operand, PropertyIdentifier property, IResolvedAstNode[] arguments)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
-            if (property == null)
-                throw new ArgumentNullException("property");
-            if (arguments == null)
-                throw new ArgumentNullException("arguments");
+            Require.NotNull(operand, "operand");
+            Require.NotNull(property, "property");
+            Require.NotNull(arguments, "arguments");
 
             Operand = operand;
             Property = property;

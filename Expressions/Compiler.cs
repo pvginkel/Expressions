@@ -20,16 +20,11 @@ namespace Expressions
 
         public Compiler(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, int[] parameterMap, ILGenerator il)
         {
-            if (dynamicExpression == null)
-                throw new ArgumentNullException("dynamicExpression");
-            if (imports == null)
-                throw new ArgumentNullException("imports");
-            if (identifierTypes == null)
-                throw new ArgumentNullException("identifierTypes");
-            if (parameterMap == null)
-                throw new ArgumentNullException("parameterMap");
-            if (il == null)
-                throw new ArgumentNullException("il");
+            Require.NotNull(dynamicExpression, "dynamicExpression");
+            Require.NotNull(imports, "imports");
+            Require.NotNull(identifierTypes, "identifierTypes");
+            Require.NotNull(parameterMap, "parameterMap");
+            Require.NotNull(il, "il");
 
             _dynamicExpression = dynamicExpression;
             _ownerType = ownerType;

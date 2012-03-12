@@ -11,10 +11,8 @@ namespace Expressions
 
         public static BoundExpression GetOrCreateBoundExpression(DynamicExpression dynamicExpression, IBindingContext binder)
         {
-            if (dynamicExpression == null)
-                throw new ArgumentNullException("dynamicExpression");
-            if (binder == null)
-                throw new ArgumentNullException("binder");
+            Require.NotNull(dynamicExpression, "dynamicExpression");
+            Require.NotNull(binder, "binder");
 
             var key = new CacheKey(dynamicExpression, binder);
 

@@ -11,8 +11,7 @@ namespace Expressions.Ast
 
         public IdentifierAccess(string name)
         {
-            if (name == null)
-                throw new ArgumentNullException("name");
+            Require.NotNull(name, "name");
 
             Name = name;
         }

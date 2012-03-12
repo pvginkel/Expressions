@@ -43,8 +43,7 @@ namespace Expressions.ResolvedAst
 
         public static IList<Type> GetImplicitCastingTable(Type type)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
+            Require.NotNull(type, "type");
 
             IList<Type> result;
 
@@ -55,16 +54,14 @@ namespace Expressions.ResolvedAst
 
         public static bool IsNumeric(Type type)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
+            Require.NotNull(type, "type");
 
             return ImplicitCastingTable.ContainsKey(type);
         }
 
         public static Type GetBuiltInType(string name)
         {
-            if (name == null)
-                throw new ArgumentNullException("name");
+            Require.NotNull(name, "name");
 
             Type result;
 

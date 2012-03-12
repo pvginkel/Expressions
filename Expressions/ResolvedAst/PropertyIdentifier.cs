@@ -22,10 +22,8 @@ namespace Expressions.ResolvedAst
 
         public PropertyIdentifier(IResolvedIdentifier operand, MethodInfo propertyInfo)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
-            if (propertyInfo == null)
-                throw new ArgumentNullException("propertyInfo");
+            Require.NotNull(operand, "operand");
+            Require.NotNull(propertyInfo, "propertyInfo");
 
             Operand = operand;
             Property = propertyInfo;

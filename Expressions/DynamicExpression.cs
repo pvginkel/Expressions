@@ -14,8 +14,7 @@ namespace Expressions
 
         public DynamicExpression(string expression, ExpressionLanguage language)
         {
-            if (expression == null)
-                throw new ArgumentNullException("expression");
+            Require.NotNull(expression, "expression");
 
             Expression = expression;
             Language = language;
@@ -25,16 +24,14 @@ namespace Expressions
 
         public BoundExpression Bind(IBindingContext binder)
         {
-            if (binder == null)
-                throw new ArgumentNullException("binder");
+            Require.NotNull(binder, "binder");
 
             return BoundExpressionCache.GetOrCreateBoundExpression(this, binder);
         }
 
         public object Invoke(IExpressionContext expressionContext)
         {
-            if (expressionContext == null)
-                throw new ArgumentNullException("expressionContext");
+            Require.NotNull(expressionContext, "expressionContext");
 
             return Bind(expressionContext).Invoke(expressionContext);
         }

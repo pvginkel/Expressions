@@ -26,10 +26,8 @@ namespace Expressions.ResolvedAst
 
         public ResolvedMethodCall(MethodIdentifier method, IResolvedAstNode[] arguments)
         {
-            if (method == null)
-                throw new ArgumentNullException("method");
-            if (arguments == null)
-                throw new ArgumentNullException("arguments");
+            Require.NotNull(method, "method");
+            Require.NotNull(arguments, "arguments");
 
             Method = method;
             Arguments = new ReadOnlyCollection<IResolvedAstNode>(arguments);

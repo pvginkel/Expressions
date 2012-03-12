@@ -13,10 +13,8 @@ namespace Expressions.Ast
 
         public Cast(IAstNode operand, TypeIdentifier type)
         {
-            if (operand == null)
-                throw new ArgumentNullException("operand");
-            if (type == null)
-                throw new ArgumentNullException("type");
+            Require.NotNull(operand, "operand");
+            Require.NotNull(type, "type");
 
             Operand = operand;
             Type = type;
