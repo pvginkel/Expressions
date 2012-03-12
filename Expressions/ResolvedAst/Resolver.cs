@@ -75,7 +75,9 @@ namespace Expressions.ResolvedAst
                     throw new NotSupportedException(String.Format("Unknown type '{0}'", type));
             }
 
-            if (arrayIndex > 0)
+            if (arrayIndex == 1)
+                result = result.MakeArrayType();
+            else if (arrayIndex > 1)
                 result = result.MakeArrayType(arrayIndex);
 
             return result;

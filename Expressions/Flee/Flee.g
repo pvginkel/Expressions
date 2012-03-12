@@ -104,13 +104,17 @@ cast_expression returns [IAstNode value]
 	;
 
 type_expression returns [TypeIdentifier value]
-	: IDENTIFIER { $value = new TypeIdentifier($IDENTIFIER.text, 0); }
+	: e=type_identifier { $value = new TypeIdentifier($e.value, 0); }
 		(
 			'[' { $value = new TypeIdentifier($value.Name, 1); }
 				( ',' { $value = new TypeIdentifier($value.Name, $value.ArrayIndex + 1); }
 				)*
 			']'
 		)?
+	;
+
+type_identifier returns [string value]
+	: e=IDENTIFIER { $value = $e.text; } ( DOT e=IDENTIFIER { $value = $value + "." + $e.text; } )*
 	;
 
 unary_expression returns [IAstNode value]

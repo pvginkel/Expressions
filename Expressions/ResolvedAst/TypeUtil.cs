@@ -36,7 +36,9 @@ namespace Expressions.ResolvedAst
             { "ulong", typeof(ulong) },
             { "float", typeof(float) },
             { "double", typeof(double) },
-            { "decimal", typeof(decimal) }
+            { "decimal", typeof(decimal) },
+            { "bool", typeof(bool) },
+            { "string", typeof(string) }
         };
 
         public static IList<Type> GetImplicitCastingTable(Type type)

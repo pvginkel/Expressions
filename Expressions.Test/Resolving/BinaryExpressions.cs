@@ -23,5 +23,19 @@ namespace Expressions.Test.Resolving
                 )
             );
         }
+
+        [Test]
+        public void BinaryAddWithOneString()
+        {
+            Resolve(
+                "1 + \"2\"",
+                new ResolvedBinaryExpression(
+                    new ResolvedConstant(1),
+                    new ResolvedConstant("2"),
+                    typeof(string),
+                    ExpressionType.Add
+                )
+            );
+        }
     }
 }
