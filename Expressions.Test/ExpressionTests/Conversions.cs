@@ -64,5 +64,22 @@ namespace Expressions.Test.ExpressionTests
                 )
             );
         }
+
+        [Test]
+        public void Power()
+        {
+            Resolve(
+                "1 ^ 2",
+                new MethodCall(
+                    new TypeAccess(typeof(Math)),
+                    typeof(Math).GetMethod("Pow"),
+                    new IExpression[]
+                    {
+                        new Constant(1),
+                        new Constant(2)
+                    }
+                )
+            );
+        }
     }
 }

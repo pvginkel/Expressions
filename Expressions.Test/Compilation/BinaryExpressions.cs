@@ -44,5 +44,17 @@ namespace Expressions.Test.Compilation
             Resolve("false xor true", true);
             Resolve("false xor false", false);
         }
+
+        [Test]
+        public void Calculation()
+        {
+            Resolve("2147483648U / 2u", 1073741824u);
+        }
+
+        [Test]
+        public void Remainder()
+        {
+            Resolve("2147483648U % 5U", 3);
+        }
     }
 }

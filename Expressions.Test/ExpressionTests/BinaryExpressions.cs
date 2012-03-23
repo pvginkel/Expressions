@@ -24,7 +24,6 @@ namespace Expressions.Test.ExpressionTests
         }
 
         [Test]
-        [Ignore("String.Concat must still be implemented")]
         public void BinaryAddWithOneString()
         {
             Resolve(
@@ -90,6 +89,20 @@ namespace Expressions.Test.ExpressionTests
                     new Constant(false),
                     ExpressionType.Xor,
                     typeof(bool)
+                )
+            );
+        }
+
+        [Test]
+        public void Calculation()
+        {
+            Resolve(
+                "2147483648U / 2u",
+                new BinaryExpression(
+                    new Constant(2147483648u),
+                    new Constant(2u),
+                    ExpressionType.Divide,
+                    typeof(uint)
                 )
             );
         }

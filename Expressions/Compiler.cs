@@ -54,6 +54,7 @@ namespace Expressions
                     case ExpressionType.LessOrEquals:
                     case ExpressionType.ShiftLeft:
                     case ExpressionType.ShiftRight:
+                    case ExpressionType.Modulo:
                         BinaryArithicExpression(binaryExpression);
                         break;
 
@@ -113,7 +114,10 @@ namespace Expressions
                         break;
 
                     case ExpressionType.Divide:
-                        _il.Emit(OpCodes.Div);
+                        if (TypeUtil.IsUnsigned(binaryExpression.Type))
+                            _il.Emit(OpCodes.Div_Un);
+                        else
+                            _il.Emit(OpCodes.Div);
                         break;
 
                     case ExpressionType.Multiply:
@@ -130,6 +134,13 @@ namespace Expressions
 
                     case ExpressionType.ShiftRight:
                         _il.Emit(OpCodes.Shr);
+                        break;
+
+                    case ExpressionType.Modulo:
+                        if (TypeUtil.IsUnsigned(binaryExpression.Type))
+                            _il.Emit(OpCodes.Rem_Un);
+                        else
+                            _il.Emit(OpCodes.Rem);
                         break;
 
                     default:

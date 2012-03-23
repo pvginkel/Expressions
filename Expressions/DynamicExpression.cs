@@ -29,7 +29,7 @@ namespace Expressions
             Options = options ?? new DynamicExpressionOptions();
             Options.Freeze();
 
-            ParseResult = DynamicExpressionCache.GetOrCreateParseResult(expression, language);
+            ParseResult = DynamicExpressionCache.GetOrCreateParseResult(expression, language, Options);
         }
 
         public BoundExpression Bind(IBindingContext binder)
