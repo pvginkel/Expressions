@@ -25,7 +25,7 @@ expression returns [IAstNode value]
 	: e=logical_xor_expression { $value = $e.value; }
 		(
 			OR e=logical_xor_expression
-			{ $value = new BinaryExpression($value, $e.value, ExpressionType.Xor); }
+			{ $value = new BinaryExpression($value, $e.value, ExpressionType.Or); }
 		)*
 	;
 
@@ -33,14 +33,14 @@ logical_xor_expression returns [IAstNode value]
 	: e=logical_and_expression { $value = $e.value; }
 		(
 			XOR e=logical_and_expression
-			{ $value = new BinaryExpression($value, $e.value, ExpressionType.Or); }
+			{ $value = new BinaryExpression($value, $e.value, ExpressionType.Xor); }
 		)*
 	;
 
 logical_and_expression returns [IAstNode value]
 	: e=equality_expression { $value = $e.value; }
 		( AND e=equality_expression
-		  { $value = new BinaryExpression($value, $e.value, ExpressionType.Or); } )*
+		  { $value = new BinaryExpression($value, $e.value, ExpressionType.And); } )*
 	;
 
 equality_expression returns [IAstNode value]
@@ -239,31 +239,8 @@ FLOATING_POINT_LITERAL
 		(
 			('x'|'X') { $type = HEX_LITERAL; }
 			(
-				( ('0'..'9'|'a'..'f'|'A'..'F')
-				| ('g'..'z' |'G'..'Z') { rangeError = true; }
-				)+
-					{
-						Text = Text.Substring(2);
-
-						if  (rangeError)
-						{
-							EmitErrorMessage("Malformed hex constant");
-							Text = "0";
-						}
-					}
-				(
-					'.' ('0'..'9'|'a'..'f'|'A'..'F'|'g'..'z' |'G'..'Z')*
-						{
-							EmitErrorMessage("Malformed hex constant");
-							Text = "0";
-						}
-				|
-					// Empty for correct match
-				)
-				{
-					EmitErrorMessage("Malformed hex constant");
-					Text = "0";
-				}
+				('0'..'9'|'a'..'z'|'A'..'Z')+
+				{ Text = Text.Substring(2); }
 			)
 			| '.' Digits Exponent? FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
 			| NumericTypeSuffix? { $type = DECIMAL_LITERAL; }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Expressions.Expressions;
 using NUnit.Framework;
-using ExpressionType = Expressions.Ast.ExpressionType;
 
 namespace Expressions.Test.ExpressionTests
 {
@@ -25,6 +24,7 @@ namespace Expressions.Test.ExpressionTests
         }
 
         [Test]
+        [Ignore("String.Concat must still be implemented")]
         public void BinaryAddWithOneString()
         {
             Resolve(
@@ -48,6 +48,48 @@ namespace Expressions.Test.ExpressionTests
                     new Constant(1),
                     ExpressionType.Add,
                     typeof(long)
+                )
+            );
+        }
+
+        [Test]
+        public void LogicalAnd()
+        {
+            Resolve(
+                "true and false",
+                new BinaryExpression(
+                    new Constant(true),
+                    new Constant(false),
+                    ExpressionType.And,
+                    typeof(bool)
+                )
+            );
+        }
+
+        [Test]
+        public void LogicalOr()
+        {
+            Resolve(
+                "true or false",
+                new BinaryExpression(
+                    new Constant(true),
+                    new Constant(false),
+                    ExpressionType.Or,
+                    typeof(bool)
+                )
+            );
+        }
+
+        [Test]
+        public void LogicalXor()
+        {
+            Resolve(
+                "true xor false",
+                new BinaryExpression(
+                    new Constant(true),
+                    new Constant(false),
+                    ExpressionType.Xor,
+                    typeof(bool)
                 )
             );
         }

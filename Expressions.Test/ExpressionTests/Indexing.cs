@@ -110,10 +110,7 @@ namespace Expressions.Test.ExpressionTests
                         typeof(Owner).GetMethod("get_SimpleArray"),
                         null
                     ),
-                    new IExpression[]
-                    {
-                        new Constant(0)
-                    },
+                    new Constant(0),
                     typeof(int)
                 )
             );
@@ -125,18 +122,18 @@ namespace Expressions.Test.ExpressionTests
             Resolve(
                 new ExpressionContext(null, new Owner()),
                 "RankedArray[0,0]",
-                new Index(
+                new MethodCall(
                     new MethodCall(
                         new VariableAccess(typeof(Owner), 0),
                         typeof(Owner).GetMethod("get_RankedArray"),
                         null
                     ),
+                    typeof(int[,]).GetMethod("Get"),
                     new IExpression[]
                     {
                         new Constant(0),
                         new Constant(0)
-                    },
-                    typeof(int)
+                    }
                 )
             );
         }

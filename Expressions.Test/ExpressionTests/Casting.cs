@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Expressions.Expressions;
 using NUnit.Framework;
-using ExpressionType = Expressions.Ast.ExpressionType;
 
 namespace Expressions.Test.ExpressionTests
 {
@@ -18,18 +17,6 @@ namespace Expressions.Test.ExpressionTests
                 new Cast(
                     new Constant(7),
                     typeof(float)
-                )
-            );
-        }
-
-        [Test]
-        public void CastWithBuiltInString()
-        {
-            Resolve(
-                "cast(7, string)",
-                new Cast(
-                    new Constant(7),
-                    typeof(string)
                 )
             );
         }
@@ -55,10 +42,10 @@ namespace Expressions.Test.ExpressionTests
         public void CastingWithFullType()
         {
             Resolve(
-                "cast(7, System.String)",
+                "cast(7, System.Single)",
                 new Cast(
                     new Constant(7),
-                    typeof(string)
+                    typeof(float)
                 )
             );
         }

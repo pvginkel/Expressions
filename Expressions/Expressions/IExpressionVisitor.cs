@@ -4,22 +4,22 @@ using System.Text;
 
 namespace Expressions.Expressions
 {
-    internal interface IExpressionVisitor<T>
+    internal interface IExpressionVisitor
     {
-        T BinaryExpression(BinaryExpression binaryExpression);
+        void BinaryExpression(BinaryExpression binaryExpression);
 
-        T Cast(Cast cast);
+        void Cast(Cast cast);
 
-        T Constant(Constant constant);
+        void Constant(Constant constant);
 
-        T FieldAccess(FieldAccess fieldAccess);
+        void FieldAccess(FieldAccess fieldAccess);
 
-        T Index(Index index);
+        void Index(Index index);
 
-        T MethodCall(MethodCall methodCall);
+        void MethodCall(MethodCall methodCall);
 
-        T UnaryExpression(UnaryExpression unaryExpression);
+        void UnaryExpression(UnaryExpression unaryExpression);
 
-        T VariableAccess(VariableAccess variableAccess);
+        void VariableAccess(VariableAccess variableAccess);
     }
 }

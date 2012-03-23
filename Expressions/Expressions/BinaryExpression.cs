@@ -27,9 +27,9 @@ namespace Expressions.Expressions
             Type = type;
         }
 
-        public T Accept<T>(IExpressionVisitor<T> visitor)
+        public void Accept(IExpressionVisitor visitor)
         {
-            return visitor.BinaryExpression(this);
+            visitor.BinaryExpression(this);
         }
     }
 }

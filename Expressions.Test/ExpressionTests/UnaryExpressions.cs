@@ -17,7 +17,7 @@ namespace Expressions.Test.ExpressionTests
                 new UnaryExpression(
                     new Constant(1),
                     typeof(int),
-                    Ast.ExpressionType.Minus
+                    ExpressionType.Plus
                 )
             );
         }
@@ -30,7 +30,7 @@ namespace Expressions.Test.ExpressionTests
                 new UnaryExpression(
                     new Constant(1),
                     typeof(int),
-                    Ast.ExpressionType.Minus
+                    ExpressionType.Minus
                 )
             );
         }
@@ -61,12 +61,13 @@ namespace Expressions.Test.ExpressionTests
                 new UnaryExpression(
                     new Constant(true),
                     typeof(bool),
-                    Ast.ExpressionType.Not
+                    ExpressionType.Not
                 )
             );
         }
 
         [Test]
+        [ExpectedException]
         public void IllegalUnaryNot()
         {
             Resolve(

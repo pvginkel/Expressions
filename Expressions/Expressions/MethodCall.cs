@@ -35,9 +35,9 @@ namespace Expressions.Expressions
                 Arguments = new ReadOnlyCollection<IExpression>(arguments);
         }
 
-        public T Accept<T>(IExpressionVisitor<T> visitor)
+        public void Accept(IExpressionVisitor visitor)
         {
-            return visitor.MethodCall(this);
+            visitor.MethodCall(this);
         }
     }
 }

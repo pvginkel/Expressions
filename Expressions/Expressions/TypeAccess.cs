@@ -15,7 +15,7 @@ namespace Expressions.Expressions
             Type = type;
         }
 
-        public T Accept<T>(IExpressionVisitor<T> visitor)
+        public void Accept(IExpressionVisitor visitor)
         {
             throw new NotSupportedException();
         }

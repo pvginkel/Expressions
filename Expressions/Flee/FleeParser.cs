@@ -73,7 +73,10 @@ namespace Expressions.Flee
         {
             bool isHex = (numberStyles & NumberStyles.AllowHexSpecifier) != 0;
 
-            if (text.EndsWith("ul", StringComparison.OrdinalIgnoreCase))
+            if (
+                text.EndsWith("ul", StringComparison.OrdinalIgnoreCase) ||
+                text.EndsWith("lu", StringComparison.OrdinalIgnoreCase)
+            )
                 return new Constant(ulong.Parse(text.Substring(0, text.Length - 2), numberStyles, CultureInfo.InvariantCulture));
             else if (text.EndsWith("l", StringComparison.OrdinalIgnoreCase))
                 return new Constant(long.Parse(text.Substring(0, text.Length - 1), numberStyles, CultureInfo.InvariantCulture));

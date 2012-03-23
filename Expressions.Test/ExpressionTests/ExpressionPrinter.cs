@@ -90,8 +90,8 @@ namespace Expressions.Test.ExpressionTests
             AppendLine(indent, "Operand =");
             PrintNode(node.Operand, indent + 1);
             AppendLine(indent, "Type = " + node.Type);
-            AppendLine(indent, "Arguments =");
-            PrintNodeArray(indent, node.Arguments);
+            AppendLine(indent, "Argument =");
+            PrintNode(node.Argument, indent + 1);
         }
 
         private void PrintNodeArray(int indent, IList<IExpression> arguments)

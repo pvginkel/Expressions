@@ -25,9 +25,9 @@ namespace Expressions.Expressions
             FieldInfo = fieldInfo;
         }
 
-        public T Accept<T>(IExpressionVisitor<T> visitor)
+        public void Accept(IExpressionVisitor visitor)
         {
-            return visitor.FieldAccess(this);
+            visitor.FieldAccess(this);
         }
     }
 }

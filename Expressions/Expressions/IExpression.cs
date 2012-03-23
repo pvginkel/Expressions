@@ -8,6 +8,6 @@ namespace Expressions.Expressions
     {
         Type Type { get; }
 
-        T Accept<T>(IExpressionVisitor<T> visitor);
+        void Accept(IExpressionVisitor visitor);
     }
 }

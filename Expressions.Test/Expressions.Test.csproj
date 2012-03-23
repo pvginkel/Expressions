@@ -51,6 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compilation\BinaryExpressions.cs" />
+    <Compile Include="Compilation\Casting.cs" />
+    <Compile Include="Compilation\Fields.cs" />
+    <Compile Include="Compilation\Indexing.cs" />
+    <Compile Include="Compilation\MethodCalls.cs" />
+    <Compile Include="Compilation\TestBase.cs" />
+    <Compile Include="Compilation\UnaryExpressions.cs" />
     <Compile Include="ExpressionTests\BinaryExpressions.cs" />
     <Compile Include="ExpressionTests\Casting.cs" />
     <Compile Include="ExpressionTests\ExpressionPrinter.cs" />
@@ -59,6 +66,9 @@
     <Compile Include="ExpressionTests\MethodCalls.cs" />
     <Compile Include="ExpressionTests\TestBase.cs" />
     <Compile Include="ExpressionTests\UnaryExpressions.cs" />
+    <Compile Include="FleeLanguage\BulkTests.cs" />
+    <Compile Include="FleeLanguage\ExpressionOwners.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests.cs" />
     <Compile Include="MethodCalls.cs" />
     <Compile Include="FleeLanguage\Parsing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +97,7 @@
   <ItemGroup>
     <EmbeddedResource Include="FleeLanguage\TestScripts\SpecialConstructs.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -10,6 +10,12 @@ namespace Expressions.Test.ExpressionTests
     internal class GlobalAccesses : TestBase
     {
         [Test]
+        public void HexConstant()
+        {
+            Resolve("0xDeaDU", new Constant(57005));
+        }
+
+        [Test]
         public void AccessGlobalVariable()
         {
             Resolve(

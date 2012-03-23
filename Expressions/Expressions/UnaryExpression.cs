@@ -23,9 +23,9 @@ namespace Expressions.Expressions
             ExpressionType = expressionType;
         }
 
-        public T Accept<T>(IExpressionVisitor<T> visitor)
+        public void Accept(IExpressionVisitor visitor)
         {
-            return visitor.UnaryExpression(this);
+            visitor.UnaryExpression(this);
         }
     }
 }

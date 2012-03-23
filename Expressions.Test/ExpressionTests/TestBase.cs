@@ -46,16 +46,6 @@ namespace Expressions.Test.ExpressionTests
 
                 Assert.AreEqual(expected, actual);
             }
-
-            //if (expectedResult != null && !Equals(expectedResult, boundExpression.ResolvedExpression))
-            //{
-            //    string expected = new ExpressionPrinter(expectedResult).ToString();
-            //    string actual = new ExpressionPrinter(boundExpression.ResolvedExpression).ToString();
-
-            //    Console.WriteLine(PrintSideToSide("Expected:\r\n" + expected, "Actual:\r\n" + actual));
-
-            //    Assert.AreEqual(expectedResult, boundExpression.ResolvedExpression);
-            //}
         }
 
         private string PrintSideToSide(string left, string right)

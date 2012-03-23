@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Expressions.Ast
+namespace Expressions
 {
     internal enum ExpressionType
     {

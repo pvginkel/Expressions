@@ -24,9 +24,9 @@ namespace Expressions.Expressions
             Value = value;
         }
 
-        public T Accept<T>(IExpressionVisitor<T> visitor)
+        public void Accept(IExpressionVisitor visitor)
         {
-            return visitor.Constant(this);
+            visitor.Constant(this);
         }
     }
 }

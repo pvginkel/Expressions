@@ -48,7 +48,7 @@
     <Compile Include="Ast\BinaryExpression.cs" />
     <Compile Include="Ast\Cast.cs" />
     <Compile Include="Ast\AstNodeCollection.cs" />
-    <Compile Include="Ast\ExpressionType.cs" />
+    <Compile Include="ExpressionType.cs" />
     <Compile Include="Ast\Constant.cs" />
     <Compile Include="Ast\IAstNode.cs" />
     <Compile Include="Ast\IAstVisitor.cs" />
@@ -70,6 +70,7 @@
     <Compile Include="Expressions\MethodCall.cs" />
     <Compile Include="Expressions\UnaryExpression.cs" />
     <Compile Include="Expressions\VariableAccess.cs" />
+    <Compile Include="ILUtil.cs" />
     <Compile Include="Require.cs" />
     <Compile Include="BoundExpression.cs" />
     <Compile Include="BoundExpressionCache.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resolver.cs" />
     <Compile Include="TypeUtil.cs" />
+    <Compile Include="TypeUtils.cs" />
     <Compile Include="Variable.cs" />
     <Compile Include="VariableCollection.cs" />
   </ItemGroup>

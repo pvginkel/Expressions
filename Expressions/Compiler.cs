@@ -1,82 +1,300 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+using Expressions.Expressions;
 
 namespace Expressions
 {
     internal class Compiler
     {
-        private readonly DynamicExpression _dynamicExpression;
-        private readonly Type _ownerType;
-        private readonly Import[] _imports;
-        private readonly Type[] _identifierTypes;
-        private readonly int[] _parameterMap;
-        private readonly bool _ignoreCase;
+        private readonly ILGenerator _il;
 
-        public ILGenerator Il { get; private set; }
-
-        public Compiler(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, int[] parameterMap, ILGenerator il)
+        public Compiler(ILGenerator il)
         {
-            Require.NotNull(dynamicExpression, "dynamicExpression");
-            Require.NotNull(imports, "imports");
-            Require.NotNull(identifierTypes, "identifierTypes");
-            Require.NotNull(parameterMap, "parameterMap");
             Require.NotNull(il, "il");
 
-            _dynamicExpression = dynamicExpression;
-            _ownerType = ownerType;
-            _imports = imports;
-            _identifierTypes = identifierTypes;
-            _parameterMap = parameterMap;
-
-            _ignoreCase = !DynamicExpression.IsLanguageCaseSensitive(_dynamicExpression.Language);
-
-            Il = il;
+            _il = il;
         }
 
-        public void Compile()
+        public void Compile(IExpression expression)
         {
-            //_dynamicExpression.ParseResult.RootNode.Compile(this);
+            expression.Accept(new Visitor(this));
+
+            if (expression.Type.IsValueType)
+                _il.Emit(OpCodes.Box, expression.Type);
+
+            _il.Emit(OpCodes.Ret);
         }
 
-        public void PushOwner()
+        private class Visitor : IExpressionVisitor
         {
-            Debug.Assert(_ownerType != null);
+            private readonly Compiler _compiler;
+            private readonly ILGenerator _il;
 
-            PushParameter(0);
-
-            Il.Emit(OpCodes.Castclass, _ownerType);
-        }
-
-        public void PushParameter(int index)
-        {
-            Debug.Assert(index < _parameterMap.Length);
-
-            Il.Emit(OpCodes.Ldarg_0);
-
-            switch (index)
+            public Visitor(Compiler compiler)
             {
-                case 0: Il.Emit(OpCodes.Ldc_I4_0); break;
-                case 1: Il.Emit(OpCodes.Ldc_I4_1); break;
-                case 2: Il.Emit(OpCodes.Ldc_I4_2); break;
-                case 3: Il.Emit(OpCodes.Ldc_I4_3); break;
-                case 4: Il.Emit(OpCodes.Ldc_I4_4); break;
-                case 5: Il.Emit(OpCodes.Ldc_I4_5); break;
-                case 6: Il.Emit(OpCodes.Ldc_I4_6); break;
-                case 7: Il.Emit(OpCodes.Ldc_I4_7); break;
-                case 8: Il.Emit(OpCodes.Ldc_I4_8); break;
-                default: Il.Emit(OpCodes.Ldc_I4_S, index); break;
+                _compiler = compiler;
+                _il = _compiler._il;
             }
 
-            Il.Emit(OpCodes.Ldelem_Ref);
-        }
+            public void BinaryExpression(BinaryExpression binaryExpression)
+            {
+                switch (binaryExpression.ExpressionType)
+                {
+                    case ExpressionType.Add:
+                    case ExpressionType.Divide:
+                    case ExpressionType.Multiply:
+                    case ExpressionType.Subtract:
+                    case ExpressionType.Equals:
+                    case ExpressionType.NotEquals:
+                    case ExpressionType.Greater:
+                    case ExpressionType.GreaterOrEquals:
+                    case ExpressionType.Less:
+                    case ExpressionType.LessOrEquals:
+                    case ExpressionType.ShiftLeft:
+                    case ExpressionType.ShiftRight:
+                        BinaryArithicExpression(binaryExpression);
+                        break;
 
-        private bool LanguageEquals(string a, string b)
-        {
-            return String.Equals(a, b, _ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);
+                    case ExpressionType.And:
+                    case ExpressionType.Or:
+                    case ExpressionType.Xor:
+                        BinaryLogicalExpression(binaryExpression);
+                        break;
+
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            private void BinaryArithicExpression(BinaryExpression binaryExpression)
+            {
+                Emit(binaryExpression.Left, binaryExpression.Type);
+                Emit(binaryExpression.Right, binaryExpression.Type);
+
+                switch (binaryExpression.ExpressionType)
+                {
+                    case ExpressionType.Equals:
+                    case ExpressionType.NotEquals:
+                        _il.Emit(OpCodes.Ceq);
+
+                        if (binaryExpression.ExpressionType == ExpressionType.NotEquals)
+                        {
+                            _il.Emit(OpCodes.Ldc_I4_0);
+                            _il.Emit(OpCodes.Ceq);
+                        }
+                        break;
+
+                    case ExpressionType.Greater:
+                    case ExpressionType.LessOrEquals:
+                        _il.Emit(OpCodes.Cgt);
+
+                        if (binaryExpression.ExpressionType == ExpressionType.LessOrEquals)
+                        {
+                            _il.Emit(OpCodes.Ldc_I4_0);
+                            _il.Emit(OpCodes.Ceq);
+                        }
+                        break;
+
+                    case ExpressionType.Less:
+                    case ExpressionType.GreaterOrEquals:
+                        _il.Emit(OpCodes.Clt);
+
+                        if (binaryExpression.ExpressionType == ExpressionType.LessOrEquals)
+                        {
+                            _il.Emit(OpCodes.Ldc_I4_0);
+                            _il.Emit(OpCodes.Ceq);
+                        }
+                        break;
+
+                    case ExpressionType.Add:
+                        _il.Emit(OpCodes.Add);
+                        break;
+
+                    case ExpressionType.Divide:
+                        _il.Emit(OpCodes.Div);
+                        break;
+
+                    case ExpressionType.Multiply:
+                        _il.Emit(OpCodes.Mul);
+                        break;
+
+                    case ExpressionType.Subtract:
+                        _il.Emit(OpCodes.Sub);
+                        break;
+
+                    case ExpressionType.ShiftLeft:
+                        _il.Emit(OpCodes.Shl);
+                        break;
+
+                    case ExpressionType.ShiftRight:
+                        _il.Emit(OpCodes.Shr);
+                        break;
+
+                    default:
+                        throw new InvalidOperationException();
+                }
+            }
+
+            private void BinaryLogicalExpression(BinaryExpression binaryExpression)
+            {
+                if (
+                    binaryExpression.Left.Type != typeof(bool) ||
+                    binaryExpression.Right.Type != typeof(bool)
+                )
+                    throw new NotSupportedException("Logical expressions must have both operands bool");
+
+                Label beforeLabel;
+                Label afterLabel;
+
+                switch (binaryExpression.ExpressionType)
+                {
+                    case ExpressionType.And:
+                        beforeLabel = _il.DefineLabel();
+                        afterLabel = _il.DefineLabel();
+
+                        binaryExpression.Left.Accept(this);
+                        _il.Emit(OpCodes.Brfalse_S, beforeLabel);
+
+                        binaryExpression.Right.Accept(this);
+                        _il.Emit(OpCodes.Br_S, afterLabel);
+
+                        _il.MarkLabel(beforeLabel);
+                        ILUtil.EmitConstant(_il, 0);
+                        _il.MarkLabel(afterLabel);
+                        break;
+
+                    case ExpressionType.Or:
+                        beforeLabel = _il.DefineLabel();
+                        afterLabel = _il.DefineLabel();
+
+                        binaryExpression.Left.Accept(this);
+                        _il.Emit(OpCodes.Brtrue_S, beforeLabel);
+
+                        binaryExpression.Right.Accept(this);
+                        _il.Emit(OpCodes.Br_S, afterLabel);
+
+                        _il.MarkLabel(beforeLabel);
+                        ILUtil.EmitConstant(_il, 1);
+                        _il.MarkLabel(afterLabel);
+                        break;
+
+                    case ExpressionType.Xor:
+                        binaryExpression.Left.Accept(this);
+                        binaryExpression.Right.Accept(this);
+
+                        _il.Emit(OpCodes.Xor);
+                        break;
+
+                    default:
+                        throw new InvalidOperationException();
+                }
+            }
+
+            private void Emit(IExpression expression, Type type)
+            {
+                expression.Accept(this);
+
+                if (expression.Type != type)
+                    ILUtil.EmitConvertToType(_il, expression.Type, type, true);
+            }
+
+            public void Cast(Cast cast)
+            {
+                cast.Operand.Accept(this);
+
+                ILUtil.EmitConvertToType(_il, cast.Operand.Type, cast.Type, true);
+            }
+
+            public void Constant(Constant constant)
+            {
+                if (constant.Value == null)
+                    ILUtil.EmitNull(_il);
+                else
+                    ILUtil.EmitConstant(_il, constant.Value);
+            }
+
+            public void FieldAccess(FieldAccess fieldAccess)
+            {
+                if (!(fieldAccess.Operand is TypeAccess))
+                {
+                    fieldAccess.Operand.Accept(this);
+
+                    _il.Emit(OpCodes.Ldfld, fieldAccess.FieldInfo);
+                }
+                else
+                {
+                    _il.Emit(OpCodes.Ldsfld, fieldAccess.FieldInfo);
+                }
+            }
+
+            public void Index(Index index)
+            {
+                index.Operand.Accept(this);
+
+                Emit(index.Argument, typeof(int));
+
+                ILUtil.EmitLoadElement(_il, index.Type);
+            }
+
+            public void MethodCall(MethodCall methodCall)
+            {
+                bool isStatic = methodCall.Operand is TypeAccess;
+             
+                if (!isStatic)
+                    methodCall.Operand.Accept(this);
+
+                var parameters = methodCall.MethodInfo.GetParameters();
+                var arguments = methodCall.Arguments;
+
+                for (int i = 0; i < arguments.Count; i++)
+                {
+                    Emit(arguments[i], parameters[i].ParameterType);
+                }
+
+                _il.Emit(isStatic ? OpCodes.Call : OpCodes.Callvirt, methodCall.MethodInfo);
+            }
+
+            public void UnaryExpression(UnaryExpression unaryExpression)
+            {
+                switch (unaryExpression.ExpressionType)
+                {
+                    case ExpressionType.Minus:
+                        unaryExpression.Operand.Accept(this);
+
+                        _il.Emit(OpCodes.Neg);
+                        break;
+
+                    case ExpressionType.Not:
+                        if (unaryExpression.Operand.Type != typeof(bool))
+                            throw new NotSupportedException("Unary expression not can only be performed on bool");
+
+                        unaryExpression.Operand.Accept(this);
+
+                        ILUtil.EmitConstant(_il, 0);
+                        _il.Emit(OpCodes.Ceq);
+                        break;
+
+                    case ExpressionType.Plus:
+                        // Plus really is a no-op.
+
+                        unaryExpression.Operand.Accept(this);
+                        break;
+
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            public void VariableAccess(VariableAccess variableAccess)
+            {
+                _il.Emit(OpCodes.Ldarg_0);
+                ILUtil.EmitConstant(_il, variableAccess.ParameterIndex);
+                _il.Emit(OpCodes.Ldelem_Ref);
+
+                ILUtil.EmitConvertToType(_il, typeof(object), variableAccess.Type, true);
+            }
         }
     }
 }

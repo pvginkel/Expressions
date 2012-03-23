@@ -380,10 +380,13 @@ namespace Expressions
                     foreach (var argument in arguments)
                     {
                         if (!TypeUtil.IsCastAllowed(argument.Type, typeof(int)))
-                            throw new NotSupportedException("Arguments of array index must be convertable to int");
+                            throw new NotSupportedException("Arguments of array index must be convertible to int");
                     }
 
-                    return new Expressions.Index(operand, arguments, operand.Type.GetElementType());
+                    if (arguments.Length == 1)
+                        return new Expressions.Index(operand, arguments[0], operand.Type.GetElementType());
+                    else
+                        return ResolveMethod(operand, "Get", arguments);
                 }
 
                 var defaultMemberAttributes = operand.Type.GetCustomAttributes(typeof(DefaultMemberAttribute), true);

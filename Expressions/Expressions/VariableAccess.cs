@@ -18,9 +18,9 @@ namespace Expressions.Expressions
             ParameterIndex = parameterIndex;
         }
 
-        public T Accept<T>(IExpressionVisitor<T> visitor)
+        public void Accept(IExpressionVisitor visitor)
         {
-            return visitor.VariableAccess(this);
+            visitor.VariableAccess(this);
         }
     }
 }
