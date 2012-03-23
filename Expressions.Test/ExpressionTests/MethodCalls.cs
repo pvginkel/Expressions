@@ -71,6 +71,23 @@ namespace Expressions.Test.ExpressionTests
             );
         }
 
+        [Test]
+        public void MethodOverloadWithNull()
+        {
+            Resolve(
+                new ExpressionContext(null, new Owner()),
+                "MethodWithOverload(null)",
+                new MethodCall(
+                    new VariableAccess(typeof(int), 0),
+                    typeof(Owner).GetMethod("MethodWithOverload", new[] { typeof(string) }),
+                    new IExpression[]
+                    {
+                        new Constant(null)
+                    }
+                )
+            );
+        }
+
         public class Owner
         {
             public OwnerItem Item { get { return new OwnerItem(); } }

@@ -129,10 +129,15 @@ namespace Expressions
         private MethodInfo ResolveMethodGroup(IList<MethodInfo> methods, IExpression[] arguments)
         {
             var argumentTypes = new Type[arguments == null ? 0 : arguments.Length];
+            var argumentsNull = new bool[argumentTypes.Length];
 
             for (int i = 0; i < argumentTypes.Length; i++)
             {
                 argumentTypes[i] = arguments[i].Type;
+
+                var constant = arguments[i] as Expressions.Constant;
+
+                argumentsNull[i] = constant != null && constant.Value == null;
             }
 
             // Get all methods with the correct number of parameters.
@@ -159,6 +164,8 @@ namespace Expressions
             }
 
             // See if we can find a match with implicit casting.
+
+            var matchedCandidates = new List<MethodInfo>();
 
             foreach (var candidate in candidates)
             {
@@ -190,8 +197,10 @@ namespace Expressions
                     }
                     else
                     {
-                        if (!parameters[i].ParameterType.IsAssignableFrom(argumentTypes[i]))
-                        {
+                        if (
+                            !parameters[i].ParameterType.IsAssignableFrom(argumentTypes[i]) &&
+                            !(!parameters[i].ParameterType.IsValueType && argumentsNull[i])
+                        ) {
                             success = false;
                             break;
                         }
@@ -199,10 +208,13 @@ namespace Expressions
                 }
 
                 if (success)
-                    return candidate;
+                    matchedCandidates.Add(candidate);
             }
 
-            throw new NotSupportedException(String.Format("Cannot resolve method {0}", methods[0].Name));
+            if (matchedCandidates.Count != 1)
+                throw new NotSupportedException(String.Format("Cannot resolve method {0}", methods[0].Name));
+
+            return matchedCandidates[0];
         }
 
         private List<MethodInfo> GetCandidates(IEnumerable<MethodInfo> methods, int arguments)
@@ -388,7 +400,14 @@ namespace Expressions
 
             public IExpression MemberAccess(MemberAccess memberAccess)
             {
-                throw new NotImplementedException();
+                var operand = memberAccess.Operand.Accept(this);
+
+                var result = Resolve(operand, memberAccess.Member);
+
+                if (result == null)
+                    throw new NotSupportedException("Could not resolve member");
+
+                return result;
             }
 
             public IExpression MethodCall(Ast.MethodCall methodCall)

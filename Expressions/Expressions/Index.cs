@@ -18,15 +18,13 @@ namespace Expressions.Expressions
         public Index(IExpression operand, IList<IExpression> arguments, Type type)
         {
             Require.NotNull(operand, "operand");
+            Require.NotNull(arguments, "arguments");
             Require.NotNull(type, "type");
 
             Operand = operand;
             Type = type;
 
-            if (arguments == null || arguments.Count == 0)
-                Arguments = EmptyArguments;
-            else
-                Arguments = new ReadOnlyCollection<IExpression>(arguments);
+            Arguments = new ReadOnlyCollection<IExpression>(arguments);
         }
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="ExpressionTests\Indexing.cs" />
     <Compile Include="ExpressionTests\MethodCalls.cs" />
     <Compile Include="ExpressionTests\TestBase.cs" />
+    <Compile Include="ExpressionTests\UnaryExpressions.cs" />
     <Compile Include="MethodCalls.cs" />
     <Compile Include="FleeLanguage\Parsing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

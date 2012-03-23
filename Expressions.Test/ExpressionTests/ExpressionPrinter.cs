@@ -40,8 +40,15 @@ namespace Expressions.Test.ExpressionTests
                 PrintResolvedUnaryExpression((UnaryExpression)node, indent + 1);
             else if (node is VariableAccess)
                 PrintResolvedVariableAccess((VariableAccess)node, indent + 1);
+            else if (node is TypeAccess)
+                PrintResolvedTypeAccess((TypeAccess)node, indent + 1);
             else
                 throw new NotSupportedException();
+        }
+
+        private void PrintResolvedTypeAccess(TypeAccess node, int indent)
+        {
+            AppendLine(indent, "Type = " + node.Type);
         }
 
         private void PrintResolvedVariableAccess(VariableAccess node, int indent)
