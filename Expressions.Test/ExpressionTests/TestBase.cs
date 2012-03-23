@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Expressions.ResolvedAst;
+using Expressions.Expressions;
 using NUnit.Framework;
 
-namespace Expressions.Test.Resolving
+namespace Expressions.Test.ExpressionTests
 {
-    internal abstract class ResolvingTestBase
+    internal abstract class TestBase
     {
         protected void Resolve(string expression)
         {
@@ -18,12 +18,12 @@ namespace Expressions.Test.Resolving
             Resolve(expressionContext, expression, null);
         }
 
-        protected void Resolve(string expression, IResolvedAstNode expectedResult)
+        protected void Resolve(string expression, IExpression expectedResult)
         {
             Resolve(null, expression, expectedResult);
         }
 
-        protected void Resolve(ExpressionContext expressionContext, string expression, IResolvedAstNode expectedResult)
+        protected void Resolve(ExpressionContext expressionContext, string expression, IExpression expectedResult)
         {
             if (expression == null)
                 throw new ArgumentNullException("expression");
@@ -35,15 +35,27 @@ namespace Expressions.Test.Resolving
                 expressionContext ?? new ExpressionContext()
             );
 
-            if (expectedResult != null && !Equals(expectedResult, boundExpression.ResolvedTree))
-            {
-                string expected = new ResolvedNodePrinter(expectedResult).ToString();
-                string actual = new ResolvedNodePrinter(boundExpression.ResolvedTree).ToString();
+            string expected = new ExpressionPrinter(expectedResult).ToString();
+            string actual = new ExpressionPrinter(boundExpression.ResolvedExpression).ToString();
 
+            // TODO: Implement equals.
+
+            if (expected != actual)
+            {
                 Console.WriteLine(PrintSideToSide("Expected:\r\n" + expected, "Actual:\r\n" + actual));
 
-                Assert.AreEqual(expectedResult, boundExpression.ResolvedTree);
+                Assert.AreEqual(expected, actual);
             }
+
+            //if (expectedResult != null && !Equals(expectedResult, boundExpression.ResolvedExpression))
+            //{
+            //    string expected = new ExpressionPrinter(expectedResult).ToString();
+            //    string actual = new ExpressionPrinter(boundExpression.ResolvedExpression).ToString();
+
+            //    Console.WriteLine(PrintSideToSide("Expected:\r\n" + expected, "Actual:\r\n" + actual));
+
+            //    Assert.AreEqual(expectedResult, boundExpression.ResolvedExpression);
+            //}
         }
 
         private string PrintSideToSide(string left, string right)

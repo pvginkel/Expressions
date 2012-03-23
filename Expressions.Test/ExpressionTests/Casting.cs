@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Expressions.Ast;
-using Expressions.ResolvedAst;
+using Expressions.Expressions;
 using NUnit.Framework;
+using ExpressionType = Expressions.Ast.ExpressionType;
 
-namespace Expressions.Test.Resolving
+namespace Expressions.Test.ExpressionTests
 {
     [TestFixture]
-    internal class Casting : ResolvingTestBase
+    internal class Casting : TestBase
     {
         [Test]
         public void CastWithBuiltInFloat()
         {
             Resolve(
                 "cast(7, float)",
-                new ResolvedCast(
-                    new ResolvedConstant(7),
+                new Cast(
+                    new Constant(7),
                     typeof(float)
                 )
             );
@@ -27,8 +27,8 @@ namespace Expressions.Test.Resolving
         {
             Resolve(
                 "cast(7, string)",
-                new ResolvedCast(
-                    new ResolvedConstant(7),
+                new Cast(
+                    new Constant(7),
                     typeof(string)
                 )
             );
@@ -39,12 +39,12 @@ namespace Expressions.Test.Resolving
         {
             Resolve(
                 "cast(1 + 2, float)",
-                new ResolvedCast(
-                    new ResolvedBinaryExpression(
-                        new ResolvedConstant(1),
-                        new ResolvedConstant(2),
-                        typeof(int),
-                        ExpressionType.Add
+                new Cast(
+                    new BinaryExpression(
+                        new Constant(1),
+                        new Constant(2),
+                        ExpressionType.Add,
+                        typeof(int)
                     ),
                     typeof(float)
                 )
@@ -56,8 +56,8 @@ namespace Expressions.Test.Resolving
         {
             Resolve(
                 "cast(7, System.String)",
-                new ResolvedCast(
-                    new ResolvedConstant(7),
+                new Cast(
+                    new Constant(7),
                     typeof(string)
                 )
             );
@@ -68,8 +68,8 @@ namespace Expressions.Test.Resolving
         {
             Resolve(
                 "cast(null, string[])",
-                new ResolvedCast(
-                    new ResolvedConstant(null),
+                new Cast(
+                    new Constant(null),
                     typeof(string[])
                 )
             );
@@ -80,8 +80,8 @@ namespace Expressions.Test.Resolving
         {
             Resolve(
                 "cast(null, string[,])",
-                new ResolvedCast(
-                    new ResolvedConstant(null),
+                new Cast(
+                    new Constant(null),
                     typeof(string[,])
                 )
             );
@@ -92,8 +92,8 @@ namespace Expressions.Test.Resolving
         {
             Resolve(
                 "cast(null, string[,,])",
-                new ResolvedCast(
-                    new ResolvedConstant(null),
+                new Cast(
+                    new Constant(null),
                     typeof(string[, ,])
                 )
             );
@@ -104,8 +104,8 @@ namespace Expressions.Test.Resolving
         {
             Resolve(
                 "cast(null, System.String[])",
-                new ResolvedCast(
-                    new ResolvedConstant(null),
+                new Cast(
+                    new Constant(null),
                     typeof(string[])
                 )
             );
@@ -116,8 +116,8 @@ namespace Expressions.Test.Resolving
         {
             Resolve(
                 "cast(null, System.String[,])",
-                new ResolvedCast(
-                    new ResolvedConstant(null),
+                new Cast(
+                    new Constant(null),
                     typeof(string[,])
                 )
             );
@@ -128,8 +128,8 @@ namespace Expressions.Test.Resolving
         {
             Resolve(
                 "cast(null, System.String[,,])",
-                new ResolvedCast(
-                    new ResolvedConstant(null),
+                new Cast(
+                    new Constant(null),
                     typeof(string[, ,])
                 )
             );

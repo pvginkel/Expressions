@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Expressions.ResolvedAst;
 
 namespace Expressions.Ast
 {
@@ -23,18 +22,14 @@ namespace Expressions.Ast
             Type = type;
         }
 
+        public T Accept<T>(IAstVisitor<T> visitor)
+        {
+            return visitor.BinaryExpression(this);
+        }
+
         public override string ToString()
         {
             return String.Format("({0} {1} {2})", Left, Type, Right);
-        }
-
-        public IResolvedAstNode Resolve(Resolver resolver)
-        {
-            var left = Left.Resolve(resolver);
-            var right = Right.Resolve(resolver);
-            var type = resolver.ResolveExpressionType(left.Type, right.Type, Type);
-
-            return new ResolvedBinaryExpression(left, right, type, Type);
         }
     }
 }

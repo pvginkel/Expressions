@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Expressions.ResolvedAst;
 
 namespace Expressions.Ast
 {
@@ -16,16 +15,14 @@ namespace Expressions.Ast
             Name = name;
         }
 
+        public T Accept<T>(IAstVisitor<T> visitor)
+        {
+            return visitor.IdentifierAccess(this);
+        }
+
         public override string ToString()
         {
             return Name;
-        }
-
-        public IResolvedAstNode Resolve(Resolver resolver)
-        {
-            var identifier = GlobalIdentifier.Instance.Resolve(resolver, Name);
-
-            return new ResolvedIdentifierAccess(identifier);
         }
     }
 }

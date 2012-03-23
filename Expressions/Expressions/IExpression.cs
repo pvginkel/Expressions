@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Expressions.ResolvedAst
+namespace Expressions.Expressions
 {
-    internal interface ITypedResolvedIdentifier : IResolvedIdentifier
+    internal interface IExpression
     {
         Type Type { get; }
     }

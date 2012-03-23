@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Expressions.BoundAst
+namespace Expressions.Expressions
 {
-    internal class BoundConstant : IBoundAstNode
+    internal class Constant : IExpression
     {
-        public object Value { get; private set; }
-
-        public Type ResultType
+        public Type Type
         {
             get
             {
@@ -17,6 +15,13 @@ namespace Expressions.BoundAst
                 else
                     return Value.GetType();
             }
+        }
+
+        public object Value { get; private set; }
+
+        public Constant(object value)
+        {
+            Value = value;
         }
     }
 }

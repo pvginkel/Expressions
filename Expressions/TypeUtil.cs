@@ -1,9 +1,9 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace Expressions.ResolvedAst
+namespace Expressions
 {
     internal static class TypeUtil
     {
@@ -68,6 +68,21 @@ namespace Expressions.ResolvedAst
             BuiltInTypes.TryGetValue(name, out result);
 
             return result;
+        }
+
+        public static bool IsCastAllowed(Type type, Type targetType)
+        {
+            Require.NotNull(type, "type");
+            Require.NotNull(targetType, "targetType");
+
+            if (type == targetType)
+                return true;
+
+            IList<Type> types;
+
+            return
+                ImplicitCastingTable.TryGetValue(type, out types) &&
+                types.Contains(targetType);
         }
     }
 }

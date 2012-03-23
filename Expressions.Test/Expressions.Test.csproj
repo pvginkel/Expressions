@@ -51,14 +51,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExpressionTests\BinaryExpressions.cs" />
+    <Compile Include="ExpressionTests\Casting.cs" />
+    <Compile Include="ExpressionTests\ExpressionPrinter.cs" />
+    <Compile Include="ExpressionTests\GlobalAccesses.cs" />
+    <Compile Include="ExpressionTests\Indexing.cs" />
+    <Compile Include="ExpressionTests\MethodCalls.cs" />
+    <Compile Include="ExpressionTests\TestBase.cs" />
     <Compile Include="MethodCalls.cs" />
     <Compile Include="FleeLanguage\Parsing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resolving\BinaryExpressions.cs" />
-    <Compile Include="Resolving\Casting.cs" />
-    <Compile Include="Resolving\MethodCalls.cs" />
-    <Compile Include="Resolving\ResolvedNodePrinter.cs" />
-    <Compile Include="Resolving\ResolvingTestbase.cs" />
     <Compile Include="TypeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Text;
-using Expressions.ResolvedAst;
+using Expressions.Expressions;
 
 namespace Expressions
 {
@@ -18,7 +18,7 @@ namespace Expressions
 
 #if DEBUG
         // For unit testing
-        internal IResolvedAstNode ResolvedTree { get; private set; }
+        internal IExpression ResolvedExpression { get; private set; }
 #endif
 
         internal BoundExpression(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes)
@@ -43,10 +43,10 @@ namespace Expressions
         {
             var resolver = new Resolver(_dynamicExpression, _ownerType, _imports, _identifierTypes, _parameterMap);
 
-            var resolvedTree = _dynamicExpression.ParseResult.RootNode.Resolve(resolver);
+            var resolvedTree = resolver.Resolve(_dynamicExpression.ParseResult.RootNode);
 
 #if DEBUG
-            ResolvedTree = resolvedTree;
+            ResolvedExpression = resolvedTree;
 #endif
         }
 

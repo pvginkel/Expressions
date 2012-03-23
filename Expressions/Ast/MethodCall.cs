@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Expressions.BoundAst;
-using Expressions.ResolvedAst;
 
 namespace Expressions.Ast
 {
@@ -24,28 +22,10 @@ namespace Expressions.Ast
             Operand = operand;
             Arguments = arguments;
         }
-
-        public IResolvedAstNode Resolve(Resolver resolver)
+        
+        public T Accept<T>(IAstVisitor<T> visitor)
         {
-            var operand = Operand.Resolve(resolver);
-
-            var arguments = new IResolvedAstNode[Arguments == null ? 0 : Arguments.Nodes.Count];
-
-            for (int i = 0; i < arguments.Length; i++)
-            {
-                arguments[i] = Arguments.Nodes[i].Resolve(resolver);
-            }
-
-            MethodIdentifier method;
-
-            if (operand.Identifier is MethodGroupIdentifier)
-                method = ((MethodGroupIdentifier)operand.Identifier).Resolve(arguments);
-            else if (operand.Identifier is MethodIdentifier)
-                method = (MethodIdentifier)operand.Identifier;
-            else
-                throw new NotImplementedException();
-
-            return new ResolvedMethodCall(method, arguments);
+            return visitor.MethodCall(this);
         }
 
         public override string ToString()

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Expressions.ResolvedAst;
 
 namespace Expressions.Ast
 {
@@ -17,6 +16,11 @@ namespace Expressions.Ast
 
             Name = name;
             ArrayIndex = arrayIndex;
+        }
+
+        public T Accept<T>(IAstVisitor<T> visitor)
+        {
+            throw new NotSupportedException();
         }
 
         public override string ToString()
@@ -36,11 +40,6 @@ namespace Expressions.Ast
             }
 
             return sb.ToString();
-        }
-
-        public IResolvedAstNode Resolve(Resolver resolver)
-        {
-            return new ResolvedType(resolver.ResolveType(Name, ArrayIndex));
         }
     }
 }

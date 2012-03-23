@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Expressions.ResolvedAst;
 
 namespace Expressions.Ast
 {
@@ -20,27 +19,9 @@ namespace Expressions.Ast
             Arguments = arguments;
         }
 
-        public IResolvedAstNode Resolve(Resolver resolver)
+        public T Accept<T>(IAstVisitor<T> visitor)
         {
-            var operand = Operand.Resolve(resolver);
-
-            var arguments = new IResolvedAstNode[Arguments == null ? 0 : Arguments.Nodes.Count];
-
-            for (int i = 0; i < arguments.Length; i++)
-            {
-                arguments[i] = Arguments.Nodes[i].Resolve(resolver);
-            }
-
-            PropertyIdentifier property;
-
-            if (operand.Identifier is PropertyGroupIdentifier)
-                property = ((PropertyGroupIdentifier)operand.Identifier).Resolve(arguments);
-            else if (operand.Identifier is PropertyIdentifier)
-                property = (PropertyIdentifier)operand.Identifier;
-            else
-                throw new NotImplementedException();
-
-            return new ResolvedIndex(operand, property, arguments);
+            return visitor.Index(this);
         }
 
         public override string ToString()

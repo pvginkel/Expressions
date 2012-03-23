@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Expressions.ResolvedAst;
 
 namespace Expressions.Ast
 {
@@ -20,16 +19,14 @@ namespace Expressions.Ast
             Type = type;
         }
 
+        public T Accept<T>(IAstVisitor<T> visitor)
+        {
+            return visitor.Cast(this);
+        }
+
         public override string ToString()
         {
             return String.Format("Cast({0}, {1})", Operand, Type);
-        }
-
-        public IResolvedAstNode Resolve(Resolver resolver)
-        {
-            var operand = Operand.Resolve(resolver);
-
-            return new ResolvedCast(operand, ((ResolvedType)Type.Resolve(resolver)).Type);
         }
     }
 }
