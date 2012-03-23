@@ -49,6 +49,8 @@
     <Compile Include="Ast\Cast.cs" />
     <Compile Include="Ast\AstNodeCollection.cs" />
     <Compile Include="BindingResolver.cs" />
+    <Compile Include="ConversionVisitor.cs" />
+    <Compile Include="DynamicExpressionOptions.cs" />
     <Compile Include="ExpressionType.cs" />
     <Compile Include="Ast\Constant.cs" />
     <Compile Include="Ast\IAstNode.cs" />

@@ -1,6 +1,8 @@
 ﻿// From http://flee.codeplex.com/
 
 using System;
+using System.Globalization;
+using System.Threading;
 using NUnit.Framework;
 
 namespace Expressions.Test.FleeLanguage
@@ -8,6 +10,13 @@ namespace Expressions.Test.FleeLanguage
     [TestFixture()]
     public class BulkTests : ExpressionTests
     {
+        [TestFixtureSetUp]
+        public void SetCulture()
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+        }
+
         [Test(Description = "Expressions that should be valid")]
         public void TestValidExpressions()
         {
@@ -49,7 +58,10 @@ namespace Expressions.Test.FleeLanguage
 
         private DynamicExpression CreateDynamicExpression(string expression, ExpressionContext context)
         {
-            return new DynamicExpression(expression, ExpressionLanguage.Flee);
+            return new DynamicExpression(expression, ExpressionLanguage.Flee, new DynamicExpressionOptions
+            {
+                AllowPrivateAccess = true
+            });
         }
 
         private void DoTestInvalidExpressions(string[] arr)

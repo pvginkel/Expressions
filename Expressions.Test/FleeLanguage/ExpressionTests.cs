@@ -28,7 +28,7 @@ namespace Expressions.Test.FleeLanguage
 
             MyGenericContext = this.CreateGenericContext(MyValidExpressionsOwner);
 
-             var imports = new[]
+            var imports = new[]
             {
                 new Import(typeof(Mouse)),
                 new Import(typeof(Monitor)),
@@ -46,7 +46,7 @@ namespace Expressions.Test.FleeLanguage
                 new Import(typeof(System.Text.Encoding)),
                 new Import(typeof(System.Text.ASCIIEncoding)),
                 new Import(typeof(ArgumentException))
-            };
+           };
 
            ExpressionContext context = new ExpressionContext(imports, MyValidExpressionsOwner);
 

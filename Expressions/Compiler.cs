@@ -295,6 +295,11 @@ namespace Expressions
 
                 ILUtil.EmitConvertToType(_il, typeof(object), variableAccess.Type, true);
             }
+
+            public void TypeAccess(TypeAccess typeAccess)
+            {
+                throw new InvalidOperationException();
+            }
         }
     }
 }

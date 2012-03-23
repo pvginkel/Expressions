@@ -60,6 +60,7 @@
     <Compile Include="Compilation\UnaryExpressions.cs" />
     <Compile Include="ExpressionTests\BinaryExpressions.cs" />
     <Compile Include="ExpressionTests\Casting.cs" />
+    <Compile Include="ExpressionTests\Conversions.cs" />
     <Compile Include="ExpressionTests\ExpressionPrinter.cs" />
     <Compile Include="ExpressionTests\GlobalAccesses.cs" />
     <Compile Include="ExpressionTests\Indexing.cs" />

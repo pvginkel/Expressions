@@ -12,12 +12,22 @@ namespace Expressions
 
         public ExpressionLanguage Language { get; private set; }
 
+        public DynamicExpressionOptions Options { get; private set; }
+
         public DynamicExpression(string expression, ExpressionLanguage language)
+            : this(expression, language, null)
+        {
+        }
+
+        public DynamicExpression(string expression, ExpressionLanguage language, DynamicExpressionOptions options)
         {
             Require.NotNull(expression, "expression");
 
             Expression = expression;
             Language = language;
+
+            Options = options ?? new DynamicExpressionOptions();
+            Options.Freeze();
 
             ParseResult = DynamicExpressionCache.GetOrCreateParseResult(expression, language);
         }

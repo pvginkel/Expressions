@@ -13,6 +13,8 @@ namespace Expressions
 
         public BindingVisitor(Resolver resolver)
         {
+            Require.NotNull(resolver, "resolver");
+
             _resolver = resolver;
         }
 
@@ -48,7 +50,7 @@ namespace Expressions
             {
                 if (
                     _resolver.IdentifierTypes[i] != null &&
-                    IdentifiersEqual(identifiers[i].Name, identifierAccess.Name)
+                    _resolver.IdentifiersEqual(identifiers[i].Name, identifierAccess.Name)
                 )
                     return new VariableAccess(_resolver.IdentifierTypes[i], _resolver.IdentifierIndexes[i]);
             }
@@ -70,7 +72,7 @@ namespace Expressions
 
             foreach (var import in _resolver.Imports)
             {
-                if (import.Namespace != null && IdentifiersEqual(import.Namespace, identifierAccess.Name))
+                if (import.Namespace != null && _resolver.IdentifiersEqual(import.Namespace, identifierAccess.Name))
                     return new TypeAccess(import.Type);
             }
 
@@ -97,7 +99,8 @@ namespace Expressions
             // First try properties and methods.
 
             var methods = operand.Type.GetMethods(
-                (isStatic ? BindingFlags.Static : BindingFlags.Instance) | BindingFlags.Public
+                _resolver.DynamicExpression.Options.AccessBindingFlags |
+                (isStatic ? BindingFlags.Static : BindingFlags.Instance)
             );
 
             var propertyMethods = new List<MethodInfo>();
@@ -109,7 +112,7 @@ namespace Expressions
                 // bug where generated properties do not have IsSpecialName set,
                 // and it shouldn't be an issue.
 
-                if (IdentifiersEqual(method.Name, propertyMember))
+                if (_resolver.IdentifiersEqual(method.Name, propertyMember))
                     propertyMethods.Add(method);
             }
 
@@ -124,7 +127,7 @@ namespace Expressions
                 member,
                 (_resolver.IgnoreCase ? BindingFlags.IgnoreCase : 0) |
                 (isStatic ? BindingFlags.Static : BindingFlags.Instance) |
-                BindingFlags.Public
+                _resolver.DynamicExpression.Options.AccessBindingFlags
             );
 
             if (field != null)
@@ -133,13 +136,6 @@ namespace Expressions
             // Nothing matched.
 
             return null;
-        }
-
-        private bool IdentifiersEqual(string a, string b)
-        {
-            return String.Equals(
-                a, b, _resolver.IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal
-            );
         }
 
         public IExpression Index(Ast.Index index)
@@ -162,7 +158,7 @@ namespace Expressions
                 if (arguments.Length == 1)
                     return new Expressions.Index(operand, arguments[0], operand.Type.GetElementType());
                 else
-                    return ResolveMethod(operand, "Get", arguments);
+                    return _resolver.ResolveMethod(operand, "Get", arguments);
             }
 
             var defaultMemberAttributes = operand.Type.GetCustomAttributes(typeof(DefaultMemberAttribute), true);
@@ -170,7 +166,7 @@ namespace Expressions
             if (defaultMemberAttributes.Length != 1)
                 throw new NotSupportedException("Operand does not support indexing");
 
-            var result = ResolveMethod(operand, "get_" + ((DefaultMemberAttribute)defaultMemberAttributes[0]).MemberName, arguments);
+            var result = _resolver.ResolveMethod(operand, "get_" + ((DefaultMemberAttribute)defaultMemberAttributes[0]).MemberName, arguments);
 
             if (result == null)
                 throw new NotSupportedException("Cannot resolve index method");
@@ -203,7 +199,7 @@ namespace Expressions
 
             if (memberAccess != null)
             {
-                var result = ResolveMethod(memberAccess.Operand.Accept(this), memberAccess.Member, arguments);
+                var result = _resolver.ResolveMethod(memberAccess.Operand.Accept(this), memberAccess.Member, arguments);
 
                 if (result != null)
                     return result;
@@ -229,10 +225,10 @@ namespace Expressions
 
             if (_resolver.OwnerType != null)
             {
-                var result = ResolveMethod(new TypeAccess(_resolver.OwnerType), name, arguments);
+                var result = _resolver.ResolveMethod(new TypeAccess(_resolver.OwnerType), name, arguments);
 
                 if (result == null)
-                    result = ResolveMethod(new VariableAccess(_resolver.OwnerType, 0), name, arguments);
+                    result = _resolver.ResolveMethod(new VariableAccess(_resolver.OwnerType, 0), name, arguments);
 
                 if (result != null)
                     return result;
@@ -242,39 +238,13 @@ namespace Expressions
 
             foreach (var import in _resolver.Imports)
             {
-                var result = ResolveMethod(new TypeAccess(import.Type), name, arguments);
+                var result = _resolver.ResolveMethod(new TypeAccess(import.Type), name, arguments);
 
                 if (result != null)
                     return result;
             }
 
             throw new NotSupportedException("Could not resolve method");
-        }
-
-        private Expressions.MethodCall ResolveMethod(IExpression operand, string name, IExpression[] arguments)
-        {
-            bool isStatic = operand is TypeAccess;
-
-            var methods = operand.Type.GetMethods(
-                BindingFlags.Public | (isStatic ? BindingFlags.Static : BindingFlags.Instance)
-            );
-
-            var candidates = new List<MethodInfo>();
-
-            foreach (var method in methods)
-            {
-                if (IdentifiersEqual(method.Name, name))
-                    candidates.Add(method);
-            }
-
-            if (candidates.Count > 0)
-            {
-                var method = ResolveMethodGroup(candidates, arguments);
-
-                return new Expressions.MethodCall(operand, method, arguments);
-            }
-
-            return null;
         }
 
         public IExpression UnaryExpression(Ast.UnaryExpression unaryExpression)
@@ -379,111 +349,6 @@ namespace Expressions
             // We can't cast implicitly.
 
             throw new NotSupportedException(String.Format("Cannot implicitly cast {0} and {1}", left, right));
-        }
-
-        private MethodInfo ResolveMethodGroup(IList<MethodInfo> methods, IExpression[] arguments)
-        {
-            var argumentTypes = new Type[arguments == null ? 0 : arguments.Length];
-            var argumentsNull = new bool[argumentTypes.Length];
-
-            for (int i = 0; i < argumentTypes.Length; i++)
-            {
-                argumentTypes[i] = arguments[i].Type;
-
-                var constant = arguments[i] as Expressions.Constant;
-
-                argumentsNull[i] = constant != null && constant.Value == null;
-            }
-
-            // Get all methods with the correct number of parameters.
-
-            var candidates = GetCandidates(methods, argumentTypes.Length);
-
-            if (candidates.Count == 0)
-                throw new NotSupportedException(String.Format("Cannot resolve method {0}", methods[0].Name));
-
-            if (candidates.Count == 1)
-                return candidates[0];
-
-            // See if we have an exact match.
-
-            foreach (var candidate in candidates)
-            {
-                var parameters = candidate.GetParameters();
-
-                for (int i = 0; i < parameters.Length; i++)
-                {
-                    if (parameters[i].ParameterType == argumentTypes[i])
-                        return candidate;
-                }
-            }
-
-            // See if we can find a match with implicit casting.
-
-            var matchedCandidates = new List<MethodInfo>();
-
-            foreach (var candidate in candidates)
-            {
-                var parameters = candidate.GetParameters();
-                bool success = true;
-
-                for (int i = 0; i < parameters.Length; i++)
-                {
-                    var castingTable = TypeUtil.GetImplicitCastingTable(argumentTypes[i]);
-
-                    if (castingTable != null)
-                    {
-                        bool found = false;
-
-                        for (int j = 0; j < castingTable.Count; j++)
-                        {
-                            if (castingTable[j] == parameters[i].ParameterType)
-                            {
-                                found = true;
-                                break;
-                            }
-                        }
-
-                        if (!found)
-                        {
-                            success = false;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        if (
-                            !parameters[i].ParameterType.IsAssignableFrom(argumentTypes[i]) &&
-                            !(!parameters[i].ParameterType.IsValueType && argumentsNull[i])
-                        )
-                        {
-                            success = false;
-                            break;
-                        }
-                    }
-                }
-
-                if (success)
-                    matchedCandidates.Add(candidate);
-            }
-
-            if (matchedCandidates.Count != 1)
-                throw new NotSupportedException(String.Format("Cannot resolve method {0}", methods[0].Name));
-
-            return matchedCandidates[0];
-        }
-
-        private List<MethodInfo> GetCandidates(IEnumerable<MethodInfo> methods, int arguments)
-        {
-            var candidates = new List<MethodInfo>();
-
-            foreach (var method in methods)
-            {
-                if (method.GetParameters().Length == arguments)
-                    candidates.Add(method);
-            }
-
-            return candidates;
         }
     }
 }

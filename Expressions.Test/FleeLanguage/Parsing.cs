@@ -145,7 +145,6 @@ namespace Expressions.Test.FleeLanguage
             public string Expression { get; private set; }
             public string ExpectedResult { get; private set; }
             public int LineNumber { get; private set; }
-            public object ParsedResult { get; private set; }
 
             public TestCase(string[] parts, int lineNumber)
             {

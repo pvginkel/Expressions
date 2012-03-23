@@ -17,12 +17,12 @@ namespace Expressions.Expressions
 
         public void Accept(IExpressionVisitor visitor)
         {
-            throw new NotSupportedException();
+            visitor.TypeAccess(this);
         }
 
         public T Accept<T>(IExpressionVisitor<T> visitor)
         {
-            throw new NotSupportedException();
+            return visitor.TypeAccess(this);
         }
     }
 }
