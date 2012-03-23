@@ -131,7 +131,12 @@ namespace Expressions
             );
 
             if (field != null)
-                return new FieldAccess(operand, field);
+            {
+                if (field.IsLiteral)
+                    return new Expressions.Constant(field.GetValue(null));
+                else
+                    return new FieldAccess(operand, field);
+            }
 
             // Nothing matched.
 

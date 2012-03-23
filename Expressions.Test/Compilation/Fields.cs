@@ -24,6 +24,14 @@ namespace Expressions.Test.Compilation
             Resolve(context, "Field", 7);
         }
 
+        [Test]
+        public void ConstantAccess()
+        {
+            var context = new ExpressionContext(new[] { new Import(typeof(int), "int") });
+
+            Resolve(context, "int.MaxValue", int.MaxValue);
+        }
+
         public class Owner
         {
             public static int StaticField = 8;

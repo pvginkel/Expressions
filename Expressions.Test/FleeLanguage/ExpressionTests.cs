@@ -45,7 +45,23 @@ namespace Expressions.Test.FleeLanguage
                 new Import(typeof(AppDomainInitializer)),
                 new Import(typeof(System.Text.Encoding)),
                 new Import(typeof(System.Text.ASCIIEncoding)),
-                new Import(typeof(ArgumentException))
+                new Import(typeof(ArgumentException)),
+                // ImportBuiltinTypes
+                new Import(typeof(bool), "boolean"),
+		        new Import(typeof(byte), "byte"),
+		        new Import(typeof(sbyte), "sbyte"),
+		        new Import(typeof(short), "short"),
+		        new Import(typeof(ushort), "ushort"),
+		        new Import(typeof(int), "int"),
+		        new Import(typeof(uint), "uint"),
+		        new Import(typeof(long), "long"),
+		        new Import(typeof(ulong), "ulong"),
+		        new Import(typeof(float), "single"),
+		        new Import(typeof(double), "double"),
+		        new Import(typeof(decimal), "decimal"),
+		        new Import(typeof(char), "char"),
+		        new Import(typeof(object), "object"),
+		        new Import(typeof(string), "string")
            };
 
            ExpressionContext context = new ExpressionContext(imports, MyValidExpressionsOwner);
@@ -78,7 +94,23 @@ namespace Expressions.Test.FleeLanguage
                 new Import(typeof(Convert), "Convert"),
                 new Import(typeof(Type), "Type"),
                 new Import(typeof(DayOfWeek), "DayOfWeek"),
-                new Import(typeof(ConsoleModifiers), "ConsoleModifiers")
+                new Import(typeof(ConsoleModifiers), "ConsoleModifiers"),
+                // ImportBuiltinTypes
+                new Import(typeof(bool), "boolean"),
+		        new Import(typeof(byte), "byte"),
+		        new Import(typeof(sbyte), "sbyte"),
+		        new Import(typeof(short), "short"),
+		        new Import(typeof(ushort), "ushort"),
+		        new Import(typeof(int), "int"),
+		        new Import(typeof(uint), "uint"),
+		        new Import(typeof(long), "long"),
+		        new Import(typeof(ulong), "ulong"),
+		        new Import(typeof(float), "single"),
+		        new Import(typeof(double), "double"),
+		        new Import(typeof(decimal), "decimal"),
+		        new Import(typeof(char), "char"),
+		        new Import(typeof(object), "object"),
+		        new Import(typeof(string), "string")
             };
 
             var context = new ExpressionContext(imports, owner);
