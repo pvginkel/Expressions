@@ -22,5 +22,10 @@ namespace Expressions.Expressions
         {
             visitor.VariableAccess(this);
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.VariableAccess(this);
+        }
     }
 }

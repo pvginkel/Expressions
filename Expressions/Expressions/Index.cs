@@ -29,5 +29,10 @@ namespace Expressions.Expressions
         {
             visitor.Index(this);
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.Index(this);
+        }
     }
 }

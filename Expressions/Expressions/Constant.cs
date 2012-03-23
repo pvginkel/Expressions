@@ -28,5 +28,10 @@ namespace Expressions.Expressions
         {
             visitor.Constant(this);
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.Constant(this);
+        }
     }
 }

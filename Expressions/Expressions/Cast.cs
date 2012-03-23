@@ -23,5 +23,10 @@ namespace Expressions.Expressions
         {
             visitor.Cast(this);
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.Cast(this);
+        }
     }
 }

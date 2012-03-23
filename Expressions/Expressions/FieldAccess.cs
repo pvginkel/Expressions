@@ -29,5 +29,10 @@ namespace Expressions.Expressions
         {
             visitor.FieldAccess(this);
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.FieldAccess(this);
+        }
     }
 }

@@ -27,5 +27,10 @@ namespace Expressions.Expressions
         {
             visitor.UnaryExpression(this);
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.UnaryExpression(this);
+        }
     }
 }

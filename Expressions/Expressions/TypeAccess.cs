@@ -19,5 +19,10 @@ namespace Expressions.Expressions
         {
             throw new NotSupportedException();
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            throw new NotSupportedException();
+        }
     }
 }

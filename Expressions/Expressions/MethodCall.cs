@@ -39,5 +39,10 @@ namespace Expressions.Expressions
         {
             visitor.MethodCall(this);
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.MethodCall(this);
+        }
     }
 }

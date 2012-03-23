@@ -22,4 +22,23 @@ namespace Expressions.Expressions
 
         void VariableAccess(VariableAccess variableAccess);
     }
+
+    internal interface IExpressionVisitor<T>
+    {
+        T BinaryExpression(BinaryExpression binaryExpression);
+
+        T Cast(Cast cast);
+
+        T Constant(Constant constant);
+
+        T FieldAccess(FieldAccess fieldAccess);
+
+        T Index(Index index);
+
+        T MethodCall(MethodCall methodCall);
+
+        T UnaryExpression(UnaryExpression unaryExpression);
+
+        T VariableAccess(VariableAccess variableAccess);
+    }
 }

@@ -31,5 +31,10 @@ namespace Expressions.Expressions
         {
             visitor.BinaryExpression(this);
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.BinaryExpression(this);
+        }
     }
 }
