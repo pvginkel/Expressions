@@ -63,6 +63,7 @@
     <Compile Include="Expressions\Cast.cs" />
     <Compile Include="Expressions\Constant.cs" />
     <Compile Include="Expressions\FieldAccess.cs" />
+    <Compile Include="Expressions\IExpressionVisitor.cs" />
     <Compile Include="Expressions\TypeAccess.cs" />
     <Compile Include="Expressions\IExpression.cs" />
     <Compile Include="Expressions\Index.cs" />

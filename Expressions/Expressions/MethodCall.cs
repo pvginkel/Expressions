@@ -34,5 +34,10 @@ namespace Expressions.Expressions
             else
                 Arguments = new ReadOnlyCollection<IExpression>(arguments);
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.MethodCall(this);
+        }
     }
 }

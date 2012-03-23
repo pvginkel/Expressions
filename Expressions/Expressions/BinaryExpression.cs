@@ -26,5 +26,10 @@ namespace Expressions.Expressions
             ExpressionType = expressionType;
             Type = type;
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.BinaryExpression(this);
+        }
     }
 }

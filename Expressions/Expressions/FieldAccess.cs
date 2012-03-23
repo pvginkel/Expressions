@@ -24,5 +24,10 @@ namespace Expressions.Expressions
             Operand = operand;
             FieldInfo = fieldInfo;
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.FieldAccess(this);
+        }
     }
 }

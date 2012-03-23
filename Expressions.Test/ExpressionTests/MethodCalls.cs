@@ -44,6 +44,23 @@ namespace Expressions.Test.ExpressionTests
         }
 
         [Test]
+        public void MethodWithCasting()
+        {
+            Resolve(
+                new ExpressionContext(null, new Owner()),
+                "FloatMethod(0)",
+                new MethodCall(
+                    new VariableAccess(typeof(int), 0),
+                    typeof(Owner).GetMethod("FloatMethod"),
+                    new IExpression[]
+                    {
+                        new Constant(0)
+                    }
+                )
+            );
+        }
+
+        [Test]
         [ExpectedException]
         public void MethodWithIllegalOverload()
         {
@@ -103,6 +120,11 @@ namespace Expressions.Test.ExpressionTests
             }
 
             public int MethodWithOverload(string value)
+            {
+                throw new NotSupportedException();
+            }
+
+            public float FloatMethod(float value)
             {
                 throw new NotSupportedException();
             }

@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Text;
 using Expressions.Ast;
 using Expressions.Expressions;
-using MethodCall = Expressions.Ast.MethodCall;
 
 namespace Expressions
 {
@@ -108,16 +107,18 @@ namespace Expressions
 
             if (leftTable != null && rightTable != null)
             {
-                for (int i = 0; i < leftTable.Count; i++)
-                {
-                    if (leftTable[i] == right)
-                        return leftTable[i];
+                // See whether one of the types appears in the other.
 
-                    for (int j = 0; j < rightTable.Count; j++)
-                    {
-                        if (leftTable[i] == rightTable[j])
-                            return leftTable[i];
-                    }
+                foreach (var leftType in leftTable)
+                {
+                    if (leftType == right)
+                        return leftType;
+                }
+
+                foreach (var rightType in rightTable)
+                {
+                    if (rightType == left)
+                        return rightType;
                 }
             }
 

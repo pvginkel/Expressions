@@ -17,5 +17,10 @@ namespace Expressions.Expressions
             Type = type;
             ParameterIndex = parameterIndex;
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.VariableAccess(this);
+        }
     }
 }

@@ -18,5 +18,10 @@ namespace Expressions.Expressions
             Operand = operand;
             Type = type;
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.Cast(this);
+        }
     }
 }

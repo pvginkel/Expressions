@@ -36,7 +36,7 @@ namespace Expressions
 
             Resolve();
 
-            //_compiledMethod = CompileExpression();
+            _compiledMethod = CompileExpression();
         }
 
         private void Resolve()

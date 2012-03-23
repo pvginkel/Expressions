@@ -22,5 +22,10 @@ namespace Expressions.Expressions
             Type = type;
             ExpressionType = expressionType;
         }
+
+        public T Accept<T>(IExpressionVisitor<T> visitor)
+        {
+            return visitor.UnaryExpression(this);
+        }
     }
 }

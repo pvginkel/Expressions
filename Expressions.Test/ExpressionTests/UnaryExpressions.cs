@@ -10,6 +10,19 @@ namespace Expressions.Test.ExpressionTests
     internal class UnaryExpressions : TestBase
     {
         [Test]
+        public void UnaryPlus()
+        {
+            Resolve(
+                "+1",
+                new UnaryExpression(
+                    new Constant(1),
+                    typeof(int),
+                    Ast.ExpressionType.Minus
+                )
+            );
+        }
+
+        [Test]
         public void UnaryMinus()
         {
             Resolve(
@@ -23,6 +36,24 @@ namespace Expressions.Test.ExpressionTests
         }
 
         [Test]
+        [ExpectedException]
+        public void IllegalUnaryPlus()
+        {
+            Resolve(
+                "+\"\""
+            );
+        }
+
+        [Test]
+        [ExpectedException]
+        public void IllegalUnaryMinus()
+        {
+            Resolve(
+                "-\"\""
+            );
+        }
+
+        [Test]
         public void UnaryNot()
         {
             Resolve(
@@ -32,6 +63,14 @@ namespace Expressions.Test.ExpressionTests
                     typeof(bool),
                     Ast.ExpressionType.Not
                 )
+            );
+        }
+
+        [Test]
+        public void IllegalUnaryNot()
+        {
+            Resolve(
+                "not \"\""
             );
         }
     }

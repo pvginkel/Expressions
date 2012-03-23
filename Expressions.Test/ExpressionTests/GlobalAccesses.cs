@@ -94,19 +94,71 @@ namespace Expressions.Test.ExpressionTests
             );
         }
 
+        [Test]
+        public void Variable()
+        {
+            var context = new ExpressionContext();
+
+            context.Variables.Add(new global::Expressions.Variable("Variable") { Value = 1 });
+
+            Resolve(
+                context,
+                "Variable",
+                new VariableAccess(typeof(int), 0)
+            );
+        }
+
+        [Test]
+        public void MethodOnImport()
+        {
+            Resolve(
+                new ExpressionContext(new[] { new Import(typeof(Owner)) }),
+                "StaticMethod()",
+                new MethodCall(
+                    new TypeAccess(typeof(Owner)),
+                    typeof(Owner).GetMethod("StaticMethod"),
+                    null
+                )
+            );
+        }
+
+        [Test]
+        public void MethodOnImportWithNamespace()
+        {
+            Resolve(
+                new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") }),
+                "Owner.StaticMethod()",
+                new MethodCall(
+                    new TypeAccess(typeof(Owner)),
+                    typeof(Owner).GetMethod("StaticMethod"),
+                    null
+                )
+            );
+        }
+
+        [Test]
+        [ExpectedException]
+        public void CannotCallInstanceOnImport()
+        {
+            Resolve(
+                new ExpressionContext(new[] { new Import(typeof(Owner)) }),
+                "IntProperty"
+            );
+        }
+
         public class Owner
         {
             public int IntProperty { get; set; }
 
-            public int IntField;
+            public int IntField = 0;
 
             public int[] IntArrayProperty { get; set; }
 
-            public int[] IntArrayField;
+            public int[] IntArrayField = null;
 
-            public OwnerItem Item;
+            public OwnerItem Item = null;
 
-            public static int StaticIntField;
+            public static int StaticIntField = 0;
 
             public static int StaticIntProperty { get; set; }
 

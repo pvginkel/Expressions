@@ -37,5 +37,19 @@ namespace Expressions.Test.ExpressionTests
                 )
             );
         }
+
+        [Test]
+        public void LegalCasting()
+        {
+            Resolve(
+                "1l + 1",
+                new BinaryExpression(
+                    new Constant(1L),
+                    new Constant(1),
+                    ExpressionType.Add,
+                    typeof(long)
+                )
+            );
+        }
     }
 }
