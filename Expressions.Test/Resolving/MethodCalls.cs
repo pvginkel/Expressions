@@ -220,6 +220,25 @@ namespace Expressions.Test.Resolving
             );
         }
 
+        [Test]
+        public void MethodWithNullParameter()
+        {
+            Resolve(
+                "1.ToString(\"o\", null)",
+                new ResolvedMethodCall(
+                    new MethodIdentifier(
+                        new ConstantIdentifier(1),
+                        typeof(int).GetMethod("ToString", new[] { typeof(string), typeof(IFormatProvider) })
+                    ),
+                    new IResolvedAstNode[]
+                    {
+                        new ResolvedConstant("o"),
+                        new ResolvedConstant(null)
+                    }
+                )
+            );
+        }
+
         public class Owner
         {
             public int Variable { get; set; }

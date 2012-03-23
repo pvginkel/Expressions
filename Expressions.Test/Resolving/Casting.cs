@@ -134,5 +134,14 @@ namespace Expressions.Test.Resolving
                 )
             );
         }
+
+        [Test]
+        [ExpectedException]
+        public void CastingToUnknownType()
+        {
+            Resolve(
+                "cast(null, Unknown.Type)"
+            );
+        }
     }
 }
