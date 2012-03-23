@@ -109,7 +109,7 @@ namespace Expressions.Test.FleeLanguage
                 Assert.Fail();
 
             }
-            catch (Exception ex)
+            catch
             {
             }
         }
@@ -121,7 +121,7 @@ namespace Expressions.Test.FleeLanguage
                 new DynamicExpression(expression, ExpressionLanguage.Flee).Bind(context);
                 Assert.Fail("Compile exception expected");
             }
-            catch (Exception ex)
+            catch
             {
                 //Assert.AreEqual(expectedReason, ex.Reason, string.Format("Expected reason '{0}' but got '{1}'", expectedReason, ex.Reason));
             }
@@ -148,7 +148,7 @@ namespace Expressions.Test.FleeLanguage
                 }
                 else
                 {
-                    Assert.IsInstanceOfType(expectedType, expressionResult);
+                    Assert.That(expressionResult, Is.InstanceOf(expectedType));
                 }
 
             }
@@ -224,7 +224,7 @@ namespace Expressions.Test.FleeLanguage
                 string[] arr = line.Split(SEPARATOR_CHAR);
                 processor(arr);
             }
-            catch (Exception ex)
+            catch
             {
                 this.WriteMessage("Failed line: {0}", line);
                 throw;

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 
+#pragma warning disable 0649, 0169, 0414
+
 namespace Expressions.Test.FleeLanguage
 {
     public struct Mouse

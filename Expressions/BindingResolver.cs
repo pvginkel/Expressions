@@ -285,14 +285,14 @@ namespace Expressions
             switch (unaryExpression.Type)
             {
                 case ExpressionType.Plus:
-                    if (!TypeUtil.IsNumeric(operand.Type))
+                    if (!TypeUtil.IsValidUnaryArgument(operand.Type))
                         throw new NotSupportedException("Cannot plus non numeric type");
 
                     type = operand.Type;
                     break;
 
                 case ExpressionType.Minus:
-                    if (!TypeUtil.IsNumeric(operand.Type))
+                    if (!TypeUtil.IsValidUnaryArgument(operand.Type))
                         throw new NotSupportedException("Cannot plus non numeric type");
 
                     // TODO: Make constants signed and handle minus on unsigned's.

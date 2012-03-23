@@ -83,7 +83,7 @@ namespace Expressions.Test.FleeLanguage
                 e.Invoke(context);
                 Assert.IsFalse(shouldOverflow);
             }
-            catch (OverflowException ex)
+            catch (OverflowException)
             {
                 Assert.IsTrue(shouldOverflow);
             }

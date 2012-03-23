@@ -9,7 +9,7 @@ namespace Expressions
 {
     internal static class ILUtil
     {
-        public static void Emit(ILGenerator il, OpCode opcode, MethodBase methodBase)
+        private static void Emit(ILGenerator il, OpCode opcode, MethodBase methodBase)
         {
             Debug.Assert(methodBase is MethodInfo || methodBase is ConstructorInfo);
 
@@ -23,7 +23,7 @@ namespace Expressions
             }
         }
 
-        public static void EmitLoadArg(ILGenerator il, int index)
+        private static void EmitLoadArg(ILGenerator il, int index)
         {
             Debug.Assert(index >= 0);
 
@@ -54,7 +54,7 @@ namespace Expressions
             }
         }
 
-        public static void EmitLoadArgAddress(ILGenerator il, int index)
+        private static void EmitLoadArgAddress(ILGenerator il, int index)
         {
             Debug.Assert(index >= 0);
 
@@ -68,7 +68,7 @@ namespace Expressions
             }
         }
 
-        public static void EmitStoreArg(ILGenerator il, int index)
+        private static void EmitStoreArg(ILGenerator il, int index)
         {
             Debug.Assert(index >= 0);
 
@@ -85,7 +85,7 @@ namespace Expressions
         /// <summary>
         /// Emits a Ldind* instruction for the appropriate type
         /// </summary>
-        public static void EmitLoadValueIndirect(ILGenerator il, Type type)
+        private static void EmitLoadValueIndirect(ILGenerator il, Type type)
         {
             Require.NotNull(type, "type");
             if (type.IsValueType)
@@ -141,7 +141,7 @@ namespace Expressions
         /// <summary>
         /// Emits a Stind* instruction for the appropriate type.
         /// </summary>
-        public static void EmitStoreValueIndirect(ILGenerator il, Type type)
+        private static void EmitStoreValueIndirect(ILGenerator il, Type type)
         {
             Require.NotNull(type, "type");
 
@@ -244,7 +244,7 @@ namespace Expressions
         /// <summary>
         /// Emits a Stelem* instruction for the appropriate type.
         /// </summary>
-        public static void EmitStoreElement(ILGenerator il, Type type)
+        private static void EmitStoreElement(ILGenerator il, Type type)
         {
             Require.NotNull(type, "type");
 
@@ -292,7 +292,7 @@ namespace Expressions
             }
         }
 
-        public static void EmitType(ILGenerator il, Type type)
+        private static void EmitType(ILGenerator il, Type type)
         {
             Require.NotNull(type, "type");
 
@@ -300,7 +300,7 @@ namespace Expressions
             il.Emit(OpCodes.Call, typeof(Type).GetMethod("GetTypeFromHandle"));
         }
 
-        public static void EmitFieldAddress(ILGenerator il, FieldInfo fi)
+        private static void EmitFieldAddress(ILGenerator il, FieldInfo fi)
         {
             Require.NotNull(fi, "fi");
 
@@ -314,7 +314,7 @@ namespace Expressions
             }
         }
 
-        public static void EmitFieldGet(ILGenerator il, FieldInfo fi)
+        private static void EmitFieldGet(ILGenerator il, FieldInfo fi)
         {
             Require.NotNull(fi, "fi");
 
@@ -328,7 +328,7 @@ namespace Expressions
             }
         }
 
-        public static void EmitFieldSet(ILGenerator il, FieldInfo fi)
+        private static void EmitFieldSet(ILGenerator il, FieldInfo fi)
         {
             Require.NotNull(fi, "fi");
 
@@ -343,7 +343,7 @@ namespace Expressions
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
-        public static void EmitNew(ILGenerator il, ConstructorInfo ci)
+        private static void EmitNew(ILGenerator il, ConstructorInfo ci)
         {
             Require.NotNull(ci, "ci");
             Require.That(!ci.DeclaringType.ContainsGenericParameters, "Illegal new generic params");
@@ -352,7 +352,7 @@ namespace Expressions
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
-        public static void EmitNew(ILGenerator il, Type type, Type[] paramTypes)
+        private static void EmitNew(ILGenerator il, Type type, Type[] paramTypes)
         {
             Require.NotNull(type, "type");
             Require.NotNull(paramTypes, "paramTypes");
@@ -369,14 +369,14 @@ namespace Expressions
             il.Emit(OpCodes.Ldnull);
         }
 
-        public static void EmitString(ILGenerator il, string value)
+        private static void EmitString(ILGenerator il, string value)
         {
             Require.NotNull(value, "value");
 
             il.Emit(OpCodes.Ldstr, value);
         }
 
-        public static void EmitBoolean(ILGenerator il, bool value)
+        private static void EmitBoolean(ILGenerator il, bool value)
         {
             if (value)
             {
@@ -388,37 +388,37 @@ namespace Expressions
             }
         }
 
-        public static void EmitChar(ILGenerator il, char value)
+        private static void EmitChar(ILGenerator il, char value)
         {
             EmitInt(il, value);
             il.Emit(OpCodes.Conv_U2);
         }
 
-        public static void EmitByte(ILGenerator il, byte value)
+        private static void EmitByte(ILGenerator il, byte value)
         {
             EmitInt(il, value);
             il.Emit(OpCodes.Conv_U1);
         }
 
-        public static void EmitSByte(ILGenerator il, sbyte value)
+        private static void EmitSByte(ILGenerator il, sbyte value)
         {
             EmitInt(il, value);
             il.Emit(OpCodes.Conv_I1);
         }
 
-        public static void EmitShort(ILGenerator il, short value)
+        private static void EmitShort(ILGenerator il, short value)
         {
             EmitInt(il, value);
             il.Emit(OpCodes.Conv_I2);
         }
 
-        public static void EmitUShort(ILGenerator il, ushort value)
+        private static void EmitUShort(ILGenerator il, ushort value)
         {
             EmitInt(il, value);
             il.Emit(OpCodes.Conv_U2);
         }
 
-        public static void EmitInt(ILGenerator il, int value)
+        private static void EmitInt(ILGenerator il, int value)
         {
             OpCode c;
             switch (value)
@@ -467,13 +467,13 @@ namespace Expressions
             il.Emit(c);
         }
 
-        public static void EmitUInt(ILGenerator il, uint value)
+        private static void EmitUInt(ILGenerator il, uint value)
         {
             EmitInt(il, (int)value);
             il.Emit(OpCodes.Conv_U4);
         }
 
-        public static void EmitLong(ILGenerator il, long value)
+        private static void EmitLong(ILGenerator il, long value)
         {
             il.Emit(OpCodes.Ldc_I8, value);
 
@@ -486,24 +486,24 @@ namespace Expressions
             il.Emit(OpCodes.Conv_I8);
         }
 
-        public static void EmitULong(ILGenerator il, ulong value)
+        private static void EmitULong(ILGenerator il, ulong value)
         {
             il.Emit(OpCodes.Ldc_I8, (long)value);
             il.Emit(OpCodes.Conv_U8);
         }
 
-        public static void EmitDouble(ILGenerator il, double value)
+        private static void EmitDouble(ILGenerator il, double value)
         {
             il.Emit(OpCodes.Ldc_R8, value);
         }
 
-        public static void EmitSingle(ILGenerator il, float value)
+        private static void EmitSingle(ILGenerator il, float value)
         {
             il.Emit(OpCodes.Ldc_R4, value);
         }
 
         // matches TryEmitConstant
-        public static bool CanEmitConstant(object value, Type type)
+        private static bool CanEmitConstant(object value, Type type)
         {
             if (value == null || CanEmitILConstant(type))
             {
@@ -559,7 +559,7 @@ namespace Expressions
         //
         // Note: we support emitting more things as IL constants than
         // Linq does
-        public static void EmitConstant(ILGenerator il, object value, Type type)
+        private static void EmitConstant(ILGenerator il, object value, Type type)
         {
             if (value == null)
             {
@@ -612,12 +612,12 @@ namespace Expressions
             throw new InvalidOperationException();
         }
 
-        public static bool ShouldLdtoken(Type t)
+        private static bool ShouldLdtoken(Type t)
         {
             return t is TypeBuilder || t.IsGenericParameter || t.IsVisible;
         }
 
-        public static bool ShouldLdtoken(MethodBase mb)
+        private static bool ShouldLdtoken(MethodBase mb)
         {
             // Can't ldtoken on a DynamicMethod
             if (mb is DynamicMethod)
@@ -683,7 +683,7 @@ namespace Expressions
 
         public static void EmitConvertToType(ILGenerator il, Type typeFrom, Type typeTo, bool isChecked)
         {
-            if (TypeUtils.AreEquivalent(typeFrom, typeTo))
+            if (TypeUtil.AreEquivalent(typeFrom, typeTo))
             {
                 return;
             }
@@ -693,11 +693,11 @@ namespace Expressions
                 throw new InvalidOperationException();
             }
 
-            bool isTypeFromNullable = TypeUtils.IsNullableType(typeFrom);
-            bool isTypeToNullable = TypeUtils.IsNullableType(typeTo);
+            bool isTypeFromNullable = TypeUtil.IsNullableType(typeFrom);
+            bool isTypeToNullable = TypeUtil.IsNullableType(typeTo);
 
-            Type nnExprType = TypeUtils.GetNonNullableType(typeFrom);
-            Type nnType = TypeUtils.GetNonNullableType(typeTo);
+            Type nnExprType = TypeUtil.GetNonNullableType(typeFrom);
+            Type nnType = TypeUtil.GetNonNullableType(typeTo);
 
             if (typeFrom.IsInterface || // interface cast
                typeTo.IsInterface ||
@@ -705,7 +705,7 @@ namespace Expressions
                typeTo == typeof(object) ||
                typeFrom == typeof(System.Enum) ||
                typeFrom == typeof(System.ValueType) ||
-               TypeUtils.IsLegalExplicitVariantDelegateConversion(typeFrom, typeTo))
+               TypeUtil.IsLegalExplicitVariantDelegateConversion(typeFrom, typeTo))
             {
                 EmitCastToType(il, typeFrom, typeTo);
             }
@@ -713,7 +713,7 @@ namespace Expressions
             {
                 EmitNullableConversion(il, typeFrom, typeTo, isChecked);
             }
-            else if (!(TypeUtils.IsConvertible(typeFrom) && TypeUtils.IsConvertible(typeTo)) // primitive runtime conversion
+            else if (!(TypeUtil.IsConvertible(typeFrom) && TypeUtil.IsConvertible(typeTo)) // primitive runtime conversion
                      &&
                      (nnExprType.IsAssignableFrom(nnType) || // down cast
                      nnType.IsAssignableFrom(nnExprType))) // up cast
@@ -760,8 +760,8 @@ namespace Expressions
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         private static void EmitNumericConversion(ILGenerator il, Type typeFrom, Type typeTo, bool isChecked)
         {
-            bool isFromUnsigned = TypeUtils.IsUnsigned(typeFrom);
-            bool isFromFloatingPoint = TypeUtils.IsFloatingPoint(typeFrom);
+            bool isFromUnsigned = TypeUtil.IsUnsigned(typeFrom);
+            bool isFromFloatingPoint = TypeUtil.IsFloatingPoint(typeFrom);
             if (typeTo == typeof(Single))
             {
                 if (isFromUnsigned)
@@ -899,8 +899,8 @@ namespace Expressions
 
         private static void EmitNullableToNullableConversion(ILGenerator il, Type typeFrom, Type typeTo, bool isChecked)
         {
-            Debug.Assert(TypeUtils.IsNullableType(typeFrom));
-            Debug.Assert(TypeUtils.IsNullableType(typeTo));
+            Debug.Assert(TypeUtil.IsNullableType(typeFrom));
+            Debug.Assert(TypeUtil.IsNullableType(typeTo));
             LocalBuilder locFrom = il.DeclareLocal(typeFrom);
             il.Emit(OpCodes.Stloc, locFrom);
             LocalBuilder locTo = il.DeclareLocal(typeTo);
@@ -911,8 +911,8 @@ namespace Expressions
             il.Emit(OpCodes.Brfalse_S, labIfNull);
             il.Emit(OpCodes.Ldloca, locFrom);
             EmitGetValueOrDefault(il, typeFrom);
-            Type nnTypeFrom = TypeUtils.GetNonNullableType(typeFrom);
-            Type nnTypeTo = TypeUtils.GetNonNullableType(typeTo);
+            Type nnTypeFrom = TypeUtil.GetNonNullableType(typeFrom);
+            Type nnTypeTo = TypeUtil.GetNonNullableType(typeTo);
             EmitConvertToType(il, nnTypeFrom, nnTypeTo, isChecked);
             // construct result type
             ConstructorInfo ci = typeTo.GetConstructor(new[] { nnTypeTo });
@@ -931,10 +931,10 @@ namespace Expressions
 
         private static void EmitNonNullableToNullableConversion(ILGenerator il, Type typeFrom, Type typeTo, bool isChecked)
         {
-            Debug.Assert(!TypeUtils.IsNullableType(typeFrom));
-            Debug.Assert(TypeUtils.IsNullableType(typeTo));
+            Debug.Assert(!TypeUtil.IsNullableType(typeFrom));
+            Debug.Assert(TypeUtil.IsNullableType(typeTo));
             LocalBuilder locTo = il.DeclareLocal(typeTo);
-            Type nnTypeTo = TypeUtils.GetNonNullableType(typeTo);
+            Type nnTypeTo = TypeUtil.GetNonNullableType(typeTo);
             EmitConvertToType(il, typeFrom, nnTypeTo, isChecked);
             ConstructorInfo ci = typeTo.GetConstructor(new[] { nnTypeTo });
             il.Emit(OpCodes.Newobj, ci);
@@ -945,8 +945,8 @@ namespace Expressions
 
         private static void EmitNullableToNonNullableConversion(ILGenerator il, Type typeFrom, Type typeTo, bool isChecked)
         {
-            Debug.Assert(TypeUtils.IsNullableType(typeFrom));
-            Debug.Assert(!TypeUtils.IsNullableType(typeTo));
+            Debug.Assert(TypeUtil.IsNullableType(typeFrom));
+            Debug.Assert(!TypeUtil.IsNullableType(typeTo));
             if (typeTo.IsValueType)
                 EmitNullableToNonNullableStructConversion(il, typeFrom, typeTo, isChecked);
             else
@@ -956,21 +956,21 @@ namespace Expressions
 
         private static void EmitNullableToNonNullableStructConversion(ILGenerator il, Type typeFrom, Type typeTo, bool isChecked)
         {
-            Debug.Assert(TypeUtils.IsNullableType(typeFrom));
-            Debug.Assert(!TypeUtils.IsNullableType(typeTo));
+            Debug.Assert(TypeUtil.IsNullableType(typeFrom));
+            Debug.Assert(!TypeUtil.IsNullableType(typeTo));
             Debug.Assert(typeTo.IsValueType);
             LocalBuilder locFrom = il.DeclareLocal(typeFrom);
             il.Emit(OpCodes.Stloc, locFrom);
             il.Emit(OpCodes.Ldloca, locFrom);
             EmitGetValue(il, typeFrom);
-            Type nnTypeFrom = TypeUtils.GetNonNullableType(typeFrom);
+            Type nnTypeFrom = TypeUtil.GetNonNullableType(typeFrom);
             EmitConvertToType(il, nnTypeFrom, typeTo, isChecked);
         }
 
 
         private static void EmitNullableToReferenceConversion(ILGenerator il, Type typeFrom)
         {
-            Debug.Assert(TypeUtils.IsNullableType(typeFrom));
+            Debug.Assert(TypeUtil.IsNullableType(typeFrom));
             // We've got a conversion from nullable to Object, ValueType, Enum, etc.  Just box it so that
             // we get the nullable semantics.  
             il.Emit(OpCodes.Box, typeFrom);
@@ -979,8 +979,8 @@ namespace Expressions
 
         private static void EmitNullableConversion(ILGenerator il, Type typeFrom, Type typeTo, bool isChecked)
         {
-            bool isTypeFromNullable = TypeUtils.IsNullableType(typeFrom);
-            bool isTypeToNullable = TypeUtils.IsNullableType(typeTo);
+            bool isTypeFromNullable = TypeUtil.IsNullableType(typeFrom);
+            bool isTypeToNullable = TypeUtil.IsNullableType(typeTo);
             Debug.Assert(isTypeFromNullable || isTypeToNullable);
             if (isTypeFromNullable && isTypeToNullable)
                 EmitNullableToNullableConversion(il, typeFrom, typeTo, isChecked);
@@ -991,7 +991,7 @@ namespace Expressions
         }
 
 
-        public static void EmitHasValue(ILGenerator il, Type nullableType)
+        private static void EmitHasValue(ILGenerator il, Type nullableType)
         {
             MethodInfo mi = nullableType.GetMethod("get_HasValue", BindingFlags.Instance | BindingFlags.Public);
             Debug.Assert(nullableType.IsValueType);
@@ -999,7 +999,7 @@ namespace Expressions
         }
 
 
-        public static void EmitGetValue(ILGenerator il, Type nullableType)
+        private static void EmitGetValue(ILGenerator il, Type nullableType)
         {
             MethodInfo mi = nullableType.GetMethod("get_Value", BindingFlags.Instance | BindingFlags.Public);
             Debug.Assert(nullableType.IsValueType);
@@ -1007,7 +1007,7 @@ namespace Expressions
         }
 
 
-        public static void EmitGetValueOrDefault(ILGenerator il, Type nullableType)
+        private static void EmitGetValueOrDefault(ILGenerator il, Type nullableType)
         {
             MethodInfo mi = nullableType.GetMethod("GetValueOrDefault", System.Type.EmptyTypes);
             Debug.Assert(nullableType.IsValueType);
@@ -1018,7 +1018,7 @@ namespace Expressions
         /// Emits an array of constant values provided in the given list.
         /// The array is strongly typed.
         /// </summary>
-        public static void EmitArray<T>(ILGenerator il, IList<T> items)
+        private static void EmitArray<T>(ILGenerator il, IList<T> items)
         {
             Require.NotNull(items, "items");
 
@@ -1037,7 +1037,7 @@ namespace Expressions
         /// Emits an array of values of count size.  The items are emitted via the callback
         /// which is provided with the current item index to emit.
         /// </summary>
-        public static void EmitArray(ILGenerator il, Type elementType, int count, Action<int> emit)
+        private static void EmitArray(ILGenerator il, Type elementType, int count, Action<int> emit)
         {
             Require.NotNull(elementType, "elementType");
             Require.NotNull(emit, "emit");
@@ -1061,7 +1061,7 @@ namespace Expressions
         /// The code assumes that bounds for all dimensions
         /// are already emitted.
         /// </summary>
-        public static void EmitArray(ILGenerator il, Type arrayType)
+        private static void EmitArray(ILGenerator il, Type arrayType)
         {
             Require.NotNull(arrayType, "arrayType");
             Require.That(arrayType.IsArray, "Must be array", "arrayType");
@@ -1082,7 +1082,7 @@ namespace Expressions
             }
         }
 
-        public static void EmitDecimal(ILGenerator il, decimal value)
+        private static void EmitDecimal(ILGenerator il, decimal value)
         {
             if (Decimal.Truncate(value) == value)
             {
@@ -1124,7 +1124,7 @@ namespace Expressions
         /// Emits default(T)
         /// Semantics match C# compiler behavior
         /// </summary>
-        public static void EmitDefault(ILGenerator il, Type type)
+        private static void EmitDefault(ILGenerator il, Type type)
         {
             switch (Type.GetTypeCode(type))
             {
