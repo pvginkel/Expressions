@@ -1,4 +1,6 @@
-﻿using System;
+﻿// From http://flee.codeplex.com/
+
+using System;
 using NUnit.Framework;
 
 namespace Expressions.Test.FleeLanguage
