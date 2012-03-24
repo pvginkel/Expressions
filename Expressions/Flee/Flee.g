@@ -117,7 +117,7 @@ power_expression returns [IAstNode value]
 
 cast_expression returns [IAstNode value]
 	: CAST '(' e=expression ',' t=type_expression ')' { $value = new Cast($e.value, $t.value); }
-	| u=unary_expression { $value = $u.value; }
+	| u=if_expression { $value = $u.value; }
 	;
 
 type_expression returns [TypeIdentifier value]
@@ -132,6 +132,11 @@ type_expression returns [TypeIdentifier value]
 
 type_identifier returns [string value]
 	: e=IDENTIFIER { $value = $e.text; } ( DOT e=IDENTIFIER { $value = $value + "." + $e.text; } )*
+	;
+
+if_expression returns [IAstNode value]
+	: IF '(' e=expression ',' t=expression ',' l=expression ')' { $value = new Conditional($e.value, $t.value, $l.value); }
+	| u=unary_expression { $value = $u.value; }
 	;
 
 unary_expression returns [IAstNode value]
@@ -194,6 +199,10 @@ XOR
 
 CAST
 	: ('C'|'c')('A'|'a')('S'|'s')('T'|'t')
+	;
+
+IF
+	: ('I'|'i')('F'|'f')
 	;
 
 NOT

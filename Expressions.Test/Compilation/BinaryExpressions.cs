@@ -72,5 +72,19 @@ namespace Expressions.Test.Compilation
                 true
             );
         }
+
+        [Test]
+        public void CompareString()
+        {
+            var context = new ExpressionContext();
+
+            context.Variables.Add(new Variable("Variable") { Value = "ab" });
+
+            Resolve(
+                context,
+                "Variable = \"a\" + \"b\"",
+                true
+            );
+        }
     }
 }

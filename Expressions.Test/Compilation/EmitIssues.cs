@@ -61,7 +61,7 @@ namespace Expressions.Test.Compilation
             Resolve(
                 new ExpressionContext(new[] { new Import(typeof(Mouse), "Mouse") }, new ExpressionOwner()),
                 "DateTimeA.GetType().Name",
-                "123",
+                "DateTime",
                 new BoundExpressionOptions
                 {
                     AllowPrivateAccess = true

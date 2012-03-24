@@ -65,7 +65,7 @@ namespace Expressions.Test.Compilation
         }
 
         [Test]
-        public void ImplicitOperator()
+        public void ImplicitCast()
         {
             var context = new ExpressionContext();
 
@@ -82,11 +82,30 @@ namespace Expressions.Test.Compilation
             );
         }
 
+        [Test]
+        public void OperatorAdd()
+        {
+            var context = new ExpressionContext();
+
+            context.Variables.Add(new Variable("Owner") { Value = new Owner() });
+
+            Resolve(
+                context,
+                "Owner + 7",
+                7
+            );
+        }
+
         public class Owner
         {
             public static implicit operator double(Owner value)
             {
                 return 1.0;
+            }
+
+            public static int operator +(Owner owner, int value)
+            {
+                return value;
             }
         }
     }

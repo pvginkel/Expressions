@@ -18,11 +18,11 @@ namespace Expressions
 
         public override IExpression BinaryExpression(BinaryExpression binaryExpression)
         {
+            var left = binaryExpression.Left.Accept(this);
+            var right = binaryExpression.Right.Accept(this);
+
             if (binaryExpression.ExpressionType == ExpressionType.Add)
             {
-                var left = binaryExpression.Left.Accept(this);
-                var right = binaryExpression.Right.Accept(this);
-
                 if (left.Type == typeof(string) || right.Type == typeof(string))
                 {
                     return _resolver.ResolveMethod(
@@ -41,9 +41,6 @@ namespace Expressions
             }
             else if (binaryExpression.ExpressionType == ExpressionType.Power)
             {
-                var left = binaryExpression.Left.Accept(this);
-                var right = binaryExpression.Right.Accept(this);
-
                 return _resolver.ResolveMethod(
                     new TypeAccess(typeof(Math)),
                     "Pow",
@@ -51,7 +48,10 @@ namespace Expressions
                 );
             }
 
-            return base.BinaryExpression(binaryExpression);
+            if (left == binaryExpression.Left && right == binaryExpression.Right)
+                return binaryExpression;
+            else
+                return new BinaryExpression(left, right, binaryExpression.ExpressionType, binaryExpression.Type);
         }
 
         public override IExpression UnaryExpression(UnaryExpression unaryExpression)

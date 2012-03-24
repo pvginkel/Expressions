@@ -34,6 +34,11 @@ namespace Expressions.Ast
             Nodes = new ReadOnlyCollection<IAstNode>(_nodes);
         }
 
+        public AstNodeCollection(IList<IAstNode> nodes)
+        {
+            Nodes = new ReadOnlyCollection<IAstNode>(nodes);
+        }
+
         public T Accept<T>(IAstVisitor<T> visitor)
         {
             throw new NotSupportedException();

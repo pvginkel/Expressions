@@ -28,7 +28,13 @@ namespace Expressions
             switch (Type.GetTypeCode(Type))
             {
                 case TypeCode.Int32:
-                    return int.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    long value = long.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+
+                    if (value >= int.MinValue && value <= int.MaxValue)
+                        return (int)value;
+                    else
+                        return value;
+
                 case TypeCode.UInt32:
                     return uint.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
                 case TypeCode.Int64:

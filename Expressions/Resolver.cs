@@ -66,8 +66,8 @@ namespace Expressions
         public IExpression Resolve(IAstNode node)
         {
             return node
-                .Accept(new BindingVisitor(this))
                 .Accept(new ConstantParsingVisitor())
+                .Accept(new BindingVisitor(this))
                 .Accept(new ConversionVisitor(this));
         }
 
@@ -190,6 +190,61 @@ namespace Expressions
             }
 
             return candidates;
+        }
+
+        internal MethodInfo FindOperatorMethod(string methodName, Type[] sourceTypes, Type returnType, Type[] parameterTypes)
+        {
+            return FindOperatorMethod(methodName, sourceTypes, returnType, parameterTypes, null);
+        }
+
+        internal MethodInfo FindOperatorMethod(string methodName, Type[] sourceTypes, Type returnType, Type[] parameterTypes, bool[] parametersNull)
+        {
+            var candidates = new List<MethodInfo>();
+
+            foreach (var sourceType in sourceTypes)
+            {
+                foreach (var method in sourceType.GetMethods(BindingFlags.Static | BindingFlags.Public))
+                {
+                    if (method.Name != methodName)
+                        continue;
+
+                    var parameters = method.GetParameters();
+
+                    if (parameters.Length != parameterTypes.Length)
+                        continue;
+
+                    bool match = true;
+                    bool implicitMatch = true;
+
+                    if (returnType != null)
+                    {
+                        match = returnType == method.ReturnType;
+                        implicitMatch = TypeUtil.CanCastImplicitely(
+                            method.ReturnType, returnType, false
+                        );
+                    }
+
+                    for (int i = 0; i < parameterTypes.Length; i++)
+                    {
+                        if (parameters[i].ParameterType != parameterTypes[i])
+                            match = false;
+
+                        if (!TypeUtil.CanCastImplicitely(
+                            parameterTypes[i],
+                            parameters[i].ParameterType,
+                            parametersNull != null && parametersNull[i]
+                        ))
+                            implicitMatch = false;
+                    }
+
+                    if (match)
+                        return method;
+                    if (implicitMatch)
+                        candidates.Add(method);
+                }
+            }
+
+            return candidates.Count == 1 ? candidates[0] : null;
         }
     }
 }

@@ -62,15 +62,21 @@ namespace Expressions
 
             // See whether we have an implicit cast.
 
-            var castMethod =
-                ResolveCastMethod(fromType, toType, fromType, "op_Implicit") ??
-                ResolveCastMethod(fromType, toType, toType, "op_Implicit");
+            var castMethod = _resolver.FindOperatorMethod(
+                "op_Implicit",
+                new[] { fromType, toType },
+                toType,
+                new[] { fromType }
+            );
 
             if (castMethod == null && allowExplicit)
             {
-                castMethod =
-                    ResolveCastMethod(fromType, toType, fromType, "op_Explicit") ??
-                    ResolveCastMethod(fromType, toType, toType, "op_Explicit");
+                castMethod = _resolver.FindOperatorMethod(
+                    "op_Explicit",
+                    new[] { fromType, toType },
+                    toType,
+                    new[] { fromType }
+                );
             }
 
             if (castMethod != null)
@@ -91,30 +97,6 @@ namespace Expressions
             // Let ILUtill handle it.
 
             ILUtil.EmitConvertToType(_il, fromType, toType, isChecked);
-        }
-
-        private MethodInfo ResolveCastMethod(Type fromType, Type toType, Type sourceType, string methodName)
-        {
-            var candidates = new List<MethodInfo>();
-
-            foreach (var method in sourceType.GetMethods(BindingFlags.Static | BindingFlags.Public))
-            {
-                if (method.Name != methodName)
-                    continue;
-
-                var parameters = method.GetParameters();
-
-                if (method.ReturnType == toType && parameters[0].ParameterType == fromType)
-                    return method;
-
-                if (
-                    TypeUtil.CanCastImplicitely(fromType, parameters[0].ParameterType, false) &&
-                    TypeUtil.CanCastImplicitely(method.ReturnType, toType, false)
-                )
-                    candidates.Add(method);
-            }
-
-            return candidates.Count == 1 ? candidates[0] : null;
         }
 
         private class Visitor : IExpressionVisitor
@@ -507,6 +489,32 @@ namespace Expressions
             public void TypeAccess(TypeAccess typeAccess)
             {
                 throw new InvalidOperationException();
+            }
+
+            public void Conditional(Conditional conditional)
+            {
+                conditional.Condition.Accept(this);
+
+                var elseBranch = _il.DefineLabel();
+                var afterBranch = _il.DefineLabel();
+
+                _il.Emit(OpCodes.Brfalse, elseBranch);
+
+                conditional.Then.Accept(this);
+
+                if (conditional.Then.Type != conditional.Type)
+                    _compiler.ExtendedConvertToType(conditional.Then.Type, conditional.Type, true, false);
+
+                _il.Emit(OpCodes.Br, afterBranch);
+
+                _il.MarkLabel(elseBranch);
+
+                conditional.Else.Accept(this);
+
+                if (conditional.Else.Type != conditional.Type)
+                    _compiler.ExtendedConvertToType(conditional.Else.Type, conditional.Type, true, false);
+
+                _il.MarkLabel(afterBranch);
             }
         }
     }

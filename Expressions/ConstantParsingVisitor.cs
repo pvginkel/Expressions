@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using Expressions.Expressions;
+using Expressions.Ast;
 
 namespace Expressions
 {
-    internal class ConstantParsingVisitor : ExpressionVisitor
+    internal class ConstantParsingVisitor : AstVisitor
     {
-        public override IExpression UnaryExpression(UnaryExpression unaryExpression)
+        public override IAstNode UnaryExpression(UnaryExpression unaryExpression)
         {
-            if (unaryExpression.ExpressionType == ExpressionType.Minus)
+            if (unaryExpression.Type == ExpressionType.Minus)
             {
                 var constant = unaryExpression.Operand as Constant;
 
@@ -35,7 +35,7 @@ namespace Expressions
             return base.UnaryExpression(unaryExpression);
         }
 
-        public override IExpression Constant(Constant constant)
+        public override IAstNode Constant(Constant constant)
         {
             var unparsedNumber = constant.Value as UnparsedNumber;
 

@@ -23,6 +23,8 @@ namespace Expressions.Expressions
         void VariableAccess(VariableAccess variableAccess);
 
         void TypeAccess(TypeAccess typeAccess);
+
+        void Conditional(Conditional conditional);
     }
 
     internal interface IExpressionVisitor<T>
@@ -44,6 +46,8 @@ namespace Expressions.Expressions
         T VariableAccess(VariableAccess variableAccess);
 
         T TypeAccess(TypeAccess typeAccess);
+
+        T Conditional(Conditional conditional);
     }
 
     internal class ExpressionVisitor : IExpressionVisitor<IExpression>
@@ -134,6 +138,18 @@ namespace Expressions.Expressions
         public IExpression TypeAccess(TypeAccess typeAccess)
         {
             return typeAccess;
+        }
+
+        public IExpression Conditional(Conditional conditional)
+        {
+            var condition = conditional.Condition.Accept(this);
+            var then = conditional.Then.Accept(this);
+            var @else = conditional.Else.Accept(this);
+
+            if (condition == conditional.Condition && then == conditional.Then && @else == conditional.Else)
+                return conditional;
+            else
+                return new Conditional(condition, then, @else, conditional.Type);
         }
     }
 }

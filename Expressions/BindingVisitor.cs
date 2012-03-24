@@ -20,10 +20,59 @@ namespace Expressions
 
         public IExpression BinaryExpression(Ast.BinaryExpression binaryExpression)
         {
+            // We need to do this here and not in the conversion phase because
+            // we need the return type of the method to fully bind the tree.
+
             var left = binaryExpression.Left.Accept(this);
             var right = binaryExpression.Right.Accept(this);
 
-            var commonType = ResolveExpressionCommonType(left.Type, right.Type, binaryExpression.Type);
+            string operatorName = null;
+
+            switch (binaryExpression.Type)
+            {
+                case ExpressionType.Add: operatorName = "op_Addition"; break;
+                case ExpressionType.Divide: operatorName = "op_Division"; break;
+                case ExpressionType.Multiply: operatorName = "op_Multiply"; break;
+                case ExpressionType.Subtract: operatorName = "op_Subtraction"; break;
+                case ExpressionType.Equals: operatorName = "op_Equality"; break;
+                case ExpressionType.NotEquals: operatorName = "op_Inequality"; break;
+                case ExpressionType.Greater: operatorName = "op_GreaterThan"; break;
+                case ExpressionType.GreaterOrEquals: operatorName = "op_GreaterThanOrEqual"; break;
+                case ExpressionType.Less: operatorName = "op_LessThan"; break;
+                case ExpressionType.LessOrEquals: operatorName = "op_LessThanOrEqual"; break;
+                case ExpressionType.ShiftLeft: operatorName = "op_LeftShift"; break;
+                case ExpressionType.ShiftRight: operatorName = "op_RightShift"; break;
+                case ExpressionType.Modulo: operatorName = "op_Modulus"; break;
+                case ExpressionType.And: operatorName = "op_LogicalAnd"; break;
+                case ExpressionType.Or: operatorName = "op_LogicalOr"; break;
+                case ExpressionType.Xor: operatorName = "op_ExclusiveOr"; break;
+            }
+
+            if (operatorName != null)
+            {
+                var method = _resolver.FindOperatorMethod(
+                    operatorName,
+                    new[] { left.Type, right.Type },
+                    null,
+                    new[] { left.Type, right.Type },
+                    new[] { left is Expressions.Constant && ((Expressions.Constant)left).Value == null, right is Expressions.Constant && ((Expressions.Constant)right).Value == null }
+                );
+
+                if (method != null)
+                {
+                    return new Expressions.MethodCall(
+                        new TypeAccess(typeof(string)),
+                        method,
+                        new[]
+                        {
+                            left,
+                            right
+                        }
+                    );
+                }
+            }
+
+            var commonType = ResolveExpressionCommonType(left.Type, right.Type, binaryExpression.Type == ExpressionType.Add);
             var type = ResolveExpressionType(left.Type, right.Type, commonType, binaryExpression.Type);
 
             return new Expressions.BinaryExpression(left, right, binaryExpression.Type, type, commonType);
@@ -337,7 +386,7 @@ namespace Expressions
             return result;
         }
 
-        private Type ResolveExpressionCommonType(Type left, Type right, ExpressionType type)
+        private Type ResolveExpressionCommonType(Type left, Type right, bool allowStringConcat)
         {
             Require.NotNull(left, "left");
             Require.NotNull(right, "right");
@@ -351,7 +400,7 @@ namespace Expressions
 
             // Special cast for adding strings.
 
-            if (type == ExpressionType.Add && (left == typeof(string) || right == typeof(string)))
+            if (allowStringConcat && (left == typeof(string) || right == typeof(string)))
                 return typeof(string);
 
             // Can we cast implicitly?
@@ -431,6 +480,17 @@ namespace Expressions
                 default:
                     return commonType;
             }
+        }
+
+        public IExpression Conditional(Ast.Conditional conditional)
+        {
+            var condition = conditional.Condition.Accept(this);
+            var then = conditional.Then.Accept(this);
+            var @else = conditional.Else.Accept(this);
+
+            var commonType = ResolveExpressionCommonType(then.Type, @else.Type, false);
+
+            return new Expressions.Conditional(condition, then, @else, commonType);
         }
     }
 }
