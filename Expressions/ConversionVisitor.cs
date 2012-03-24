@@ -36,7 +36,7 @@ namespace Expressions
                     if (left == binaryExpression.Left && right == binaryExpression.Right)
                         return binaryExpression;
                     else
-                        return new BinaryExpression(left, right, binaryExpression.ExpressionType, binaryExpression.Type);
+                        return new BinaryExpression(left, right, binaryExpression.ExpressionType, binaryExpression.Type, binaryExpression.CommonType);
                 }
             }
             else if (binaryExpression.ExpressionType == ExpressionType.Power)

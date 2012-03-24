@@ -22,9 +22,11 @@ namespace Expressions
         {
             var left = binaryExpression.Left.Accept(this);
             var right = binaryExpression.Right.Accept(this);
-            var type = ResolveExpressionType(left.Type, right.Type, binaryExpression.Type);
 
-            return new Expressions.BinaryExpression(left, right, binaryExpression.Type, type);
+            var commonType = ResolveExpressionCommonType(left.Type, right.Type, binaryExpression.Type);
+            var type = ResolveExpressionType(left.Type, right.Type, commonType, binaryExpression.Type);
+
+            return new Expressions.BinaryExpression(left, right, binaryExpression.Type, type, commonType);
         }
 
         public IExpression Cast(Ast.Cast cast)
@@ -314,15 +316,17 @@ namespace Expressions
             return result;
         }
 
-        private Type ResolveExpressionType(Type left, Type right, ExpressionType type)
+        private Type ResolveExpressionCommonType(Type left, Type right, ExpressionType type)
         {
             Require.NotNull(left, "left");
             Require.NotNull(right, "right");
 
+            // TODO: Implicit/explicit operators and operators for the expression type.
+
+            // No casting required.
+
             if (left == right)
                 return left;
-
-            // TODO: Implicit/explicit operators and operators for the expression type.
 
             // Special cast for adding strings.
 
@@ -354,6 +358,38 @@ namespace Expressions
             // We can't cast implicitly.
 
             throw new NotSupportedException(String.Format("Cannot implicitly cast {0} and {1}", left, right));
+        }
+
+        private Type ResolveExpressionType(Type left, Type right, Type commonType, ExpressionType type)
+        {
+            Require.NotNull(left, "left");
+            Require.NotNull(right, "right");
+
+            // TODO: Implicit/explicit operators and operators for the expression type.
+
+            // Boolean operators.
+
+            switch (type)
+            {
+                case ExpressionType.And:
+                case ExpressionType.Or:
+                case ExpressionType.Xor:
+                    if (left != typeof(bool) || right != typeof(bool))
+                        throw new NotSupportedException("Operands of logical operation must be logical");
+                    return typeof(bool);
+
+                case ExpressionType.Equals:
+                case ExpressionType.NotEquals:
+                case ExpressionType.Greater:
+                case ExpressionType.GreaterOrEquals:
+                case ExpressionType.Less:
+                case ExpressionType.LessOrEquals:
+                case ExpressionType.In:
+                    return typeof(bool);
+
+                default:
+                    return commonType;
+            }
         }
     }
 }

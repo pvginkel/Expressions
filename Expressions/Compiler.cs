@@ -71,8 +71,8 @@ namespace Expressions
 
             private void BinaryArithicExpression(BinaryExpression binaryExpression)
             {
-                Emit(binaryExpression.Left, binaryExpression.Type);
-                Emit(binaryExpression.Right, binaryExpression.Type);
+                Emit(binaryExpression.Left, binaryExpression.CommonType);
+                Emit(binaryExpression.Right, binaryExpression.CommonType);
 
                 switch (binaryExpression.ExpressionType)
                 {

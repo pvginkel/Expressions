@@ -123,6 +123,7 @@ namespace Expressions.Test.ExpressionTests
         private void PrintResolvedBinaryExpression(BinaryExpression node, int indent)
         {
             AppendLine(indent, "Type = " + node.Type);
+            AppendLine(indent, "CommonType = " + node.CommonType);
             AppendLine(indent, "ExpressionType = " + node.ExpressionType);
             AppendLine(indent, "Left =");
             PrintNode(node.Left, indent + 1);

@@ -28,11 +28,14 @@ namespace Expressions.Test.ExpressionTests
         {
             Resolve(
                 "1 + \"2\"",
-                new BinaryExpression(
-                    new Constant(1),
-                    new Constant("2"),
-                    ExpressionType.Add,
-                    typeof(string)
+                new MethodCall(
+                    new TypeAccess(typeof(string)),
+                    typeof(string).GetMethod("Concat", new[] { typeof(object), typeof(object) }),
+                    new IExpression[]
+                    {
+                        new Constant(1),
+                        new Constant("2")
+                    }
                 )
             );
         }
@@ -127,6 +130,26 @@ namespace Expressions.Test.ExpressionTests
                     new Constant(1.5),
                     ExpressionType.Add,
                     typeof(double)
+                )
+            );
+        }
+
+        [Test]
+        public void CompareAndEquals()
+        {
+            Resolve(
+                "10 > 2 = true",
+                new BinaryExpression(
+                    new BinaryExpression(
+                        new Constant(10),
+                        new Constant(2),
+                        ExpressionType.Greater,
+                        typeof(bool),
+                        typeof(int)
+                    ),
+                    new Constant(true),
+                    ExpressionType.Equals,
+                    typeof(bool)
                 )
             );
         }

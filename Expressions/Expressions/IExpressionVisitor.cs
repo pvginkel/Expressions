@@ -56,7 +56,7 @@ namespace Expressions.Expressions
             if (left == binaryExpression.Left && right == binaryExpression.Right)
                 return binaryExpression;
             else
-                return new BinaryExpression(left, right, binaryExpression.ExpressionType, binaryExpression.Type);
+                return new BinaryExpression(left, right, binaryExpression.ExpressionType, binaryExpression.Type, binaryExpression.CommonType);
         }
 
         public virtual IExpression Cast(Cast cast)

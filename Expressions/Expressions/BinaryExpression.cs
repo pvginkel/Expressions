@@ -15,16 +15,28 @@ namespace Expressions.Expressions
 
         public Type Type { get; private set; }
 
+        public Type CommonType { get; private set; }
+
+#if DEBUG
         public BinaryExpression(IExpression left, IExpression right, ExpressionType expressionType, Type type)
+            : this(left, right, expressionType, type, type)
+        {
+            // For unit testing.
+        }
+#endif
+
+        public BinaryExpression(IExpression left, IExpression right, ExpressionType expressionType, Type type, Type commonType)
         {
             Require.NotNull(left, "left");
             Require.NotNull(right, "right");
             Require.NotNull(type, "type");
+            Require.NotNull(commonType, "commonType");
 
             Left = left;
             Right = right;
             ExpressionType = expressionType;
             Type = type;
+            CommonType = commonType;
         }
 
         public void Accept(IExpressionVisitor visitor)
