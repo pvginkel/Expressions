@@ -353,6 +353,22 @@ namespace Expressions
                     if (rightType == left)
                         return rightType;
                 }
+
+                // Otherwise, find the first common type.
+
+                int lowest = int.MaxValue;
+
+                for (int i = 0; i < leftTable.Count; i++)
+                {
+                    for (int j = 0; j < rightTable.Count; j++)
+                    {
+                        if (leftTable[i] == rightTable[j])
+                            lowest = Math.Min(lowest, j);
+                    }
+                }
+
+                if (lowest != int.MaxValue)
+                    return rightTable[lowest];
             }
 
             // We can't cast implicitly.

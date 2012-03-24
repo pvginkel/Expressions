@@ -153,5 +153,20 @@ namespace Expressions.Test.ExpressionTests
                 )
             );
         }
+
+        [Test]
+        public void ComparesWithLongCast()
+        {
+            Resolve(
+                "-100 > 100U",
+                new BinaryExpression(
+                    new Constant(-100),
+                    new Constant(100u),
+                    ExpressionType.Greater,
+                    typeof(bool),
+                    typeof(long)
+                )
+            );
+        }
     }
 }

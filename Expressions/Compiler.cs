@@ -89,7 +89,10 @@ namespace Expressions
 
                     case ExpressionType.Greater:
                     case ExpressionType.LessOrEquals:
-                        _il.Emit(OpCodes.Cgt);
+                        if (TypeUtil.IsUnsigned(binaryExpression.CommonType))
+                            _il.Emit(OpCodes.Cgt_Un);
+                        else
+                            _il.Emit(OpCodes.Cgt);
 
                         if (binaryExpression.ExpressionType == ExpressionType.LessOrEquals)
                         {
@@ -100,9 +103,12 @@ namespace Expressions
 
                     case ExpressionType.Less:
                     case ExpressionType.GreaterOrEquals:
-                        _il.Emit(OpCodes.Clt);
+                        if (TypeUtil.IsUnsigned(binaryExpression.CommonType))
+                            _il.Emit(OpCodes.Clt_Un);
+                        else
+                            _il.Emit(OpCodes.Clt);
 
-                        if (binaryExpression.ExpressionType == ExpressionType.LessOrEquals)
+                        if (binaryExpression.ExpressionType == ExpressionType.GreaterOrEquals)
                         {
                             _il.Emit(OpCodes.Ldc_I4_0);
                             _il.Emit(OpCodes.Ceq);
@@ -114,7 +120,7 @@ namespace Expressions
                         break;
 
                     case ExpressionType.Divide:
-                        if (TypeUtil.IsUnsigned(binaryExpression.Type))
+                        if (TypeUtil.IsUnsigned(binaryExpression.CommonType))
                             _il.Emit(OpCodes.Div_Un);
                         else
                             _il.Emit(OpCodes.Div);
@@ -137,7 +143,7 @@ namespace Expressions
                         break;
 
                     case ExpressionType.Modulo:
-                        if (TypeUtil.IsUnsigned(binaryExpression.Type))
+                        if (TypeUtil.IsUnsigned(binaryExpression.CommonType))
                             _il.Emit(OpCodes.Rem_Un);
                         else
                             _il.Emit(OpCodes.Rem);

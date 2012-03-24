@@ -56,5 +56,21 @@ namespace Expressions.Test.Compilation
         {
             Resolve("2147483648U % 5U", 3);
         }
+
+        [Test]
+        public void GreaterEquals()
+        {
+            Resolve("100>=1", true);
+        }
+
+        [Test]
+        public void UnsignedLessThan()
+        {
+            Resolve(
+                new ExpressionContext(new[] { new Import(typeof(uint), "uint") }),
+                "uint.minvalue < uint.maxvalue",
+                true
+            );
+        }
     }
 }
