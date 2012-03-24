@@ -91,11 +91,11 @@ namespace Expressions.Flee
                 text.EndsWith("ul", StringComparison.OrdinalIgnoreCase) ||
                 text.EndsWith("lu", StringComparison.OrdinalIgnoreCase)
             )
-                return new Constant(ulong.Parse(text.Substring(0, text.Length - 2), numberStyles, CultureInfo.InvariantCulture));
+                return new Constant(new UnparsedNumber(text.Substring(0, text.Length - 2), typeof(ulong), numberStyles));
             else if (text.EndsWith("l", StringComparison.OrdinalIgnoreCase))
-                return new Constant(long.Parse(text.Substring(0, text.Length - 1), numberStyles, CultureInfo.InvariantCulture));
+                return new Constant(new UnparsedNumber(text.Substring(0, text.Length - 1), typeof(long), numberStyles));
             else if (text.EndsWith("u", StringComparison.OrdinalIgnoreCase))
-                return new Constant(uint.Parse(text.Substring(0, text.Length - 1), numberStyles, CultureInfo.InvariantCulture));
+                return new Constant(new UnparsedNumber(text.Substring(0, text.Length - 1), typeof(uint), numberStyles));
             else if (
                 !isHex && (
                     text.EndsWith("f", StringComparison.OrdinalIgnoreCase) ||
@@ -107,7 +107,23 @@ namespace Expressions.Flee
 
             Debug.Assert(isHex || Char.IsDigit(text[text.Length - 1]));
 
-            return new Constant(int.Parse(text, numberStyles, CultureInfo.InvariantCulture));
+            return new Constant(new UnparsedNumber(text, typeof(int), numberStyles));
+        }
+
+        private Constant ParseFloatingPoint(string text)
+        {
+            char suffix = Char.ToLowerInvariant(text[text.Length - 1]);
+
+            switch (suffix)
+            {
+                case 'f': return new Constant(new UnparsedNumber(text.Substring(0, text.Length - 1), typeof(float), NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent));
+                case 'd': return new Constant(new UnparsedNumber(text.Substring(0, text.Length - 1), typeof(double), NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent));
+                case 'm': return new Constant(new UnparsedNumber(text.Substring(0, text.Length - 1), typeof(decimal), NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent));
+                default:
+                    Debug.Assert(Char.IsDigit(suffix) || suffix == '.');
+
+                    return new Constant(new UnparsedNumber(text, typeof(double), NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent));
+            }
         }
 
         private Constant ParseCharacter(string text)
@@ -208,22 +224,6 @@ namespace Expressions.Flee
             }
 
             return sb.ToString();
-        }
-
-        private Constant ParseFloatingPoint(string text)
-        {
-            char suffix = Char.ToLowerInvariant(text[text.Length - 1]);
-
-            switch (suffix)
-            {
-                case 'f': return new Constant(float.Parse(text.Substring(0, text.Length - 1), NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
-                case 'd': return new Constant(double.Parse(text.Substring(0, text.Length - 1), NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
-                case 'm': return new Constant(decimal.Parse(text.Substring(0, text.Length - 1), NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
-                default:
-                    Debug.Assert(Char.IsDigit(suffix) || suffix == '.');
-
-                    return new Constant(double.Parse(text, NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
-            }
         }
 
         private IdentifierAccess CreateIdentifier(string text)

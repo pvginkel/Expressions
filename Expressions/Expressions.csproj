@@ -49,8 +49,10 @@
     <Compile Include="Ast\Cast.cs" />
     <Compile Include="Ast\AstNodeCollection.cs" />
     <Compile Include="BindingVisitor.cs" />
+    <Compile Include="ConstantParsingVisitor.cs" />
     <Compile Include="ConversionVisitor.cs" />
     <Compile Include="DynamicExpressionOptions.cs" />
+    <Compile Include="UnparsedNumber.cs" />
     <Compile Include="ExpressionType.cs" />
     <Compile Include="Ast\Constant.cs" />
     <Compile Include="Ast\IAstNode.cs" />

@@ -6,22 +6,20 @@ namespace Expressions.Expressions
 {
     internal class Constant : IExpression
     {
-        public Type Type
-        {
-            get
-            {
-                if (Value == null)
-                    return typeof(object);
-                else
-                    return Value.GetType();
-            }
-        }
+        public Type Type { get; private set; }
 
         public object Value { get; private set; }
 
         public Constant(object value)
         {
             Value = value;
+
+            if (value == null)
+                Type = typeof(object);
+            else if (value is UnparsedNumber)
+                Type = ((UnparsedNumber)value).Type;
+            else
+                Type = value.GetType();
         }
 
         public void Accept(IExpressionVisitor visitor)

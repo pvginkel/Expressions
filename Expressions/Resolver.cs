@@ -62,7 +62,10 @@ namespace Expressions
 
         public IExpression Resolve(IAstNode node)
         {
-            return node.Accept(new BindingVisitor(this)).Accept(new ConversionVisitor(this));
+            return node
+                .Accept(new BindingVisitor(this))
+                .Accept(new ConstantParsingVisitor())
+                .Accept(new ConversionVisitor(this));
         }
 
         public Expressions.MethodCall ResolveMethod(IExpression operand, string name, IExpression[] arguments)

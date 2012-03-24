@@ -27,11 +27,7 @@ namespace Expressions.Test.ExpressionTests
         {
             Resolve(
                 "-1",
-                new UnaryExpression(
-                    new Constant(1),
-                    typeof(int),
-                    ExpressionType.Minus
-                )
+                new Constant(-1)
             );
         }
 
