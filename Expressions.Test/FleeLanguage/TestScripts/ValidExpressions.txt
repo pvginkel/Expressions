@@ -537,7 +537,8 @@ Int32;123 and 100 and 1245 and 80;64
 Int32;123 or 100 or 1245 or 80;1279
 Int32;123 xor 100 xor 1245 xor 80;1170
 '	...combined
-Int32;123 and 100 or 1245 xor 80;1197
+''' Original unit test stated 1197 as result, but C# precedence states that 1261 is the correct result.
+Int32;123 and 100 or 1245 xor 80;1261
 ' with other integer types
 uint32;100U and 100U;100
 uint32;uint.maxvalue and uint.minvalue;0

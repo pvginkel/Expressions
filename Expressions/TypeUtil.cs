@@ -157,7 +157,7 @@ namespace Expressions
             return false;
         }
 
-        private static bool IsInteger(Type type)
+        public static bool IsInteger(Type type)
         {
             type = GetNonNullableType(type);
             if (type.IsEnum)

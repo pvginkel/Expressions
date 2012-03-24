@@ -25,22 +25,25 @@ namespace Expressions
 
         public object Parse()
         {
-            if (Type == typeof(int))
-                return int.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
-            if (Type == typeof(uint))
-                return uint.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
-            if (Type == typeof(long))
-                return long.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
-            if (Type == typeof(ulong))
-                return ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
-            if (Type == typeof(float))
-                return float.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
-            if (Type == typeof(double))
-                return double.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
-            if (Type == typeof(decimal))
-                return decimal.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
-
-            throw new InvalidOperationException("Unexpected UnparsedNumber type");
+            switch (Type.GetTypeCode(Type))
+            {
+                case TypeCode.Int32:
+                    return int.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                case TypeCode.UInt32:
+                    return uint.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                case TypeCode.Int64:
+                    return long.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                case TypeCode.UInt64:
+                    return ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                case TypeCode.Single:
+                    return float.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                case TypeCode.Double:
+                    return double.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                case TypeCode.Decimal:
+                    return decimal.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                default:
+                    throw new InvalidOperationException("Unexpected UnparsedNumber type");
+            }
         }
 
         public override string ToString()

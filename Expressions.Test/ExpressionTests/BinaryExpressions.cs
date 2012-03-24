@@ -168,5 +168,71 @@ namespace Expressions.Test.ExpressionTests
                 )
             );
         }
+
+        [Test]
+        public void MultipleBitwise()
+        {
+            Resolve(
+                "123 and 100 or 1245 xor 80",
+                new BinaryExpression(
+                    new BinaryExpression(
+                        new Constant(123),
+                        new Constant(100),
+                        ExpressionType.And,
+                        typeof(int)
+                    ),
+                    new BinaryExpression(
+                        new Constant(1245),
+                        new Constant(80),
+                        ExpressionType.Xor,
+                        typeof(int)
+                    ),
+                    ExpressionType.Or,
+                    typeof(int)
+                )
+            );
+        }
+
+        [Test]
+        public void PrecedenceOfNot()
+        {
+            Resolve(
+                "not 1 > 100",
+                new UnaryExpression(
+                    new BinaryExpression(
+                        new Constant(1),
+                        new Constant(100),
+                        ExpressionType.Greater,
+                        typeof(bool),
+                        typeof(int)
+                    ),
+                    typeof(bool),
+                    ExpressionType.Not
+                )
+            );
+        }
+
+        [Test]
+        public void AndAndNot()
+        {
+            Resolve(
+                "true and not false and true",
+                new BinaryExpression(
+                    new BinaryExpression(
+                        new Constant(true),
+                        new UnaryExpression(
+                            new Constant(false),
+                            typeof(bool),
+                            ExpressionType.Not
+                        ),
+                        ExpressionType.And,
+                        typeof(bool)
+                    ),
+                    new Constant(true),
+                    ExpressionType.And,
+                    typeof(bool)
+                )
+            );
+        }
     }
 }

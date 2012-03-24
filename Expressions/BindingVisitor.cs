@@ -278,10 +278,17 @@ namespace Expressions
                     break;
 
                 case ExpressionType.Not:
-                    if (operand.Type != typeof(bool))
-                        throw new NotSupportedException("Cannot not non boolean types");
+                    if (TypeUtil.IsInteger(operand.Type))
+                    {
+                        type = operand.Type;
+                    }
+                    else
+                    {
+                        if (operand.Type != typeof(bool))
+                            throw new NotSupportedException("Cannot not non boolean types");
 
-                    type = typeof(bool);
+                        type = typeof(bool);
+                    }
                     break;
 
                 default:
@@ -390,8 +397,12 @@ namespace Expressions
                 case ExpressionType.And:
                 case ExpressionType.Or:
                 case ExpressionType.Xor:
-                    if (left != typeof(bool) || right != typeof(bool))
+                    if (TypeUtil.IsInteger(commonType))
+                        return commonType;
+
+                    else if (left != typeof(bool) || right != typeof(bool))
                         throw new NotSupportedException("Operands of logical operation must be logical");
+
                     return typeof(bool);
 
                 case ExpressionType.Equals:

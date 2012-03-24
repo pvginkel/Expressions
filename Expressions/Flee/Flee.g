@@ -31,24 +31,28 @@ prog returns [IAstNode value]
 
 expression returns [IAstNode value]
 	: e=logical_xor_expression { $value = $e.value; }
-		(
-			OR e=logical_xor_expression
-			{ $value = new BinaryExpression($value, $e.value, ExpressionType.Or); }
+		( OR e=logical_xor_expression
+		  { $value = new BinaryExpression($value, $e.value, ExpressionType.Or); }
 		)*
 	;
 
 logical_xor_expression returns [IAstNode value]
 	: e=logical_and_expression { $value = $e.value; }
-		(
-			XOR e=logical_and_expression
-			{ $value = new BinaryExpression($value, $e.value, ExpressionType.Xor); }
+		( XOR e=logical_and_expression
+		  { $value = new BinaryExpression($value, $e.value, ExpressionType.Xor); }
 		)*
 	;
 
 logical_and_expression returns [IAstNode value]
+	: e=unary_not_expression { $value = $e.value; }
+		( AND e=unary_not_expression
+		  { $value = new BinaryExpression($value, $e.value, ExpressionType.And); }
+		)*
+	;
+
+unary_not_expression returns [IAstNode value]
 	: e=equality_expression { $value = $e.value; }
-		( AND e=equality_expression
-		  { $value = new BinaryExpression($value, $e.value, ExpressionType.And); } )*
+	| NOT u=unary_not_expression { $value = new UnaryExpression($u.value, ExpressionType.Not); }
 	;
 
 equality_expression returns [IAstNode value]
@@ -135,7 +139,6 @@ unary_expression returns [IAstNode value]
 	|
 		( '+' e=cast_expression { $value = new UnaryExpression($e.value, ExpressionType.Plus); }
 		| '-' e=cast_expression { $value = new UnaryExpression($e.value, ExpressionType.Minus); }
-		| NOT e=cast_expression { $value = new UnaryExpression($e.value, ExpressionType.Not); }
 		)
 	;
 
