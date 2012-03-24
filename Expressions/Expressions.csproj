@@ -51,7 +51,7 @@
     <Compile Include="BindingVisitor.cs" />
     <Compile Include="ConstantParsingVisitor.cs" />
     <Compile Include="ConversionVisitor.cs" />
-    <Compile Include="DynamicExpressionOptions.cs" />
+    <Compile Include="BoundExpressionOptions.cs" />
     <Compile Include="UnparsedNumber.cs" />
     <Compile Include="ExpressionType.cs" />
     <Compile Include="Ast\Constant.cs" />

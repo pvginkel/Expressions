@@ -63,5 +63,31 @@ namespace Expressions.Test.Compilation
         {
             Resolve("cast(7, string)");
         }
+
+        [Test]
+        public void ImplicitOperator()
+        {
+            var context = new ExpressionContext();
+
+            context.Variables.Add(new Variable("Owner") { Value = new Owner() });
+
+            Resolve(
+                context,
+                "Owner",
+                1.0,
+                new BoundExpressionOptions
+                {
+                    ResultType = typeof(double)
+                }
+            );
+        }
+
+        public class Owner
+        {
+            public static implicit operator double(Owner value)
+            {
+                return 1.0;
+            }
+        }
     }
 }

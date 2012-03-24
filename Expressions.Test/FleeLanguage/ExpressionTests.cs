@@ -30,7 +30,6 @@ namespace Expressions.Test.FleeLanguage
 
             var imports = new[]
             {
-                new Import(typeof(Mouse)),
                 new Import(typeof(Monitor)),
                 new Import(typeof(Convert), "Convert"),
                 new Import(typeof(Guid)),
@@ -88,6 +87,8 @@ namespace Expressions.Test.FleeLanguage
         {
             var imports = new[]
             {
+                new Import(typeof(Mouse), "Mouse"),
+                new Import(typeof(Monitor), "Monitor"),
                 new Import(typeof(Math), "Math"),
                 new Import(typeof(Uri), "Uri"),
                 new Import(typeof(DateTime), "DateTime"),
@@ -174,7 +175,11 @@ namespace Expressions.Test.FleeLanguage
                     expectedType = this.GetType().Assembly.GetType(result, true, true);
                 }
 
-                object expressionResult = expression.Invoke(expressionContext);
+                object expressionResult = expression.Invoke(expressionContext, new BoundExpressionOptions
+                {
+                    AllowPrivateAccess = true,
+                    ResultType = resultType
+                });
 
                 if (object.ReferenceEquals(expectedType, typeof(void)))
                 {
@@ -191,7 +196,11 @@ namespace Expressions.Test.FleeLanguage
                 TypeConverter tc = TypeDescriptor.GetConverter(resultType);
 
                 object expectedResult = tc.ConvertFromString(null, testCulture, result);
-                object actualResult = expression.Invoke(expressionContext);
+                object actualResult = expression.Invoke(expressionContext, new BoundExpressionOptions
+                {
+                    AllowPrivateAccess = true,
+                    ResultType = resultType
+                });
 
                 expectedResult = RoundIfReal(expectedResult);
                 actualResult = RoundIfReal(actualResult);

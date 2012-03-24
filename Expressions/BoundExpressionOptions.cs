@@ -5,10 +5,11 @@ using System.Text;
 
 namespace Expressions
 {
-    public class DynamicExpressionOptions
+    public class BoundExpressionOptions
     {
         private bool _frozen;
         private bool _allowPrivateAccess;
+        private Type _resultType = typeof(object);
 
         public bool AllowPrivateAccess
         {
@@ -22,6 +23,18 @@ namespace Expressions
             }
         }
 
+        public Type ResultType
+        {
+            get { return _resultType; }
+            set
+            {
+                if (_frozen)
+                    throw new InvalidOperationException("Options cannot be modified");
+
+                _resultType = value ?? typeof(object);
+            }
+        }
+
         internal void Freeze()
         {
             _frozen = true;
@@ -32,16 +45,23 @@ namespace Expressions
             if (ReferenceEquals(this, obj))
                 return true;
 
-            var other = obj as DynamicExpressionOptions;
+            var other = obj as BoundExpressionOptions;
 
             return
                 other != null &&
-                _allowPrivateAccess == other._allowPrivateAccess;
+                _allowPrivateAccess == other._allowPrivateAccess &&
+                _resultType == other._resultType;
         }
 
         public override int GetHashCode()
         {
-            return _allowPrivateAccess.GetHashCode();
+            unchecked
+            {
+                return ObjectUtil.CombineHashCodes(
+                    _allowPrivateAccess.GetHashCode(),
+                    _resultType.GetHashCode()
+                );
+            }
         }
 
         internal BindingFlags AccessBindingFlags

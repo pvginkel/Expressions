@@ -12,38 +12,43 @@ namespace Expressions
 
         public ExpressionLanguage Language { get; private set; }
 
-        public DynamicExpressionOptions Options { get; private set; }
-
         public DynamicExpression(string expression, ExpressionLanguage language)
-            : this(expression, language, null)
-        {
-        }
-
-        public DynamicExpression(string expression, ExpressionLanguage language, DynamicExpressionOptions options)
         {
             Require.NotNull(expression, "expression");
 
             Expression = expression;
             Language = language;
 
-            Options = options ?? new DynamicExpressionOptions();
-            Options.Freeze();
-
-            ParseResult = DynamicExpressionCache.GetOrCreateParseResult(expression, language, Options);
+            ParseResult = DynamicExpressionCache.GetOrCreateParseResult(expression, language);
         }
 
         public BoundExpression Bind(IBindingContext binder)
         {
+            return Bind(binder, null);
+        }
+
+        public BoundExpression Bind(IBindingContext binder, BoundExpressionOptions options)
+        {
             Require.NotNull(binder, "binder");
 
-            return BoundExpressionCache.GetOrCreateBoundExpression(this, binder);
+            if (options == null)
+                options = new BoundExpressionOptions();
+
+            options.Freeze();
+
+            return BoundExpressionCache.GetOrCreateBoundExpression(this, binder, options);
         }
 
         public object Invoke(IExpressionContext expressionContext)
         {
+            return Invoke(expressionContext, null);
+        }
+
+        public object Invoke(IExpressionContext expressionContext, BoundExpressionOptions options)
+        {
             Require.NotNull(expressionContext, "expressionContext");
 
-            return Bind(expressionContext).Invoke(expressionContext);
+            return Bind(expressionContext, options).Invoke(expressionContext);
         }
 
         public static bool IsLanguageCaseSensitive(ExpressionLanguage language)

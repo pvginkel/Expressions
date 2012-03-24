@@ -19,7 +19,7 @@ namespace Expressions
         internal IExpression ResolvedExpression { get; private set; }
 #endif
 
-        internal BoundExpression(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes)
+        internal BoundExpression(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, BoundExpressionOptions options)
         {
             Require.NotNull(dynamicExpression, "dynamicExpression");
             Require.NotNull(imports, "imports");
@@ -29,14 +29,7 @@ namespace Expressions
 
             _parameterMap = BuildParameterMap(ownerType, identifierTypes);
 
-            var resolvedExpression = Resolve(ownerType, imports, identifierTypes);
-
-            _compiledMethod = CompileExpression(resolvedExpression, ownerType, imports, identifierTypes);
-        }
-
-        private IExpression Resolve(Type ownerType, Import[] imports, Type[] identifierTypes)
-        {
-            var resolver = new Resolver(_dynamicExpression, ownerType, imports, identifierTypes, _parameterMap);
+            var resolver = new Resolver(_dynamicExpression, ownerType, imports, identifierTypes, _parameterMap, options);
 
             var resolvedTree = resolver.Resolve(_dynamicExpression.ParseResult.RootNode);
 
@@ -44,7 +37,7 @@ namespace Expressions
             ResolvedExpression = resolvedTree;
 #endif
 
-            return resolvedTree;
+            _compiledMethod = CompileExpression(resolvedTree, ownerType, imports, identifierTypes, options, resolver);
         }
 
         private int[] BuildParameterMap(Type ownerType, Type[] identifierTypes)
@@ -63,7 +56,7 @@ namespace Expressions
             return parameterMap.ToArray();
         }
 
-        private DynamicSignature CompileExpression(IExpression expression, Type ownerType, Import[] imports, Type[] identifierTypes)
+        private DynamicSignature CompileExpression(IExpression expression, Type ownerType, Import[] imports, Type[] identifierTypes, BoundExpressionOptions options, Resolver resolver)
         {
             var method = new DynamicMethod(
                 "DynamicMethod",
@@ -74,34 +67,34 @@ namespace Expressions
 
             var il = method.GetILGenerator();
 
-            new Compiler(il).Compile(expression);
+            new Compiler(il, resolver).Compile(expression);
 
 #if DEBUG
-            WriteToDisk(expression);
+            // WriteToDisk(expression, resolver);
 #endif
 
             return (DynamicSignature)method.CreateDelegate(typeof(DynamicSignature));
         }
 
 #if DEBUG
-        private void WriteToDisk(IExpression expression)
+        private void WriteToDisk(IExpression expression, Resolver resolver)
         {
-            //var name = "Output.exe";
-            //var assemblyName = new AssemblyName(name);
-            //var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
-            //var moduleBuilder = assemblyBuilder.DefineDynamicModule(name);
-            //var programClass = moduleBuilder.DefineType("Program", TypeAttributes.Public);
+            var name = "Output.exe";
+            var assemblyName = new AssemblyName(name);
+            var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+            var moduleBuilder = assemblyBuilder.DefineDynamicModule(name);
+            var programClass = moduleBuilder.DefineType("Program", TypeAttributes.Public);
 
-            //var mainmethod = programClass.DefineMethod("Main", MethodAttributes.Public | MethodAttributes.Static, null, new[] { typeof(string[]) });
+            var mainmethod = programClass.DefineMethod("Main", MethodAttributes.Public | MethodAttributes.Static, null, new[] { typeof(string[]) });
 
-            //var il = mainmethod.GetILGenerator();
+            var il = mainmethod.GetILGenerator();
 
-            //new Compiler(il).Compile(expression);
+            new Compiler(il, resolver).Compile(expression);
 
-            //programClass.CreateType();
+            programClass.CreateType();
 
-            //assemblyBuilder.SetEntryPoint(programClass.GetMethod("Main"));
-            //assemblyBuilder.Save(name);
+            assemblyBuilder.SetEntryPoint(programClass.GetMethod("Main"));
+            assemblyBuilder.Save(name);
         }
 #endif
 

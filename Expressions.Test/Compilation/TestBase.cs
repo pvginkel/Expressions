@@ -19,10 +19,20 @@ namespace Expressions.Test.Compilation
 
         protected void Resolve(string expression, object expected)
         {
-            Resolve(null, expression, expected);
+            Resolve(expression, expected, null);
+        }
+
+        protected void Resolve(string expression, object expected, BoundExpressionOptions options)
+        {
+            Resolve(null, expression, expected, options);
         }
 
         protected void Resolve(ExpressionContext expressionContext, string expression, object expected)
+        {
+            Resolve(expressionContext, expression, expected, null);
+        }
+
+        protected void Resolve(ExpressionContext expressionContext, string expression, object expected, BoundExpressionOptions options)
         {
             if (expression == null)
                 throw new ArgumentNullException("expression");
@@ -31,7 +41,8 @@ namespace Expressions.Test.Compilation
                 expression,
                 ExpressionLanguage.Flee
             ).Invoke(
-                expressionContext ?? new ExpressionContext()
+                expressionContext ?? new ExpressionContext(),
+                options
             );
 
             Assert.AreEqual(expected, actual);

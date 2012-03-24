@@ -358,7 +358,7 @@ namespace Expressions
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
-        private static void EmitNew(ILGenerator il, ConstructorInfo ci)
+        public static void EmitNew(ILGenerator il, ConstructorInfo ci)
         {
             Require.NotNull(ci, "ci");
             Require.That(!ci.DeclaringType.ContainsGenericParameters, "Illegal new generic params");

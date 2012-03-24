@@ -53,5 +53,10 @@ namespace Expressions
 
             return _hashCode.Value;
         }
+
+        public override string ToString()
+        {
+            return Type.FullName + " in " + (Namespace ?? Type.Name);
+        }
     }
 }

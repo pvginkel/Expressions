@@ -9,9 +9,9 @@ namespace Expressions
         private static readonly object _syncRoot = new object();
         private static readonly Dictionary<CacheKey, ParseResult> _cache = new Dictionary<CacheKey, ParseResult>();
 
-        public static ParseResult GetOrCreateParseResult(string expression, ExpressionLanguage language, DynamicExpressionOptions options)
+        public static ParseResult GetOrCreateParseResult(string expression, ExpressionLanguage language)
         {
-            var key = new CacheKey(expression, language, options);
+            var key = new CacheKey(expression, language);
 
             lock (_syncRoot)
             {
@@ -45,13 +45,11 @@ namespace Expressions
             private int? _hashCode;
             private readonly string _expression;
             private readonly ExpressionLanguage _language;
-            private readonly DynamicExpressionOptions _options;
 
-            public CacheKey(string expression, ExpressionLanguage language, DynamicExpressionOptions options)
+            public CacheKey(string expression, ExpressionLanguage language)
             {
                 _expression = expression;
                 _language = language;
-                _options = options;
             }
 
             public override bool Equals(object obj)
@@ -64,8 +62,7 @@ namespace Expressions
                 return
                     other != null &&
                     _expression == other._expression &&
-                    _language == other._language &&
-                    _options.Equals(other._options);
+                    _language == other._language;
             }
 
             public override int GetHashCode()
@@ -76,8 +73,7 @@ namespace Expressions
                     {
                         _hashCode = ObjectUtil.CombineHashCodes(
                             _expression.GetHashCode(),
-                            _language.GetHashCode(),
-                            _options.GetHashCode()
+                            _language.GetHashCode()
                         );
                     }
                 }

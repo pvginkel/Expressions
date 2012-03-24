@@ -74,11 +74,14 @@ namespace Expressions
 
             foreach (var import in _resolver.Imports)
             {
-                if (import.Namespace != null && _resolver.IdentifiersEqual(import.Namespace, identifierAccess.Name))
+                if (
+                    import.Namespace != null &&
+                    _resolver.IdentifiersEqual(import.Namespace, identifierAccess.Name)
+                )
                     return new TypeAccess(import.Type);
             }
 
-            // And last, members of the imports.
+            // Next, members of the imports.
 
             foreach (var import in _resolver.Imports)
             {
@@ -91,6 +94,17 @@ namespace Expressions
                 }
             }
 
+            //// Last, use the type name of imports as the namespace.
+
+            //foreach (var import in _resolver.Imports)
+            //{
+            //    if (
+            //        import.Namespace == null &&
+            //        _resolver.IdentifiersEqual(import.Type.Name, identifierAccess.Name)
+            //    )
+            //        return new TypeAccess(import.Type);
+            //}
+
             throw new NotSupportedException("Could not resolve identifier");
         }
 
@@ -101,7 +115,7 @@ namespace Expressions
             // First try properties and methods.
 
             var methods = operand.Type.GetMethods(
-                _resolver.DynamicExpression.Options.AccessBindingFlags |
+                _resolver.Options.AccessBindingFlags |
                 (isStatic ? BindingFlags.Static : BindingFlags.Instance)
             );
 
@@ -129,7 +143,7 @@ namespace Expressions
                 member,
                 (_resolver.IgnoreCase ? BindingFlags.IgnoreCase : 0) |
                 (isStatic ? BindingFlags.Static : BindingFlags.Instance) |
-                _resolver.DynamicExpression.Options.AccessBindingFlags
+                _resolver.Options.AccessBindingFlags
             );
 
             if (field != null)

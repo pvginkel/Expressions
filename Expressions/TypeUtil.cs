@@ -71,6 +71,34 @@ namespace Expressions
             return result;
         }
 
+        public static bool CanCastImplicitely(Type fromType, Type toType, bool toIsNull)
+        {
+            if (
+                toType == typeof(object) ||
+                toType == fromType
+            )
+                return true;
+
+            var castingTable = GetImplicitCastingTable(fromType);
+
+            if (castingTable != null)
+            {
+                for (int j = 0; j < castingTable.Count; j++)
+                {
+                    if (castingTable[j] == toType)
+                        return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                return 
+                    toType.IsAssignableFrom(fromType) ||
+                    (!toType.IsValueType && toIsNull);
+            }
+        }
+
         public static bool IsValidUnaryArgument(Type type)
         {
             Require.NotNull(type, "type");
@@ -133,7 +161,7 @@ namespace Expressions
             return GetNonNullableType(type) == typeof(bool);
         }
 
-        private static bool IsNumeric(Type type)
+        public static bool IsNumeric(Type type)
         {
             type = GetNonNullableType(type);
             if (!type.IsEnum)

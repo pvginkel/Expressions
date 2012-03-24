@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using Expressions.Expressions;
@@ -9,28 +10,118 @@ namespace Expressions
     internal class Compiler
     {
         private readonly ILGenerator _il;
+        private readonly Resolver _resolver;
 
-        public Compiler(ILGenerator il)
+        public Compiler(ILGenerator il, Resolver resolver)
         {
             Require.NotNull(il, "il");
+            Require.NotNull(resolver, "resolver");
 
             _il = il;
+            _resolver = resolver;
         }
 
         public void Compile(IExpression expression)
         {
+            Require.NotNull(expression, "expression");
+
             expression.Accept(new Visitor(this));
 
-            if (expression.Type.IsValueType)
+            if (
+                _resolver.Options.ResultType.IsValueType &&
+                expression.Type != _resolver.Options.ResultType
+            ) {
+                ExtendedConvertToType(expression.Type, _resolver.Options.ResultType, true, true);
+
+                _il.Emit(OpCodes.Box, _resolver.Options.ResultType);
+            }
+            else if (expression.Type.IsValueType)
+            {
                 _il.Emit(OpCodes.Box, expression.Type);
+            }
 
             _il.Emit(OpCodes.Ret);
+        }
+
+        private void ExtendedConvertToType(Type fromType, Type toType, bool isChecked, bool allowExplicit)
+        {
+            // See whether we can find a constructor on target type.
+
+            var constructor = _resolver.ResolveMethodGroup(
+                toType.GetConstructors(_resolver.Options.AccessBindingFlags | BindingFlags.CreateInstance),
+                new[] { fromType },
+                new[] { false }
+            );
+
+            if (constructor != null)
+            {
+                ILUtil.EmitNew(_il, (ConstructorInfo)constructor);
+
+                return;
+            }
+
+            // See whether we have an implicit cast.
+
+            var castMethod =
+                ResolveCastMethod(fromType, toType, fromType, "op_Implicit") ??
+                ResolveCastMethod(fromType, toType, toType, "op_Implicit");
+
+            if (castMethod == null && allowExplicit)
+            {
+                castMethod =
+                    ResolveCastMethod(fromType, toType, fromType, "op_Explicit") ??
+                    ResolveCastMethod(fromType, toType, toType, "op_Explicit");
+            }
+
+            if (castMethod != null)
+            {
+                var parameterType = castMethod.GetParameters()[0].ParameterType;
+
+                if (fromType != parameterType)
+                    ILUtil.EmitConvertToType(_il, fromType, parameterType, isChecked);
+
+                _il.Emit(OpCodes.Call, castMethod);
+
+                if (toType != castMethod.ReturnType)
+                    ILUtil.EmitConvertToType(_il, castMethod.ReturnType, toType, isChecked);
+
+                return;
+            }
+
+            // Let ILUtill handle it.
+
+            ILUtil.EmitConvertToType(_il, fromType, toType, isChecked);
+        }
+
+        private MethodInfo ResolveCastMethod(Type fromType, Type toType, Type sourceType, string methodName)
+        {
+            var candidates = new List<MethodInfo>();
+
+            foreach (var method in sourceType.GetMethods(BindingFlags.Static | BindingFlags.Public))
+            {
+                if (method.Name != methodName)
+                    continue;
+
+                var parameters = method.GetParameters();
+
+                if (method.ReturnType == toType && parameters[0].ParameterType == fromType)
+                    return method;
+
+                if (
+                    TypeUtil.CanCastImplicitely(fromType, parameters[0].ParameterType, false) &&
+                    TypeUtil.CanCastImplicitely(method.ReturnType, toType, false)
+                )
+                    candidates.Add(method);
+            }
+
+            return candidates.Count == 1 ? candidates[0] : null;
         }
 
         private class Visitor : IExpressionVisitor
         {
             private readonly Compiler _compiler;
             private readonly ILGenerator _il;
+            private bool _fieldAsParameter;
 
             public Visitor(Compiler compiler)
             {
@@ -232,14 +323,14 @@ namespace Expressions
                 expression.Accept(this);
 
                 if (expression.Type != type)
-                    ILUtil.EmitConvertToType(_il, expression.Type, type, true);
+                    _compiler.ExtendedConvertToType(expression.Type, type, true, false);
             }
 
             public void Cast(Cast cast)
             {
                 cast.Operand.Accept(this);
 
-                ILUtil.EmitConvertToType(_il, cast.Operand.Type, cast.Type, true);
+                _compiler.ExtendedConvertToType(cast.Operand.Type, cast.Type, true, true);
             }
 
             public void Constant(Constant constant)
@@ -250,17 +341,52 @@ namespace Expressions
                     ILUtil.EmitConstant(_il, constant.Value);
             }
 
+
+
             public void FieldAccess(FieldAccess fieldAccess)
             {
+                bool fieldAsParameter = _fieldAsParameter;
+
+                bool loadAddress =
+                    fieldAccess.FieldInfo.FieldType.IsValueType &&
+                    fieldAsParameter &&
+                    !fieldAccess.FieldInfo.IsInitOnly;
+
                 if (!(fieldAccess.Operand is TypeAccess))
                 {
-                    fieldAccess.Operand.Accept(this);
+                    _fieldAsParameter = true;
 
-                    _il.Emit(OpCodes.Ldfld, fieldAccess.FieldInfo);
+                    try
+                    {
+                        fieldAccess.Operand.Accept(this);
+                    }
+                    finally
+                    {
+                        _fieldAsParameter = fieldAsParameter;
+                    }
+
+                    if (loadAddress)
+                        _il.Emit(OpCodes.Ldflda, fieldAccess.FieldInfo);
+                    else
+                        _il.Emit(OpCodes.Ldfld, fieldAccess.FieldInfo);
                 }
                 else
                 {
-                    _il.Emit(OpCodes.Ldsfld, fieldAccess.FieldInfo);
+                    if (loadAddress)
+                        _il.Emit(OpCodes.Ldsflda, fieldAccess.FieldInfo);
+                    else
+                        _il.Emit(OpCodes.Ldsfld, fieldAccess.FieldInfo);
+                }
+
+                if (
+                    fieldAccess.FieldInfo.FieldType.IsValueType &&
+                    fieldAsParameter &&
+                    fieldAccess.FieldInfo.IsInitOnly
+                ) {
+                    var builder = _il.DeclareLocal(fieldAccess.FieldInfo.FieldType);
+
+                    _il.Emit(OpCodes.Stloc, builder);
+                    _il.Emit(OpCodes.Ldloca, builder);
                 }
             }
 
@@ -276,9 +402,42 @@ namespace Expressions
             public void MethodCall(MethodCall methodCall)
             {
                 bool isStatic = methodCall.Operand is TypeAccess;
-             
+
                 if (!isStatic)
-                    methodCall.Operand.Accept(this);
+                {
+                    // Signal field access that we're using the field as a
+                    // parameter.
+
+                    _fieldAsParameter =
+                        methodCall.Operand is FieldAccess &&
+                        methodCall.MethodInfo.DeclaringType.IsValueType;
+
+                    try
+                    {
+                        methodCall.Operand.Accept(this);
+                    }
+                    finally
+                    {
+                        _fieldAsParameter = false;
+                    }
+
+                    if (
+                        methodCall.Operand.Type.IsValueType &&
+                        !(methodCall.Operand is FieldAccess)
+                    ) {
+                        var builder = _il.DeclareLocal(methodCall.Operand.Type);
+
+                        _il.Emit(OpCodes.Stloc, builder);
+                        _il.Emit(OpCodes.Ldloca, builder);
+                    }
+                    else if (
+                        methodCall.Operand is FieldAccess &&
+                        methodCall.Operand.Type.IsValueType &&
+                        !methodCall.MethodInfo.DeclaringType.IsValueType
+                    ) {
+                        _il.Emit(OpCodes.Box, methodCall.Operand.Type);
+                    }
+                }
 
                 var parameters = methodCall.MethodInfo.GetParameters();
                 var arguments = methodCall.Arguments;
@@ -288,7 +447,12 @@ namespace Expressions
                     Emit(arguments[i], parameters[i].ParameterType);
                 }
 
-                _il.Emit(isStatic ? OpCodes.Call : OpCodes.Callvirt, methodCall.MethodInfo);
+                _il.Emit(
+                    isStatic || methodCall.MethodInfo.DeclaringType.IsValueType
+                    ? OpCodes.Call
+                    : OpCodes.Callvirt,
+                    methodCall.MethodInfo
+                );
             }
 
             public void UnaryExpression(UnaryExpression unaryExpression)
@@ -337,7 +501,7 @@ namespace Expressions
                 ILUtil.EmitConstant(_il, variableAccess.ParameterIndex);
                 _il.Emit(OpCodes.Ldelem_Ref);
 
-                ILUtil.EmitConvertToType(_il, typeof(object), variableAccess.Type, true);
+                _compiler.ExtendedConvertToType(typeof(object), variableAccess.Type, true, false);
             }
 
             public void TypeAccess(TypeAccess typeAccess)

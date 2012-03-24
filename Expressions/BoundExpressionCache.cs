@@ -9,12 +9,13 @@ namespace Expressions
         private static readonly object _syncRoot = new object();
         private static readonly Dictionary<CacheKey, BoundExpression> _cache = new Dictionary<CacheKey, BoundExpression>();
 
-        public static BoundExpression GetOrCreateBoundExpression(DynamicExpression dynamicExpression, IBindingContext binder)
+        public static BoundExpression GetOrCreateBoundExpression(DynamicExpression dynamicExpression, IBindingContext binder, BoundExpressionOptions options)
         {
             Require.NotNull(dynamicExpression, "dynamicExpression");
             Require.NotNull(binder, "binder");
+            Require.NotNull(options, "options");
 
-            var key = new CacheKey(dynamicExpression, binder);
+            var key = new CacheKey(dynamicExpression, binder, options);
 
             lock (_syncRoot)
             {
@@ -26,7 +27,8 @@ namespace Expressions
                         key.DynamicExpression,
                         key.OwnerType,
                         key.Imports,
-                        key.IdentifierTypes
+                        key.IdentifierTypes,
+                        key.Options
                     );
 
                     _cache.Add(key, boundExpression);
@@ -42,15 +44,18 @@ namespace Expressions
 
             public DynamicExpression DynamicExpression { get; private set; }
 
+            public BoundExpressionOptions Options { get; private set; }
+
             public Type OwnerType { get; private set; }
 
             public Import[] Imports { get; private set; }
 
             public Type[] IdentifierTypes { get; private set; }
 
-            public CacheKey(DynamicExpression dynamicExpression, IBindingContext bindingContext)
+            public CacheKey(DynamicExpression dynamicExpression, IBindingContext bindingContext, BoundExpressionOptions options)
             {
                 DynamicExpression = dynamicExpression;
+                Options = options;
 
                 OwnerType = bindingContext.OwnerType;
 
@@ -87,7 +92,8 @@ namespace Expressions
                     other == null ||
                     DynamicExpression != other.DynamicExpression ||
                     OwnerType != other.OwnerType ||
-                    Imports.Length != other.Imports.Length
+                    Imports.Length != other.Imports.Length ||
+                    !Options.Equals(other.Options)
                 )
                     return false;
 
@@ -114,7 +120,8 @@ namespace Expressions
                     {
                         int hashCode = ObjectUtil.CombineHashCodes(
                             DynamicExpression.GetHashCode(),
-                            OwnerType == null ? 0 : OwnerType.GetHashCode()
+                            OwnerType == null ? 0 : OwnerType.GetHashCode(),
+                            Options.GetHashCode()
                         );
 
                         for (int i = 0; i < Imports.Length; i++)

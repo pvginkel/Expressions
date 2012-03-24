@@ -58,10 +58,7 @@ namespace Expressions.Test.FleeLanguage
 
         private DynamicExpression CreateDynamicExpression(string expression, ExpressionContext context)
         {
-            return new DynamicExpression(expression, ExpressionLanguage.Flee, new DynamicExpressionOptions
-            {
-                AllowPrivateAccess = true
-            });
+            return new DynamicExpression(expression, ExpressionLanguage.Flee);
         }
 
         private void DoTestInvalidExpressions(string[] arr)
