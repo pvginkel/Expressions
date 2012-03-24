@@ -190,10 +190,10 @@ namespace Expressions
                         afterLabel = _il.DefineLabel();
 
                         binaryExpression.Left.Accept(this);
-                        _il.Emit(OpCodes.Brfalse_S, beforeLabel);
+                        _il.Emit(OpCodes.Brfalse, beforeLabel);
 
                         binaryExpression.Right.Accept(this);
-                        _il.Emit(OpCodes.Br_S, afterLabel);
+                        _il.Emit(OpCodes.Br, afterLabel);
 
                         _il.MarkLabel(beforeLabel);
                         ILUtil.EmitConstant(_il, 0);
@@ -205,10 +205,10 @@ namespace Expressions
                         afterLabel = _il.DefineLabel();
 
                         binaryExpression.Left.Accept(this);
-                        _il.Emit(OpCodes.Brtrue_S, beforeLabel);
+                        _il.Emit(OpCodes.Brtrue, beforeLabel);
 
                         binaryExpression.Right.Accept(this);
-                        _il.Emit(OpCodes.Br_S, afterLabel);
+                        _il.Emit(OpCodes.Br, afterLabel);
 
                         _il.MarkLabel(beforeLabel);
                         ILUtil.EmitConstant(_il, 1);
