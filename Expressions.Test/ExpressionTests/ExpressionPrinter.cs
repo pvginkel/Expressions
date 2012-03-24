@@ -106,6 +106,7 @@ namespace Expressions.Test.ExpressionTests
         private void PrintResolvedConstant(Constant node, int indent)
         {
             AppendLine(indent, "Value = " + node.Value);
+            AppendLine(indent, "Type = " + node.Type);
         }
 
         private void PrintResolvedCast(Cast node, int indent)

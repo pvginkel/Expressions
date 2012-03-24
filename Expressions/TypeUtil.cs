@@ -44,6 +44,7 @@ namespace Expressions
 
         private static readonly Dictionary<string, Type> BuiltInTypes = new Dictionary<string, Type>
         {
+            { "object", typeof(object) },
             { "char", typeof(char) },
             { "sbyte", typeof(sbyte) },
             { "byte", typeof(byte) },

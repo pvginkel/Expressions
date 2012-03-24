@@ -86,5 +86,44 @@ namespace Expressions.Test.Compilation
                 true
             );
         }
+
+        [Test]
+        public void UnsignedShiftRight()
+        {
+            Resolve(
+                "100U >> 2",
+                25u
+            );
+        }
+
+        [Test]
+        public void LongShiftLeft()
+        {
+            Resolve(
+                "100L << 2",
+                400
+            );
+        }
+
+        [Test]
+        public void HexConstant()
+        {
+            Resolve("0x80000000.GetType()", typeof(uint));
+        }
+
+        [Test]
+        public void ShiftWithSignedRight()
+        {
+            var context = new ExpressionContext();
+
+            context.Variables.Add(new Variable("Left") { Value = 0x80000000 });
+            context.Variables.Add(new Variable("Right") { Value = -1 });
+
+            Resolve(
+                context,
+                "Left >> Right",
+                1
+            );
+        }
     }
 }

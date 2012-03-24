@@ -96,6 +96,46 @@ namespace Expressions.Test.Compilation
             );
         }
 
+        [Test]
+        public void LongNumber()
+        {
+            Resolve(
+                "0x8000000000000000",
+                9223372036854775808,
+                new BoundExpressionOptions
+                {
+                    ResultType = typeof(ulong)
+                }
+            );
+        }
+
+        [Test]
+        public void LongSignedNumber()
+        {
+            Resolve(
+                "-0x7fffffffffffffff",
+                -9223372036854775807,
+                new BoundExpressionOptions
+                {
+                    ResultType = typeof(long)
+                }
+            );
+        }
+
+        [Test]
+        public void MinusDecimal()
+        {
+            var context = new ExpressionContext();
+
+            context.Variables.Add(new Variable("Decimal") { Value = 100m });
+
+            Resolve(
+                context,
+                "-Decimal",
+                -100m
+            );
+        }
+
         public class Owner
         {
             public static implicit operator double(Owner value)

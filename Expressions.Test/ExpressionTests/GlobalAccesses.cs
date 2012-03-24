@@ -12,7 +12,7 @@ namespace Expressions.Test.ExpressionTests
         [Test]
         public void HexConstant()
         {
-            Resolve("0xDeaDU", new Constant(57005));
+            Resolve("0xDeaDU", new Constant(57005u));
         }
 
         [Test]

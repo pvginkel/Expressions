@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Runtime.InteropServices;
 using System.Text;
 using Expressions.Expressions;
 
@@ -31,7 +32,7 @@ namespace Expressions
                 _resolver.Options.ResultType.IsValueType &&
                 expression.Type != _resolver.Options.ResultType
             ) {
-                ExtendedConvertToType(expression.Type, _resolver.Options.ResultType, true, true);
+                ExtendedConvertToType(expression.Type, _resolver.Options.ResultType, true);
 
                 _il.Emit(OpCodes.Box, _resolver.Options.ResultType);
             }
@@ -43,7 +44,7 @@ namespace Expressions
             _il.Emit(OpCodes.Ret);
         }
 
-        private void ExtendedConvertToType(Type fromType, Type toType, bool isChecked, bool allowExplicit)
+        private void ExtendedConvertToType(Type fromType, Type toType, bool allowExplicit)
         {
             // See whether we can find a constructor on target type.
 
@@ -84,19 +85,19 @@ namespace Expressions
                 var parameterType = castMethod.GetParameters()[0].ParameterType;
 
                 if (fromType != parameterType)
-                    ILUtil.EmitConvertToType(_il, fromType, parameterType, isChecked);
+                    ILUtil.EmitConvertToType(_il, fromType, parameterType, _resolver.Options.Checked);
 
                 _il.Emit(OpCodes.Call, castMethod);
 
                 if (toType != castMethod.ReturnType)
-                    ILUtil.EmitConvertToType(_il, castMethod.ReturnType, toType, isChecked);
+                    ILUtil.EmitConvertToType(_il, castMethod.ReturnType, toType, _resolver.Options.Checked);
 
                 return;
             }
 
             // Let ILUtill handle it.
 
-            ILUtil.EmitConvertToType(_il, fromType, toType, isChecked);
+            ILUtil.EmitConvertToType(_il, fromType, toType, _resolver.Options.Checked);
         }
 
         private class Visitor : IExpressionVisitor
@@ -125,10 +126,13 @@ namespace Expressions
                     case ExpressionType.GreaterOrEquals:
                     case ExpressionType.Less:
                     case ExpressionType.LessOrEquals:
-                    case ExpressionType.ShiftLeft:
-                    case ExpressionType.ShiftRight:
                     case ExpressionType.Modulo:
                         BinaryArithicExpression(binaryExpression);
+                        break;
+
+                    case ExpressionType.ShiftLeft:
+                    case ExpressionType.ShiftRight:
+                        BinaryShiftExpression(binaryExpression);
                         break;
 
                     case ExpressionType.And:
@@ -147,6 +151,29 @@ namespace Expressions
 
             private void BinaryArithicExpression(BinaryExpression binaryExpression)
             {
+                // Reference compares.
+
+                if (
+                    !binaryExpression.Left.Type.IsValueType &&
+                    !binaryExpression.Right.Type.IsValueType && (
+                        binaryExpression.ExpressionType == ExpressionType.Equals ||
+                        binaryExpression.ExpressionType == ExpressionType.NotEquals
+                    )
+                ) {
+                    binaryExpression.Left.Accept(this);
+                    binaryExpression.Right.Accept(this);
+
+                    _il.Emit(OpCodes.Ceq);
+
+                    if (binaryExpression.ExpressionType == ExpressionType.NotEquals)
+                    {
+                        _il.Emit(OpCodes.Ldc_I4_0);
+                        _il.Emit(OpCodes.Ceq);
+                    }
+
+                    return;
+                }
+
                 Emit(binaryExpression.Left, binaryExpression.CommonType);
                 Emit(binaryExpression.Right, binaryExpression.CommonType);
 
@@ -210,19 +237,41 @@ namespace Expressions
                         _il.Emit(OpCodes.Sub);
                         break;
 
-                    case ExpressionType.ShiftLeft:
-                        _il.Emit(OpCodes.Shl);
-                        break;
-
-                    case ExpressionType.ShiftRight:
-                        _il.Emit(OpCodes.Shr);
-                        break;
 
                     case ExpressionType.Modulo:
                         if (TypeUtil.IsUnsigned(binaryExpression.CommonType))
                             _il.Emit(OpCodes.Rem_Un);
                         else
                             _il.Emit(OpCodes.Rem);
+                        break;
+
+                    default:
+                        throw new InvalidOperationException();
+                }
+            }
+
+            private void BinaryShiftExpression(BinaryExpression binaryExpression)
+            {
+                binaryExpression.Left.Accept(this);
+
+                binaryExpression.Right.Accept(this);
+
+                int bits = Marshal.SizeOf(binaryExpression.Left.Type) * 8;
+
+                ILUtil.EmitConstant(_il, bits - 1);
+                _il.Emit(OpCodes.And);
+
+                switch (binaryExpression.ExpressionType)
+                {
+                    case ExpressionType.ShiftLeft:
+                        _il.Emit(OpCodes.Shl);
+                        break;
+
+                    case ExpressionType.ShiftRight:
+                        if (TypeUtil.IsUnsigned(binaryExpression.Left.Type))
+                            _il.Emit(OpCodes.Shr_Un);
+                        else
+                            _il.Emit(OpCodes.Shr);
                         break;
 
                     default:
@@ -305,14 +354,14 @@ namespace Expressions
                 expression.Accept(this);
 
                 if (expression.Type != type)
-                    _compiler.ExtendedConvertToType(expression.Type, type, true, false);
+                    _compiler.ExtendedConvertToType(expression.Type, type, false);
             }
 
             public void Cast(Cast cast)
             {
                 cast.Operand.Accept(this);
 
-                _compiler.ExtendedConvertToType(cast.Operand.Type, cast.Type, true, true);
+                _compiler.ExtendedConvertToType(cast.Operand.Type, cast.Type, true);
             }
 
             public void Constant(Constant constant)
@@ -322,8 +371,6 @@ namespace Expressions
                 else
                     ILUtil.EmitConstant(_il, constant.Value);
             }
-
-
 
             public void FieldAccess(FieldAccess fieldAccess)
             {
@@ -404,6 +451,13 @@ namespace Expressions
                     }
 
                     if (
+                        (methodCall.Operand is FieldAccess || methodCall.Operand is Constant) &&
+                        methodCall.Operand.Type.IsValueType &&
+                        !methodCall.MethodInfo.DeclaringType.IsValueType
+                    ) {
+                        _il.Emit(OpCodes.Box, methodCall.Operand.Type);
+                    }
+                    else if (
                         methodCall.Operand.Type.IsValueType &&
                         !(methodCall.Operand is FieldAccess)
                     ) {
@@ -411,13 +465,6 @@ namespace Expressions
 
                         _il.Emit(OpCodes.Stloc, builder);
                         _il.Emit(OpCodes.Ldloca, builder);
-                    }
-                    else if (
-                        methodCall.Operand is FieldAccess &&
-                        methodCall.Operand.Type.IsValueType &&
-                        !methodCall.MethodInfo.DeclaringType.IsValueType
-                    ) {
-                        _il.Emit(OpCodes.Box, methodCall.Operand.Type);
                     }
                 }
 
@@ -483,7 +530,7 @@ namespace Expressions
                 ILUtil.EmitConstant(_il, variableAccess.ParameterIndex);
                 _il.Emit(OpCodes.Ldelem_Ref);
 
-                _compiler.ExtendedConvertToType(typeof(object), variableAccess.Type, true, false);
+                _compiler.ExtendedConvertToType(typeof(object), variableAccess.Type, false);
             }
 
             public void TypeAccess(TypeAccess typeAccess)
@@ -503,7 +550,7 @@ namespace Expressions
                 conditional.Then.Accept(this);
 
                 if (conditional.Then.Type != conditional.Type)
-                    _compiler.ExtendedConvertToType(conditional.Then.Type, conditional.Type, true, false);
+                    _compiler.ExtendedConvertToType(conditional.Then.Type, conditional.Type, false);
 
                 _il.Emit(OpCodes.Br, afterBranch);
 
@@ -512,7 +559,7 @@ namespace Expressions
                 conditional.Else.Accept(this);
 
                 if (conditional.Else.Type != conditional.Type)
-                    _compiler.ExtendedConvertToType(conditional.Else.Type, conditional.Type, true, false);
+                    _compiler.ExtendedConvertToType(conditional.Else.Type, conditional.Type, false);
 
                 _il.MarkLabel(afterBranch);
             }

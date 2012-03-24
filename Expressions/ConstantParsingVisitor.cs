@@ -23,6 +23,7 @@ namespace Expressions
 
                     if (
                         unparsedNumber != null &&
+                        TypeUtil.IsConvertible(unparsedNumber.Type) &&
                         (unparsedNumber.NumberStyles & NumberStyles.AllowHexSpecifier) == 0
                     ) {
                         // Actually parse the constant including the minus sign.

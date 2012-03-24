@@ -72,7 +72,24 @@ namespace Expressions
                 }
             }
 
-            var commonType = ResolveExpressionCommonType(left.Type, right.Type, binaryExpression.Type == ExpressionType.Add);
+            Type commonType;
+
+            switch (binaryExpression.Type)
+            {
+                case ExpressionType.ShiftLeft:
+                case ExpressionType.ShiftRight:
+                    commonType = left.Type;
+                    break;
+
+                case ExpressionType.Power:
+                    commonType = typeof(double);
+                    break;
+
+                default:
+                    commonType = ResolveExpressionCommonType(left.Type, right.Type, binaryExpression.Type == ExpressionType.Add);
+                    break;
+            }
+            
             var type = ResolveExpressionType(left.Type, right.Type, commonType, binaryExpression.Type);
 
             return new Expressions.BinaryExpression(left, right, binaryExpression.Type, type, commonType);
@@ -320,6 +337,37 @@ namespace Expressions
         public IExpression UnaryExpression(Ast.UnaryExpression unaryExpression)
         {
             var operand = unaryExpression.Operand.Accept(this);
+
+            string operatorName = null;
+
+            switch (unaryExpression.Type)
+            {
+                case ExpressionType.Plus: operatorName = "op_UnaryPlus"; break;
+                case ExpressionType.Minus: operatorName = "op_UnaryNegation"; break;
+            }
+
+            if (operatorName != null)
+            {
+                var method = _resolver.FindOperatorMethod(
+                    operatorName,
+                    new[] { operand.Type },
+                    null,
+                    new[] { operand.Type }
+                );
+
+                if (method != null)
+                {
+                    return new Expressions.MethodCall(
+                        new TypeAccess(method.DeclaringType),
+                        method,
+                        new[]
+                        {
+                            operand
+                        }
+                    );
+                }
+            }
+
             Type type;
 
             switch (unaryExpression.Type)
@@ -391,11 +439,14 @@ namespace Expressions
             Require.NotNull(left, "left");
             Require.NotNull(right, "right");
 
-            // TODO: Implicit/explicit operators and operators for the expression type.
-
             // No casting required.
 
             if (left == right)
+                return left;
+
+            if (left == typeof(object))
+                return right;
+            if (right == typeof(object))
                 return left;
 
             // Special cast for adding strings.

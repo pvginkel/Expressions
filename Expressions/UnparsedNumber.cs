@@ -28,17 +28,44 @@ namespace Expressions
             switch (Type.GetTypeCode(Type))
             {
                 case TypeCode.Int32:
-                    long value = long.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    if ((NumberStyles & NumberStyles.AllowHexSpecifier) != 0)
+                    {
+                        ulong hexValue = ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
 
-                    if (value >= int.MinValue && value <= int.MaxValue)
-                        return (int)value;
+                        if (hexValue <= int.MaxValue)
+                            return (int)hexValue;
+                        else if (hexValue <= uint.MaxValue)
+                            return (uint)hexValue;
+                        else if (hexValue <= long.MaxValue)
+                            return (long)hexValue;
+                        else
+                            return hexValue;
+                    }
+
+                    long intValue;
+
+                    if (!long.TryParse(Value, NumberStyles, CultureInfo.InvariantCulture, out intValue))
+                        return ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    
+                    if (intValue >= int.MinValue && intValue <= int.MaxValue)
+                        return (int)intValue;
                     else
-                        return value;
+                        return intValue;
 
                 case TypeCode.UInt32:
-                    return uint.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    ulong uintValue = ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+
+                    if (uintValue <= uint.MaxValue)
+                        return (uint)uintValue;
+                    else
+                        return uintValue;
                 case TypeCode.Int64:
-                    return long.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    long longValue;
+
+                    if (!long.TryParse(Value, NumberStyles, CultureInfo.InvariantCulture, out longValue))
+                        return ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+
+                    return longValue;
                 case TypeCode.UInt64:
                     return ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
                 case TypeCode.Single:

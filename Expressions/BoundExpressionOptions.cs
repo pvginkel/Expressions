@@ -9,6 +9,7 @@ namespace Expressions
     {
         private bool _frozen;
         private bool _allowPrivateAccess;
+        private bool _checked;
         private Type _resultType = typeof(object);
 
         public bool AllowPrivateAccess
@@ -32,6 +33,18 @@ namespace Expressions
                     throw new InvalidOperationException("Options cannot be modified");
 
                 _resultType = value ?? typeof(object);
+            }
+        }
+
+        public bool Checked
+        {
+            get { return _checked; }
+            set
+            {
+                if (_frozen)
+                    throw new InvalidOperationException("Options cannot be modified");
+
+                _checked = value;
             }
         }
 

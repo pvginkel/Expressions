@@ -149,6 +149,13 @@ namespace Expressions
 
                 for (int i = 0; i < parameters.Length; i++)
                 {
+                    if (
+                        !parameters[i].ParameterType.IsValueType &&
+                        argumentsNull != null &&
+                        argumentsNull[i]
+                    )
+                        continue;
+
                     if (parameters[i].ParameterType != argumentTypes[i])
                         success = false;
                 }
