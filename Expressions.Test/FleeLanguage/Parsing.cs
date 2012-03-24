@@ -64,12 +64,19 @@ namespace Expressions.Test.FleeLanguage
             {
                 string expression = reader.ReadToEnd();
 
-                var parser = ParseExpression(expression);
-
-                if (parser.Exception != null)
+                try
                 {
+                    ParseExpression(expression);
+                }
+                catch (CompilationException ex)
+                {
+                    var recognitionException = ex.InnerException as RecognitionException;
+
                     Console.WriteLine("Failed expression: {0}", expression);
-                    Console.WriteLine("({0},{1}): {2}", parser.Exception.Token.Line, parser.Exception.Token.CharPositionInLine, parser.Exception.Message);
+                    
+                    if (recognitionException != null)
+                        Console.WriteLine("({0},{1}): {2}", recognitionException.Token.Line, recognitionException.Token.CharPositionInLine, recognitionException.Message);
+
                     Assert.Fail();
                 }
             }

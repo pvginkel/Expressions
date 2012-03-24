@@ -12,8 +12,6 @@ namespace Expressions.Flee
     {
         private readonly IdentifierCollection _identifiers = new IdentifierCollection(StringComparer.OrdinalIgnoreCase);
 
-        public RecognitionException Exception { get; private set; }
-
         public void Parse()
         {
             prog();
@@ -21,26 +19,42 @@ namespace Expressions.Flee
 
         public static ParseResult Parse(string expression)
         {
-            var inputStream = new ANTLRStringStream(expression);
+            try
+            {
+                var inputStream = new ANTLRStringStream(expression);
 
-            var lexer = new FleeLexer(inputStream);
-            var tokenStream = new CommonTokenStream(lexer);
-            var parser = new FleeParser(tokenStream);
+                var lexer = new FleeLexer(inputStream);
+                var tokenStream = new CommonTokenStream(lexer);
+                var parser = new FleeParser(tokenStream);
 
-            var progResult = parser.prog();
-            var result = progResult.value;
+                var progResult = parser.prog();
+                var result = progResult.value;
 
-            if (parser.Exception != null)
-                throw new CompilationException("Expression could not be compiled", parser.Exception);
+                return new ParseResult(result, parser._identifiers);
+            }
+            catch (CompilationException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new CompilationException("Compilation failed", ex);
+            }
+        }
 
-            return new ParseResult(result, parser._identifiers);
+        public override object RecoverFromMismatchedSet(IIntStream input, RecognitionException e, BitSet follow)
+        {
+            throw e;
+        }
+
+        protected override object RecoverFromMismatchedToken(IIntStream input, int ttype, BitSet follow)
+        {
+            throw new MismatchedTokenException(ttype, input);
         }
 
         public override void ReportError(RecognitionException ex)
         {
-            Exception = ex;
-
-            base.ReportError(ex);
+            throw new CompilationException("Compilation failed", ex);
         }
 
         private Constant ParseDateTime(string text)

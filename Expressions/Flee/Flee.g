@@ -13,12 +13,20 @@ options
 	using Expressions.Ast;
 }
 
+@rulecatch
+{
+    catch (RecognitionException) 
+    {
+        throw;
+    }
+}
+
 @lexer::namespace { Expressions.Flee }
 @parser::namespace { Expressions.Flee }
 @modifier { internal }
 
 prog returns [IAstNode value]
-	: expression { $value = $expression.value; }
+	: expression { $value = $expression.value; } EOF
 	;
 
 expression returns [IAstNode value]
@@ -90,11 +98,16 @@ additive_expression returns [IAstNode value]
 	;
 
 multiplicative_expression returns [IAstNode value]
+	: e=power_expression { $value = $e.value; }
+		( '*' e=power_expression { $value = new BinaryExpression($value, $e.value, ExpressionType.Multiply); }
+		| '/' e=power_expression { $value = new BinaryExpression($value, $e.value, ExpressionType.Divide); }
+		| '%' e=power_expression { $value = new BinaryExpression($value, $e.value, ExpressionType.Modulo); }
+		)*
+	;
+
+power_expression returns [IAstNode value]
 	: e=cast_expression { $value = $e.value; }
 		( '^' e=cast_expression { $value = new BinaryExpression($value, $e.value, ExpressionType.Power); }
-		| '*' e=cast_expression { $value = new BinaryExpression($value, $e.value, ExpressionType.Multiply); }
-		| '/' e=cast_expression { $value = new BinaryExpression($value, $e.value, ExpressionType.Divide); }
-		| '%' e=cast_expression { $value = new BinaryExpression($value, $e.value, ExpressionType.Modulo); }
 		)*
 	;
 
@@ -230,10 +243,6 @@ fragment
 HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
 
 FLOATING_POINT_LITERAL
-@init
-{
-	bool rangeError = false;
-}
 	:
 		'0'
 		(
@@ -242,8 +251,8 @@ FLOATING_POINT_LITERAL
 				('0'..'9'|'a'..'z'|'A'..'Z')+
 				{ Text = Text.Substring(2); }
 			)
-			| '.' Digits Exponent? FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
-			| NumericTypeSuffix? { $type = DECIMAL_LITERAL; }
+			| '0' * '.' Digits Exponent? FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
+			| '0' * NumericTypeSuffix? { $type = DECIMAL_LITERAL; }
 		)
 	|	('1'..'9') Digits?
 		(
@@ -281,7 +290,7 @@ Exponent
 fragment
 NumericTypeSuffix
 	: ('u' | 'U') ('l' | 'L')?
-	| ('l' | 'L')
+	| ('l' | 'L') ('u' | 'U')?
 	| FloatTypeSuffix
 	;
 

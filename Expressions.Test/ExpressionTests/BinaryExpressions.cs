@@ -106,5 +106,29 @@ namespace Expressions.Test.ExpressionTests
                 )
             );
         }
+
+        [Test]
+        public void MultipleAdditions()
+        {
+            Resolve(
+                "100 + .25 + 000.25 + 1.50",
+                new BinaryExpression(
+                    new BinaryExpression(
+                        new BinaryExpression(
+                            new Constant(100),
+                            new Constant(0.25),
+                            ExpressionType.Add,
+                            typeof(double)
+                        ),
+                        new Constant(0.25),
+                        ExpressionType.Add,
+                        typeof(double)
+                    ),
+                    new Constant(1.5),
+                    ExpressionType.Add,
+                    typeof(double)
+                )
+            );
+        }
     }
 }
