@@ -1,21 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Expressions.Ast;
 
 namespace Expressions
 {
-    internal static class BoundExpressionCache
+    internal class BoundExpressionCache
     {
-        private static readonly object _syncRoot = new object();
-        private static readonly Dictionary<CacheKey, BoundExpression> _cache = new Dictionary<CacheKey, BoundExpression>();
+        private readonly CachedDynamicExpression _dynamicExpression;
+        private readonly object _syncRoot = new object();
+        private readonly Dictionary<CacheKey, BoundExpression> _cache = new Dictionary<CacheKey, BoundExpression>();
 
-        public static BoundExpression GetOrCreateBoundExpression(DynamicExpression dynamicExpression, IBindingContext binder, BoundExpressionOptions options)
+        public BoundExpressionCache(CachedDynamicExpression dynamicExpression)
         {
             Require.NotNull(dynamicExpression, "dynamicExpression");
+
+            _dynamicExpression = dynamicExpression;
+        }
+
+        public BoundExpression GetOrCreateBoundExpression(IBindingContext binder, BoundExpressionOptions options)
+        {
             Require.NotNull(binder, "binder");
             Require.NotNull(options, "options");
 
-            var key = new CacheKey(dynamicExpression, binder, options);
+            var key = new CacheKey(
+                _dynamicExpression.ParseResult.Identifiers,
+                !DynamicExpression.IsLanguageCaseSensitive(_dynamicExpression.Language),
+                binder,
+                options
+            );
 
             lock (_syncRoot)
             {
@@ -24,7 +37,7 @@ namespace Expressions
                 if (!_cache.TryGetValue(key, out boundExpression))
                 {
                     boundExpression = new BoundExpression(
-                        key.DynamicExpression,
+                        _dynamicExpression,
                         key.OwnerType,
                         key.Imports,
                         key.IdentifierTypes,
@@ -42,8 +55,6 @@ namespace Expressions
         {
             private int? _hashCode;
 
-            public DynamicExpression DynamicExpression { get; private set; }
-
             public BoundExpressionOptions Options { get; private set; }
 
             public Type OwnerType { get; private set; }
@@ -52,9 +63,8 @@ namespace Expressions
 
             public Type[] IdentifierTypes { get; private set; }
 
-            public CacheKey(DynamicExpression dynamicExpression, IBindingContext bindingContext, BoundExpressionOptions options)
+            public CacheKey(IdentifierCollection identifiers, bool ignoreCase, IBindingContext bindingContext, BoundExpressionOptions options)
             {
-                DynamicExpression = dynamicExpression;
                 Options = options;
 
                 OwnerType = bindingContext.OwnerType;
@@ -66,11 +76,7 @@ namespace Expressions
                 if (Imports.Length > 0)
                     imports.CopyTo(Imports, 0);
 
-                var identifiers = dynamicExpression.ParseResult.Identifiers;
-
                 IdentifierTypes = new Type[identifiers.Count];
-
-                bool ignoreCase = !DynamicExpression.IsLanguageCaseSensitive(dynamicExpression.Language);
 
                 for (int i = 0; i < identifiers.Count; i++)
                 {
@@ -90,7 +96,6 @@ namespace Expressions
 
                 if (
                     other == null ||
-                    DynamicExpression != other.DynamicExpression ||
                     OwnerType != other.OwnerType ||
                     Imports.Length != other.Imports.Length ||
                     !Options.Equals(other.Options)
@@ -119,7 +124,6 @@ namespace Expressions
                     unchecked
                     {
                         int hashCode = ObjectUtil.CombineHashCodes(
-                            DynamicExpression.GetHashCode(),
                             OwnerType == null ? 0 : OwnerType.GetHashCode(),
                             Options.GetHashCode()
                         );

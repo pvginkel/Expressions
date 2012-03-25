@@ -8,24 +8,26 @@ namespace Expressions
     internal static class DynamicExpressionCache
     {
         private static readonly object _syncRoot = new object();
-        private static readonly Dictionary<CacheKey, ParseResult> _cache = new Dictionary<CacheKey, ParseResult>();
+        private static readonly Dictionary<CacheKey, CachedDynamicExpression> _cache = new Dictionary<CacheKey, CachedDynamicExpression>();
 
-        public static ParseResult GetOrCreateParseResult(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
+        public static CachedDynamicExpression GetOrCreateCachedDynamicExpression(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
         {
             var key = new CacheKey(expression, language, parsingCulture);
 
             lock (_syncRoot)
             {
-                ParseResult parseResult;
+                CachedDynamicExpression cached;
 
-                if (!_cache.TryGetValue(key, out parseResult))
+                if (!_cache.TryGetValue(key, out cached))
                 {
-                    parseResult = ParseExpression(expression, language, parsingCulture);
+                    var parseResult = ParseExpression(expression, language, parsingCulture);
 
-                    _cache.Add(key, parseResult);
+                    cached = new CachedDynamicExpression(parseResult, language, parsingCulture);
+
+                    _cache.Add(key, cached);
                 }
 
-                return parseResult;
+                return cached;
             }
         }
 

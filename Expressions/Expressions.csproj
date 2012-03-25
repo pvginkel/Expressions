@@ -50,6 +50,7 @@
     <Compile Include="Ast\AstNodeCollection.cs" />
     <Compile Include="Ast\Conditional.cs" />
     <Compile Include="BindingVisitor.cs" />
+    <Compile Include="CachedDynamicExpression.cs" />
     <Compile Include="CompilerUtil.cs" />
     <Compile Include="Expressions\Conditional.cs" />
     <Compile Include="ConstantParsingVisitor.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="IExpressionContext.cs" />
     <Compile Include="IBindingContext.cs" />
     <Compile Include="Import.cs" />
-    <Compile Include="IParser.cs" />
     <Compile Include="ObjectUtil.cs" />
     <Compile Include="ParseResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -10,7 +10,7 @@ namespace Expressions
 {
     internal class Resolver
     {
-        public DynamicExpression DynamicExpression { get; private set; }
+        public CachedDynamicExpression DynamicExpression { get; private set; }
 
         public Type[] IdentifierTypes { get; private set; }
 
@@ -24,7 +24,7 @@ namespace Expressions
 
         public bool IgnoreCase { get; private set; }
 
-        public Resolver(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, int[] parameterMap, BoundExpressionOptions options)
+        public Resolver(CachedDynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, int[] parameterMap, BoundExpressionOptions options)
         {
             Require.NotNull(dynamicExpression, "dynamicExpression");
             Require.NotNull(imports, "imports");
@@ -60,7 +60,7 @@ namespace Expressions
                 }
             }
 
-            IgnoreCase = !DynamicExpression.IsLanguageCaseSensitive(DynamicExpression.Language);
+            IgnoreCase = !global::Expressions.DynamicExpression.IsLanguageCaseSensitive(DynamicExpression.Language);
         }
 
         public IExpression Resolve(IAstNode node)

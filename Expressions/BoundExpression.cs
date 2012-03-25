@@ -11,7 +11,7 @@ namespace Expressions
     {
 #pragma warning disable 0649
         private readonly DynamicSignature _compiledMethod;
-        private readonly DynamicExpression _dynamicExpression;
+        private readonly CachedDynamicExpression _dynamicExpression;
         private readonly int[] _parameterMap;
 
 #if DEBUG
@@ -19,7 +19,7 @@ namespace Expressions
         internal IExpression ResolvedExpression { get; private set; }
 #endif
 
-        internal BoundExpression(DynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, BoundExpressionOptions options)
+        internal BoundExpression(CachedDynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, BoundExpressionOptions options)
         {
             Require.NotNull(dynamicExpression, "dynamicExpression");
             Require.NotNull(imports, "imports");

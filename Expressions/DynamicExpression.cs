@@ -7,7 +7,7 @@ namespace Expressions
 {
     public sealed class DynamicExpression
     {
-        internal ParseResult ParseResult { get; private set; }
+        internal CachedDynamicExpression Cached { get; private set; }
 
         public string Expression { get; private set; }
 
@@ -28,7 +28,7 @@ namespace Expressions
             Language = language;
             ParsingCulture = parsingCulture ?? CultureInfo.InvariantCulture;
 
-            ParseResult = DynamicExpressionCache.GetOrCreateParseResult(expression, language, ParsingCulture);
+            Cached = DynamicExpressionCache.GetOrCreateCachedDynamicExpression(expression, language, ParsingCulture);
         }
 
         public BoundExpression Bind(IBindingContext binder)
@@ -45,7 +45,7 @@ namespace Expressions
 
             options.Freeze();
 
-            return BoundExpressionCache.GetOrCreateBoundExpression(this, binder, options);
+            return Cached.GetOrCreateBoundExpression(binder, options);
         }
 
         public object Invoke(IExpressionContext expressionContext)

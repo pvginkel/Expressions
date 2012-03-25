@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compilation\BinaryExpressions.cs" />
+    <Compile Include="Compilation\Caching.cs" />
     <Compile Include="Compilation\Casting.cs" />
     <Compile Include="Compilation\EmitIssues.cs" />
     <Compile Include="Compilation\Fields.cs" />
