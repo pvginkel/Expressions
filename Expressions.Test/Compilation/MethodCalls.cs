@@ -165,8 +165,60 @@ namespace Expressions.Test.Compilation
             Resolve(context, "Owner.ObjectParams(0, Variable)", 2);
         }
 
+        [Test]
+        public void ImportedMethod()
+        {
+            CompileExpression(
+                new ExpressionContext(new[] { new Import(typeof(Guid)) }),
+                "NewGuid()"
+            );
+        }
+
+        [Test]
+        public void ImportedMethodWithNamespace()
+        {
+            CompileExpression(
+                new ExpressionContext(new[] { new Import("Guid", typeof(Guid)) }),
+                "Guid.NewGuid()"
+            );
+        }
+
+        [Test]
+        public void MethodOnMember()
+        {
+            CompileExpression(
+                new ExpressionContext(null, new Owner { Variable = 7 }),
+                "Variable.ToString()"
+            );
+        }
+
+        [Test]
+        public void MethodOnStaticProperty()
+        {
+            CompileExpression(
+                new ExpressionContext(new[] { new Import(typeof(DateTime)) }),
+                "Now.ToString()"
+            );
+        }
+
+        [Test]
+        public void MethodOnStaticPropertyWithNamespace()
+        {
+            CompileExpression(
+                new ExpressionContext(new[] { new Import("DateTime", typeof(DateTime)) }),
+                "DateTime.Now.ToString()"
+            );
+        }
+
+        private void CompileExpression(ExpressionContext expressionContext, string expression)
+        {
+            new DynamicExpression(expression, ExpressionLanguage.Flee).Invoke(expressionContext);
+        }
+
         public class Owner
         {
+            public int Variable { get; set; }
+
             public static int StaticMethod(int value)
             {
                 return value;

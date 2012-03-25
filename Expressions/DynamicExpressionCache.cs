@@ -31,7 +31,7 @@ namespace Expressions
             }
         }
 
-        private static ParseResult ParseExpression(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
+        public static ParseResult ParseExpression(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
         {
             switch (language)
             {

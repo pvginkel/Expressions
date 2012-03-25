@@ -68,5 +68,17 @@ namespace Expressions
                 default: throw new ArgumentOutOfRangeException("language");
             }
         }
+
+        public static void CheckSyntax(string expression, ExpressionLanguage language)
+        {
+            CheckSyntax(expression, language, null);
+        }
+
+        public static void CheckSyntax(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
+        {
+            Require.NotEmpty(expression, "expression");
+
+            DynamicExpressionCache.ParseExpression(expression, language, parsingCulture ?? CultureInfo.InvariantCulture);
+        }
     }
 }
