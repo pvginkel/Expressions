@@ -66,7 +66,7 @@ namespace Expressions
         public IExpression Resolve(IAstNode node)
         {
             return node
-                .Accept(new ConstantParsingVisitor())
+                .Accept(new ConstantParsingVisitor(this))
                 .Accept(new BindingVisitor(this))
                 .Accept(new ConversionVisitor(this));
         }

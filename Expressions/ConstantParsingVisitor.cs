@@ -8,6 +8,15 @@ namespace Expressions
 {
     internal class ConstantParsingVisitor : AstVisitor
     {
+        private Resolver _resolver;
+
+        public ConstantParsingVisitor(Resolver resolver)
+        {
+            Require.NotNull(resolver, "resolver");
+
+            _resolver = resolver;
+        }
+
         public override IAstNode UnaryExpression(UnaryExpression unaryExpression)
         {
             if (unaryExpression.Type == ExpressionType.Minus)
@@ -28,7 +37,11 @@ namespace Expressions
                     ) {
                         // Actually parse the constant including the minus sign.
 
-                        return new Constant(new UnparsedNumber("-" + unparsedNumber.Value, unparsedNumber.Type, unparsedNumber.NumberStyles | NumberStyles.AllowLeadingSign).Parse());
+                        unparsedNumber = new UnparsedNumber("-" + unparsedNumber.Value, unparsedNumber.Type, unparsedNumber.NumberStyles | NumberStyles.AllowLeadingSign);
+
+                        return new Constant(
+                            unparsedNumber.Parse(_resolver.DynamicExpression.ParsingCulture)
+                        );
                     }
                 }
             }
@@ -41,7 +54,7 @@ namespace Expressions
             var unparsedNumber = constant.Value as UnparsedNumber;
 
             if (unparsedNumber != null)
-                return new Constant(unparsedNumber.Parse());
+                return new Constant(unparsedNumber.Parse(_resolver.DynamicExpression.ParsingCulture));
 
             return base.Constant(constant);
         }

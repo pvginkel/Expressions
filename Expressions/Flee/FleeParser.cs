@@ -11,14 +11,12 @@ namespace Expressions.Flee
     partial class FleeParser
     {
         private readonly IdentifierCollection _identifiers = new IdentifierCollection(StringComparer.OrdinalIgnoreCase);
+        private CultureInfo _parsingCulture;
 
-        public void Parse()
+        public static ParseResult Parse(string expression, CultureInfo parsingCulture)
         {
-            prog();
-        }
+            Require.NotNull(parsingCulture, "parsingCulture");
 
-        public static ParseResult Parse(string expression)
-        {
             try
             {
                 var inputStream = new ANTLRStringStream(expression);
@@ -26,6 +24,8 @@ namespace Expressions.Flee
                 var lexer = new FleeLexer(inputStream);
                 var tokenStream = new CommonTokenStream(lexer);
                 var parser = new FleeParser(tokenStream);
+
+                parser._parsingCulture = parsingCulture;
 
                 var progResult = parser.prog();
                 var result = progResult.value;
@@ -205,7 +205,7 @@ namespace Expressions.Flee
                         case 'U':
                             Debug.Assert(i < text.Length - 4);
 
-                            sb.Append((char)uint.Parse(text.Substring(i + 1, 4), NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture));
+                            sb.Append((char)uint.Parse(text.Substring(i + 1, 4), NumberStyles.AllowHexSpecifier, _parsingCulture));
 
                             i += 4;
                             break;

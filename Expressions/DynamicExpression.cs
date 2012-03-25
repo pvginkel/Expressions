@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Expressions
@@ -12,14 +13,22 @@ namespace Expressions
 
         public ExpressionLanguage Language { get; private set; }
 
+        public CultureInfo ParsingCulture { get; private set; }
+
         public DynamicExpression(string expression, ExpressionLanguage language)
+            : this(expression, language, null)
+        {
+        }
+
+        public DynamicExpression(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
         {
             Require.NotNull(expression, "expression");
 
             Expression = expression;
             Language = language;
+            ParsingCulture = parsingCulture ?? CultureInfo.InvariantCulture;
 
-            ParseResult = DynamicExpressionCache.GetOrCreateParseResult(expression, language);
+            ParseResult = DynamicExpressionCache.GetOrCreateParseResult(expression, language, ParsingCulture);
         }
 
         public BoundExpression Bind(IBindingContext binder)

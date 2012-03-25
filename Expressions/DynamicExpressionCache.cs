@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Expressions
@@ -9,9 +10,9 @@ namespace Expressions
         private static readonly object _syncRoot = new object();
         private static readonly Dictionary<CacheKey, ParseResult> _cache = new Dictionary<CacheKey, ParseResult>();
 
-        public static ParseResult GetOrCreateParseResult(string expression, ExpressionLanguage language)
+        public static ParseResult GetOrCreateParseResult(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
         {
-            var key = new CacheKey(expression, language);
+            var key = new CacheKey(expression, language, parsingCulture);
 
             lock (_syncRoot)
             {
@@ -19,7 +20,7 @@ namespace Expressions
 
                 if (!_cache.TryGetValue(key, out parseResult))
                 {
-                    parseResult = ParseExpression(expression, language);
+                    parseResult = ParseExpression(expression, language, parsingCulture);
 
                     _cache.Add(key, parseResult);
                 }
@@ -28,12 +29,12 @@ namespace Expressions
             }
         }
 
-        private static ParseResult ParseExpression(string expression, ExpressionLanguage language)
+        private static ParseResult ParseExpression(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
         {
             switch (language)
             {
                 case ExpressionLanguage.Flee:
-                    return Flee.FleeParser.Parse(expression);
+                    return Flee.FleeParser.Parse(expression, parsingCulture);
 
                 default:
                     throw new ArgumentOutOfRangeException("language");
@@ -45,11 +46,13 @@ namespace Expressions
             private int? _hashCode;
             private readonly string _expression;
             private readonly ExpressionLanguage _language;
+            private readonly CultureInfo _parsingCulture;
 
-            public CacheKey(string expression, ExpressionLanguage language)
+            public CacheKey(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
             {
                 _expression = expression;
                 _language = language;
+                _parsingCulture = parsingCulture;
             }
 
             public override bool Equals(object obj)
@@ -62,7 +65,8 @@ namespace Expressions
                 return
                     other != null &&
                     _expression == other._expression &&
-                    _language == other._language;
+                    _language == other._language &&
+                    _parsingCulture == other._parsingCulture;
             }
 
             public override int GetHashCode()
@@ -73,7 +77,8 @@ namespace Expressions
                     {
                         _hashCode = ObjectUtil.CombineHashCodes(
                             _expression.GetHashCode(),
-                            _language.GetHashCode()
+                            _language.GetHashCode(),
+                            _parsingCulture.GetHashCode()
                         );
                     }
                 }

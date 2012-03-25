@@ -23,14 +23,14 @@ namespace Expressions
             NumberStyles = numberStyles;
         }
 
-        public object Parse()
+        public object Parse(CultureInfo parsingCulture)
         {
             switch (Type.GetTypeCode(Type))
             {
                 case TypeCode.Int32:
                     if ((NumberStyles & NumberStyles.AllowHexSpecifier) != 0)
                     {
-                        ulong hexValue = ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                        ulong hexValue = ulong.Parse(Value, NumberStyles, parsingCulture);
 
                         if (hexValue <= int.MaxValue)
                             return (int)hexValue;
@@ -44,8 +44,8 @@ namespace Expressions
 
                     long intValue;
 
-                    if (!long.TryParse(Value, NumberStyles, CultureInfo.InvariantCulture, out intValue))
-                        return ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    if (!long.TryParse(Value, NumberStyles, parsingCulture, out intValue))
+                        return ulong.Parse(Value, NumberStyles, parsingCulture);
                     
                     if (intValue >= int.MinValue && intValue <= int.MaxValue)
                         return (int)intValue;
@@ -53,7 +53,7 @@ namespace Expressions
                         return intValue;
 
                 case TypeCode.UInt32:
-                    ulong uintValue = ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    ulong uintValue = ulong.Parse(Value, NumberStyles, parsingCulture);
 
                     if (uintValue <= uint.MaxValue)
                         return (uint)uintValue;
@@ -62,18 +62,18 @@ namespace Expressions
                 case TypeCode.Int64:
                     long longValue;
 
-                    if (!long.TryParse(Value, NumberStyles, CultureInfo.InvariantCulture, out longValue))
-                        return ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    if (!long.TryParse(Value, NumberStyles, parsingCulture, out longValue))
+                        return ulong.Parse(Value, NumberStyles, parsingCulture);
 
                     return longValue;
                 case TypeCode.UInt64:
-                    return ulong.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    return ulong.Parse(Value, NumberStyles, parsingCulture);
                 case TypeCode.Single:
-                    return float.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    return float.Parse(Value, NumberStyles, parsingCulture);
                 case TypeCode.Double:
-                    return double.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    return double.Parse(Value, NumberStyles, parsingCulture);
                 case TypeCode.Decimal:
-                    return decimal.Parse(Value, NumberStyles, CultureInfo.InvariantCulture);
+                    return decimal.Parse(Value, NumberStyles, parsingCulture);
                 default:
                     throw new InvalidOperationException("Unexpected UnparsedNumber type");
             }
