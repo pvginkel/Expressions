@@ -256,23 +256,20 @@ HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
 
 FLOATING_POINT_LITERAL
 	:
-		'0'
+		'0' +
 		(
 			('x'|'X') { $type = HEX_LITERAL; }
 			(
 				('0'..'9'|'a'..'z'|'A'..'Z')+
 				{ Text = Text.Substring(2); }
 			)
-			| '0' * '.' Digits Exponent? FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
-			| '0' * NumericTypeSuffix? { $type = DECIMAL_LITERAL; }
+			| { char.IsDigit((char)input.LA(2)) }? => '.' Digits Exponent? FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
+			| NumericTypeSuffix? { $type = DECIMAL_LITERAL; }
 		)
 	|	('1'..'9') Digits?
-		(
-			{ char.IsDigit((char)input.LA(2)) }? => '.' Digits? Exponent? FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
-		|
-			( Exponent FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
-			| NumericTypeSuffix? { $type = DECIMAL_LITERAL; }
-			)
+		( { char.IsDigit((char)input.LA(2)) }? => '.' Digits? Exponent? FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
+		| Exponent FloatTypeSuffix? { $type = FLOATING_POINT_LITERAL; }
+		| NumericTypeSuffix? { $type = DECIMAL_LITERAL; }
 		)
 	|
 		'.'

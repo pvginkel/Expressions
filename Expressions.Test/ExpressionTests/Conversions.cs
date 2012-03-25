@@ -27,7 +27,6 @@ namespace Expressions.Test.ExpressionTests
         }
 
         [Test]
-        [Ignore("Coalescing multiple concat's not yet supported")]
         public void MultipleConcat()
         {
             Resolve(

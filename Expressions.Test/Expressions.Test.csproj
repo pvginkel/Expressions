@@ -69,13 +69,13 @@
     <Compile Include="ExpressionTests\GlobalAccesses.cs" />
     <Compile Include="ExpressionTests\Indexing.cs" />
     <Compile Include="ExpressionTests\MethodCalls.cs" />
+    <Compile Include="ExpressionTests\SpecialConstructs.cs" />
     <Compile Include="ExpressionTests\TestBase.cs" />
     <Compile Include="ExpressionTests\UnaryExpressions.cs" />
     <Compile Include="FleeLanguage\BulkTests.cs" />
     <Compile Include="FleeLanguage\ExpressionOwners.cs" />
     <Compile Include="FleeLanguage\ExpressionTests.cs" />
     <Compile Include="MethodCalls.cs" />
-    <Compile Include="FleeLanguage\Parsing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeExtensions.cs" />
   </ItemGroup>

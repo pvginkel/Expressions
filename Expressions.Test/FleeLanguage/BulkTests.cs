@@ -43,6 +43,14 @@ namespace Expressions.Test.FleeLanguage
             ProcessScriptTests("OnDemandMethods.txt", DoTestValidExpressions);
         }
 
+        [Test(Description = "Special construct expressions that should be valid")]
+        public void TestSpecialConstructExpressions()
+        {
+            MyCurrentContext = MyGenericContext;
+
+            ProcessScriptTests("SpecialConstructs.txt", DoTestValidExpressions);
+        }
+
         [Test(Description = "Expressions that should not be valid")]
         public void TestInvalidExpressions()
         {
