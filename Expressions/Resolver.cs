@@ -84,7 +84,10 @@ namespace Expressions
 
             foreach (var method in methods)
             {
-                if (IdentifiersEqual(method.Name, name))
+                if (
+                    IdentifiersEqual(method.Name, name) &&
+                    method.ReturnType != typeof(void)
+                )
                     candidates.Add(method);
             }
 

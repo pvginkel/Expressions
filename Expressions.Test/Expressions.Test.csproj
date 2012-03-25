@@ -72,6 +72,7 @@
     <Compile Include="ExpressionTests\SpecialConstructs.cs" />
     <Compile Include="ExpressionTests\TestBase.cs" />
     <Compile Include="ExpressionTests\UnaryExpressions.cs" />
+    <Compile Include="ExpressionTests\VoidMethods.cs" />
     <Compile Include="FleeLanguage\BulkTests.cs" />
     <Compile Include="FleeLanguage\ExpressionOwners.cs" />
     <Compile Include="FleeLanguage\ExpressionTests.cs" />
