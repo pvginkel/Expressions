@@ -524,12 +524,19 @@ namespace Expressions
             var result = TypeUtil.GetBuiltInType(builtInType);
 
             if (result == null)
-            {
-                result = Type.GetType(type, false);
+                result = Type.GetType(type, false, _resolver.IgnoreCase);
 
-                if (result == null)
-                    throw new NotSupportedException(String.Format("Unknown type '{0}'", type));
-            }
+            // This deviates from the specs but allows us to not include
+            // boolean and single in the known types table.
+
+            if (result == null)
+                result = Type.GetType("System." + type, false, _resolver.IgnoreCase);
+
+            if (result == null)
+                result = FindTypeInImports(type);
+
+            if (result == null)
+                throw new NotSupportedException(String.Format("Unknown type '{0}'", type));
 
             if (arrayIndex == 1)
                 result = result.MakeArrayType();
@@ -537,6 +544,35 @@ namespace Expressions
                 result = result.MakeArrayType(arrayIndex);
 
             return result;
+        }
+
+        private Type FindTypeInImports(string type)
+        {
+            foreach (var import in _resolver.Imports)
+            {
+                var result = FindTypeInImport(import, type);
+
+                if (result != null)
+                    return result;
+            }
+
+            return null;
+        }
+
+        private Type FindTypeInImport(Import import, string type)
+        {
+            if (import.Type != null && _resolver.IdentifiersEqual(import.Type.Name, type))
+                return import.Type;
+
+            foreach (var childImport in import.Imports)
+            {
+                var result = FindTypeInImport(childImport, type);
+
+                if (result != null)
+                    return result;
+            }
+
+            return null;
         }
 
         private Type ResolveExpressionCommonType(Type left, Type right, bool allowStringConcat)

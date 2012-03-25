@@ -219,7 +219,17 @@ namespace Expressions
                         break;
 
                     case ExpressionType.Add:
-                        _il.Emit(OpCodes.Add);
+                        if (_compiler._resolver.Options.Checked && TypeUtil.IsInteger(binaryExpression.CommonType))
+                        {
+                            if (TypeUtil.IsUnsigned(binaryExpression.CommonType))
+                                _il.Emit(OpCodes.Add_Ovf_Un);
+                            else
+                                _il.Emit(OpCodes.Add_Ovf);
+                        }
+                        else
+                        {
+                            _il.Emit(OpCodes.Add);
+                        }
                         break;
 
                     case ExpressionType.Divide:
@@ -230,11 +240,31 @@ namespace Expressions
                         break;
 
                     case ExpressionType.Multiply:
-                        _il.Emit(OpCodes.Mul);
+                        if (_compiler._resolver.Options.Checked && TypeUtil.IsInteger(binaryExpression.CommonType))
+                        {
+                            if (TypeUtil.IsUnsigned(binaryExpression.CommonType))
+                                _il.Emit(OpCodes.Mul_Ovf_Un);
+                            else
+                                _il.Emit(OpCodes.Mul_Ovf);
+                        }
+                        else
+                        {
+                            _il.Emit(OpCodes.Mul);
+                        }
                         break;
 
                     case ExpressionType.Subtract:
-                        _il.Emit(OpCodes.Sub);
+                        if (_compiler._resolver.Options.Checked && TypeUtil.IsInteger(binaryExpression.CommonType))
+                        {
+                            if (TypeUtil.IsUnsigned(binaryExpression.CommonType))
+                                _il.Emit(OpCodes.Sub_Ovf_Un);
+                            else
+                                _il.Emit(OpCodes.Sub_Ovf);
+                        }
+                        else
+                        {
+                            _il.Emit(OpCodes.Sub);
+                        }
                         break;
 
 

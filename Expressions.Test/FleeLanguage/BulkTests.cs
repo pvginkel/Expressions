@@ -88,7 +88,6 @@ namespace Expressions.Test.FleeLanguage
             ExpressionContext context = MyGenericContext;
             //ExpressionOptions options = context.Options;
             //options.ResultType = expressionType;
-            context.Imports.Add(new Import(typeof(Math)));
             //options.OwnerMemberAccess = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic;
 
             AssertCompileException(arr[1], context);
