@@ -471,9 +471,72 @@ namespace Expressions
                 var parameters = methodCall.MethodInfo.GetParameters();
                 var arguments = methodCall.Arguments;
 
-                for (int i = 0; i < arguments.Count; i++)
+                bool paramsMethod =
+                    parameters.Length > 0 &&
+                    parameters[parameters.Length - 1].GetCustomAttributes(typeof(ParamArrayAttribute), true).Length == 1;
+
+                int mandatoryParameterCount =
+                    paramsMethod
+                    ? parameters.Length - 1
+                    : parameters.Length;
+
+                for (int i = 0; i < mandatoryParameterCount; i++)
                 {
                     Emit(arguments[i], parameters[i].ParameterType);
+                }
+
+                if (paramsMethod)
+                {
+                    var paramsType = parameters[parameters.Length - 1].ParameterType;
+                    var elementType = paramsType.GetElementType();
+                    bool emitted = false;
+
+                    // When the params argument is missing, a new array is issued.
+
+                    if (arguments.Count == mandatoryParameterCount)
+                    {
+                        ILUtil.EmitEmptyArray(_il, elementType);
+                        emitted = true;
+                    }
+                    else if (arguments.Count == mandatoryParameterCount + 1)
+                    {
+                        var lastArgument = arguments[arguments.Count - 1];
+                        var constant = lastArgument as Constant;
+
+                        // Null arguments are passed blindly.
+
+                        if (constant != null && constant.Value == null)
+                        {
+                            ILUtil.EmitNull(_il);
+                            emitted = true;
+                        }
+                        else
+                        {
+                            // So are array arguments that can be casted.
+
+                            if (
+                                lastArgument.Type.IsArray &&
+                                TypeUtil.CanCastImplicitely(lastArgument.Type, paramsType, false)
+                            )
+                            {
+                                Emit(lastArgument, paramsType);
+                                emitted = true;
+                            }
+                        }
+                    }
+
+                    // If we didn't find a shortcut, emit the array with all
+                    // arguments.
+
+                    if (!emitted)
+                    {
+                        ILUtil.EmitArray(
+                            _il,
+                            elementType,
+                            arguments.Count - mandatoryParameterCount,
+                            p => Emit(arguments[mandatoryParameterCount + p], elementType)
+                        );
+                    }
                 }
 
                 _il.Emit(

@@ -127,76 +127,155 @@ namespace Expressions
 
         public MethodBase ResolveMethodGroup(IList<MethodBase> methods, IList<Type> argumentTypes, IList<bool> argumentsNull)
         {
-            // Get all methods with the correct number of parameters.
-
-            var candidates = GetCandidates(methods, argumentTypes.Count);
-
-            if (candidates.Count == 0)
-                return null;
-
-            if (candidates.Count == 1)
-                return candidates[0];
-
-            var matchedCandidates = new List<MethodBase>();
-
-            foreach (var candidate in candidates)
-            {
-                // See if we have an exact match.
-
-                var parameters = candidate.GetParameters();
-
-                bool success = true;
-
-                for (int i = 0; i < parameters.Length; i++)
-                {
-                    if (
-                        !parameters[i].ParameterType.IsValueType &&
-                        argumentsNull != null &&
-                        argumentsNull[i]
-                    )
-                        continue;
-
-                    if (parameters[i].ParameterType != argumentTypes[i])
-                        success = false;
-                }
-
-                if (success)
-                    return candidate;
-
-                // See if we can find a match with implicit casting.
-
-                success = true;
-
-                for (int i = 0; i < parameters.Length; i++)
-                {
-                    success = success && TypeUtil.CanCastImplicitely(
-                        argumentTypes[i],
-                        parameters[i].ParameterType,
-                        argumentsNull[i]
-                    );
-                }
-
-                if (success)
-                    matchedCandidates.Add(candidate);
-            }
-
-            if (matchedCandidates.Count != 1)
-                return null;
-
-            return matchedCandidates[0];
-        }
-
-        private List<MethodBase> GetCandidates(IEnumerable<MethodBase> methods, int arguments)
-        {
-            var candidates = new List<MethodBase>();
+            var matches = new List<MethodBase>();
+            var implicitMatches = new List<MethodBase>();
+            var paramsMatches = new List<MethodBase>();
+            var implicitParamsMatches = new List<MethodBase>();
 
             foreach (var method in methods)
             {
-                if (method.GetParameters().Length == arguments)
-                    candidates.Add(method);
+                // See if we have an exact match.
+
+                var parameters = method.GetParameters();
+
+                bool paramsMethod =
+                    parameters.Length > 0 &&
+                    parameters[parameters.Length - 1].GetCustomAttributes(typeof(ParamArrayAttribute), true).Length == 1;
+
+                int mandatoryParameterCount =
+                    paramsMethod
+                    ? parameters.Length - 1
+                    : parameters.Length;
+
+                if (paramsMethod)
+                {
+                    if (argumentTypes.Count < mandatoryParameterCount)
+                        continue;
+                }
+                else
+                {
+                    if (argumentTypes.Count != mandatoryParameterCount)
+                        continue;
+                }
+
+                bool match = true;
+                bool implicitMatch = true;
+
+                for (int i = 0; i < mandatoryParameterCount; i++)
+                {
+                    TestArgumentType(
+                        parameters[i].ParameterType,
+                        argumentTypes[i],
+                        argumentsNull != null && argumentsNull[i],
+                        ref match,
+                        ref implicitMatch
+                    );
+                }
+
+                if (paramsMethod)
+                {
+                    if (argumentTypes.Count > mandatoryParameterCount)
+                    {
+                        bool nullParamsArgument =
+                            argumentTypes.Count == parameters.Length &&
+                            argumentsNull != null &&
+                            argumentsNull[parameters.Length - 1];
+
+                        if (!nullParamsArgument)
+                        {
+                            bool matched = false;
+
+                            if (argumentTypes.Count == parameters.Length)
+                            {
+                                bool paramsMatch = true;
+                                bool implicitParamsMatch = true;
+
+                                TestArgumentType(
+                                    parameters[parameters.Length - 1].ParameterType,
+                                    argumentTypes[argumentTypes.Count - 1],
+                                    false,
+                                    ref paramsMatch,
+                                    ref implicitParamsMatch
+                                );
+
+                                if (paramsMatch || implicitParamsMatch)
+                                {
+                                    match = paramsMatch;
+                                    implicitMatch = implicitParamsMatch;
+                                    matched = true;
+                                }
+                            }
+
+                            if (!matched)
+                            {
+                                var parameterType = parameters[parameters.Length - 1].ParameterType.GetElementType();
+
+                                for (int i = mandatoryParameterCount; i < argumentTypes.Count; i++)
+                                {
+                                    TestArgumentType(
+                                        parameterType,
+                                        argumentTypes[i],
+                                        argumentsNull != null && argumentsNull[i],
+                                        ref match,
+                                        ref implicitMatch
+                                    );
+                                }
+                            }
+                        }
+                    }
+
+                    if (match)
+                        paramsMatches.Add(method);
+                    if (implicitMatch)
+                        implicitParamsMatches.Add(method);
+                }
+                else
+                {
+                    if (match)
+                        matches.Add(method);
+                    if (implicitMatch)
+                        implicitMatches.Add(method);
+                }
             }
 
-            return candidates;
+            if (matches.Count == 1)
+                return matches[0];
+            else if (matches.Count > 1)
+                return null;
+
+            if (paramsMatches.Count == 1)
+                return paramsMatches[0];
+            else if (paramsMatches.Count > 1)
+                return null;
+
+            if (implicitMatches.Count == 1)
+                return implicitMatches[0];
+            else if (implicitMatches.Count > 1)
+                return null;
+
+            if (implicitParamsMatches.Count == 1)
+                return implicitParamsMatches[0];
+
+            return null;
+        }
+
+        private void TestArgumentType(Type parameterType, Type argumentType, bool argumentNull, ref bool match, ref bool implicitMatch)
+        {
+            if (
+                !parameterType.IsValueType &&
+                argumentNull
+            )
+                return;
+
+            if (parameterType != argumentType)
+                match = false;
+
+            if (!TypeUtil.CanCastImplicitely(
+                argumentType,
+                parameterType,
+                argumentNull
+            ))
+                implicitMatch = false;
         }
 
         internal MethodInfo FindOperatorMethod(string methodName, Type[] sourceTypes, Type returnType, Type[] parameterTypes)

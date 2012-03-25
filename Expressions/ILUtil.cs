@@ -1048,11 +1048,16 @@ namespace Expressions
             }
         }
 
+        public static void EmitEmptyArray(ILGenerator il, Type elementType)
+        {
+            EmitArray(il, elementType, 0, p => { });
+        }
+
         /// <summary>
         /// Emits an array of values of count size.  The items are emitted via the callback
         /// which is provided with the current item index to emit.
         /// </summary>
-        private static void EmitArray(ILGenerator il, Type elementType, int count, Action<int> emit)
+        public static void EmitArray(ILGenerator il, Type elementType, int count, Action<int> emit)
         {
             Require.NotNull(elementType, "elementType");
             Require.NotNull(emit, "emit");
