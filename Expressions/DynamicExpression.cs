@@ -31,6 +31,11 @@ namespace Expressions
             Cached = DynamicExpressionCache.GetOrCreateCachedDynamicExpression(expression, language, ParsingCulture);
         }
 
+        public BoundExpression Bind()
+        {
+            return Bind(null);
+        }
+
         public BoundExpression Bind(IBindingContext binder)
         {
             return Bind(binder, null);
@@ -38,8 +43,8 @@ namespace Expressions
 
         public BoundExpression Bind(IBindingContext binder, BoundExpressionOptions options)
         {
-            Require.NotNull(binder, "binder");
-
+            if (binder == null)
+                binder = new ExpressionContext();
             if (options == null)
                 options = new BoundExpressionOptions();
 

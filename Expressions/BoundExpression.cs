@@ -80,14 +80,21 @@ namespace Expressions
         private void WriteToDisk(IExpression expression, Resolver resolver)
         {
             var name = "Output.exe";
+
             var assemblyName = new AssemblyName(name);
-            var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+
+            var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
+                assemblyName,
+                AssemblyBuilderAccess.RunAndSave
+            );
+
             var moduleBuilder = assemblyBuilder.DefineDynamicModule(name);
+
             var programClass = moduleBuilder.DefineType("Program", TypeAttributes.Public);
 
-            var mainmethod = programClass.DefineMethod("Main", MethodAttributes.Public | MethodAttributes.Static, null, new[] { typeof(string[]) });
+            var mainMethod = programClass.DefineMethod("Main", MethodAttributes.Public | MethodAttributes.Static, null, new[] { typeof(string[]) });
 
-            var il = mainmethod.GetILGenerator();
+            var il = mainMethod.GetILGenerator();
 
             new Compiler(il, resolver).Compile(expression);
 
@@ -98,9 +105,15 @@ namespace Expressions
         }
 #endif
 
+        public object Invoke()
+        {
+            return Invoke(null);
+        }
+
         public object Invoke(IExecutionContext executionContext)
         {
-            Require.NotNull(executionContext, "executionContext");
+            if (executionContext == null)
+                executionContext = new ExpressionContext();
 
             var parameters = new object[_parameterMap.Length];
 
