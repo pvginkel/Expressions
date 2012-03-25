@@ -42,7 +42,26 @@ namespace Expressions
             { typeof(decimal), new Type[0] }
         };
 
-        private static readonly Dictionary<string, Type> BuiltInTypes = new Dictionary<string, Type>
+        private static readonly Dictionary<string, Type> FleeBuiltInTypes = new Dictionary<string, Type>
+        {
+            { "object", typeof(object) },
+            { "char", typeof(char) },
+            { "sbyte", typeof(sbyte) },
+            { "byte", typeof(byte) },
+            { "short", typeof(short) },
+            { "ushort", typeof(ushort) },
+            { "int", typeof(int) },
+            { "uint", typeof(uint) },
+            { "long", typeof(long) },
+            { "ulong", typeof(ulong) },
+            { "single", typeof(float) },
+            { "double", typeof(double) },
+            { "decimal", typeof(decimal) },
+            { "boolean", typeof(bool) },
+            { "string", typeof(string) }
+        };
+
+        private static readonly Dictionary<string, Type> CsharpBuiltInTypes = new Dictionary<string, Type>
         {
             { "object", typeof(object) },
             { "char", typeof(char) },
@@ -120,13 +139,21 @@ namespace Expressions
             return ImplicitCastingTable.ContainsKey(type);
         }
 
-        public static Type GetBuiltInType(string name)
+        public static Type GetBuiltInType(string name, ExpressionLanguage language)
         {
             Require.NotNull(name, "name");
 
             Type result;
 
-            BuiltInTypes.TryGetValue(name, out result);
+            switch (language)
+            {
+                case ExpressionLanguage.Flee:
+                    FleeBuiltInTypes.TryGetValue(name, out result);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException("language");
+            }
 
             return result;
         }

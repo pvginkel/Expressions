@@ -214,16 +214,17 @@ namespace Expressions
                 }
             }
 
-            //// Last, use the type name of imports as the namespace.
+            // Last, see whether the identifier is a built in type.
 
-            //foreach (var import in _resolver.Imports)
-            //{
-            //    if (
-            //        import.Namespace == null &&
-            //        _resolver.IdentifiersEqual(import.Type.Name, identifierAccess.Name)
-            //    )
-            //        return new TypeAccess(import.Type);
-            //}
+            string identifierName = identifierAccess.Name;
+
+            if (_resolver.IgnoreCase)
+                identifierName = identifierName.ToLowerInvariant();
+
+            var type = TypeUtil.GetBuiltInType(identifierName, _resolver.DynamicExpression.Language);
+
+            if (type != null)
+                return new TypeAccess(type);
 
             throw new NotSupportedException("Could not resolve identifier");
         }
@@ -521,7 +522,7 @@ namespace Expressions
             if (_resolver.IgnoreCase)
                 builtInType = builtInType.ToLowerInvariant();
 
-            var result = TypeUtil.GetBuiltInType(builtInType);
+            var result = TypeUtil.GetBuiltInType(builtInType, _resolver.DynamicExpression.Language);
 
             if (result == null)
                 result = Type.GetType(type, false, _resolver.IgnoreCase);

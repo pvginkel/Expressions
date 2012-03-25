@@ -101,23 +101,7 @@ namespace Expressions.Test.FleeLanguage
 
             var imports = new[]
             {
-                new Import(typeof(Math)),
-                // ImportBuiltinTypes
-                new Import("boolean", typeof(bool)),
-		        new Import("byte", typeof(byte)),
-		        new Import("sbyte", typeof(sbyte)),
-		        new Import("short", typeof(short)),
-		        new Import("ushort", typeof(ushort)),
-		        new Import("int", typeof(int)),
-		        new Import("uint", typeof(uint)),
-		        new Import("long", typeof(long)),
-		        new Import("ulong", typeof(ulong)),
-		        new Import("single", typeof(float)),
-		        new Import("double", typeof(double)),
-		        new Import("decimal", typeof(decimal)),
-		        new Import("char", typeof(char)),
-		        new Import("object", typeof(object)),
-		        new Import("string", typeof(string))
+                new Import(typeof(Math))
            };
 
             ExpressionContext context = new ExpressionContext(imports, MyValidExpressionsOwner);

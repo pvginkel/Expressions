@@ -44,23 +44,7 @@ namespace Expressions.Test.FleeLanguage
                 new Import(typeof(AppDomainInitializer)),
                 new Import(typeof(System.Text.Encoding)),
                 new Import(typeof(System.Text.ASCIIEncoding)),
-                new Import(typeof(ArgumentException)),
-                // ImportBuiltinTypes
-                new Import("boolean", typeof(bool)),
-		        new Import("byte", typeof(byte)),
-		        new Import("sbyte", typeof(sbyte)),
-		        new Import("short", typeof(short)),
-		        new Import("ushort", typeof(ushort)),
-		        new Import("int", typeof(int)),
-		        new Import("uint", typeof(uint)),
-		        new Import("long", typeof(long)),
-		        new Import("ulong", typeof(ulong)),
-		        new Import("single", typeof(float)),
-		        new Import("double", typeof(double)),
-		        new Import("decimal", typeof(decimal)),
-		        new Import("char", typeof(char)),
-		        new Import("object", typeof(object)),
-		        new Import("string", typeof(string))
+                new Import(typeof(ArgumentException))
            };
 
            ExpressionContext context = new ExpressionContext(imports, MyValidExpressionsOwner);
@@ -94,23 +78,7 @@ namespace Expressions.Test.FleeLanguage
                 new Import("Type", typeof(Type)),
                 new Import("DayOfWeek", typeof(DayOfWeek)),
                 new Import("ConsoleModifiers", typeof(ConsoleModifiers)),
-                new Import("ns1", new Import("ns2", typeof(Math))),
-                // ImportBuiltinTypes
-                new Import("boolean", typeof(bool)),
-		        new Import("byte", typeof(byte)),
-		        new Import("sbyte", typeof(sbyte)),
-		        new Import("short", typeof(short)),
-		        new Import("ushort", typeof(ushort)),
-		        new Import("int", typeof(int)),
-		        new Import("uint", typeof(uint)),
-		        new Import("long", typeof(long)),
-		        new Import("ulong", typeof(ulong)),
-		        new Import("single", typeof(float)),
-		        new Import("double", typeof(double)),
-		        new Import("decimal", typeof(decimal)),
-		        new Import("char", typeof(char)),
-		        new Import("object", typeof(object)),
-		        new Import("string", typeof(string))
+                new Import("ns1", new Import("ns2", typeof(Math)))
             };
 
             var context = new ExpressionContext(imports, owner);

@@ -13,7 +13,7 @@ namespace Expressions.Test.ExpressionTests
         public void CastWithBuiltInFloat()
         {
             Resolve(
-                "cast(7, float)",
+                "cast(7, single)",
                 new Cast(
                     new Constant(7),
                     typeof(float)
@@ -25,7 +25,7 @@ namespace Expressions.Test.ExpressionTests
         public void CastWithExpression()
         {
             Resolve(
-                "cast(1 + 2, float)",
+                "cast(1 + 2, single)",
                 new Cast(
                     new BinaryExpression(
                         new Constant(1),

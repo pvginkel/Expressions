@@ -12,13 +12,13 @@ namespace Expressions.Test.Compilation
         [Test]
         public void CastWithBuiltInFloat()
         {
-            Resolve("cast(7, float)", 7.0f);
+            Resolve("cast(7, single)", 7.0f);
         }
 
         [Test]
         public void CastWithExpression()
         {
-            Resolve("cast(1 + 2, float)", 3f);
+            Resolve("cast(1 + 2, single)", 3f);
         }
 
         [Test]

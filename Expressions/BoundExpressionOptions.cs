@@ -10,6 +10,7 @@ namespace Expressions
         private bool _frozen;
         private bool _allowPrivateAccess;
         private bool _checked;
+        private bool _importBuildInTypes;
         private Type _resultType = typeof(object);
 
         public bool AllowPrivateAccess
@@ -48,9 +49,22 @@ namespace Expressions
             }
         }
 
+        public bool ImportBuildInTypes
+        {
+            get { return _importBuildInTypes; }
+            set
+            {
+                if (_frozen)
+                    throw new InvalidOperationException("Options cannot be modified");
+
+                _importBuildInTypes = value;
+            }
+        }
+
         internal void Freeze()
         {
             _frozen = true;
+            _importBuildInTypes = true;
         }
 
         public override bool Equals(object obj)
@@ -63,7 +77,8 @@ namespace Expressions
             return
                 other != null &&
                 _allowPrivateAccess == other._allowPrivateAccess &&
-                _resultType == other._resultType;
+                _resultType == other._resultType &&
+                _importBuildInTypes == other._importBuildInTypes;
         }
 
         public override int GetHashCode()
@@ -72,7 +87,8 @@ namespace Expressions
             {
                 return ObjectUtil.CombineHashCodes(
                     _allowPrivateAccess.GetHashCode(),
-                    _resultType.GetHashCode()
+                    _resultType.GetHashCode(),
+                    _importBuildInTypes.GetHashCode()
                 );
             }
         }
