@@ -1,5 +1,6 @@
 ﻿// From http://flee.codeplex.com/
 
+using System.Text;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Data;
 
 #pragma warning disable 0649, 0169, 0414
 
-namespace Expressions.Test.FleeLanguage
+namespace Expressions.Test.FleeLanguage.BulkTests
 {
     public struct Mouse
     {

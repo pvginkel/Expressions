@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 
-namespace Expressions.Test.Compilation
+namespace Expressions.Test.FleeLanguage.Compilation
 {
     [TestFixture]
     internal class ResultCasting : TestBase

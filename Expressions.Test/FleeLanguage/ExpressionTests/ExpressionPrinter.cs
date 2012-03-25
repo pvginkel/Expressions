@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Expressions.Expressions;
 
-namespace Expressions.Test.ExpressionTests
+namespace Expressions.Test.FleeLanguage.ExpressionTests
 {
     internal class ExpressionPrinter
     {

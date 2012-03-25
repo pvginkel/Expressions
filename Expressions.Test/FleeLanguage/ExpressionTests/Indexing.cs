@@ -4,7 +4,7 @@ using System.Text;
 using Expressions.Expressions;
 using NUnit.Framework;
 
-namespace Expressions.Test.ExpressionTests
+namespace Expressions.Test.FleeLanguage.ExpressionTests
 {
     [TestFixture]
     internal class Indexing : TestBase

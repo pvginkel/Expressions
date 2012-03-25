@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 
-namespace Expressions.Test.Parsing
+namespace Expressions.Test.FleeLanguage.Parsing
 {
     [TestFixture]
     internal class Parsing

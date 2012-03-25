@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Expressions.Expressions;
 using NUnit.Framework;
 
-namespace Expressions.Test.Compilation
+namespace Expressions.Test.FleeLanguage.Compilation
 {
     [TestFixture]
     internal class Casting : TestBase

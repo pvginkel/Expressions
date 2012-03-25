@@ -1,5 +1,6 @@
 ﻿// From http://flee.codeplex.com/
 
+using System.Text;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +8,7 @@ using System.Globalization;
 using System.Reflection;
 using NUnit.Framework;
 
-namespace Expressions.Test.FleeLanguage
+namespace Expressions.Test.FleeLanguage.BulkTests
 {
     public abstract class ExpressionTests
     {

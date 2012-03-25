@@ -1,11 +1,13 @@
 ﻿// From http://flee.codeplex.com/
 
+using System.Text;
+using System.Collections.Generic;
 using System;
 using System.Globalization;
 using System.Threading;
 using NUnit.Framework;
 
-namespace Expressions.Test.FleeLanguage
+namespace Expressions.Test.FleeLanguage.BulkTests
 {
     [TestFixture()]
     public class BulkTests : ExpressionTests

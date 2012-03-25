@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text;
 using NUnit.Framework;
 
-namespace Expressions.Test.Compilation
+namespace Expressions.Test.FleeLanguage.Compilation
 {
     [TestFixture]
     internal class Caching : TestBase

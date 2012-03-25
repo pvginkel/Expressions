@@ -51,33 +51,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compilation\BinaryExpressions.cs" />
-    <Compile Include="Compilation\Caching.cs" />
-    <Compile Include="Compilation\Casting.cs" />
-    <Compile Include="Compilation\EmitIssues.cs" />
-    <Compile Include="Compilation\Fields.cs" />
-    <Compile Include="Compilation\Imports.cs" />
-    <Compile Include="Compilation\Indexing.cs" />
-    <Compile Include="Compilation\MethodCalls.cs" />
-    <Compile Include="Compilation\ResultCasting.cs" />
-    <Compile Include="Compilation\TestBase.cs" />
-    <Compile Include="Compilation\UnaryExpressions.cs" />
-    <Compile Include="ExpressionTests\BinaryExpressions.cs" />
-    <Compile Include="ExpressionTests\Casting.cs" />
-    <Compile Include="ExpressionTests\Constants.cs" />
-    <Compile Include="ExpressionTests\Conversions.cs" />
-    <Compile Include="ExpressionTests\ExpressionPrinter.cs" />
-    <Compile Include="ExpressionTests\GlobalAccesses.cs" />
-    <Compile Include="ExpressionTests\Indexing.cs" />
-    <Compile Include="ExpressionTests\MethodCalls.cs" />
-    <Compile Include="ExpressionTests\SpecialConstructs.cs" />
-    <Compile Include="ExpressionTests\TestBase.cs" />
-    <Compile Include="ExpressionTests\UnaryExpressions.cs" />
-    <Compile Include="ExpressionTests\VoidMethods.cs" />
-    <Compile Include="FleeLanguage\BulkTests.cs" />
-    <Compile Include="FleeLanguage\ExpressionOwners.cs" />
-    <Compile Include="FleeLanguage\ExpressionTests.cs" />
-    <Compile Include="Parsing\Parsing.cs" />
+    <Compile Include="FleeLanguage\Compilation\BinaryExpressions.cs" />
+    <Compile Include="FleeLanguage\Compilation\Caching.cs" />
+    <Compile Include="FleeLanguage\Compilation\Casting.cs" />
+    <Compile Include="FleeLanguage\Compilation\EmitIssues.cs" />
+    <Compile Include="FleeLanguage\Compilation\Fields.cs" />
+    <Compile Include="FleeLanguage\Compilation\Imports.cs" />
+    <Compile Include="FleeLanguage\Compilation\Indexing.cs" />
+    <Compile Include="FleeLanguage\Compilation\MethodCalls.cs" />
+    <Compile Include="FleeLanguage\Compilation\ResultCasting.cs" />
+    <Compile Include="FleeLanguage\Compilation\TestBase.cs" />
+    <Compile Include="FleeLanguage\Compilation\UnaryExpressions.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\BinaryExpressions.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\Casting.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\Constants.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\Conversions.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\ExpressionPrinter.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\GlobalAccesses.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\Indexing.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\MethodCalls.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\SpecialConstructs.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\TestBase.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\UnaryExpressions.cs" />
+    <Compile Include="FleeLanguage\ExpressionTests\VoidMethods.cs" />
+    <Compile Include="FleeLanguage\BulkTests\BulkTests.cs" />
+    <Compile Include="FleeLanguage\BulkTests\ExpressionOwners.cs" />
+    <Compile Include="FleeLanguage\BulkTests\ExpressionTests.cs" />
+    <Compile Include="FleeLanguage\Parsing\Parsing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,20 +92,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FleeLanguage\TestScripts\CheckedTests.txt" />
-    <EmbeddedResource Include="FleeLanguage\TestScripts\IndividualTests.xml" />
-    <EmbeddedResource Include="FleeLanguage\TestScripts\InvalidExpressions.txt" />
-    <EmbeddedResource Include="FleeLanguage\TestScripts\LongBranchLogicalTest.txt" />
-    <EmbeddedResource Include="FleeLanguage\TestScripts\SimpleCalcEngineTests.txt" />
-    <EmbeddedResource Include="FleeLanguage\TestScripts\ValidCasts.txt" />
-    <EmbeddedResource Include="FleeLanguage\TestScripts\ValidExpressions.txt" />
+    <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\CheckedTests.txt" />
+    <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\IndividualTests.xml" />
+    <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\InvalidExpressions.txt" />
+    <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\LongBranchLogicalTest.txt" />
+    <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\SimpleCalcEngineTests.txt" />
+    <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\ValidCasts.txt" />
+    <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\ValidExpressions.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FleeLanguage\TestScripts\SpecialConstructs.txt" />
+    <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\SpecialConstructs.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FleeLanguage\TestScripts\OnDemandMethods.txt" />
-    <EmbeddedResource Include="FleeLanguage\TestScripts\TypeDescriptor.txt" />
+    <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\OnDemandMethods.txt" />
+    <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\TypeDescriptor.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
