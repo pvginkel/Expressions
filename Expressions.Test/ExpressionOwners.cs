@@ -9,7 +9,7 @@ using System.Data;
 
 #pragma warning disable 0649, 0169, 0414
 
-namespace Expressions.Test.VisualBasicLanguage.BulkTests
+namespace Expressions.Test
 {
     public struct Mouse
     {

@@ -52,9 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FleeLanguage\BulkTests\BulkTests.cs" />
+    <Compile Include="FleeLanguage\IndividualTests.cs" />
     <Compile Include="VisualBasicLanguage\BulkTests\BulkTests.cs" />
-    <Compile Include="VisualBasicLanguage\BulkTests\ExpressionOwners.cs" />
-    <Compile Include="VisualBasicLanguage\BulkTests\ExpressionTests.cs" />
     <Compile Include="VisualBasicLanguage\Compilation\BinaryExpressions.cs" />
     <Compile Include="VisualBasicLanguage\Compilation\Caching.cs" />
     <Compile Include="VisualBasicLanguage\Compilation\Casting.cs" />
@@ -80,8 +80,6 @@
     <Compile Include="VisualBasicLanguage\ExpressionTests\VoidMethods.cs" />
     <Compile Include="VisualBasicLanguage\Parsing\Parsing.cs" />
     <Compile Include="CsharpLanguage\BulkTests\BulkTests.cs" />
-    <Compile Include="CsharpLanguage\BulkTests\ExpressionOwners.cs" />
-    <Compile Include="CsharpLanguage\BulkTests\ExpressionTests.cs" />
     <Compile Include="CsharpLanguage\Compilation\BinaryExpressions.cs" />
     <Compile Include="CsharpLanguage\Compilation\Caching.cs" />
     <Compile Include="CsharpLanguage\Compilation\Casting.cs" />
@@ -129,9 +127,9 @@
     <Compile Include="FleeLanguage\ExpressionTests\TestBase.cs" />
     <Compile Include="FleeLanguage\ExpressionTests\UnaryExpressions.cs" />
     <Compile Include="FleeLanguage\ExpressionTests\VoidMethods.cs" />
-    <Compile Include="FleeLanguage\BulkTests\BulkTests.cs" />
-    <Compile Include="FleeLanguage\BulkTests\ExpressionOwners.cs" />
-    <Compile Include="FleeLanguage\BulkTests\ExpressionTests.cs" />
+    <Compile Include="BulkTests.cs" />
+    <Compile Include="ExpressionOwners.cs" />
+    <Compile Include="ExpressionTests.cs" />
     <Compile Include="FleeLanguage\Parsing\Parsing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

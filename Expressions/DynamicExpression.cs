@@ -48,6 +48,11 @@ namespace Expressions
             return Cached.GetOrCreateBoundExpression(binder, options);
         }
 
+        public object Invoke()
+        {
+            return Invoke(null);
+        }
+
         public object Invoke(IExpressionContext expressionContext)
         {
             return Invoke(expressionContext, null);
@@ -55,7 +60,8 @@ namespace Expressions
 
         public object Invoke(IExpressionContext expressionContext, BoundExpressionOptions options)
         {
-            Require.NotNull(expressionContext, "expressionContext");
+            if (expressionContext == null)
+                expressionContext = new ExpressionContext();
 
             return Bind(expressionContext, options).Invoke(expressionContext);
         }

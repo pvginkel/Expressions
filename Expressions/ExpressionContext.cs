@@ -7,35 +7,32 @@ namespace Expressions
 {
     public class ExpressionContext : IExpressionContext
     {
-        private static readonly Import[] EmptyImports = new Import[0];
-
         public object Owner { get; set; }
 
         public IList<Import> Imports { get; private set; }
 
-        public bool IgnoreCase { get; private set; }
+        public bool IgnoreCase { get; set; }
 
         public VariableCollection Variables { get; private set; }
 
         public ExpressionContext()
-            : this(null)
+            : this(null, null, true)
         {
         }
 
-        public ExpressionContext(IList<Import> imports)
-            : this(imports, null)
+        public ExpressionContext(IEnumerable<Import> imports)
+            : this(imports, null, true)
         {
         }
 
-        public ExpressionContext(IList<Import> imports, object owner)
+        public ExpressionContext(IEnumerable<Import> imports, object owner)
             : this(imports, owner, true)
         {
         }
 
-        public ExpressionContext(IList<Import> imports, object owner, bool ignoreCase)
+        public ExpressionContext(IEnumerable<Import> imports, object owner, bool ignoreCase)
         {
             Owner = owner;
-            Imports = new ReadOnlyCollection<Import>(imports ?? EmptyImports);
             IgnoreCase = ignoreCase;
 
             Variables = new VariableCollection(
@@ -43,6 +40,11 @@ namespace Expressions
                 ? StringComparer.OrdinalIgnoreCase
                 : StringComparer.Ordinal
             );
+
+            if (imports != null)
+                Imports = new List<Import>(imports);
+            else
+                Imports = new List<Import>();
         }
 
         Type IBindingContext.OwnerType

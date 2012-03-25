@@ -7,12 +7,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
+using System.Xml;
 using NUnit.Framework;
 
-namespace Expressions.Test.CsharpLanguage.BulkTests
+namespace Expressions.Test
 {
-    public abstract class ExpressionTests
+    internal abstract class ExpressionTests
     {
+        public ExpressionLanguage Language { get; private set; }
+
         private const char SEPARATOR_CHAR = ';';
         protected delegate void LineProcessor(string[] lineParts);
 
@@ -24,8 +27,10 @@ namespace Expressions.Test.CsharpLanguage.BulkTests
 
         protected static readonly CultureInfo TestCulture = CultureInfo.GetCultureInfo("en-CA");
 
-        public ExpressionTests()
+        public ExpressionTests(ExpressionLanguage language)
         {
+            Language = language;
+
             MyValidExpressionsOwner = new ExpressionOwner();
 
             MyGenericContext = this.CreateGenericContext(MyValidExpressionsOwner);
@@ -98,7 +103,7 @@ namespace Expressions.Test.CsharpLanguage.BulkTests
         {
             try
             {
-                new DynamicExpression(expression, ExpressionLanguage.Csharp);
+                new DynamicExpressionWithContext(expression, Language);
                 Assert.Fail();
 
             }
@@ -109,9 +114,14 @@ namespace Expressions.Test.CsharpLanguage.BulkTests
 
         protected void AssertCompileException(string expression, ExpressionContext context)
         {
+            AssertCompileException(expression, context, null);
+        }
+
+        protected void AssertCompileException(string expression, ExpressionContext context, BoundExpressionOptions options)
+        {
             try
             {
-                new DynamicExpression(expression, ExpressionLanguage.Csharp).Bind(context);
+                new DynamicExpressionWithContext(expression, context, Language).Bind(options);
                 Assert.Fail("Compile exception expected");
             }
             catch
@@ -120,7 +130,7 @@ namespace Expressions.Test.CsharpLanguage.BulkTests
             }
         }
 
-        protected void DoTest(DynamicExpression expression, ExpressionContext expressionContext, string result, Type resultType, CultureInfo testCulture)
+        protected void DoTest(DynamicExpressionWithContext expression, ExpressionContext expressionContext, string result, Type resultType, CultureInfo testCulture)
         {
             if (ReferenceEquals(resultType, typeof(object)))
             {
@@ -129,7 +139,7 @@ namespace Expressions.Test.CsharpLanguage.BulkTests
                 if (expectedType == null)
                 {
                     // Try to get the type from the Tests assembly
-                    result = string.Format("{0}.{1}", this.GetType().Namespace, result);
+                    result = string.Format("{0}.{1}", typeof(ExpressionTests).Namespace, result);
                     expectedType = this.GetType().Assembly.GetType(result, true, true);
                 }
 
@@ -191,10 +201,16 @@ namespace Expressions.Test.CsharpLanguage.BulkTests
         {
             this.WriteMessage("Testing: {0}", scriptFileName);
 
-            using (var instream = GetScriptFile(scriptFileName))
-            using (var sr = new System.IO.StreamReader(instream))
+            System.IO.Stream instream = this.GetScriptFile(scriptFileName);
+            System.IO.StreamReader sr = new System.IO.StreamReader(instream);
+
+            try
             {
-                ProcessLines(sr, processor);
+                this.ProcessLines(sr, processor);
+            }
+            finally
+            {
+                sr.Close();
             }
         }
 
@@ -240,23 +256,22 @@ namespace Expressions.Test.CsharpLanguage.BulkTests
 
         protected string GetIndividualTest(string testName)
         {
-            throw new NotImplementedException();
+            Assembly a = Assembly.GetExecutingAssembly();
 
-            //Assembly a = Assembly.GetExecutingAssembly();
+            using (Stream s = a.GetManifestResourceStream(typeof(FleeLanguage.BulkTests.BulkTests).Namespace + ".TestScripts.IndividualTests.xml"))
+            {
+                var document = new XmlDocument();
 
-            //Stream s = a.GetManifestResourceStream(this.GetType(), "IndividualTests.xml");
+                document.Load(s);
 
-            //XPathDocument doc = new XPathDocument(s);
+                foreach (XmlElement element in document.DocumentElement.ChildNodes)
+                {
+                    if (element.Attributes["Name"].Value == testName)
+                        return element.InnerText;
+                }
+            }
 
-            //XPathNavigator nav = doc.CreateNavigator();
-
-            //nav = nav.SelectSingleNode(string.Format("Tests/Test[@Name='{0}']", testName));
-
-            //string str = (string)nav.TypedValue;
-
-            //s.Close();
-
-            //return str;
+            throw new ArgumentException("Could not find test");
         }
 
         protected void WriteMessage(string msg, params object[] args)
@@ -310,6 +325,62 @@ namespace Expressions.Test.CsharpLanguage.BulkTests
             }
 
             return dict;
+        }
+
+        protected DynamicExpressionWithContext CreateDynamicExpression(string expression)
+        {
+            return CreateDynamicExpression(expression, null);
+        }
+
+        protected DynamicExpressionWithContext CreateDynamicExpression(string expression, IExpressionContext context)
+        {
+            return new DynamicExpressionWithContext(expression, context, Language);
+        }
+    }
+
+    public class DynamicExpressionWithContext
+    {
+        private readonly string _expression;
+        private readonly IExpressionContext _context;
+        private readonly ExpressionLanguage _language;
+
+        public DynamicExpressionWithContext(string expression, ExpressionLanguage Language)
+            : this(expression, null, Language)
+        {
+        }
+
+        public DynamicExpressionWithContext(string expression, IExpressionContext context, ExpressionLanguage Language)
+        {
+            _expression = expression;
+            _context = context;
+            _language = Language;
+        }
+
+        internal object Invoke()
+        {
+            return Invoke(null);
+        }
+
+        internal object Invoke(ExpressionContext expressionContext)
+        {
+            return Invoke(expressionContext, null);
+        }
+
+        internal object Invoke(ExpressionContext expressionContext, BoundExpressionOptions options)
+        {
+            if (_context != null && expressionContext != null)
+                throw new ArgumentException("Expression context already provided");
+
+            var expression = new DynamicExpression(_expression, _language);
+
+            return expression.Invoke(_context ?? expressionContext, options);
+        }
+
+        internal void Bind(BoundExpressionOptions options)
+        {
+            var expression = new DynamicExpression(_expression, _language);
+
+            expression.Bind(_context, options);
         }
     }
 }

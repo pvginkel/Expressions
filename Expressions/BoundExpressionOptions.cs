@@ -77,7 +77,6 @@ namespace Expressions
         internal void Freeze()
         {
             _frozen = true;
-            _importBuildInTypes = true;
             _restrictedSkipVisibility = true;
         }
 
