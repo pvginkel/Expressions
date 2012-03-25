@@ -26,6 +26,7 @@ namespace Expressions
         Modulo,
         Plus,
         Minus,
-        Not
+        Not,
+        Group
     }
 }

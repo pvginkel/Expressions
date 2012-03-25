@@ -165,7 +165,7 @@ postfix_expression returns [IAstNode value]
 primary_expression returns [IAstNode value]
 	: IDENTIFIER { $value = CreateIdentifier($IDENTIFIER.text); }
 	| constant { $value = $constant.value; }
-	| '(' expression ')' { $value = $expression.value; }
+	| '(' expression ')' { $value = new UnaryExpression($expression.value, ExpressionType.Group); }
 	;
 
 constant returns [Constant value]

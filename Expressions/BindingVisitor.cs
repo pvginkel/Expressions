@@ -485,6 +485,10 @@ namespace Expressions
                     type = operand.Type;
                     break;
 
+                case ExpressionType.Group:
+                    type = operand.Type;
+                    break;
+
                 case ExpressionType.Minus:
                     if (!TypeUtil.IsValidUnaryArgument(operand.Type))
                         throw new NotSupportedException("Cannot plus non numeric type");

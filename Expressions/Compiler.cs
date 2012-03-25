@@ -621,7 +621,8 @@ namespace Expressions
                         break;
 
                     case ExpressionType.Plus:
-                        // Plus really is a no-op.
+                    case ExpressionType.Group:
+                        // No-ops.
 
                         unaryExpression.Operand.Accept(this);
                         break;

@@ -21,23 +21,15 @@ namespace Expressions
             var left = binaryExpression.Left.Accept(this);
             var right = binaryExpression.Right.Accept(this);
 
-            if (binaryExpression.ExpressionType == ExpressionType.Add)
-            {
-                if (left.Type == typeof(string) || right.Type == typeof(string))
-                {
-                    return _resolver.ResolveMethod(
-                        new TypeAccess(typeof(string)),
-                        "Concat",
-                        new[] { left, right }
-                    );
-                }
-                else
-                {
-                    if (left == binaryExpression.Left && right == binaryExpression.Right)
-                        return binaryExpression;
-                    else
-                        return new BinaryExpression(left, right, binaryExpression.ExpressionType, binaryExpression.Type, binaryExpression.CommonType);
-                }
+            if (
+                binaryExpression.ExpressionType == ExpressionType.Add &&
+                (left.Type == typeof(string) || right.Type == typeof(string))
+            ) {
+                return _resolver.ResolveMethod(
+                    new TypeAccess(typeof(string)),
+                    "Concat",
+                    FlattenConcatArguments(binaryExpression.Left, binaryExpression.Right)
+                );
             }
             else if (binaryExpression.ExpressionType == ExpressionType.Power)
             {
@@ -52,6 +44,33 @@ namespace Expressions
                 return binaryExpression;
             else
                 return new BinaryExpression(left, right, binaryExpression.ExpressionType, binaryExpression.Type);
+        }
+
+        private IExpression[] FlattenConcatArguments(IExpression left, IExpression right)
+        {
+            var arguments = new List<IExpression>();
+
+            FlattenConcatArguments(arguments, left);
+            FlattenConcatArguments(arguments, right);
+
+            return arguments.ToArray();
+        }
+
+        private void FlattenConcatArguments(List<IExpression> arguments, IExpression argument)
+        {
+            var binaryExpression = argument as BinaryExpression;
+
+            if (
+                binaryExpression != null &&
+                binaryExpression.ExpressionType == ExpressionType.Add
+            ) {
+                FlattenConcatArguments(arguments, binaryExpression.Left);
+                FlattenConcatArguments(arguments, binaryExpression.Right);
+            }
+            else
+            {
+                arguments.Add(argument.Accept(this));
+            }
         }
 
         public override IExpression UnaryExpression(UnaryExpression unaryExpression)
