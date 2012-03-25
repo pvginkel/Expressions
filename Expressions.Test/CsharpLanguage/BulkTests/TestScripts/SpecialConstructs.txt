@@ -1,0 +1,7 @@
+﻿string;0.ToString();0
+string;1.ToString();1
+string;0.0.ToString();0
+string;0.1.ToString();0.1
+string;0x0.ToString();0
+string;0f.ToString();0
+string;0u.ToString();0

@@ -65,6 +65,7 @@ namespace Expressions
             switch (language)
             {
                 case ExpressionLanguage.Flee: return false;
+                case ExpressionLanguage.Csharp: return true;
                 default: throw new ArgumentOutOfRangeException("language");
             }
         }

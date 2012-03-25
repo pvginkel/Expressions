@@ -51,6 +51,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CsharpLanguage\BulkTests\BulkTests.cs" />
+    <Compile Include="CsharpLanguage\BulkTests\ExpressionOwners.cs" />
+    <Compile Include="CsharpLanguage\BulkTests\ExpressionTests.cs" />
+    <Compile Include="CsharpLanguage\Compilation\BinaryExpressions.cs" />
+    <Compile Include="CsharpLanguage\Compilation\Caching.cs" />
+    <Compile Include="CsharpLanguage\Compilation\Casting.cs" />
+    <Compile Include="CsharpLanguage\Compilation\EmitIssues.cs" />
+    <Compile Include="CsharpLanguage\Compilation\Fields.cs" />
+    <Compile Include="CsharpLanguage\Compilation\Imports.cs" />
+    <Compile Include="CsharpLanguage\Compilation\Indexing.cs" />
+    <Compile Include="CsharpLanguage\Compilation\MethodCalls.cs" />
+    <Compile Include="CsharpLanguage\Compilation\ResultCasting.cs" />
+    <Compile Include="CsharpLanguage\Compilation\TestBase.cs" />
+    <Compile Include="CsharpLanguage\Compilation\UnaryExpressions.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\BinaryExpressions.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\Casting.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\Constants.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\Conversions.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\ExpressionPrinter.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\GlobalAccesses.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\Indexing.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\MethodCalls.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\SpecialConstructs.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\TestBase.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\UnaryExpressions.cs" />
+    <Compile Include="CsharpLanguage\ExpressionTests\VoidMethods.cs" />
+    <Compile Include="CsharpLanguage\Parsing\Parsing.cs" />
     <Compile Include="FleeLanguage\Compilation\BinaryExpressions.cs" />
     <Compile Include="FleeLanguage\Compilation\Caching.cs" />
     <Compile Include="FleeLanguage\Compilation\Casting.cs" />
@@ -106,6 +133,36 @@
   <ItemGroup>
     <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\OnDemandMethods.txt" />
     <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\TypeDescriptor.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\CheckedTests.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\IndividualTests.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\InvalidExpressions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\LongBranchLogicalTest.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\OnDemandMethods.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\SimpleCalcEngineTests.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\SpecialConstructs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\TypeDescriptor.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\ValidCasts.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\ValidExpressions.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

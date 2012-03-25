@@ -51,9 +51,28 @@ namespace Expressions
                 case ExpressionType.ShiftLeft: operatorName = "op_LeftShift"; break;
                 case ExpressionType.ShiftRight: operatorName = "op_RightShift"; break;
                 case ExpressionType.Modulo: operatorName = "op_Modulus"; break;
-                case ExpressionType.And: operatorName = "op_LogicalAnd"; break;
-                case ExpressionType.Or: operatorName = "op_LogicalOr"; break;
-                case ExpressionType.Xor: operatorName = "op_ExclusiveOr"; break;
+                case ExpressionType.LogicalAnd: operatorName = "op_LogicalAnd"; break;
+                case ExpressionType.LogicalOr: operatorName = "op_LogicalOr"; break;
+                case ExpressionType.BitwiseAnd: operatorName = "op_BitwiseAnd"; break;
+                case ExpressionType.BitwiseOr: operatorName = "op_BitwiseOr"; break;
+
+                case ExpressionType.And:
+                    if (left.Type == typeof(bool) && right.Type == typeof(bool))
+                        operatorName = "op_LogicalAnd";
+                    else
+                        operatorName = "op_BitwiseAnd";
+                    break;
+
+                case ExpressionType.Or:
+                    if (left.Type == typeof(bool) && right.Type == typeof(bool))
+                        operatorName = "op_LogicalOr";
+                    else
+                        operatorName = "op_BitwiseOr";
+                    break;
+                    
+                case ExpressionType.Xor:
+                    operatorName = "op_ExclusiveOr";
+                    break;
             }
 
             if (operatorName != null)
@@ -450,6 +469,9 @@ namespace Expressions
             {
                 case ExpressionType.Plus: operatorName = "op_UnaryPlus"; break;
                 case ExpressionType.Minus: operatorName = "op_UnaryNegation"; break;
+                case ExpressionType.Not:
+                case ExpressionType.LogicalNot:
+                    operatorName = "op_Negation"; break;
             }
 
             if (operatorName != null)
@@ -494,6 +516,20 @@ namespace Expressions
                         throw new NotSupportedException("Cannot plus non numeric type");
 
                     // TODO: Make constants signed and handle minus on unsigned's.
+
+                    type = operand.Type;
+                    break;
+
+                case ExpressionType.LogicalNot:
+                    if (operand.Type != typeof(bool))
+                        throw new NotSupportedException("Cannot not non boolean types");
+
+                    type = typeof(bool);
+                    break;
+
+                case ExpressionType.BitwiseNot:
+                    if (!TypeUtil.IsInteger(operand.Type))
+                        throw new NotSupportedException("Cannot not bitwise not boolean types");
 
                     type = operand.Type;
                     break;
@@ -672,6 +708,8 @@ namespace Expressions
                 case ExpressionType.Less:
                 case ExpressionType.LessOrEquals:
                 case ExpressionType.In:
+                case ExpressionType.LogicalAnd:
+                case ExpressionType.LogicalOr:
                     return typeof(bool);
 
                 default:

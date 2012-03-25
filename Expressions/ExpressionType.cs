@@ -27,6 +27,12 @@ namespace Expressions
         Plus,
         Minus,
         Not,
-        Group
+        Group,
+        LogicalAnd,
+        LogicalOr,
+        LogicalNot,
+        BitwiseAnd,
+        BitwiseOr,
+        BitwiseNot
     }
 }

@@ -1,5 +1,6 @@
 ﻿// From http://flee.codeplex.com/
 
+using System.IO;
 using System.Text;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Globalization;
 using System.Reflection;
 using NUnit.Framework;
 
-namespace Expressions.Test.FleeLanguage.BulkTests
+namespace Expressions.Test.CsharpLanguage.BulkTests
 {
     public abstract class ExpressionTests
     {
@@ -97,7 +98,7 @@ namespace Expressions.Test.FleeLanguage.BulkTests
         {
             try
             {
-                new DynamicExpression(expression, ExpressionLanguage.Flee);
+                new DynamicExpression(expression, ExpressionLanguage.Csharp);
                 Assert.Fail();
 
             }
@@ -110,7 +111,7 @@ namespace Expressions.Test.FleeLanguage.BulkTests
         {
             try
             {
-                new DynamicExpression(expression, ExpressionLanguage.Flee).Bind(context);
+                new DynamicExpression(expression, ExpressionLanguage.Csharp).Bind(context);
                 Assert.Fail("Compile exception expected");
             }
             catch
@@ -190,47 +191,45 @@ namespace Expressions.Test.FleeLanguage.BulkTests
         {
             this.WriteMessage("Testing: {0}", scriptFileName);
 
-            System.IO.Stream instream = this.GetScriptFile(scriptFileName);
-            System.IO.StreamReader sr = new System.IO.StreamReader(instream);
-
-            try
+            using (var instream = GetScriptFile(scriptFileName))
+            using (var sr = new System.IO.StreamReader(instream))
             {
-                this.ProcessLines(sr, processor);
-            }
-            finally
-            {
-                sr.Close();
+                ProcessLines(sr, processor);
             }
         }
 
-        private void ProcessLines(System.IO.TextReader sr, LineProcessor processor)
+        private void ProcessLines(TextReader sr, LineProcessor processor)
         {
             int lineNumber = 1;
+            bool success = true;
 
             while (sr.Peek() != -1)
             {
                 string line = sr.ReadLine();
-                this.ProcessLine(line, processor, lineNumber++);
+                success = ProcessLine(line, processor, lineNumber++) && success;
             }
+
+            if (!success)
+                Assert.Fail();
         }
 
-        private void ProcessLine(string line, LineProcessor processor, int lineNumber)
+        private bool ProcessLine(string line, LineProcessor processor, int lineNumber)
         {
-            if (line.StartsWith("'") == true)
-            {
-                return;
-            }
+            if (line.StartsWith("'"))
+                return true;
 
             try
             {
                 string[] arr = line.Split(SEPARATOR_CHAR);
                 processor(arr);
             }
-            catch
+            catch (Exception ex)
             {
-                this.WriteMessage("Failed line({1}): {0}", line, lineNumber);
-                throw;
+                WriteMessage("Failed line({1}): {0} failed with {2} ({3})", line, lineNumber, ex.Message, ex.GetType().FullName);
+                return false;
             }
+
+            return true;
         }
 
         protected System.IO.Stream GetScriptFile(string fileName)

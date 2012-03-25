@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Expressions
+namespace Expressions.Csharp
 {
-    public enum ExpressionLanguage
+    partial class CsharpLexer
     {
-        Flee,
-        Csharp
     }
 }

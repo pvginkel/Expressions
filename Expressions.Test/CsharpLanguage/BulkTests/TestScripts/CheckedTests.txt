@@ -1,0 +1,158 @@
+' Tests for checked arithmetic
+' Format is: expression;checked;should overflow
+' Addition
+'	signed
+int.MaxValue + 1;true;true
+int.MinValue + -1;true;true
+int.MaxValue + int.MaxValue;true;true
+int.MaxValue + 1;false;false
+int.MinValue + -1;false;false
+int.MaxValue + int.MaxValue;false;false
+'	long
+long.MaxValue + 1L;true;true
+long.MinValue + -1L;true;true
+long.MaxValue + long.MaxValue;true;true
+long.MaxValue + 1L;false;false
+long.MinValue + -1L;false;false
+long.MaxValue + long.MaxValue;false;false
+'	unsigned
+uint.MaxValue + 1U;false;false
+uint.MaxValue + 1U;true;true
+2147483647U + 1U;true;false
+ulong.MaxValue + 1UL;false;false
+ulong.MaxValue + 1LU;true;true
+9223372036854775807LU + 1LU;true;false
+' Subtraction
+'	signed
+int.MinValue - 1;false;false
+int.MinValue - 1;true;true
+int.MaxValue - -1;false;false
+int.MaxValue - -1;true;true
+long.MinValue - 1;false;false
+long.MinValue - 1;true;true
+long.MaxValue - -1;false;false
+long.MaxValue - -1;true;true
+'	unsigned
+0U - 1U;false;false
+0U - 1U;true;true
+0LU - 1LU;false;false
+0LU - 1LU;true;true
+' Multiplication
+'	signed
+int.MaxValue * 2;false;false
+int.MaxValue * 2;true;true
+int.MinValue * 2;false;false
+int.MinValue * 2;true;true
+long.MaxValue * 2;false;false
+long.MaxValue * 2;true;true
+long.MinValue * 2;false;false
+long.MinValue * 2;true;true
+'	unsigned
+uint.MaxValue * uint.MaxValue;false;false
+uint.MaxValue * uint.MaxValue;true;true
+2000000000U * 2U;true;false
+ulong.MaxValue * ulong.MaxValue;false;false
+ulong.MaxValue * ulong.MaxValue;true;true
+9000000000000000000LU * 2LU;true;false
+' Float..checked should do nothing
+float.MaxValue + 1;true;false
+float.MinValue - 1;true;false
+float.MaxValue * 2;true;false
+double.MaxValue + 1;true;false
+double.MinValue - 1;true;false
+double.MaxValue * 2;true;false
+' Conversions
+'	Byte
+(byte)-1;true;true
+(byte)-1;false;false
+(byte)100;true;false
+(byte)100U;true;false
+(byte)1000;true;true
+(byte)1000U;true;true
+'	Sbyte
+(sbyte)-1;true;false
+(sbyte)-1;false;false
+(sbyte)100;true;false
+(sbyte)100U;true;false
+(sbyte)1000;true;true
+(sbyte)1000U;true;true
+'	Short
+(short)-1;true;false
+(short)-1;false;false
+(short)100;true;false
+(short)100U;true;false
+(short)1000;true;false
+(short)1000U;true;false
+(short)80000;true;true
+(short)80000U;true;true
+'	UShort
+(ushort)-1;true;true
+(ushort)-1;false;false
+(ushort)100;true;false
+(ushort)100U;true;false
+(ushort)1000;true;false
+(ushort)1000U;true;false
+(ushort)80000;true;true
+(ushort)80000U;true;true
+'	Int
+(int)-1L;true;false
+(int)-1L;false;false
+(int)100L;true;false
+(int)100U;true;false
+(int)1000L;true;false
+(int)1000U;true;false
+(int)80000L;true;false
+(int)80000U;true;false
+(int)long.MaxValue;false;false
+(int)long.MaxValue;true;true
+(int)ulong.MaxValue;false;false
+(int)ulong.MaxValue;true;true
+'	Uint
+(uint)-1;true;true
+(uint)-1;false;false
+(uint)100;true;false
+(uint)100U;true;false
+(uint)1000;true;false
+(uint)1000U;true;false
+(uint)80000;true;false
+(uint)80000U;true;false
+(uint)long.MinValue;true;true
+(uint)long.MaxValue;true;true
+(uint)ulong.MinValue;true;false
+(uint)ulong.MaxValue;true;true
+'	Long
+(long)9223372036854775808LU;true;true
+(long)9223372036854775807LU;true;false
+(long)0UL;true;false
+'	Ulong
+(ulong)long.MinValue;true;true
+(ulong)long.MaxValue;true;false
+'	With reals
+(byte)double.MaxValue;true;true
+(sbyte)double.MaxValue;true;true
+(short)double.MaxValue;true;true
+(ushort)double.MaxValue;true;true
+(int)double.MaxValue;true;true
+(uint)double.MaxValue;true;true
+(long)double.MaxValue;true;true
+(ulong)double.MaxValue;true;true
+(byte)1.45;true;false
+(byte)-100.0;true;true
+(sbyte)-1.0;true;false
+(int)-1.0;true;false
+(byte)1000.0;true;true
+(short)80000.25;true;true
+(ushort)80000.25;true;true
+(ushort)-1.45;true;true
+(int)2147483647.0;true;false
+(int)2147483648.0;true;true
+(uint)4294967295.0;true;false
+(uint)4294967296.0;true;true
+(uint)-1.25;true;true
+(long)9.0E+18;true;false
+(long)9.0E+19;true;true
+(long)-1.25;true;false
+(ulong)9.2233720368547758E+18;true;false
+(ulong)1.8e+19;true;false
+(ulong)9.8e+19;true;true
+(ulong)-1.25;true;true

@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.cs" />
     <Compile Include="Ast\BinaryExpression.cs" />
     <Compile Include="Ast\Cast.cs" />
     <Compile Include="Ast\AstNodeCollection.cs" />
@@ -57,6 +58,10 @@
     <Compile Include="ConversionVisitor.cs" />
     <Compile Include="BoundExpressionOptions.cs" />
     <Compile Include="Expressions\ImportAccess.cs" />
+    <Compile Include="Flee\FleeLexer.cs" />
+    <Compile Include="Flee\FleeParser.cs" />
+    <Compile Include="Flee\Generated\FleeLexer.cs" />
+    <Compile Include="Flee\Generated\FleeParser.cs" />
     <Compile Include="UnparsedNumber.cs" />
     <Compile Include="ExpressionType.cs" />
     <Compile Include="Ast\Constant.cs" />
@@ -90,10 +95,10 @@
     <Compile Include="DynamicExpressionCache.cs" />
     <Compile Include="ExpressionContext.cs" />
     <Compile Include="ExpressionLanguage.cs" />
-    <Compile Include="Flee\FleeLexer.cs" />
-    <Compile Include="Flee\FleeParser.cs" />
-    <Compile Include="Flee\Generated\FleeLexer.cs" />
-    <Compile Include="Flee\Generated\FleeParser.cs" />
+    <Compile Include="Csharp\CsharpLexer.cs" />
+    <Compile Include="Csharp\CsharpParser.cs" />
+    <Compile Include="Csharp\Generated\CsharpLexer.cs" />
+    <Compile Include="Csharp\Generated\CsharpParser.cs" />
     <Compile Include="IExecutionContext.cs" />
     <Compile Include="IExpressionContext.cs" />
     <Compile Include="IBindingContext.cs" />
@@ -107,17 +112,21 @@
     <Compile Include="VariableCollection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Antlr3 Include="Flee\Flee.g">
+    <Antlr3 Include="Csharp\Csharp.g">
       <Generator>MSBuild:Compile</Generator>
     </Antlr3>
   </ItemGroup>
   <ItemGroup>
+    <Antlr3 Include="Flee\Flee.g">
+      <Generator>MSBuild:Compile</Generator>
+    </Antlr3>
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>$(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Flee\Flee.g -o $(ProjectDir)Flee\Generated</PreBuildEvent>
+    <PreBuildEvent>$(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Flee\Flee.g -o $(ProjectDir)Flee\Generated
+$(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Csharp\Csharp.g -o $(ProjectDir)Csharp\Generated</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -151,6 +151,10 @@ namespace Expressions
                     FleeBuiltInTypes.TryGetValue(name, out result);
                     break;
 
+                case ExpressionLanguage.Csharp:
+                    CsharpBuiltInTypes.TryGetValue(name, out result);
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException("language");
             }

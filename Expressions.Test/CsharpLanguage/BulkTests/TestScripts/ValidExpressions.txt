@@ -1,0 +1,1313 @@
+' Test various expressions
+' Format: Type of expression;expression;expected result
+' Constant loads
+' Int32
+Int32;0;0
+Int32;1;1
+Int32;2;2
+Int32;3;3
+Int32;4;4
+Int32;5;5
+Int32;6;6
+Int32;7;7
+Int32;8;8
+Int32;9;9
+Int32;-1;-1
+Int32;-2;-2
+Int32;-128;-128
+Int32;-129;-129
+Int32;127;127
+Int32;128;128
+Int32;123456;123456
+Int32;-1000;-1000
+Int32;1000;1000
+'	...min/max values
+Int32;2147483647;2147483647
+Int32;-2147483648;-2147483648
+' Single
+Single;0.0f;0.0
+single;0.5f + 0.5f;1.0
+Single;-100.24f;-100.24
+Single;1.0f;1.0
+Single;45.50e+4f;45.50e+4
+'	...min/max values
+Single;3.40282347E+38f;3.40282347E+38
+Single;-3.40282347E+38f;-3.40282347E+38
+'	with no leading zero
+single;.45f;0.45
+single;.025f * 10;0.25
+single;.5f + .5f;1.0
+single;.001f - .001f;0.0
+'	integral with suffix
+single;100f;100
+single;-56f;-56
+' Double
+Double;0.0;0.0
+Double;123.0;123.0
+Double;1.25;1.25
+Double;-1.25;-1.25
+Double;-123.456;-123.456
+Double;123.456;123.456
+Double;0.123456;0.123456
+Double;1.0e+10;1.0e+10
+'	with no leading zero
+double;.45;0.45
+double;.025 * 10;0.25
+double;.5 + .5;1.0
+double;.001 - .001;0.0
+'	...min/max values
+Double;-1.7976931348623157E+308;-1.7976931348623157E+308
+Double;1.7976931348623157E+308;1.7976931348623157E+308
+'	with suffix
+double;-100.45d;-100.45
+' Uint32
+uint32;0U;0
+uint32;100U;100
+uint32;5000U;5000
+uint32;4294967295U;4294967295
+uint32;3000000000U;3000000000
+uint32;2147483647U;2147483647
+' Int64
+int64;0L;0
+int64;-1L;-1
+int64;-12000L;-12000
+int64;123000L;123000
+int64;9223372036854775807L;9223372036854775807
+int64;-9223372036854775808L;-9223372036854775808
+int64;-5000000000;-5000000000
+' Uint64
+uint64;0ul;0
+uint64;100lu;100
+uint64;123456ul;123456
+uint64;18446744073709551615UL;18446744073709551615
+uint64;18446744073709551615LU;18446744073709551615
+uint64;9223372036854775807LU;9223372036854775807
+' String
+String;"abc";abc
+string;"abcdefghijklmnopqrstuvwxyz1234567890[]_+!=!@#$%^&*()==";abcdefghijklmnopqrstuvwxyz1234567890[]_+!=!@#$%^&*()==
+String;"";
+String;"1+1";1+1
+String;"quoted \"word\" is quoted";quoted "word" is quoted
+string;"\"\\";"\
+string;"a\u0064";ad
+string;"A\ttab";A	tab
+string;"a\Ttab";a	tab
+string;"A \u0042 \U0024";A B $
+string;"a\\n\\t";a\n\t
+' Hex literals
+int32;0xA;10
+int32;-0xa;-10
+int32;0xDeaD;57005
+int32;-0xDeaD;-57005
+int32;0x7fFFFFFF;2147483647
+int32;0x00000000;0
+int32;-0x7fFFFFFF;-2147483647
+uint32;0x0000U;0
+uint32;0xDeaDU;57005
+uint32;0xFFFFFFFFU;4294967295
+uint32;0x7fFFFFFFU;2147483647
+int64;0xDeaDL;57005
+int64;0xFFFFFFFFL;4294967295
+int64;-0xFFFFFFFFL;-4294967295
+int64;0x7fffffffffffffff;9223372036854775807
+int64;-0x7fffffffffffffff;-9223372036854775807
+uint64;0x0LU;0
+uint64;0xDeaDLU;57005
+uint64;0x7fffffffffffffffLU;9223372036854775807
+uint64;0xFfffffffffffffffLU;18446744073709551615
+'	uint64 using int32 with sign bit set
+uint64;0xB2D05E00UL;3000000000
+uint64;0xFFFFFFFFUL;4294967295
+' Boolean
+Boolean;true;true
+Boolean;false;false
+' Arithmetic
+' Addition - Integer
+Int32;1+1;2
+Int32;1+-1;0
+Int32;100+200;300
+Int32;12 + -2;10
+Int32;-10+-10;-20
+Int32;100000+123456;223456
+Int32;0 + 0;0
+Int32;8 + 0;8
+Int32;8 + -1;7
+' Addition - Double
+Double;1.0 + 2.0;3.0
+Double;2.0 + 1.0;3.0
+Double;0.0 + 0.0;0.0
+Double;1.45 + 2.45;3.9
+Double;-1.0 + 0.75;-0.25
+Double;0.75+-1.0;-0.25
+Double;1.3e+3 + 1.923;1301.923
+Double;-1000.0 + -99.33;-1099.33
+' Addition - Double and Int32
+Double;1 + 0.75;1.75
+Double;0.75 + 1;1.75
+Double;-1 + 0.75;-0.25
+Double;0.75 + -1;-0.25
+Double;1 + -0.75;0.25
+Double;-0.75 + 1;0.25
+Double;-0.75 + -100;-100.75
+Double;1000 + 23.45;1023.45
+Double;23.45+1000;1023.45
+Double;1+9+2.0-5;7
+' Addition - Single
+single;1.0f + 2.0f;3.0
+single;2.0f + 1.0f;3.0
+single;0.0f + 0.0f;0.0
+single;1.45f + 2.45f;3.9
+single;-1.0f + 0.75f;-0.25
+single;0.75f + -1.0f;-0.25
+single;1.3e+3f + 1.923f;1301.923
+single;-1000.0f + -99.33f;-1099.33
+' Addition - Single and Int32
+single;1 + 0.75f;1.75
+single;0.75f + 1;1.75
+single;-1 + 0.75f;-0.25
+single;0.75f + -1;-0.25
+single;1 + -0.75f;0.25
+single;-0.75f + 1;0.25
+single;-0.75f + -100;-100.75
+single;1000 + 23.45f;1023.45
+single;23.45f + 1000;1023.45
+single;1234.56f + 1000;2234.56
+single;1+9+2.0f-5;7.0
+' Addition - Double and single
+Double;1.0f + 2.0;3.0
+Double;2.0 + 1.0f;3.0
+Double;0.0f + 0.0;0.0
+Double;1.45 + 2.45f;3.9
+Double;-1.0f + 0.75;-0.25
+Double;0.75+-1.0f;-0.25
+Double;1.3e+3f + 1.923;1301.923
+Double;-1000.0 + -99.33f;-1099.33
+' Addition - String
+String;"a" + "b";ab
+String;"this" + "string";thisstring
+String;"a" + "";a
+String;100 + "string";100string
+String;"def" + true;defTrue
+String;-12.34 + "string";-12.34string
+String;"string" + -200;string-200
+'	non valueType arg
+string;"string" + VersionA.GetType();stringSystem.Version
+' ...chained
+String;"string" + ": " + "more";string: more
+String;"string" + " and " + "more";string and more
+String;"string " + 100 + " number";string 100 number
+String;"string" + " and " + 1;string and 1
+String;"string" + (100 + 2.34);string102.34
+' Subtraction - Int32
+Int32;1 - 2;-1
+Int32;1 - 200;-199
+Int32;-1 - 200;-201
+Int32;200-1;199
+Int32;200- -1;201
+Int32;1 - -200;201
+Int32;-1 - -200;199
+Int32;123456 - 123456;0
+Int32;123456 - 456;123000
+Int32;0 - 123456;-123456
+Int32;123456 - 0;123456
+Int32;-123 - 20;-143
+' Subtraction - Double
+Double;2.0 - 0.75;1.25
+Double;-3.75 - 0.75;-4.5
+Double;3.75 - -0.75;4.5
+Double;-3.75 - -0.75;-3.0
+Double;3.75 - 0.0;3.75
+Double;12.0 - 12.0;0.0
+Double;114.56 - 34.22;80.34
+' Subtraction - Double and Int32
+Double;2 - 0.75;1.25
+Double;2.75 - 1;1.75
+Double;-2 - 0.75;-2.75
+Double;-0.75 - 100;-100.75
+Double;-0.75 - -100;99.25
+Double;100.75 - 100;0.75
+' Multiplication - Int32
+Int32;1*2;2
+Int32;1*222;222
+Int32;1*-2;-2
+Int32;-1*2;-2
+Int32;123*456;56088
+Int32;123*-456;-56088
+Int32;-123*-456;56088
+Int32;123*0;0
+Int32;4*4;16
+' Multiplication - Double
+Double;0.75 * 2.0;1.5
+Double;2.0 * 4.0;8.0
+Double;123.45 * -2.0;-246.9
+Double;-123.45 * -2.0;246.9
+Double;123.45 * 2.0;246.9
+Double;1.2e+2 * 0.0;0
+Double;1.2e+2 * 1.0;1.2e+2
+Double;1.2e+2 * 10.0;1.2e+3
+Double;45.6 * 2.2;100.32
+' Multiplication - Double and Int32
+Double;0.75 * 2;1.5
+Double;0.5 * 16;8
+Double;0.5 * -16;-8
+Double;445.89 * 16;7134.24
+' Division - Integer
+Int32;8 / 2;4
+Int32;8 / 3;2
+Int32;100 / -2;-50
+Int32;-100 / -2;50
+Int32;-100 / 2;-50
+int32;int.MinValue / int.MinValue;1
+int32;int.MinValue / 2;-1073741824
+int32;int.MaxValue / 2;1073741823
+int64;long.MinValue / 2;-4611686018427387904
+int64;long.MaxValue / 2;4611686018427387903
+int64;long.MinValue / long.MinValue;1
+'	Unsigned
+uint32;2147483648U / 2u;1073741824
+uint32;uint.MaxValue / uint.MaxValue;1
+uint64;9223372036854775808LU / 2LU;4611686018427387904
+uint64;ulong.MaxValue / ulong.MaxValue;1
+' Division - Double
+Double;16.0 / 2.0;8.0
+Double;1.0 / 0.5;2.0
+Double;33.0 / 33.0;1.0
+Double;5.0 / 2.0;2.5
+Double;2.0 / 5.0;0.4
+Double;66.75 / 2.4;27.8125
+Double;66.75 / -2.4;-27.8125
+Double;-66.75 / -2.4;27.8125
+Double;-66.75 / 2.4;-27.8125
+' Mod
+Int32;12 % 10;2
+Int32;12 % 22;12
+Int32;12 % 8;4
+Int32;4557 % 123;6
+Int32;-10 % 6;-4
+Double;44.2 % 6;2.2
+Double;123.45 % 9.8;5.85
+'	unsigned
+uint32;2147483648U % 5U;3
+uint64;9223372036854775808LU % 5LU;3
+' Negate
+int32;-int.MaxValue;-2147483647
+double;-double.MaxValue;-1.7976931348623157E+308
+single;-float.MinValue;3.40282347E+38
+int64;-long.MaxValue;-9223372036854775807
+int32;10 - -5;15
+int32;-10 + -5;-15
+int32;-10 - -5;-5
+'	negate uint32
+int64;-uint.MaxValue;-4294967295
+' Brackets
+Int32;1 + (4*4);17
+Int32;1 + 4*4;17
+Int32;(1 + 4)*4;20
+Int32;1 + (4*4-2);15
+Int32;1 + (4*(4-2));9
+Int32;(1+2) + (4*(4-2));11
+Int32;(1+2)*4;12
+Int32;(100+100)/(2+2);50
+Double;(2+2)*1.1;4.4
+Double;(2 + 2) * (1 + 0.2);4.8
+Double;(2+(2*1.1))*(123.45/(2*(1.1+4)));50.83235
+' Arithmetic - Chained
+Int32;1+2+3+4+5+6;21
+Int32;11+22-3+44+5-6;73
+Int32;1*2*3*4*5*6;720
+Double;11*22/3.0*44/5.0*6;4259.2
+' Arithmetic - General
+int32;1 + -(2 + 3);-4
+int32;1 + -(2 + -3);2
+int32;1 + -(-2 + -3);6
+int32;-1 + -(-2 + -3);4
+int32;-1 + -(2 + 3);-6
+int32;-(1);-1
+int32;-(-1);1
+int32;-(6 + 2) - -(-2+3);-7
+int32;-(100 + 3);-103
+int32;10+2*3;16
+int32;10+2*3/2;13
+int32;(-100*(2-4)) + (100 * -(40/2-123));10500
+double;100 + .25 + 000.25 + 1.50;102.0
+' Comparison
+'	Chained
+Boolean;10 > 2 == true;true
+Boolean;10 > 2 == true != false;true
+Boolean;100 == 20 == false != false;true
+'	Int32
+Boolean;1==1;true
+Boolean;1==100;false
+Boolean;1!=2;true
+Boolean;1!=-1;true
+Boolean;123!=123;false
+Boolean;1>100;false
+Boolean;1>0;true
+Boolean;100<200;true
+Boolean;100<10;false
+Boolean;100>=1;true
+Boolean;100>=550;false
+Boolean;50>=1;true
+Boolean;50 >= 50;true
+Boolean;50<=50;true
+Boolean;50<=100;true
+Boolean;-50 < 0;true
+Boolean;-50 > 10;false
+Boolean;-50 > -100;true
+'	Double
+Boolean;1.24==1.24;true
+Boolean;1.24>1.24;false
+Boolean;1.24<1.24;false
+Boolean;1.24!=1.24;false
+Boolean;1.24!=0.99;true
+Boolean;1.24!=-1.24;true
+Boolean;1.24 != 1.24;false
+Boolean;1.24 < 100.345;true
+Boolean;0.01 > -12.34;true
+Boolean;0.01 >= -12.34;true
+Boolean;0.01 >= 12.34;false
+Boolean;0.01 >= 0.01;true
+Boolean;100.25 <= 100.25;true
+Boolean;100.25 <= 4000.34;true
+'	Single
+Boolean;1.24f==1.24f;true
+Boolean;1.24f>1.24f;false
+Boolean;1.24f<1.24f;false
+Boolean;1.24f!=1.24f;false
+Boolean;1.24f!=0.99f;true
+Boolean;1.24f!=-1.24f;true
+Boolean;1.24f != 1.24f;false
+Boolean;1.24f < 100.345f;true
+Boolean;0.01f > -12.34f;true
+Boolean;0.01f >= -12.34f;true
+Boolean;0.01f >= 12.34f;false
+Boolean;0.01f >= 0.01f;true
+Boolean;100.25f <= 100.25f;true
+Boolean;100.25f <= 4000.34f;true
+'	Double and single
+' Be careful to use single values that will Convert to the exact double value
+Boolean;1.0==1.0f;true
+Boolean;2.25f>2.25;false
+Boolean;1.25<1.25f;false
+Boolean;1.25f!=1.25;false
+Boolean;1.24!=0.99f;true
+Boolean;1.24f!=-1.24;true
+Boolean;0.25 != 0.25f;false
+Boolean;1.24f < 100.345;true
+Boolean;0.01 > -12.34f;true
+Boolean;0.01f >= -12.34;true
+Boolean;0.01 >= 12.34f;false
+Boolean;0.25f >= 0.25;true
+Boolean;0.25 >= 0.001f;true
+Boolean;100.25 <= 100.25f;true
+Boolean;100.25f <= 4000.34;true
+'	Double and int32
+Boolean;1.24 > 1;true
+Boolean;1.00 == 1;true
+Boolean;45 < 134.45;true
+Boolean;100 > 12.4;true
+Boolean;100 < 12.4;false
+Boolean;12.4 > 100;false
+Boolean;12.4 < 100;true
+Boolean;10 != 10.0;false
+Boolean;10 != 10.1;true
+Boolean;10 == 10.0;true
+Boolean;10 == 10.1;false
+Boolean;10 >= 10.0;true
+Boolean;10 >= 8.45;true
+Boolean;99.0 <= 99;true
+Boolean;99.0 <= 2000;true
+'	Single and int32
+Boolean;1.24f > 1;true
+Boolean;1.00f == 1;true
+Boolean;45 < 134.45f;true
+Boolean;100 > 12.4f;true
+Boolean;100 < 12.4f;false
+Boolean;12.4f > 100;false
+Boolean;12.4f < 100;true
+Boolean;10 != 10.0f;false
+Boolean;10 != 10.1f;true
+Boolean;10 == 10.0f;true
+Boolean;10 == 10.1f;false
+Boolean;10 >= 10.0f;true
+Boolean;10 >= 8.45f;true
+Boolean;99.0f <= 99;true
+Boolean;99.0f <= 2000;true
+' Compare with all integers
+'	uint32
+boolean;100U <= 100U;true
+boolean;uint.MinValue < uint.MaxValue;true
+boolean;0U == 0U;true
+boolean;1U != 1U;false
+boolean;1U != 0U;true
+boolean;uint.MaxValue == uint.MaxValue;true
+'	make sure that we use unsigned gt/lt compare
+boolean;-1 > 0;false
+boolean;-1 < 0;true
+boolean;0xFFFFFFFFU > 0U;true
+boolean;0xFFFFFFFFU < 0U;false
+'	uint64
+boolean;100UL <= 100UL;true
+boolean;ulong.MinValue < ulong.MaxValue;true
+boolean;0Ul == 0lU;true
+boolean;1lU != 1lU;false
+boolean;1lU != 0lU;true
+boolean;ulong.MaxValue == ulong.MaxValue;true
+'	signed and unsigned
+boolean;-100 > 100U;false
+boolean;100U > int.MinValue;true
+boolean;uint.MaxValue >= uint.MaxValue;true
+boolean;uint.MaxValue > 0U;true
+boolean;uint.MaxValue == int.MinValue;false
+boolean;int.MaxValue != uint.MaxValue;true
+'	int64
+boolean;100L > 0L;true
+boolean;100L >= 0L;true
+boolean;100L >= 100L;true
+boolean;100L < 0L;false
+boolean;-1L == -1L;true
+boolean;-1L > long.MinValue;true
+'	mix integers and floats
+boolean;0.0 == 0;true
+boolean;0.0f == 0;true
+boolean;0.0 > 0;false
+boolean;0.0 != 0;false
+boolean;0.0 == 0U;true
+boolean;0.0 == 0L;true
+boolean;0.0 == 0LU;true
+' Logical - Boolean
+Boolean;true == true;true
+Boolean;true == false;false
+Boolean;false == true;false
+Boolean;true != true;false
+Boolean;false==false;true
+Boolean;false != true;true
+' Logical - String
+Boolean;"abc" == "abc";true
+Boolean;"abc" != "abc";false
+Boolean;"" == "";true
+Boolean;"" != "";false
+Boolean;"def" == "abc";false
+Boolean;"def" != "abc";true
+' And/Or/Xor - Bitwise
+Int32;1 & 1;1
+Int32;123 & 0;0
+Int32;12345 & 12;8
+Int32;1 | 1;1
+Int32;123 | 0;123
+Int32;12345 | 1;12345
+Int32;800 | 12;812
+Int32;1 ^ 1;0
+Int32;1 ^ 0;1
+Int32;456 ^ 100;428
+'	...chained
+Int32;1 & 1 & 0;0
+Int32;123 & 100 & 1245 & 80;64
+Int32;123 | 100 | 1245 | 80;1279
+Int32;123 ^ 100 ^ 1245 ^ 80;1170
+'	...combined
+' Original unit test stated 1197 as result, but C# precedence states that 1261 is the correct result.
+Int32;123 & 100 | 1245 ^ 80;1261
+' with other integer types
+uint32;100U & 100U;100
+uint32;uint.MaxValue & uint.MinValue;0
+uint32;uint.MaxValue ^ uint.MaxValue;0
+uint32;uint.MaxValue | 1U;4294967295
+int64;1000l | 0L;1000
+int64;long.MinValue | long.MaxValue;-1
+int64;100L ^ 200L;172
+int64;long.MaxValue & 1;1
+uint64;1000UL & 1000UL;1000
+uint64;ulong.MaxValue & ulong.MinValue;0
+uint64;ulong.MaxValue | ulong.MinValue;18446744073709551615
+' And/Or/Xor - Logical
+Boolean;true && true;true
+Boolean;true && false;false
+Boolean;false && false;false
+Boolean;false && true;false
+Boolean;true || true;true
+Boolean;true || false;true
+Boolean;false || false;false
+Boolean;false || true;true
+boolean;true ^ false;true
+boolean;true ^ true;false
+boolean;false ^ false;false
+boolean;false ^ true;true
+'	...chained
+Boolean;false || false || false;false
+Boolean;true || true || true;true
+Boolean;false && false && false;false
+Boolean;true && true && true;true
+Boolean;false || true || false;true
+Boolean;false || false || false;false
+Boolean;false && true && false;false
+Boolean;true && true && true;true
+boolean;true ^ false ^ true;false
+boolean;true ^ false ^ false;true
+'	...combined
+Boolean;true && true || false;true
+Boolean;false || true && false;false
+Boolean;true && true && true || false;true
+Boolean;true && true && (true || false);true
+boolean;true && (true ^ false);true
+boolean;(true ^ false) || (true ^ false);true
+boolean;(true ^ true) || false;false
+boolean;true ^ (true || false);false
+boolean;true ^ (false || false);true
+boolean;(true && true) ^ (false || false);true
+' Not - Bitwise
+Int32;~ 0;-1
+Int32;~ -1;0
+Int32;~ 123456;-123457
+uint32;~ uint.MaxValue;0
+uint64;~ ulong.MaxValue;0
+int64;~ long.MinValue;9223372036854775807
+' Not - Logical
+Boolean;! false;true
+Boolean;! true;false
+Boolean;! 1 > 100;true
+Boolean;! 1 < 100;false
+' Full logical with boolean constants
+boolean;true && false || true;true
+boolean;(true && false) || true;true
+Boolean;! false && true;true
+Boolean;! true && true;false
+Boolean;! false || false;true
+Boolean;! true || false;false
+Boolean;(true && false) || (true && true);true
+Boolean;(true && false) || (true && false);false
+Boolean;(true && true) || (false && true);true
+Boolean;(false && false) || (true && true);true
+Boolean;true && ((false && true) || (false && true));false
+Boolean;true && ((true && true) || (false && true));true
+Boolean;false && ((true && true) || (false && true));false
+Boolean;true && ((true && false) || (false && true));false
+Boolean;true && ((true && false) || (true && true));true
+Boolean;((false && true) && true) && false;false
+Boolean;((true && true) && false) && false;false
+Boolean;((true && true) && true) && false;false
+Boolean;((true && true) && true) && true;true
+Boolean;((false && true) && true) && false;false
+Boolean;false && (true && (true && false));false
+Boolean;true && (false && (true && false));false
+Boolean;true && (true && (true && false));false
+Boolean;true && (true && (true && true));true
+Boolean;((false || false) || false) || false;false
+Boolean;((true || false) || false) || false;true
+Boolean;((false || true) || false) || false;true
+Boolean;((false || false) || true) || false;true
+Boolean;((false || false) || false) || true;true
+boolean;true && ! false && true;true
+Boolean;((true || false) && (true || false)) && false;false
+Boolean;true && (((false || true) && (false || true)) && false);false
+Boolean;false && (((false || true) && (false || true)) && false);false
+Boolean;true && (((false || true) && (false || true)) && true);true
+Boolean;true && (((false || true) && (false || false)) && true);false
+Boolean;(true || (false && true)) || false;true
+Boolean;(true || (false && false)) || false;true
+Boolean;(false || (false && false)) || false;false
+Boolean;(false || (false && false)) || true;true
+Boolean;(true || (false && true)) && false;false
+Boolean;(true || (false && false)) && false;false
+Boolean;(false || (false && false)) && false;false
+Boolean;(false || (false && false)) && true;false
+Boolean;(true || (false && false)) && true;true
+Boolean;(false || (true && true)) && true;true
+Boolean;(true || (false && true)) && (((false || true) && (false || true)) && false);false
+Boolean;(true || (false && true)) && (((false || true) && (false || true)) && true);true
+Boolean;(false || (false && true)) && (((false || true) && (false || true)) && false);false
+'	with ^
+boolean;(true ^ true) || ((true ^ false) && (true ^ true));false
+boolean;(true ^ true) || ((true ^ false) && (true ^ false));true
+boolean;(true ^ false) && ((true ^ true) || (true ^ false));true
+boolean;(true ^ false) && ((true ^ true) || (false ^ false));false
+' Full logical
+Boolean;(! (1 > 10)) && (100 > 0);true
+Boolean;(100 < 0) || (! ("a" == "a"));false
+Boolean;(100 > 0) && (123.45 > 1.2) && ("a" != "b");true
+Boolean;(100 > 0) && (123.45 > 1.2) && ("a" == "b");false
+Boolean;(100 > 0) && (123.45 > 1.2) || ("a" == "b");true
+Boolean;(100 > 0) || (123.45 > 1.2) || ("a" == "b") || (true==false);true
+Boolean;! (100 > 0) || ! (123.45 > 1.2) || ("a" == "b");false
+Boolean;! (100 < 0) && ! (123.45 == 1.2) && ("a" == "b");false
+Boolean;! (100 < 0) && ! (123.45 == 1.2) && ! ("a" == "b");true
+Boolean;((~ 0) == -1) && ((1 | 100) > 1);true
+'	with xor
+boolean;(1 < -10 ^ 100==100) && ("a" == "b" ^ "a"=="a");true
+boolean;(1==0 ^ 100==0) || ("a" == "b" ^ "a"=="a");true
+' Test short-circuiting; we should not execute the ThrowException method
+Boolean;true || (ThrowException() > 100);true
+Boolean;false || (false && (ThrowException() > 100));false
+Boolean;false && (ThrowException() > 100);false
+boolean;true && (true || (ThrowException() > 100));true
+'	with xor
+boolean;(true ^ true) && (ThrowException() > 100);false
+boolean;(true ^ false) || (ThrowException() > 100);true
+'	with long branches
+boolean;true || (1.0+2.0+3.0+4.0+5.0+6.0+7.0+8.0+9.0+10.0+11.0+12.0+13.0+14.0+15.0 > 10.0);true
+boolean;false || (1.0+2.0+3.0+4.0+5.0+6.0+7.0+8.0+9.0+10.0+11.0+12.0+13.0+14.0+15.0 > 10.0);true
+boolean;false || (1.0+2.0+3.0+4.0+5.0+6.0+7.0+8.0+9.0+10.0+11.0+12.0+13.0+14.0+15.0 == 10.0);false
+boolean;true && (false || (1.0+2.0+3.0+4.0+5.0+6.0+7.0+8.0+9.0+10.0+11.0+12.0+13.0+14.0+15.0 > 10.0));true
+boolean;true && (false || (1.0+2.0+3.0+4.0+5.0+6.0+7.0+8.0+9.0+10.0+11.0+12.0+13.0+14.0+15.0 == 10.0));false
+boolean;false || ((1.0+2.0+3.0+4.0+5.0+6.0+7.0+8.0+9.0+10.0+11.0+12.0+13.0+14.0+15.0 > 10.0) && (1.0+2.0+3.0+4.0+5.0+6.0+7.0+8.0+9.0+10.0+11.0+12.0+13.0+14.0+15.0 > 10.0));true
+' Implicit conversions
+int16;byte.MaxValue;255
+uint16;byte.MaxValue;255
+int32;byte.MaxValue;255
+uint32;byte.MaxValue;255
+int64;byte.MaxValue;255
+uint64;byte.MaxValue;255
+single;byte.MaxValue;255.0
+double;byte.MaxValue;255.0
+int16;sbyte.MinValue;-128
+int32;sbyte.MinValue;-128
+int64;sbyte.MinValue;-128
+int32;short.MinValue;-32768
+int64;short.MinValue;-32768
+single;short.MinValue;-32768
+double;short.MinValue;-32768
+int32;ushort.MaxValue;65535
+uint32;ushort.MaxValue;65535
+int64;ushort.MaxValue;65535
+uint64;ushort.MaxValue;65535
+single;ushort.MaxValue;65535
+double;ushort.MaxValue;65535
+Double;100;100.0
+Double;-1;-1.0
+double;120.5f;120.5
+'	using overloaded operators
+decimal;100;100
+decimal;'a';97
+'	to reference types
+object;"abc";System.String
+object;100;System.int32
+object;true;System.boolean
+'	implicit operator on reference type to value type (issue #7048)
+double;KeyboardA.ClassA;1.0
+' Variables
+' Int32
+Int32;Int32A + 1;100001
+Int32;Int32A + Int32A;200000
+Int32;Int32A - Int32A;0
+Int32;2 * Int32A;200000
+Int32;((Int32A * 2) / 2) - 100000;0
+Int32;-Int32A + Int32a;0
+boolean;(2 * Int32A) == 200000;true
+boolean;(2 * Int32A) == (Int32A + Int32A);true
+boolean;(2 * Int32A) >= 200000;true
+boolean;Int32A > 200000;false
+boolean;Int32A == Int32A;true
+boolean;Int32A != Int32A;false
+boolean;Int32A != Int32A * 3;true
+' String
+String;StringA;string
+String;StringA + "abc";stringabc
+String;"a" + StringA + "c";astringc
+' Boolean
+boolean;BoolA == BoolA;true
+boolean;BoolA != BoolA;false
+boolean;BoolA && true;true
+boolean;! BoolA || false;false
+boolean;(1 == 1) == BoolA;true
+' Full arithmetic
+Single;SingleA + SingleA;200.5
+Single;SingleA * 2;200.5
+Single;SingleA * 2.0f;200.5
+Single;(SingleA * 2.0f) + 200;400.5
+Single;-SingleA + SingleA;0
+Double;(SingleA * 2) / 2 + (SingleA - 100 + 2.25);102.75
+Double;DoubleA + SingleA;200.5
+Double;SingleA * Int32A * DoubleA;1005006250.0
+' Properties
+Double;DoubleAProp + Int32AProp;100100.25
+String;100 + SharedPropA;100sharedprop
+' Member tests
+'	static fields from type
+string;string.Empty;
+double;Math.PI;3.1416
+String;Uri.UriSchemeFtp;ftp
+'	static field, instance member
+Int32;SharedPropA.Length;10
+'	instance field, instance member
+int32;StringA.Length;6
+'	various tests
+string;string.Empty;
+int32;int.MaxValue;2147483647
+int32;int.MinValue + int.MaxValue;-1
+single;float.MaxValue + float.MinValue;0.0
+double;double.MaxValue + double.MinValue;0.0
+String;bool.TrueString;True
+double;Math.PI * 2;6.2832
+boolean;Math.PI == Math.PI;true
+String;Uri.UriSchemeFtp + bool.TrueString;ftpTrue
+'	nested (and virtual)
+String;TypeA.BaseType.Name;Object
+Int32;TypeA.BaseType.Name.Length;6
+string;TypeA.BaseType.Name + TypeA.Name;ObjectString
+int32;string.Empty.Length;0
+' Function calls
+'	basic owner methods
+String;FuncString();abc
+String;FuncString();abc
+string;PrivateFuncString();abc
+int32;SharedFuncInt();100
+int32;PrivateSharedFuncInt();100
+'	static type methods
+string;string.Concat("a","b");ab
+int32;Math.Max(-1,10);10
+int32;Math.Abs(-100);100
+int32;int.Parse("100");100
+boolean;bool.Parse("true");true
+'	Convert args
+double;Math.Cos(0);1.0
+double;Math.Cos(0U);1.0
+double;Math.Cos(0UL);1.0
+'	make sure we push arguments in right order
+double;Math.Pow(3,5);243
+double;Math.Pow(5,3);125
+' Loading fields of value/reference type
+int32;KeyboardA.StructA.I;123
+string;KeyboardA.StructA.S;mouse
+int32;KeyboardA.ClassA.I;900
+string;KeyboardA.ClassA.S;monitor
+'	static fields
+int32;Mouse.SharedDT.Year;1
+int32;KeyboardA.StructA.GetYear(Mouse.SharedDT);1
+int32;DateTime.MinValue.Year;1
+string;Monitor.SharedString;string
+int32;Monitor.SharedString.Length;6
+' Methods on value types
+'	virtual method
+string;DoubleA.ToString();100.25
+'	regular method
+int64;DateTimeA.ToBinary();633188448000000000
+'	method on value type returned from previous method
+string;KeyboardA.StructA.GetI().ToString();123
+string;KeyboardA.ClassA.GetI().ToString();900
+int64;GetDateTime().ToBinary();633188448000000000
+'	mix fields and methods
+string;KeyboardA.StructA.I.ToString();123
+string;KeyboardA.StructA.S.ToString();mouse
+string;KeyboardA.ClassA.I.ToString();900
+string;KeyboardA.ClassA.S.ToString();monitor
+'	properties
+int32;KeyboardA.StructA.S.Length;5
+int32;KeyboardA.ClassA.S.Length;7
+int32;KeyboardA.StructA.DT.Year;2007
+int32;KeyboardA.ClassA.DT.Year;2007
+'		and methods
+string;KeyboardA.StructA.DT.Year.ToString();2007
+string;KeyboardA.ClassA.DT.Year.ToString();2007
+int32;KeyboardA.ClassA.DT.Year.ToString().Length;4
+int32;KeyboardA.ClassA.DT.Year.CompareTo(100);1
+int32;KeyboardA.StructA.GetYear(KeyboardA.StructA.DT);2007
+int32;KeyboardA.StructA.GetYear(KeyboardA.ClassA.DT);2007
+'	with arrays
+string;DoubleArr[1].ToString();2.2
+int32;DoubleArr[0].CompareTo(0.0);1
+string;StringArr[2].ToString();c
+int32;DateTimeArr[0].Year;2007
+int32;DateTimeArr[0].Year.CompareTo(3000);-1
+int64;DateTimeArr[0].ToBinary();633188448000000000
+'	with indexer
+int32;KeyboardA.ClassA[0].Year;2007
+int32;KeyboardA.StructA[0].Year;2007
+string;KeyboardA.ClassA[0].Year.ToString();2007
+string;KeyboardA.StructA[0].Year.ToString();2007
+'	more than one expression
+int32;KeyboardA.ClassA.DT.Year + KeyboardA.StructA.DT.Year;4014
+int32;KeyboardA.ClassA.DT.Year + DateTimeArr[0].Year;4014
+int32;(KeyboardA.ClassA.DT.Year.CompareTo(100) + KeyboardA.StructA.DT.Year.CompareTo(4000)) * DateTimeArr[0].Year;0
+'	non-member instance
+int32;"string".Length;6
+string;"a.b.c".Replace(".", string.Empty);abc
+string;"a.b.c".Replace(".", "1");a1b1c
+char;"string"[1];t
+'		with value types
+string;100.ToString();100
+string;222.25.ToString();222.25
+int32;(1+100).CompareTo(100);1
+string;true.ToString();True
+boolean;(Math.Abs(-100) + Math.Max(1, 100)).Equals(200);true
+' Members and methods
+String;DateTimeA.GetType().Name;DateTime
+double;Math.Cos(Math.PI);-1.0
+' Miscellaneous
+' Implicit Convert to Object
+object;"abc";System.string
+object;TypeA;System.type
+' Conditional operator
+boolean;true ? true : false;true
+boolean;false ? true : false;false
+string;true ? "a" : "b";a
+string;false ? "a" : "b";b
+int32;true?100:200;100
+int32;false?100:200;200
+double;true?2.25:10.0;2.25
+double;false?2.25:10.0;10.0
+'	more complex cases
+int32;1 > -1?100:200;100
+string;(2+2) > (45 * 2) ? "greater" : "less";less
+double;"a" + "b" == "ab" ? 64.0 : 2.25;64.0
+double;(true && false) == true ? 8.55 : -9.0 / 3;-3.0
+int32;Math.Sign(-1) < 0 ? 1+2*3*2/2 : 5 - 5;7
+int32;Int32A != 0?Int32A*2:Int32A - 1000;200000
+int32;(Int32A-100000) > 0?Int32A*2:Int32A - 1000;99000
+string;DoubleIt(100) == 200?"a"+"b"+"c" : "zz";abc
+int32;(true?100:0) + (false?0:100);200
+'	conversions
+single;true?100.25f:100;100.25
+single;false?100.25f:100;100.0
+double;true?100.25:100;100.25
+double;false?100.25:100;100.0
+double;true ? 222 : 1.0;222.0
+double;false ? 222 : 1.0;1.0
+double;true?1.0 : 100;1.0
+double;false?1.0:100;100.0
+'	with variables
+string;true ? StringA : "abc";string
+double;true ? DoubleA : 0.0;100.25
+int32;true ? Convert.ToInt32("100") : 222;100
+'	test that only one target gets evaluated
+int32;true ? 100 : ThrowException();100
+int32;false ? ThrowException() : 100;100
+' Ops with uint32
+uint32;100U + 100000U;100100
+uint32;100U * 2U;200
+uint32;512U / 2U;256
+uint32;4000000000U + 2U;4000000002
+double;100U * 2.0;200.0
+single;100U * 2.0f;200.0
+uint32;uint.MaxValue - uint.MaxValue;0
+uint32;uint.MaxValue - uint.MinValue;4294967295
+' Ops with int64
+int64;100L + 100000L;100100
+int64;4294967299L + 100000l;4295067299
+int64;5000000000L + 5000000000L;10000000000
+int64;5000000000L * 2L;10000000000
+int64;5000000000L / 2L;2500000000
+int64;100L * 2L;200
+int64;512L / 2L;256
+double;100L * 2.0;200.0
+single;100L * 2.0f;200.0
+int64;long.MaxValue - long.MaxValue;0
+int64;long.MaxValue - long.MinValue;-1
+int64;long.MinValue - long.MaxValue;1
+' Ops with uint64
+uint64;100UL + 200UL;300
+uint64;100UL / 2u;50
+uint64;100UL / 2ul;50
+single;100UL + 100.0f;200.0
+double;100UL + 100.0;200.0
+uint64;ulong.MaxValue - ulong.MaxValue;0
+' Ops with int32 and uint32;
+int64;4294967295U + 1000;4294968295
+int64;4294967295U * 2;8589934590
+int64;1000+4294967295U;4294968295
+int64;2*4294967295U;8589934590
+int64;uint.MaxValue- int.MinValue;6442450943
+int64;uint.MaxValue- int.MaxValue;2147483648
+' Ops with mixed integers
+int64;100L + 100;200
+int64;100L + 100U;200
+int64;100 * 200l;20000
+uint64;100U + 200LU;300
+' Power with different type args
+' Test unsigned Convert to floating point
+single;uint.MaxValue;4.2949673E+9
+double;uint.MaxValue;4294967295.0
+single;ulong.MaxValue;1.84467441E+19
+double;ulong.MaxValue;1.8446744073709552E+19
+' Test signed Convert to floating point
+single;int.MinValue;-2.14748365E+9
+single;int.MaxValue;2.14748365E+9
+double;int.MinValue;-2147483648.0
+double;int.MaxValue;2147483647.0
+single;long.MinValue;-9.223372E+18
+single;long.MaxValue;9.223372E+18
+double;long.MinValue;-9.2233720368547758E+18
+double;long.MaxValue;9.2233720368547758E+18
+'	Test that we handle small integers properly
+'	byte
+int32;ByteA + ByteA;100
+int32;ByteA + SByteA;40
+int32;ByteA + Int16A;40
+int32;ByteA + UInt16A;150
+'	sbyte
+int32;SByteA + ByteA;40
+int32;SByteA + SByteA;-20
+int32;SByteA + Int16A;-20
+int32;SByteA + UInt16A;90
+'	int16
+int32;Int16A + ByteA;40
+int32;Int16A + SByteA;-20
+int32;Int16A + Int16A;-20
+int32;Int16A + UInt16A;90
+'	uint16
+int32;UInt16A + ByteA;150
+int32;UInt16A + SByteA;90
+int32;UInt16A + Int16A;90
+int32;UInt16A + UInt16A;200
+'	int32
+int32;100 + ByteA;150
+int32;100 + SByteA;90
+int32;100 + Int16A;90
+int32;100 + UInt16A;200
+'	int64
+int64;100L + ByteA;150
+int64;100l + SByteA;90
+int64;100L + Int16A;90
+int64;100l + UInt16A;200
+'	uint32
+uint32;100U + ByteA;150
+uint32;100U + UInt16A;200
+'	uint64
+uint64;100LU + ByteA;150
+uint64;100LU + UInt16A;200
+'	single and double
+single;10.2f + ByteA;60.2
+single;10.2f + SByteA;0.2
+single;10.2f + Int16A;0.2
+single;10.2f + UInt16A;110.2
+double;10.2 + ByteA;60.2
+double;10.2 + SByteA;0.2
+double;10.2 + Int16A;0.2
+double;10.2 + UInt16A;110.2
+'	signed + unsigned
+int64;Int16A + 100U;90
+int64;SByteA + 100U;90
+' Arrays
+'	basic
+int32;IntArr[0];100
+int32;IntArr[1];200
+int32;IntArr[2];300
+double;DoubleArr[0];1.1
+double;DoubleArr[1];2.2
+double;DoubleArr[2];3.3
+string;StringArr[0];a
+string;StringArr[1];b
+string;StringArr[2];c
+boolean;BoolArr[0];true
+boolean;BoolArr[1];false
+boolean;BoolArr[2];true
+'	non-primitive value type
+object;DateTimeArr[0];System.datetime
+'	expression in indexer
+int32;IntArr[1-1];100
+int32;IntArr[2-1];200
+int32;IntArr[1*1-1];100
+int32;IntArr[byte.MinValue];100
+int32;IntArr[Int32A-100000+1];200
+int32;IntArr[Int16A+11];200
+int32;IntArr[ByteA-50];100
+'	Indexer on non-array
+object;List[0];system.string
+object;List[1];system.int32
+object;List[1*0];system.string
+object;StringA[0];system.char
+'	non-integer index
+string;StringDict["key"];value
+string;StringDict["k" + "e" + "y"];value
+'	index on type with multiple indexers
+int32;(int)Row[0];100
+int32;(int)Row["ColumnA"];100
+'	in expressions
+int32;IntArr[0] * 2;200
+int32;IntArr[0] + IntArr[1];300
+boolean;(IntArr[0] + IntArr[1]) == IntArr[2];true
+'	chained
+string;DateTimeA.GetType().FullName.Split(CharArr)[1];DateTime
+' Char
+char;'a';a
+char;' '; 
+char;'"';"
+char;'\'';'
+char;'\\';\
+char;'\u005E';^
+char;'\u005e';^
+char;'\t';	
+char;'\T';	
+'	implicit conversions
+uint16;'^';94
+int32;'^';94
+uint32;'^';94
+int64;'^';94
+uint64;'^';94
+single;'^';94.0
+double;'^';94.0
+'	explicit conversions
+sbyte;(sbyte)'^';94
+byte;(byte)'^';94
+int16;(short)'^';94
+'	arithmetic
+int32;100 + '^';194
+double;'^' - 90.0;4.0
+uint64;100LU * '^';9400
+uint32;94U / '^';1
+'	compare
+boolean;'^' == '^';true
+boolean;'^' > '{';false
+boolean;100 > '^';true
+boolean;1.24 <= '^';true
+boolean;'^' != '^';false
+boolean;'^' != 123.4f;true
+'	function
+string;'^'.ToString();^
+boolean;char.IsLetter('a');true
+string;"abc".Replace('a', '.');.bc
+string;StringA.Replace('s','.');.tring
+'	fields
+int32;(int)char.MaxValue;65535
+' Implicit unbox
+int32;(int)ObjectIntA;100
+' Test how we pick the type of an integer literal
+'	No suffix
+int32;100;100
+int32;-2147483648;-2147483648
+uint32;2147483648;2147483648
+uint32;4294967295;4294967295
+int64;9223372036854775807;9223372036854775807
+int64;-9223372036854775808;-9223372036854775808
+uint64;18446744073709551615;18446744073709551615
+'	U suffix
+uint32;100U;100
+uint32;4294967295U;4294967295
+uint64;4294967296U;4294967296
+uint64;9223372036854775807U;9223372036854775807
+'	L suffix
+int64;100L;100
+int64;4294967296L;4294967296
+int64;9223372036854775807L;9223372036854775807
+int64;-9223372036854775808L;-9223372036854775808
+uint64;9223372036854775808L;9223372036854775808
+uint64;18446744073709551615L;18446744073709551615
+'	UL suffix
+uint64;100UL;100
+uint64;9223372036854775807UL;9223372036854775807
+uint64;9223372036854775808LU;9223372036854775808
+uint64;18446744073709551615ul;18446744073709551615
+'	with hex literals
+int32;0xFF;255
+int32;0x7FFFFFFF;2147483647
+uint32;0xFFFFFFFF;4294967295
+int64;0x100000000;4294967296
+int64;0x7fffffffffffffff;9223372036854775807
+uint64;0x8000000000000000;9223372036854775808
+uint64;0xFFFFFFFFFFFFFFFF;18446744073709551615
+' Shifts
+'	simple cases
+int32;100 >> 2;25
+int32;100 << 2;400
+int32;-1 >> 2;-1
+int32;-200 >> 2;-50
+int32;int.MaxValue >> 2;536870911
+int32;int.MinValue >> 2;-536870912
+int32;int.MaxValue << 2;-4
+int32;int.MinValue << 2;0
+uint32;100U >> 2;25
+uint32;100U << 2;400
+uint32;uint.MaxValue >> 2;1073741823
+uint32;uint.MaxValue << 2;4294967292
+uint32;uint.MinValue >> 2;0
+uint32;uint.MinValue << 2;0
+int64;100L << 2;400
+int64;100L >> 2;25
+int64;-200L >> 2;-50
+int64;long.MinValue << 2;0
+int64;long.MinValue >> 2;-2305843009213693952
+int64;long.MaxValue << 2;-4
+int64;long.MaxValue >> 2;2305843009213693951
+'	test that we truncate the shift count
+int32;100 << 100;1600
+int32;100 >> 100;6
+int32;int.MinValue >> 33;-1073741824
+uint32;100U << 100;1600
+uint32;100U >> 100;6
+int64;100L << 100;6871947673600
+int64;100L >> 100;0
+uint64;100UL << 100;6871947673600
+uint64;100UL >> 100;0
+int32;1000 >> 32;1000
+uint32;1000U >> 32;1000
+int64;1000L >> 64;1000
+int64;long.MinValue >> 65;-4611686018427387904
+uint64;1000LU >> 64;1000
+'	Negative count
+int32;800 << -1;0
+int32;800 >> -1;0
+uint32;0x80000000 >> -1;1
+int32;0x00000001 << -1;-2147483648
+'	precedence
+int32;800 >> 1+1;200
+int32;800 >> 2* 2;50
+int32;800 >> 2*2 -1;100
+int32;100 * 2 << 1+1;800
+'	with fields as count
+int32;1000 >> ByteB;250
+uint32;1000U << ByteB;4000
+int32;1000 << DateTimeA.Day;2000
+' If with long branches
+double;1 > 0 ? 1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0 : 20.0;16.0
+double;1 > 0 ? 10.0 : 1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0+1.0;10.0
+' Overloaded arithmetic operators
+decimal;DecimalA + DecimalB;100.25
+decimal;DecimalA - DecimalB;99.75
+decimal;DecimalB - DecimalA;-99.75
+decimal;DecimalA * DecimalB;25
+decimal;DecimalA / DecimalB;400
+decimal;DecimalB / DecimalA;0.0025
+decimal;DecimalA % DecimalB;0
+decimal;-DecimalA;-100
+decimal;DecimalA - -DecimalB;100.25
+int32;(DateTimeA - DateTimeA).Days;0
+'	with implicit Convert
+decimal;DecimalA + 100;200
+decimal;DecimalA + 100L;200
+' Overloaded compare operators
+boolean;DecimalA == DecimalA;true
+boolean;DecimalA > DecimalA;false
+boolean;DecimalA > DecimalB;true
+boolean;DecimalA < DecimalB;false
+boolean;DecimalB < DecimalA;true
+boolean;DecimalB <= DecimalB;true
+boolean;DecimalA >= DecimalA;true
+boolean;DecimalA != DecimalB;true
+'	with implicit Convert
+boolean;DecimalA == 100;true
+boolean;DecimalA > -1;true
+boolean;DecimalA < 1000U;true
+' Reference Equality
+boolean;null == null;true
+boolean;null != null;false
+boolean;NullField == null;true
+boolean;NullField != null;false
+boolean;StringA == null;false
+boolean;StringA != null;true
+boolean;InstanceB == null;false
+boolean;InstanceB != null;true
+boolean;InstanceB == InstanceA;true
+boolean;InstanceA == NullField;false
+boolean;InstanceA != NullField;true
+boolean;StringA == InstanceA;false
+boolean;StringA != InstanceA;true
+boolean;InstanceA == InstanceA;true
+boolean;NullField == NullField;true
+boolean;InstanceA != InstanceA;false
+boolean;NullField != NullField;false
+boolean;(object)StringA == (object)StringA;true
+boolean;(object)StringA == null;false
+int32;ReturnNullString() == null ? 100 : 0;100
+int32;ReturnNullString() != null ? 100 : 0;0
+string;Type.GetType("zzz", false) == null ? "notfound" : "found";notfound
+string;Type.GetType("System.Double", false) == null ? "notfound" : "found";found
+boolean;Type.GetType("System.Double") == Type.GetType("System.Double");true
+' Null literal
+string;"abc" + null;abc
+boolean;string.IsNullOrEmpty(null);true
+boolean;object.ReferenceEquals(null,null);true
+boolean;object.ReferenceEquals(null,100);false
+boolean;object.ReferenceEquals(null,"abc");false
+string;string.Concat("abc", null);abc
+boolean;Func1(null) == null;true
+boolean;Func1(InstanceB) == null;false
+boolean;Func1(InstanceB) != null;true
+'	indirect cast test
+boolean;string.IsNullOrEmpty((string)null);true
+' Tests for inherited function call on value type
+string;DateTimeA.GetType().Name;DateTime
+string;Mouse.SharedDT.GetType().Name;DateTime
+' Test that we don't allow implicit Convert to an enum.  We should pick Round(double,int) instead of Round(double, MidpointRounding)
+double;Math.Round(12.75, 1);12.8
+' Test ParamArray calls
+'	basic call
+string;string.Concat("a", "b", "c", "d", "e", "f");abcdef
+'	passing null
+int32;Sum(null);4
+'	overload resolution
+int32;Sum(1);1
+int32;Sum(1,2);2
+int32;Sum(1, 1.2);3
+int32;Sum(1,2,3,4);4
+int32;Sum(IntArr);4
+'	test 0 args case
+int32;Sum();4
+int32;ParamArray2();1
+'	paramArray should be more specific than (int,double)
+int32;Sum2(100, 200);4
+int32;Sum2(100, 2.2);3
+'	paramArray should be less specific than 0 parameters
+int32;ParamArray3();2
+'	more tests
+int32;ParamArray1("a", "b", "c");1
+int32;ParamArray1("a", "b");1
+int32;ParamArray1("a");1
+int32;ParamArray1("a", 100, "b", 22.4);1
+int32;ParamArray2(DateTimeA);1
+'	test we are actually passing in the parameter values
+int32;Sum4();0
+int32;Sum4(100);100
+int32;Sum4(1,2,3,4);10
+'	test overload resolution between paramArrays
+int32;ParamArray4(100,200);1
+int32;ParamArray4("a","b");2
+int32;ParamArray4(100,"a");2
+' GetType on owner
+string;GetType().Name;ExpressionOwner
+'	Equality for enums
+boolean;DayOfWeek.Friday == DayOfWeek.Friday;true
+boolean;DayOfWeek.Monday == DayOfWeek.Friday;false
+boolean;DayOfWeek.Friday != DayOfWeek.Friday;false
+boolean;DayOfWeek.Friday != DayOfWeek.Wednesday;true
+boolean;DayOfWeek.Sunday > DayOfWeek.Friday;false
+boolean;DayOfWeek.Sunday < DayOfWeek.Friday;true
+' Test long/short branches with edge cases
+'	this should be an exactly 127 byte jump (short branch)
+single;false ? 2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f + 1.0f : 0;0
+'	this should be 128 (long branch)
+single;false ? 2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f + 10 + 1 : 0;0
+' Test nested namespaces
+int32;ns1.ns2.Abs(-1);1
+' Test nested paramArray funcs
+int32;ParamArray4(ParamArray4(1, 2), 3, 4);1
+' Test we can handle deep nested IFs
+decimal;varString == "C" ? varInt32 * varInt32 : varString == "P" ?varInt32 * varInt32 : varString == "R" ? varInt32 * varInt32 : varString == "V" ?DecimalA * varInt32 : varDecimal * varInt32;10000
+' DateTime
+' Literals
+DateTime;#01/01/2008#;01/01/2008
+DateTime;#12/31/2008#;12/31/2008
+TimeSpan;##23:45#;23:45
+TimeSpan;##1.23:45#;1.23:45
+TimeSpan;##12.23:45:11#;12.23:45:11
+TimeSpan;##129.23:45:11.44#;129.23:45:11.44
+TimeSpan;##129.23:45:11.1234567#;129.23:45:11.1234567
+'	Arithmetic
+TimeSpan;#11/02/2008# - #11/01/2008#;1
+DateTime;#11/02/2008# - ##1.00:00#;11/01/2008
+DateTime;#11/02/2008# + ##1.00:00#;11/03/2008
+DateTime;DateTimeA - ##365.00:00#;07/01/2006
+DateTime;DateTimeA + ##1.00:00#;07/02/2007
+TimeSpan;DateTimeA - #07/01/2006#;365
+'	Comparison
+Boolean;#11/02/2008# == #11/02/2008#;true
+Boolean;#11/02/2008# < #02/22/2009#;true
+Boolean;##1.01:22# == ##1.01:22#;true
+Boolean;##1.11:22# > ##1.01:22#;true
+'	Properties
+Int32;#11/02/2008#.Year;2008
+Int32;##1.22:33#.Minutes;33
+Int32;(#11/02/2008# - #11/01/2008#).Days;1
+' Indexers with multiple arguments
+int32;KeyboardA.ClassA[0, "s"].Year;2007
+int32;KeyboardA.StructA[0, "s"].Year;2007
+int32;KeyboardA.StructA["s", 100];200
+'	with params
+int32;KeyboardA.ClassA["s", 100, 200, 300];-100
+' Decimal literals
+Decimal;100.45M + 1;101.45
+Decimal;-100.45M + 1;-99.45
+Decimal;Math.Floor(-100.45M);-101
+Decimal;Math.Floor(-100.45M + 1);-100
+Decimal;297.073M + 5.056M;302.129
+Decimal;100M + 23.45M;123.45
+Decimal;(100M * 2) / 4M;50
+Decimal;Math.Abs(-100.45M);100.45

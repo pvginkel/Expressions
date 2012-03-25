@@ -1,0 +1,2 @@
+﻿' Test proper emit of temp locals using on-demand function
+boolean;false OR (x() > 1);true

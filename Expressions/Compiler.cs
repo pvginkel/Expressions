@@ -144,6 +144,16 @@ namespace Expressions
                             BinaryLogicalExpression(binaryExpression);
                         break;
 
+                    case ExpressionType.LogicalAnd:
+                    case ExpressionType.LogicalOr:
+                        BinaryLogicalExpression(binaryExpression);
+                        break;
+
+                    case ExpressionType.BitwiseAnd:
+                    case ExpressionType.BitwiseOr:
+                        BinaryBitwiseExpression(binaryExpression);
+                        break;
+
                     default:
                         throw new NotSupportedException();
                 }
@@ -317,10 +327,12 @@ namespace Expressions
                 switch (binaryExpression.ExpressionType)
                 {
                     case ExpressionType.And:
+                    case ExpressionType.BitwiseAnd:
                         _il.Emit(OpCodes.And);
                         break;
 
                     case ExpressionType.Or:
+                    case ExpressionType.BitwiseOr:
                         _il.Emit(OpCodes.Or);
                         break;
 
@@ -338,6 +350,7 @@ namespace Expressions
                 switch (binaryExpression.ExpressionType)
                 {
                     case ExpressionType.And:
+                    case ExpressionType.LogicalAnd:
                         beforeLabel = _il.DefineLabel();
                         afterLabel = _il.DefineLabel();
 
@@ -353,6 +366,7 @@ namespace Expressions
                         break;
 
                     case ExpressionType.Or:
+                    case ExpressionType.LogicalOr:
                         beforeLabel = _il.DefineLabel();
                         afterLabel = _il.DefineLabel();
 
@@ -602,22 +616,28 @@ namespace Expressions
                         break;
 
                     case ExpressionType.Not:
-                        if (TypeUtil.IsInteger(unaryExpression.Operand.Type))
-                        {
-                            unaryExpression.Operand.Accept(this);
+                        unaryExpression.Operand.Accept(this);
 
+                        if (TypeUtil.IsInteger(unaryExpression.Operand.Type))
                             _il.Emit(OpCodes.Not);
-                        }
                         else
                         {
-                            if (unaryExpression.Operand.Type != typeof(bool))
-                                throw new NotSupportedException("Unary expression not can only be performed on bool");
-
-                            unaryExpression.Operand.Accept(this);
-
                             ILUtil.EmitConstant(_il, 0);
                             _il.Emit(OpCodes.Ceq);
                         }
+                        break;
+
+                    case ExpressionType.LogicalNot:
+                        unaryExpression.Operand.Accept(this);
+
+                        ILUtil.EmitConstant(_il, 0);
+                        _il.Emit(OpCodes.Ceq);
+                        break;
+
+                    case ExpressionType.BitwiseNot:
+                        unaryExpression.Operand.Accept(this);
+
+                        _il.Emit(OpCodes.Not);
                         break;
 
                     case ExpressionType.Plus:

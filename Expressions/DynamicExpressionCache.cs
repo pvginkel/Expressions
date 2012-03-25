@@ -38,6 +38,9 @@ namespace Expressions
                 case ExpressionLanguage.Flee:
                     return Flee.FleeParser.Parse(expression, parsingCulture);
 
+                case ExpressionLanguage.Csharp:
+                    return Csharp.CsharpParser.Parse(expression, parsingCulture);
+
                 default:
                     throw new ArgumentOutOfRangeException("language");
             }
