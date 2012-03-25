@@ -9,7 +9,7 @@ using System.Globalization;
 using System.Reflection;
 using NUnit.Framework;
 
-namespace Expressions.Test.FleeLanguage.BulkTests
+namespace Expressions.Test.VisualBasicLanguage.BulkTests
 {
     public abstract class ExpressionTests
     {
@@ -98,7 +98,7 @@ namespace Expressions.Test.FleeLanguage.BulkTests
         {
             try
             {
-                new DynamicExpression(expression, ExpressionLanguage.Flee);
+                new DynamicExpression(expression, ExpressionLanguage.VisualBasic);
                 Assert.Fail();
 
             }
@@ -111,7 +111,7 @@ namespace Expressions.Test.FleeLanguage.BulkTests
         {
             try
             {
-                new DynamicExpression(expression, ExpressionLanguage.Flee).Bind(context);
+                new DynamicExpression(expression, ExpressionLanguage.VisualBasic).Bind(context);
                 Assert.Fail("Compile exception expected");
             }
             catch

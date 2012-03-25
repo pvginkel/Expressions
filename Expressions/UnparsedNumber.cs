@@ -59,21 +59,29 @@ namespace Expressions
                         return (uint)uintValue;
                     else
                         return uintValue;
+
                 case TypeCode.Int64:
                     long longValue;
 
                     if (!long.TryParse(Value, NumberStyles, parsingCulture, out longValue))
                         return ulong.Parse(Value, NumberStyles, parsingCulture);
-
                     return longValue;
+
                 case TypeCode.UInt64:
                     return ulong.Parse(Value, NumberStyles, parsingCulture);
+
                 case TypeCode.Single:
                     return float.Parse(Value, NumberStyles, parsingCulture);
+
                 case TypeCode.Double:
                     return double.Parse(Value, NumberStyles, parsingCulture);
+
                 case TypeCode.Decimal:
                     return decimal.Parse(Value, NumberStyles, parsingCulture);
+
+                case TypeCode.Char:
+                    return char.Parse(Value);
+
                 default:
                     throw new InvalidOperationException("Unexpected UnparsedNumber type");
             }

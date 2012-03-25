@@ -42,7 +42,7 @@ namespace Expressions
             { typeof(decimal), new Type[0] }
         };
 
-        private static readonly Dictionary<string, Type> FleeBuiltInTypes = new Dictionary<string, Type>
+        private static readonly Dictionary<string, Type> FleeBuiltInTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
         {
             { "object", typeof(object) },
             { "char", typeof(char) },
@@ -78,6 +78,26 @@ namespace Expressions
             { "decimal", typeof(decimal) },
             { "bool", typeof(bool) },
             { "string", typeof(string) }
+        };
+
+        private static readonly Dictionary<string, Type> VisualBasicBuiltInTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "Boolean", typeof(bool) },
+            { "Byte", typeof(byte) },
+            { "Char", typeof(char) },
+            { "Date", typeof(DateTime) },
+            { "Decimal", typeof(decimal) },
+            { "Double", typeof(double) },
+            { "Integer", typeof(int) },
+            { "Long", typeof(long) },
+            { "Object", typeof(object) },
+            { "SByte", typeof(sbyte) },
+            { "Short", typeof(short) },
+            { "Single", typeof(float) },
+            { "String", typeof(string) },
+            { "UInteger", typeof(uint) },
+            { "ULong", typeof(ulong) },
+            { "UShort", typeof(ushort) }
         };
 
         public static IList<Type> GetImplicitCastingTable(Type type)
@@ -153,6 +173,10 @@ namespace Expressions
 
                 case ExpressionLanguage.Csharp:
                     CsharpBuiltInTypes.TryGetValue(name, out result);
+                    break;
+
+                case ExpressionLanguage.VisualBasic:
+                    VisualBasicBuiltInTypes.TryGetValue(name, out result);
                     break;
 
                 default:

@@ -40,6 +40,7 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\Library\Antlr\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -52,7 +53,12 @@
     <Compile Include="Ast\Conditional.cs" />
     <Compile Include="BindingVisitor.cs" />
     <Compile Include="CachedDynamicExpression.cs" />
+    <Compile Include="CastType.cs" />
     <Compile Include="CompilerUtil.cs" />
+    <Compile Include="VisualBasic\VisualBasicLexer.cs" />
+    <Compile Include="VisualBasic\VisualBasicParser.cs" />
+    <Compile Include="VisualBasic\Generated\VisualBasicLexer.cs" />
+    <Compile Include="VisualBasic\Generated\VisualBasicParser.cs" />
     <Compile Include="Expressions\Conditional.cs" />
     <Compile Include="ConstantParsingVisitor.cs" />
     <Compile Include="ConversionVisitor.cs" />
@@ -120,13 +126,17 @@
     <Antlr3 Include="Flee\Flee.g">
       <Generator>MSBuild:Compile</Generator>
     </Antlr3>
+    <Antlr3 Include="VisualBasic\VisualBasic.g">
+      <Generator>MSBuild:Compile</Generator>
+    </Antlr3>
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>$(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Flee\Flee.g -o $(ProjectDir)Flee\Generated
-$(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Csharp\Csharp.g -o $(ProjectDir)Csharp\Generated</PreBuildEvent>
+    <PreBuildEvent>rem $(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Flee\Flee.g -o $(ProjectDir)Flee\Generated
+rem $(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Csharp\Csharp.g -o $(ProjectDir)Csharp\Generated
+rem $(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)VisualBasic\VisualBasic.g -o $(ProjectDir)VisualBasic\Generated</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

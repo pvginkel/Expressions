@@ -1,0 +1,434 @@
+'''' DirectCasts '''
+' Valid explicit cast expressions
+' Casts to numeric types
+'	Conversions to same type
+byte;DirectCast(bytea,byte);50
+sbyte;DirectCast(sbytea,sbyte);-10
+int16;DirectCast(int16a, short);-10
+uint16;DirectCast(uint16a, ushort);100
+int32;DirectCast(100, integer);100
+uint32;DirectCast(100Ui, uinteger);100
+int64;DirectCast(100L, long);100
+uint64;DirectCast(100UL, ulong);100
+single;DirectCast(123.25f, single);123.25
+double;DirectCast(123.25, double);123.25
+'	Cast resulting in implicit conversion
+'	Sbyte
+int16;DirectCast(sbytea, short);-10
+int32;DirectCast(sbytea,integer);-10
+int64;DirectCast(sbytea,long);-10
+single;DirectCast(sbytea, single);-10.0
+double;DirectCast(sbytea, double);-10.0
+'	Byte
+uint16;DirectCast(bytea, ushort);50
+int32;DirectCast(bytea,integer);50
+int64;DirectCast(bytea, long);50
+uint64;DirectCast(bytea, ulong);50
+single;DirectCast(bytea, single);50
+double;DirectCast(bytea, double);50
+'	int16
+int32;DirectCast(int16a, integer);-10
+int64;DirectCast(int16a, long);-10
+single;DirectCast(int16a, single);-10.0
+double;DirectCast(int16a, double);-10.0
+'	uint16
+int32;DirectCast(uint16a, integer);100
+uint32;DirectCast(uint16a, uinteger);100
+int64;DirectCast(uint16a, long);100
+uint64;DirectCast(uint16a, ulong);100
+single;DirectCast(uint16a, single);100
+double;DirectCast(uint16a, double);100
+'	large integers
+int64;DirectCast(100, long);100
+uint64;DirectCast(100Ui,ulong);100
+double;DirectCast(100Ui, double);100
+double;DirectCast(-100L, double);-100.0
+double;DirectCast(100UL, double);100.0
+'	single
+double;DirectCast(1200.5f, double);1200.5
+'	Narrowing conversions
+'	Byte
+byte;DirectCast(100,byte);100
+byte;DirectCast(100Ui,byte);100
+byte;DirectCast(100L,byte);100
+byte;DirectCast(100UL,byte);100
+byte;DirectCast(-1, byte);255
+byte;directcast(sbytea,byte);246
+byte;DirectCast(uint16a,byte);100
+byte;directcast(int16a,byte);246
+byte;DirectCast(120.25f, byte);120
+byte;DirectCast(120.5,byte);120
+'	Sbyte
+sbyte;DirectCast(-1,sbyte);-1
+sbyte;DirectCast(-1L,sbyte);-1
+sbyte;directcast(100Ui, sbyte);100
+sbyte;DirectCast(100UL, sbyte);100
+sbyte;DirectCast(bytea, sbyte);50
+sbyte;DirectCast(int16a, sbyte);-10
+sbyte;DirectCast(uint16a, sbyte);100
+sbyte;DirectCast(-120.5f, sbyte);-120
+sbyte;DirectCast(-120.5, sbyte);-120
+'	Uint16
+Uint16;DirectCast(100,ushort);100
+Uint16;DirectCast(100Ui,ushort);100
+Uint16;DirectCast(100L,ushort);100
+Uint16;DirectCast(100UL,ushort);100
+Uint16;DirectCast(-1, ushort);65535
+Uint16;DirectCast(sbytea,ushort);65526
+Uint16;DirectCast(uint16a,ushort);100
+Uint16;DirectCast(int16a,ushort);65526
+Uint16;DirectCast(120.25f, ushort);120
+Uint16;DirectCast(120.5,ushort);120
+'	int16
+int16;DirectCast(-1,short);-1
+int16;DirectCast(-1L,short);-1
+int16;DirectCast(100Ui, short);100
+int16;DirectCast(100UL, short);100
+int16;DirectCast(bytea, short);50
+int16;DirectCast(int16a, short);-10
+int16;DirectCast(uint16a, short);100
+int16;DirectCast(-120.5f, short);-120
+int16;DirectCast(-120.5, short);-120
+'	int32
+int32;DirectCast(100Ui, integer);100
+int32;DirectCast(100L, integer);100
+int32;DirectCast(-10000.25, integer);-10000
+int32;DirectCast(-10000.5F, integer);-10000
+'	uint32
+uint32;DirectCast(100Ui, uinteger);100
+uint32;DirectCast(100L, uinteger);100
+uint32;DirectCast(-1L, uinteger);4294967295
+uint32;DirectCast(ulong.Maxvalue, uinteger);4294967295
+uint32;DirectCast(long.Maxvalue, uinteger);4294967295
+uint32;DirectCast(10000.25, uinteger);10000
+uint32;DirectCast(10000.5F, uinteger);10000
+'	int64
+int64;DirectCast(10000.5, long);10000
+int64;DirectCast(-10000.5f, long);-10000
+int64;DirectCast(ulong.maxvalue, long);-1
+'	uint64
+uint64;DirectCast(long.minvalue, ulong);9223372036854775808
+uint64;DirectCast(long.maxvalue, ulong);9223372036854775807
+uint64;DirectCast(10000.5, ulong);10000
+uint64;DirectCast(10000.5f, ulong);10000
+'	single
+single;DirectCast(12345.25, single);12345.25
+'	with complex expressions
+int32;DirectCast(convert.todouble("100.25"), integer);100
+int32;DirectCast(4 ^ 4, integer);256
+double;DirectCast(100, double) / 3;33.3333
+int32;DirectCast(DirectCast(100,double) / 3, integer);33
+' Identity casts
+'	Value types
+boolean;DirectCast(true, boolean);true
+object;DirectCast(guida, Guid);System.guid
+object;DirectCast(DayofWeek.Friday, DayofWeek);System.DayOfWeek
+char;DirectCast('^',char);^
+'	Reference types
+string;DirectCast("abc", string);abc
+object;DirectCast(Versiona, Version);System.Version
+object;DirectCast(DelegateA, AppDomainInitializer);System.AppDomainInitializer
+object;DirectCast(StringArr, string());System.string[]
+' Casts that are already implicitly valid
+double;DirectCast(100,double);100.0
+object;DirectCast(100, valuetype);System.int32
+object;DirectCast(true,object);System.boolean
+object;DirectCast("abc",object);System.string
+int32;DirectCast('^', integer);94
+double;DirectCast('^', double);94.0
+object;DirectCast(Icloneablea, object);System.string
+object;DirectCast(DoubleArr, object);System.double[]
+object;DirectCast(100.24, IComparable);System.double
+object;DirectCast("abc", ICloneable);System.string
+object;DirectCast(structa, object);TestStruct
+object;DirectCast(structa, ValueType);TestStruct
+object;DirectCast(structa, IComparable);TestStruct
+object;DirectCast(doubleArr, ICloneable);System.double[]
+object;DirectCast(stringArr, ICloneable);System.string[]
+object;DirectCast(stringarr, object);System.string[]
+object;DirectCast(intarr, object);System.int32[]
+object;DirectCast(stringarr, Array);System.string[]
+object;DirectCast(intarr, Array);System.int32[]
+object;DirectCast(arraya, object);System.string[]
+object;DirectCast(stringarr, string());System.string[]
+object;DirectCast(intarr, integer());System.int32[]
+object;DirectCast(DelegateA, Delegate);System.AppDomainInitializer
+object;DirectCast(DelegateA, object);System.AppDomainInitializer
+' Casts to numeric types
+int32;DirectCast(100.34, integer);100
+byte;DirectCast(100L,byte);100
+' Cast of reference type to value type
+int32;DirectCast(objectinta, integer);100
+double;DirectCast(icomparablea, double);100.25
+object;DirectCast(ValueTypeStructA, Valuetype);TestStruct
+' Cast of reference type to reference type
+object;DirectCast(objectstringa, string);System.string
+object;DirectCast(ExceptionA, ArgumentException);System.ArgumentException
+'	Reference type to unimplemented interface
+object;DirectCast(ExceptionNull, IComparable);System.void
+'	interface to class
+object;DirectCast(IComparableString, string);System.string
+'	class to interface
+object;DirectCast(IComparableNull, Icloneable);System.void
+'	System.delegate to delegate type
+object;DirectCast(delegateANull, AppDomainInitializer);System.void
+'	System.delegate to implemented interface
+object;DirectCast(delegateANull, ICloneable);System.void
+'	System.delegate to concrete delegate
+object;DirectCast(delegateANull,AppDomainInitializer);system.void
+'	Concrete delegate to implemented interface
+object;DirectCast(DelegateA, ICloneable);System.AppDomainInitializer
+'	System.array to array type
+object;DirectCast(ArrayA, string());System.string[]
+'	System.array to implemented interface
+object;DirectCast(ArrayA, ICloneable);System.string[]
+'	Interface to System.Array
+object;DirectCast(ICloneableArray, Array);System.string[]
+'	Interface to array
+object;DirectCast(ICloneableArray, string());System.string[]
+'	Cast of one array to another
+'		simple case
+object;DirectCast(stringarr, object());System.string[]
+'		to implemented interface
+object;DirectCast(stringarr, IComparable());System.string[]
+'		to base type
+' *** Allowed but produces InvalidCastException; c# does same thing.... System.object;DirectCast(stringarr, object());System.string[]
+'	With global type
+object;DirectCast(Encodinga, Encoding);System.text.asciiencoding
+object;DirectCast(Encodinga, ASciiEncoding);System.text.asciiencoding
+object;DirectCast(AsciiEncodingArr, encoding());System.text.encoding[]
+' Enums
+int32;DirectCast(DayOfWeek.Friday, integer);5
+byte;DirectCast(DayOfWeek.Friday, byte);5
+double;DirectCast(DayOfWeek.Friday, double);5.0
+object;DirectCast(DayofWeek.friday,object);System.DayOfWeek
+object;DirectCast(5, DayOfWeek);System.DayOfWeek
+object;DirectCast(5.0, DayOfWeek);System.DayOfWeek
+int32;DirectCast(DirectCast(DirectCast(DayofWeek.Tuesday, object), DayOfWeek), integer);2
+int32;DirectCast(DirectCast(DayofWeek.Tuesday, object), integer);2
+' Casts to same CLR data type (should not emit a conv opcode)
+int32;DirectCast(uinteger.maxvalue, integer);-1
+uint32;DirectCast(-1, uinteger);4294967295
+int64;DirectCast(ulong.maxvalue, long);-1
+uint64;DirectCast(-1L, ulong);18446744073709551615
+' Casts that use explicit overloaded cast operator
+byte;DirectCast(decimala, byte);100
+int32;DirectCast(decimala, integer);100
+single;DirectCast(decimalb, single);0.25
+decimal;DirectCast(100.25, decimal);100.25
+' Casts that use implicit overloaded cast operator
+decimal;DirectCast('a', decimal);97
+decimal;DirectCast(-100, decimal);-100
+decimal;DirectCast(bytea, decimal);50
+'''' CTypes ''''
+' Valid explicit cast expressions
+' Casts to numeric types
+'	Conversions to same type
+byte;CType(bytea,byte);50
+sbyte;CType(sbytea,sbyte);-10
+int16;CType(int16a, short);-10
+uint16;CType(uint16a, ushort);100
+int32;CType(100, integer);100
+uint32;CType(100Ui, uinteger);100
+int64;CType(100L, long);100
+uint64;CType(100UL, ulong);100
+single;CType(123.25f, single);123.25
+double;CType(123.25, double);123.25
+'	Cast resulting in implicit conversion
+'	Sbyte
+int16;CType(sbytea, short);-10
+int32;CType(sbytea,integer);-10
+int64;CType(sbytea,long);-10
+single;CType(sbytea, single);-10.0
+double;CType(sbytea, double);-10.0
+'	Byte
+uint16;CType(bytea, ushort);50
+int32;CType(bytea,integer);50
+int64;CType(bytea, long);50
+uint64;CType(bytea, ulong);50
+single;CType(bytea, single);50
+double;CType(bytea, double);50
+'	int16
+int32;CType(int16a, integer);-10
+int64;CType(int16a, long);-10
+single;CType(int16a, single);-10.0
+double;CType(int16a, double);-10.0
+'	uint16
+int32;CType(uint16a, integer);100
+uint32;CType(uint16a, uinteger);100
+int64;CType(uint16a, long);100
+uint64;CType(uint16a, ulong);100
+single;CType(uint16a, single);100
+double;CType(uint16a, double);100
+'	large integers
+int64;CType(100, long);100
+uint64;CType(100Ui,ulong);100
+double;CType(100Ui, double);100
+double;CType(-100L, double);-100.0
+double;CType(100UL, double);100.0
+'	single
+double;CType(1200.5f, double);1200.5
+'	Narrowing conversions
+'	Byte
+byte;CType(100,byte);100
+byte;CType(100Ui,byte);100
+byte;CType(100L,byte);100
+byte;CType(100UL,byte);100
+byte;CType(-1, byte);255
+byte;CType(uint16a,byte);100
+byte;CType(120.25f, byte);120
+byte;CType(120.5,byte);120
+'	Sbyte
+sbyte;CType(-1,sbyte);-1
+sbyte;CType(-1L,sbyte);-1
+sbyte;CType(100Ui, sbyte);100
+sbyte;CType(100UL, sbyte);100
+sbyte;CType(bytea, sbyte);50
+sbyte;CType(int16a, sbyte);-10
+sbyte;CType(uint16a, sbyte);100
+sbyte;CType(-120.5f, sbyte);-120
+sbyte;CType(-120.5, sbyte);-120
+'	Uint16
+Uint16;CType(100,ushort);100
+Uint16;CType(100Ui,ushort);100
+Uint16;CType(100L,ushort);100
+Uint16;CType(100UL,ushort);100
+Uint16;CType(-1, ushort);65535
+Uint16;CType(uint16a,ushort);100
+Uint16;CType(120.25f, ushort);120
+Uint16;CType(120.5,ushort);120
+'	int16
+int16;CType(-1,short);-1
+int16;CType(-1L,short);-1
+int16;CType(100Ui, short);100
+int16;CType(100UL, short);100
+int16;CType(bytea, short);50
+int16;CType(int16a, short);-10
+int16;CType(uint16a, short);100
+int16;CType(-120.5f, short);-120
+int16;CType(-120.5, short);-120
+'	int32
+int32;CType(100Ui, integer);100
+int32;CType(100L, integer);100
+int32;CType(-10000.25, integer);-10000
+int32;CType(-10000.5F, integer);-10000
+'	uint32
+uint32;CType(100Ui, uinteger);100
+uint32;CType(100L, uinteger);100
+uint32;CType(-1L, uinteger);4294967295
+uint32;CType(10000.25, uinteger);10000
+uint32;CType(10000.5F, uinteger);10000
+'	int64
+int64;CType(10000.5, long);10000
+int64;CType(-10000.5f, long);-10000
+'	uint64
+uint64;CType(long.maxvalue, ulong);9223372036854775807
+uint64;CType(10000.5, ulong);10000
+uint64;CType(10000.5f, ulong);10000
+'	single
+single;CType(12345.25, single);12345.25
+'	with complex expressions
+int32;CType(convert.todouble("100.25"), integer);100
+int32;CType(4 ^ 4, integer);256
+double;CType(100, double) / 3;33.3333
+int32;CType(CType(100,double) / 3, integer);33
+' Identity casts
+'	Value types
+boolean;CType(true, boolean);true
+object;CType(guida, Guid);System.guid
+object;CType(DayofWeek.Friday, DayofWeek);System.DayOfWeek
+char;CType('^',char);^
+'	Reference types
+string;CType("abc", string);abc
+object;CType(Versiona, Version);System.Version
+object;CType(DelegateA, AppDomainInitializer);System.AppDomainInitializer
+object;CType(StringArr, string());System.string[]
+' Casts that are already implicitly valid
+double;CType(100,double);100.0
+object;CType(100, valuetype);System.int32
+object;CType(true,object);System.boolean
+object;CType("abc",object);System.string
+int32;CType('^', integer);94
+double;CType('^', double);94.0
+object;CType(Icloneablea, object);System.string
+object;CType(DoubleArr, object);System.double[]
+object;CType(100.24, IComparable);System.double
+object;CType("abc", ICloneable);System.string
+object;CType(structa, object);TestStruct
+object;CType(structa, ValueType);TestStruct
+object;CType(structa, IComparable);TestStruct
+object;CType(doubleArr, ICloneable);System.double[]
+object;CType(stringArr, ICloneable);System.string[]
+object;CType(stringarr, object);System.string[]
+object;CType(intarr, object);System.int32[]
+object;CType(stringarr, Array);System.string[]
+object;CType(intarr, Array);System.int32[]
+object;CType(arraya, object);System.string[]
+object;CType(stringarr, string());System.string[]
+object;CType(intarr, integer());System.int32[]
+object;CType(DelegateA, Delegate);System.AppDomainInitializer
+object;CType(DelegateA, object);System.AppDomainInitializer
+' Casts to numeric types
+int32;CType(100.34, integer);100
+byte;CType(100L,byte);100
+' Cast of reference type to value type
+int32;CType(objectinta, integer);100
+double;CType(icomparablea, double);100.25
+object;CType(ValueTypeStructA, Valuetype);TestStruct
+' Cast of reference type to reference type
+object;CType(objectstringa, string);System.string
+object;CType(ExceptionA, ArgumentException);System.ArgumentException
+'	Reference type to unimplemented interface
+object;CType(ExceptionNull, IComparable);System.void
+'	interface to class
+object;CType(IComparableString, string);System.string
+'	class to interface
+object;CType(IComparableNull, Icloneable);System.void
+'	System.delegate to delegate type
+object;CType(delegateANull, AppDomainInitializer);System.void
+'	System.delegate to implemented interface
+object;CType(delegateANull, ICloneable);System.void
+'	System.delegate to concrete delegate
+object;CType(delegateANull,AppDomainInitializer);system.void
+'	Concrete delegate to implemented interface
+object;CType(DelegateA, ICloneable);System.AppDomainInitializer
+'	System.array to array type
+object;CType(ArrayA, string());System.string[]
+'	System.array to implemented interface
+object;CType(ArrayA, ICloneable);System.string[]
+'	Interface to System.Array
+object;CType(ICloneableArray, Array);System.string[]
+'	Interface to array
+object;CType(ICloneableArray, string());System.string[]
+'	Cast of one array to another
+'		simple case
+object;CType(stringarr, object());System.string[]
+'		to implemented interface
+object;CType(stringarr, IComparable());System.string[]
+'		to base type
+' *** Allowed but produces InvalidCastException; c# does same thing.... System.object;CType(stringarr, object());System.string[]
+'	With global type
+object;CType(Encodinga, Encoding);System.text.asciiencoding
+object;CType(Encodinga, ASciiEncoding);System.text.asciiencoding
+object;CType(AsciiEncodingArr, encoding());System.text.encoding[]
+' Enums
+int32;CType(DayOfWeek.Friday, integer);5
+byte;CType(DayOfWeek.Friday, byte);5
+double;CType(DayOfWeek.Friday, double);5.0
+object;CType(DayofWeek.friday,object);System.DayOfWeek
+object;CType(5, DayOfWeek);System.DayOfWeek
+object;CType(5.0, DayOfWeek);System.DayOfWeek
+int32;CType(CType(CType(DayofWeek.Tuesday, object), DayOfWeek), integer);2
+int32;CType(CType(DayofWeek.Tuesday, object), integer);2
+' Casts to same CLR data type (should not emit a conv opcode)
+uint32;CType(-1, uinteger);4294967295
+uint64;CType(-1L, ulong);18446744073709551615
+' Casts that use explicit overloaded cast operator
+byte;CType(decimala, byte);100
+int32;CType(decimala, integer);100
+single;CType(decimalb, single);0.25
+decimal;CType(100.25, decimal);100.25
+' Casts that use implicit overloaded cast operator
+decimal;CType('a', decimal);97
+decimal;CType(-100, decimal);-100
+decimal;CType(bytea, decimal);50

@@ -7,10 +7,14 @@ namespace Expressions
     internal enum ExpressionType
     {
         And,
+        AndBoth,
         Or,
+        OrBoth,
         Xor,
         Equals,
+        Compares,
         NotEquals,
+        NotCompares,
         Greater,
         GreaterOrEquals,
         Less,
@@ -33,6 +37,7 @@ namespace Expressions
         LogicalNot,
         BitwiseAnd,
         BitwiseOr,
-        BitwiseNot
+        BitwiseNot,
+        Concat
     }
 }

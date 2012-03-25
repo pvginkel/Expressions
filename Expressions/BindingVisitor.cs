@@ -52,7 +52,9 @@ namespace Expressions
                 case ExpressionType.ShiftRight: operatorName = "op_RightShift"; break;
                 case ExpressionType.Modulo: operatorName = "op_Modulus"; break;
                 case ExpressionType.LogicalAnd: operatorName = "op_LogicalAnd"; break;
+                case ExpressionType.AndBoth: operatorName = "op_LogicalAnd"; break;
                 case ExpressionType.LogicalOr: operatorName = "op_LogicalOr"; break;
+                case ExpressionType.OrBoth: operatorName = "op_LogicalOr"; break;
                 case ExpressionType.BitwiseAnd: operatorName = "op_BitwiseAnd"; break;
                 case ExpressionType.BitwiseOr: operatorName = "op_BitwiseOr"; break;
 
@@ -119,7 +121,17 @@ namespace Expressions
             
             var type = ResolveExpressionType(left.Type, right.Type, commonType, binaryExpression.Type);
 
-            return new Expressions.BinaryExpression(left, right, binaryExpression.Type, type, commonType);
+            var expressionType = binaryExpression.Type;
+
+            if (type != typeof(bool))
+            {
+                if (expressionType == ExpressionType.AndBoth)
+                    expressionType = ExpressionType.BitwiseAnd;
+                else if (expressionType == ExpressionType.OrBoth)
+                    expressionType = ExpressionType.BitwiseOr;
+            }
+
+            return new Expressions.BinaryExpression(left, right, expressionType, type, commonType);
         }
 
         private IExpression BinaryInExpression(BinaryExpression binaryExpression)
@@ -168,7 +180,8 @@ namespace Expressions
         {
             return new Expressions.Cast(
                 cast.Operand.Accept(this),
-                ResolveType(cast.Type.Name, cast.Type.ArrayIndex)
+                ResolveType(cast.Type.Name, cast.Type.ArrayIndex),
+                cast.CastType
             );
         }
 
@@ -235,12 +248,7 @@ namespace Expressions
 
             // Last, see whether the identifier is a built in type.
 
-            string identifierName = identifierAccess.Name;
-
-            if (_resolver.IgnoreCase)
-                identifierName = identifierName.ToLowerInvariant();
-
-            var type = TypeUtil.GetBuiltInType(identifierName, _resolver.DynamicExpression.Language);
+            var type = TypeUtil.GetBuiltInType(identifierAccess.Name, _resolver.DynamicExpression.Language);
 
             if (type != null)
                 return new TypeAccess(type);
@@ -301,33 +309,38 @@ namespace Expressions
 
         public IExpression Index(Ast.Index index)
         {
-            var arguments = ResolveArguments(index.Arguments);
+            return Index(index.Operand, index.Arguments);
+        }
 
-            var operand = index.Operand.Accept(this);
+        private IExpression Index(IAstNode operand, AstNodeCollection arguments)
+        {
+            var resolvedArguments = ResolveArguments(arguments);
 
-            if (operand.Type.IsArray)
+            var resolvedOperand = operand.Accept(this);
+
+            if (resolvedOperand.Type.IsArray)
             {
-                if (arguments.Length != operand.Type.GetArrayRank())
+                if (resolvedArguments.Length != resolvedOperand.Type.GetArrayRank())
                     throw new NotSupportedException("Rank of array is incorrect");
 
-                foreach (var argument in arguments)
+                foreach (var argument in resolvedArguments)
                 {
                     if (!TypeUtil.IsCastAllowed(argument.Type, typeof(int)))
                         throw new NotSupportedException("Arguments of array index must be convertible to int");
                 }
 
-                if (arguments.Length == 1)
-                    return new Expressions.Index(operand, arguments[0], operand.Type.GetElementType());
+                if (resolvedArguments.Length == 1)
+                    return new Expressions.Index(resolvedOperand, resolvedArguments[0], resolvedOperand.Type.GetElementType());
                 else
-                    return _resolver.ResolveMethod(operand, "Get", arguments);
+                    return _resolver.ResolveMethod(resolvedOperand, "Get", resolvedArguments);
             }
 
-            var defaultMemberAttributes = operand.Type.GetCustomAttributes(typeof(DefaultMemberAttribute), true);
+            var defaultMemberAttributes = resolvedOperand.Type.GetCustomAttributes(typeof(DefaultMemberAttribute), true);
 
             if (defaultMemberAttributes.Length != 1)
                 throw new NotSupportedException("Operand does not support indexing");
 
-            var result = _resolver.ResolveMethod(operand, "get_" + ((DefaultMemberAttribute)defaultMemberAttributes[0]).MemberName, arguments);
+            var result = _resolver.ResolveMethod(resolvedOperand, "get_" + ((DefaultMemberAttribute)defaultMemberAttributes[0]).MemberName, resolvedArguments);
 
             if (result == null)
                 throw new NotSupportedException("Cannot resolve index method");
@@ -382,7 +395,17 @@ namespace Expressions
             var identifierAccess = methodCall.Operand as IdentifierAccess;
 
             if (identifierAccess != null)
-                return ResolveGlobalMethod(identifierAccess.Name, arguments);
+            {
+                var result = ResolveGlobalMethod(identifierAccess.Name, arguments);
+
+                if (result != null)
+                    return result;
+
+                if (_resolver.DynamicExpression.Language == ExpressionLanguage.VisualBasic)
+                    return Index(methodCall.Operand, methodCall.Arguments);
+
+                throw new NotSupportedException("Cannot resolve global method");
+            }
 
             var memberAccess = methodCall.Operand as MemberAccess;
 
@@ -413,6 +436,9 @@ namespace Expressions
                         return result;
                 }
             }
+
+            if (_resolver.DynamicExpression.Language == ExpressionLanguage.VisualBasic)
+                return Index(methodCall.Operand, methodCall.Arguments);
 
             throw new NotSupportedException("Cannot resolve method call on " + methodCall.Operand.GetType().Name);
         }
@@ -456,7 +482,7 @@ namespace Expressions
                 }
             }
 
-            throw new NotSupportedException("Could not resolve method");
+            return null;
         }
 
         public IExpression UnaryExpression(Ast.UnaryExpression unaryExpression)
@@ -557,12 +583,7 @@ namespace Expressions
 
         private Type ResolveType(string type, int arrayIndex)
         {
-            string builtInType = type;
-
-            if (_resolver.IgnoreCase)
-                builtInType = builtInType.ToLowerInvariant();
-
-            var result = TypeUtil.GetBuiltInType(builtInType, _resolver.DynamicExpression.Language);
+            var result = TypeUtil.GetBuiltInType(type, _resolver.DynamicExpression.Language);
 
             if (result == null)
                 result = Type.GetType(type, false, _resolver.IgnoreCase);
@@ -693,6 +714,8 @@ namespace Expressions
                 case ExpressionType.And:
                 case ExpressionType.Or:
                 case ExpressionType.Xor:
+                case ExpressionType.AndBoth:
+                case ExpressionType.OrBoth:
                     if (TypeUtil.IsInteger(commonType))
                         return commonType;
 
@@ -710,6 +733,8 @@ namespace Expressions
                 case ExpressionType.In:
                 case ExpressionType.LogicalAnd:
                 case ExpressionType.LogicalOr:
+                case ExpressionType.Compares:
+                case ExpressionType.NotCompares:
                     return typeof(bool);
 
                 default:

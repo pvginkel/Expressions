@@ -10,13 +10,21 @@ namespace Expressions.Ast
 
         public TypeIdentifier Type { get; private set; }
 
+        public CastType CastType { get; private set; }
+
         public Cast(IAstNode operand, TypeIdentifier type)
+            : this(operand, type, CastType.Cast)
+        {
+        }
+
+        public Cast(IAstNode operand, TypeIdentifier type, CastType castType)
         {
             Require.NotNull(operand, "operand");
             Require.NotNull(type, "type");
 
             Operand = operand;
             Type = type;
+            CastType = castType;
         }
 
         public T Accept<T>(IAstVisitor<T> visitor)

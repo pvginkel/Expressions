@@ -70,7 +70,7 @@ namespace Expressions.Expressions
             if (operand == cast.Operand)
                 return cast;
             else
-                return new Cast(operand, cast.Type);
+                return new Cast(operand, cast.Type, cast.CastType);
         }
 
         public virtual IExpression Constant(Constant constant)

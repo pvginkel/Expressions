@@ -145,7 +145,9 @@ namespace Expressions
                         break;
 
                     case ExpressionType.LogicalAnd:
+                    case ExpressionType.AndBoth:
                     case ExpressionType.LogicalOr:
+                    case ExpressionType.OrBoth:
                         BinaryLogicalExpression(binaryExpression);
                         break;
 
@@ -365,6 +367,13 @@ namespace Expressions
                         _il.MarkLabel(afterLabel);
                         break;
 
+                    case ExpressionType.AndBoth:
+                        binaryExpression.Left.Accept(this);
+                        binaryExpression.Right.Accept(this);
+
+                        _il.Emit(OpCodes.And);
+                        break;
+
                     case ExpressionType.Or:
                     case ExpressionType.LogicalOr:
                         beforeLabel = _il.DefineLabel();
@@ -379,6 +388,13 @@ namespace Expressions
                         _il.MarkLabel(beforeLabel);
                         ILUtil.EmitConstant(_il, 1);
                         _il.MarkLabel(afterLabel);
+                        break;
+
+                    case ExpressionType.OrBoth:
+                        binaryExpression.Left.Accept(this);
+                        binaryExpression.Right.Accept(this);
+
+                        _il.Emit(OpCodes.Or);
                         break;
 
                     case ExpressionType.Xor:

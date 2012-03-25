@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Expressions
 {
-    public enum ExpressionLanguage
+    internal enum CastType
     {
-        Flee,
-        Csharp,
-        VisualBasic
+        Cast,
+        Convert
     }
 }

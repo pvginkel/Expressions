@@ -10,13 +10,21 @@ namespace Expressions.Expressions
 
         public Type Type { get; private set; }
 
+        public CastType CastType { get; set; }
+
         public Cast(IExpression operand, Type type)
+            : this(operand, type, CastType.Cast)
+        {
+        }
+
+        public Cast(IExpression operand, Type type, CastType castType)
         {
             Require.NotNull(operand, "operand");
             Require.NotNull(type, "type");
 
             Operand = operand;
             Type = type;
+            CastType = castType;
         }
 
         public void Accept(IExpressionVisitor visitor)

@@ -1,0 +1,7 @@
+﻿' Virtual properties
+string;stringA.name;prop!
+string;int32A.name;prop!
+string;100.name;prop!
+string;"abc".name;prop!
+int32;stringA.name.length;5
+string;int32A.tostring().name;prop!
