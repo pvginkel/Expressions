@@ -12,6 +12,7 @@ namespace Expressions
         private bool _checked;
         private bool _importBuildInTypes;
         private Type _resultType = typeof(object);
+        private bool _restrictedSkipVisibility;
 
         public bool AllowPrivateAccess
         {
@@ -61,10 +62,23 @@ namespace Expressions
             }
         }
 
+        public bool RestrictedSkipVisibility
+        {
+            get { return _restrictedSkipVisibility; }
+            set
+            {
+                if (_frozen)
+                    throw new InvalidOperationException("Options cannot be modified");
+
+                _restrictedSkipVisibility = value;
+            }
+        }
+
         internal void Freeze()
         {
             _frozen = true;
             _importBuildInTypes = true;
+            _restrictedSkipVisibility = true;
         }
 
         public override bool Equals(object obj)
@@ -77,8 +91,10 @@ namespace Expressions
             return
                 other != null &&
                 _allowPrivateAccess == other._allowPrivateAccess &&
+                _checked == other._checked &&
                 _resultType == other._resultType &&
-                _importBuildInTypes == other._importBuildInTypes;
+                _importBuildInTypes == other._importBuildInTypes &&
+                _restrictedSkipVisibility == other._restrictedSkipVisibility;
         }
 
         public override int GetHashCode()
@@ -87,8 +103,10 @@ namespace Expressions
             {
                 return ObjectUtil.CombineHashCodes(
                     _allowPrivateAccess.GetHashCode(),
+                    _checked.GetHashCode(),
                     _resultType.GetHashCode(),
-                    _importBuildInTypes.GetHashCode()
+                    _importBuildInTypes.GetHashCode(),
+                    _restrictedSkipVisibility.GetHashCode()
                 );
             }
         }

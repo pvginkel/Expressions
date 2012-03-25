@@ -62,7 +62,7 @@ namespace Expressions
                 "DynamicMethod",
                 typeof(object),
                 new[] { typeof(object[]) },
-                true /* restrictedSkipVisibility */
+                options.RestrictedSkipVisibility
             );
 
             var il = method.GetILGenerator();
