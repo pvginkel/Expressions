@@ -100,6 +100,19 @@ namespace Expressions
             }
         }
 
+        public static object CastImplicitely(object value, Type toType)
+        {
+            if (!CanCastImplicitely(value == null ? typeof(object) : value.GetType(), toType, value == null))
+                throw new NotSupportedException("Cannot cast");
+
+            if (value == null || !toType.IsValueType)
+                return value;
+
+            Debug.Assert(GetImplicitCastingTable(value.GetType()).Contains(toType));
+
+            return Convert.ChangeType(value, toType);
+        }
+
         public static bool IsValidUnaryArgument(Type type)
         {
             Require.NotNull(type, "type");

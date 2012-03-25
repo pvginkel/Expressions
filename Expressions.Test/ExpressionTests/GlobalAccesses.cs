@@ -132,7 +132,7 @@ namespace Expressions.Test.ExpressionTests
         public void MethodOnImportWithNamespace()
         {
             Resolve(
-                new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") }),
+                new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) }),
                 "Owner.StaticMethod()",
                 new MethodCall(
                     new TypeAccess(typeof(Owner)),

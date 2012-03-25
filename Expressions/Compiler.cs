@@ -367,9 +367,23 @@ namespace Expressions
             public void Constant(Constant constant)
             {
                 if (constant.Value == null)
+                {
                     ILUtil.EmitNull(_il);
+                }
+                else if (constant.Value is DateTime)
+                {
+                    ILUtil.EmitConstant(_il, ((DateTime)constant.Value).Ticks);
+                    ILUtil.EmitNew(_il, typeof(DateTime).GetConstructor(new[] { typeof(long) }));
+                }
+                else if (constant.Value is TimeSpan)
+                {
+                    ILUtil.EmitConstant(_il, ((TimeSpan)constant.Value).Ticks);
+                    ILUtil.EmitNew(_il, typeof(TimeSpan).GetConstructor(new[] { typeof(long) }));
+                }
                 else
+                {
                     ILUtil.EmitConstant(_il, constant.Value);
+                }
             }
 
             public void FieldAccess(FieldAccess fieldAccess)

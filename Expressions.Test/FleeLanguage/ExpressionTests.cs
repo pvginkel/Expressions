@@ -31,11 +31,11 @@ namespace Expressions.Test.FleeLanguage
             var imports = new[]
             {
                 new Import(typeof(Monitor)),
-                new Import(typeof(Convert), "Convert"),
+                new Import("Convert", typeof(Convert)),
                 new Import(typeof(Guid)),
                 new Import(typeof(Version)),
                 new Import(typeof(DayOfWeek)),
-                new Import(typeof(DayOfWeek), "DayOfWeek"),
+                new Import("DayOfWeek", typeof(DayOfWeek)),
                 new Import(typeof(ValueType)),
                 new Import(typeof(IComparable)),
                 new Import(typeof(ICloneable)),
@@ -46,28 +46,26 @@ namespace Expressions.Test.FleeLanguage
                 new Import(typeof(System.Text.ASCIIEncoding)),
                 new Import(typeof(ArgumentException)),
                 // ImportBuiltinTypes
-                new Import(typeof(bool), "boolean"),
-		        new Import(typeof(byte), "byte"),
-		        new Import(typeof(sbyte), "sbyte"),
-		        new Import(typeof(short), "short"),
-		        new Import(typeof(ushort), "ushort"),
-		        new Import(typeof(int), "int"),
-		        new Import(typeof(uint), "uint"),
-		        new Import(typeof(long), "long"),
-		        new Import(typeof(ulong), "ulong"),
-		        new Import(typeof(float), "single"),
-		        new Import(typeof(double), "double"),
-		        new Import(typeof(decimal), "decimal"),
-		        new Import(typeof(char), "char"),
-		        new Import(typeof(object), "object"),
-		        new Import(typeof(string), "string")
+                new Import("boolean", typeof(bool)),
+		        new Import("byte", typeof(byte)),
+		        new Import("sbyte", typeof(sbyte)),
+		        new Import("short", typeof(short)),
+		        new Import("ushort", typeof(ushort)),
+		        new Import("int", typeof(int)),
+		        new Import("uint", typeof(uint)),
+		        new Import("long", typeof(long)),
+		        new Import("ulong", typeof(ulong)),
+		        new Import("single", typeof(float)),
+		        new Import("double", typeof(double)),
+		        new Import("decimal", typeof(decimal)),
+		        new Import("char", typeof(char)),
+		        new Import("object", typeof(object)),
+		        new Import("string", typeof(string))
            };
 
            ExpressionContext context = new ExpressionContext(imports, MyValidExpressionsOwner);
 
             //context.Options.OwnerMemberAccess = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic;
-
-            //context.Imports.ImportBuiltinTypes();
 
             MyValidCastsContext = context;
 
@@ -87,47 +85,37 @@ namespace Expressions.Test.FleeLanguage
         {
             var imports = new[]
             {
-                new Import(typeof(Mouse), "Mouse"),
-                new Import(typeof(Monitor), "Monitor"),
-                new Import(typeof(Math), "Math"),
-                new Import(typeof(Uri), "Uri"),
-                new Import(typeof(DateTime), "DateTime"),
-                new Import(typeof(Convert), "Convert"),
-                new Import(typeof(Type), "Type"),
-                new Import(typeof(DayOfWeek), "DayOfWeek"),
-                new Import(typeof(ConsoleModifiers), "ConsoleModifiers"),
+                new Import("Mouse", typeof(Mouse)),
+                new Import("Monitor", typeof(Monitor)),
+                new Import("Math", typeof(Math)),
+                new Import("Uri", typeof(Uri)),
+                new Import("DateTime", typeof(DateTime)),
+                new Import("Convert", typeof(Convert)),
+                new Import("Type", typeof(Type)),
+                new Import("DayOfWeek", typeof(DayOfWeek)),
+                new Import("ConsoleModifiers", typeof(ConsoleModifiers)),
+                new Import("ns1", new Import("ns2", typeof(Math))),
                 // ImportBuiltinTypes
-                new Import(typeof(bool), "boolean"),
-		        new Import(typeof(byte), "byte"),
-		        new Import(typeof(sbyte), "sbyte"),
-		        new Import(typeof(short), "short"),
-		        new Import(typeof(ushort), "ushort"),
-		        new Import(typeof(int), "int"),
-		        new Import(typeof(uint), "uint"),
-		        new Import(typeof(long), "long"),
-		        new Import(typeof(ulong), "ulong"),
-		        new Import(typeof(float), "single"),
-		        new Import(typeof(double), "double"),
-		        new Import(typeof(decimal), "decimal"),
-		        new Import(typeof(char), "char"),
-		        new Import(typeof(object), "object"),
-		        new Import(typeof(string), "string")
+                new Import("boolean", typeof(bool)),
+		        new Import("byte", typeof(byte)),
+		        new Import("sbyte", typeof(sbyte)),
+		        new Import("short", typeof(short)),
+		        new Import("ushort", typeof(ushort)),
+		        new Import("int", typeof(int)),
+		        new Import("uint", typeof(uint)),
+		        new Import("long", typeof(long)),
+		        new Import("ulong", typeof(ulong)),
+		        new Import("single", typeof(float)),
+		        new Import("double", typeof(double)),
+		        new Import("decimal", typeof(decimal)),
+		        new Import("char", typeof(char)),
+		        new Import("object", typeof(object)),
+		        new Import("string", typeof(string))
             };
 
             var context = new ExpressionContext(imports, owner);
 
             //context.Options.OwnerMemberAccess = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic;
-            //context.Imports.ImportBuiltinTypes();
-
-
-            //NamespaceImport ns1 = new NamespaceImport("ns1");
-            //NamespaceImport ns2 = new NamespaceImport("ns2");
-
-            //ns2.Add(new TypeImport(typeof(Math)));
-
-            //ns1.Add(ns2);
-
-            //context.Imports.RootImport.Add(ns1);
 
             context.Variables.Add("varInt32", 100);
             context.Variables.Add("varDecimal", new decimal(100));
@@ -195,7 +183,7 @@ namespace Expressions.Test.FleeLanguage
             {
                 TypeConverter tc = TypeDescriptor.GetConverter(resultType);
 
-                object expectedResult = tc.ConvertFromString(null, testCulture, result);
+                object expectedResult = tc.ConvertFromString(null, CultureInfo.CurrentCulture, result);
                 object actualResult = expression.Invoke(expressionContext, new BoundExpressionOptions
                 {
                     AllowPrivateAccess = true,

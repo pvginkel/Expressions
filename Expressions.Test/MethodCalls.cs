@@ -36,7 +36,7 @@ namespace Expressions.Test
         public void ImportedMethodWithNamespace()
         {
             CompileExpression(
-                new ExpressionContext(new[] { new Import(typeof(Guid), "Guid") }),
+                new ExpressionContext(new[] { new Import("Guid", typeof(Guid)) }),
                 "Guid.NewGuid()"
             );
         }
@@ -63,7 +63,7 @@ namespace Expressions.Test
         public void MethodOnStaticPropertyWithNamespace()
         {
             CompileExpression(
-                new ExpressionContext(new[] { new Import(typeof(DateTime), "DateTime") }),
+                new ExpressionContext(new[] { new Import("DateTime", typeof(DateTime)) }),
                 "DateTime.Now.ToString()"
             );
         }

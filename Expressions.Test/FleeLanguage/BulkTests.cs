@@ -25,6 +25,24 @@ namespace Expressions.Test.FleeLanguage
             ProcessScriptTests("ValidExpressions.txt", DoTestValidExpressions);
         }
 
+        [Test(Description = "Type descriptor expressions that should be valid")]
+        [Ignore("Not yet implemented")]
+        public void TestTypeDescriptorExpressions()
+        {
+            MyCurrentContext = MyGenericContext;
+
+            ProcessScriptTests("TypeDescriptor.txt", DoTestValidExpressions);
+        }
+
+        [Test(Description = "On demand method expressions that should be valid")]
+        [Ignore("Not yet implemented")]
+        public void TestOnDemandMethodExpressions()
+        {
+            MyCurrentContext = MyGenericContext;
+
+            ProcessScriptTests("OnDemandMethods.txt", DoTestValidExpressions);
+        }
+
         [Test(Description = "Expressions that should not be valid")]
         public void TestInvalidExpressions()
         {
@@ -82,16 +100,36 @@ namespace Expressions.Test.FleeLanguage
             bool @checked = bool.Parse(arr[1]);
             bool shouldOverflow = bool.Parse(arr[2]);
 
-            ExpressionContext context = new ExpressionContext(null, MyValidExpressionsOwner);
-            //ExpressionOptions options = context.Options;
-            context.Imports.Add(new Import(typeof(Math)));
-            //context.Imports.ImportBuiltinTypes();
-            //options.Checked = @checked;
+            var imports = new[]
+            {
+                new Import(typeof(Math)),
+                // ImportBuiltinTypes
+                new Import("boolean", typeof(bool)),
+		        new Import("byte", typeof(byte)),
+		        new Import("sbyte", typeof(sbyte)),
+		        new Import("short", typeof(short)),
+		        new Import("ushort", typeof(ushort)),
+		        new Import("int", typeof(int)),
+		        new Import("uint", typeof(uint)),
+		        new Import("long", typeof(long)),
+		        new Import("ulong", typeof(ulong)),
+		        new Import("single", typeof(float)),
+		        new Import("double", typeof(double)),
+		        new Import("decimal", typeof(decimal)),
+		        new Import("char", typeof(char)),
+		        new Import("object", typeof(object)),
+		        new Import("string", typeof(string))
+           };
+
+            ExpressionContext context = new ExpressionContext(imports, MyValidExpressionsOwner);
 
             try
             {
                 DynamicExpression e = CreateDynamicExpression(expression, context);
-                e.Invoke(context);
+                e.Invoke(context, new BoundExpressionOptions
+                {
+                    Checked = @checked
+                });
                 Assert.IsFalse(shouldOverflow);
             }
             catch (OverflowException)

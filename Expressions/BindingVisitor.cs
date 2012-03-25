@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Text;
 using Expressions.Ast;
 using Expressions.Expressions;
+using BinaryExpression = Expressions.Ast.BinaryExpression;
 
 namespace Expressions
 {
@@ -20,6 +23,11 @@ namespace Expressions
 
         public IExpression BinaryExpression(Ast.BinaryExpression binaryExpression)
         {
+            // In expressions are converted to method calls.
+
+            if (binaryExpression.Type == ExpressionType.In)
+                return BinaryInExpression(binaryExpression);
+
             // We need to do this here and not in the conversion phase because
             // we need the return type of the method to fully bind the tree.
 
@@ -95,6 +103,48 @@ namespace Expressions
             return new Expressions.BinaryExpression(left, right, binaryExpression.Type, type, commonType);
         }
 
+        private IExpression BinaryInExpression(BinaryExpression binaryExpression)
+        {
+            if (binaryExpression.Right is AstNodeCollection)
+            {
+                var arguments = new List<IExpression>();
+
+                arguments.Add(binaryExpression.Left.Accept(this));
+
+                foreach (var argument in ((AstNodeCollection)binaryExpression.Right).Nodes)
+                {
+                    arguments.Add(argument.Accept(this));
+                }
+
+                return new Expressions.MethodCall(
+                    new TypeAccess(typeof(CompilerUtil)),
+                    typeof(CompilerUtil).GetMethod("InSet"),
+                    arguments
+                );
+            }
+            else
+            {
+                var set = binaryExpression.Right.Accept(this);
+
+                if (typeof(IEnumerable).IsAssignableFrom(set.Type))
+                {
+                    return new Expressions.MethodCall(
+                        new TypeAccess(typeof(CompilerUtil)),
+                        typeof(CompilerUtil).GetMethod("InEnumerable"),
+                        new[]
+                        {
+                            binaryExpression.Left.Accept(this),
+                            set
+                        }
+                    );
+                }
+                else
+                {
+                    throw new NotSupportedException("Right operand of set must be an enumerable");
+                }
+            }
+        }
+
         public IExpression Cast(Ast.Cast cast)
         {
             return new Expressions.Cast(
@@ -143,8 +193,12 @@ namespace Expressions
                 if (
                     import.Namespace != null &&
                     _resolver.IdentifiersEqual(import.Namespace, identifierAccess.Name)
-                )
-                    return new TypeAccess(import.Type);
+                ) {
+                    if (import.Type != null)
+                        return new TypeAccess(import.Type);
+                    else
+                        return new ImportAccess(import);
+                }
             }
 
             // Next, members of the imports.
@@ -265,6 +319,34 @@ namespace Expressions
         {
             var operand = memberAccess.Operand.Accept(this);
 
+            if (operand is ImportAccess)
+            {
+                Debug.Assert(((ImportAccess)operand).Import.Type == null);
+
+                foreach (var import in ((ImportAccess)operand).Import.Imports)
+                {
+                    if (
+                        import.Namespace != null &&
+                        _resolver.IdentifiersEqual(memberAccess.Member, import.Namespace)
+                    ) {
+                        if (import.Type != null)
+                            return new TypeAccess(import.Type);
+                        else
+                            return new ImportAccess(import);
+                    }
+
+                    if (import.Type != null)
+                    {
+                        var importResult = Resolve(new TypeAccess(import.Type), memberAccess.Member);
+
+                        if (importResult != null)
+                            return importResult;
+                    }
+                }
+
+                throw new NotSupportedException("Could not resolve member");
+            }
+
             var result = Resolve(operand, memberAccess.Member);
 
             if (result == null)
@@ -286,10 +368,30 @@ namespace Expressions
 
             if (memberAccess != null)
             {
-                var result = _resolver.ResolveMethod(memberAccess.Operand.Accept(this), memberAccess.Member, arguments);
+                var operand = memberAccess.Operand.Accept(this);
 
-                if (result != null)
-                    return result;
+                if (operand is ImportAccess)
+                {
+                    foreach (var import in ((ImportAccess)operand).Import.Imports)
+                    {
+                        if (import.Type != null)
+                        {
+                            var result = _resolver.ResolveMethod(
+                                new TypeAccess(import.Type), memberAccess.Member, arguments
+                            );
+
+                            if (result != null)
+                                return result;
+                        }
+                    }
+                }
+                else
+                {
+                    var result = _resolver.ResolveMethod(operand, memberAccess.Member, arguments);
+
+                    if (result != null)
+                        return result;
+                }
             }
 
             throw new NotSupportedException("Cannot resolve method call on " + methodCall.Operand.GetType().Name);
@@ -325,10 +427,13 @@ namespace Expressions
 
             foreach (var import in _resolver.Imports)
             {
-                var result = _resolver.ResolveMethod(new TypeAccess(import.Type), name, arguments);
+                if (import.Type != null)
+                {
+                    var result = _resolver.ResolveMethod(new TypeAccess(import.Type), name, arguments);
 
-                if (result != null)
-                    return result;
+                    if (result != null)
+                        return result;
+                }
             }
 
             throw new NotSupportedException("Could not resolve method");

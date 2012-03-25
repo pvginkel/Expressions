@@ -67,7 +67,7 @@ namespace Expressions.Test.Compilation
         public void UnsignedLessThan()
         {
             Resolve(
-                new ExpressionContext(new[] { new Import(typeof(uint), "uint") }),
+                new ExpressionContext(new[] { new Import("uint", typeof(uint)) }),
                 "uint.minvalue < uint.maxvalue",
                 true
             );

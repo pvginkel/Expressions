@@ -50,10 +50,12 @@
     <Compile Include="Ast\AstNodeCollection.cs" />
     <Compile Include="Ast\Conditional.cs" />
     <Compile Include="BindingVisitor.cs" />
+    <Compile Include="CompilerUtil.cs" />
     <Compile Include="Expressions\Conditional.cs" />
     <Compile Include="ConstantParsingVisitor.cs" />
     <Compile Include="ConversionVisitor.cs" />
     <Compile Include="BoundExpressionOptions.cs" />
+    <Compile Include="Expressions\ImportAccess.cs" />
     <Compile Include="UnparsedNumber.cs" />
     <Compile Include="ExpressionType.cs" />
     <Compile Include="Ast\Constant.cs" />

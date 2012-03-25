@@ -1366,15 +1366,6 @@ single;if(false, 2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0
 single;if(false, 2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f+2.0f + 10 + 1, 0);0
 ' Test nested namespaces
 int32;ns1.ns2.abs(-1);1
-' Virtual properties
-string;stringA.name;prop!
-string;int32A.name;prop!
-string;100.name;prop!
-string;"abc".name;prop!
-int32;stringA.name.length;5
-string;int32A.tostring().name;prop!
-' Test proper emit of temp locals using on-demand function
-boolean;false OR (x() > 1);true
 ' Test nested paramArray funcs
 int32;ParamArray4(ParamArray4(1, 2), 3, 4);1
 ' Test we can handle deep nested IFs

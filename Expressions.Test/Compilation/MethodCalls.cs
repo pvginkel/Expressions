@@ -52,7 +52,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ParamsWithoutArgs()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.Params(0)", 0);
         }
@@ -60,7 +60,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ParamsWithSingleArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.Params(0, \"a\")", 2);
         }
@@ -68,7 +68,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ParamsWithMultipleArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.Params(0, \"a\", \"a\")", 4);
         }
@@ -76,7 +76,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ParamsWithNullArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.Params(0, null)", -1);
         }
@@ -84,7 +84,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ParamsWithMultipleNullArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.Params(0, null, null)", 2);
         }
@@ -92,7 +92,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ParamsWithNullAndActualArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.Params(0, null, \"a\", null)", 4);
         }
@@ -100,7 +100,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ParamsWithMatchingArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             context.Variables.Add(new Variable("Variable") { Value = new[] { "hi" } });
 
@@ -110,7 +110,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ObjectParamsWithoutArgs()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.ObjectParams(0)", 0);
         }
@@ -118,7 +118,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ObjectParamsWithSingleArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.ObjectParams(0, \"a\")", 2);
         }
@@ -126,7 +126,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ObjectParamsWithMultipleArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.ObjectParams(0, \"a\", \"a\")", 4);
         }
@@ -134,7 +134,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ObjectParamsWithNullArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.ObjectParams(0, null)", -1);
         }
@@ -142,7 +142,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ObjectParamsWithMultipleNullArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.ObjectParams(0, null, null)", 2);
         }
@@ -150,7 +150,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ObjectParamsWithNullAndActualArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             Resolve(context, "Owner.ObjectParams(0, null, \"a\", null)", 4);
         }
@@ -158,7 +158,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ObjectParamsWithMatchingArg()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(Owner), "Owner") });
+            var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
             context.Variables.Add(new Variable("Variable") { Value = new[] { "hi" } });
 

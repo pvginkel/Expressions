@@ -27,7 +27,7 @@ namespace Expressions.Test.Compilation
         [Test]
         public void ConstantAccess()
         {
-            var context = new ExpressionContext(new[] { new Import(typeof(int), "int") });
+            var context = new ExpressionContext(new[] { new Import("int", typeof(int)) });
 
             Resolve(context, "int.MaxValue", int.MaxValue);
         }

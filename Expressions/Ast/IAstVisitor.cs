@@ -30,12 +30,37 @@ namespace Expressions.Ast
         public virtual IAstNode BinaryExpression(BinaryExpression binaryExpression)
         {
             var left = binaryExpression.Left.Accept(this);
-            var right = binaryExpression.Right.Accept(this);
+            IAstNode right;
+
+            if (binaryExpression.Right is AstNodeCollection)
+                right = AcceptAstNodeCollection((AstNodeCollection)binaryExpression.Right);
+            else
+                right = binaryExpression.Right.Accept(this);
 
             if (left == binaryExpression.Left && right == binaryExpression.Right)
                 return binaryExpression;
             else
                 return new BinaryExpression(left, right, binaryExpression.Type);
+        }
+
+        private IAstNode AcceptAstNodeCollection(AstNodeCollection collection)
+        {
+            if (collection.Nodes.Count == 0)
+                return collection;
+
+            var equal = true;
+            var nodes = new IAstNode[collection.Nodes.Count];
+
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                nodes[i] = collection.Nodes[i].Accept(this);
+                equal = equal && nodes[i] == collection.Nodes[i];
+            }
+
+            if (equal)
+                return collection;
+            else
+                return new AstNodeCollection(nodes);
         }
 
         public virtual IAstNode Cast(Cast cast)

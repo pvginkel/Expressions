@@ -55,6 +55,7 @@
     <Compile Include="Compilation\Casting.cs" />
     <Compile Include="Compilation\EmitIssues.cs" />
     <Compile Include="Compilation\Fields.cs" />
+    <Compile Include="Compilation\Imports.cs" />
     <Compile Include="Compilation\Indexing.cs" />
     <Compile Include="Compilation\MethodCalls.cs" />
     <Compile Include="Compilation\ResultCasting.cs" />
@@ -101,7 +102,10 @@
   <ItemGroup>
     <EmbeddedResource Include="FleeLanguage\TestScripts\SpecialConstructs.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="FleeLanguage\TestScripts\OnDemandMethods.txt" />
+    <EmbeddedResource Include="FleeLanguage\TestScripts\TypeDescriptor.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

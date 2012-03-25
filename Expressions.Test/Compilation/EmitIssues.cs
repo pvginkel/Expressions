@@ -19,7 +19,7 @@ namespace Expressions.Test.Compilation
         public void SpecialLoadOfStructFields()
         {
             Resolve(
-                new ExpressionContext(new[] { new Import(typeof(Mouse), "Mouse") }),
+                new ExpressionContext(new[] { new Import("Mouse", typeof(Mouse)) }),
                 "Mouse.shareddt.year",
                 1
             );
@@ -29,7 +29,7 @@ namespace Expressions.Test.Compilation
         public void ReadOnlyStaticAccess()
         {
             Resolve(
-                new ExpressionContext(new[] { new Import(typeof(DateTime), "DateTime") }),
+                new ExpressionContext(new[] { new Import("DateTime", typeof(DateTime)) }),
                 "DateTime.MinValue.Year",
                 DateTime.MinValue.Year
             );
@@ -49,7 +49,7 @@ namespace Expressions.Test.Compilation
         public void ReadOnlyFieldAsReturn()
         {
             Resolve(
-                new ExpressionContext(new[] { new Import(typeof(string), "string") }),
+                new ExpressionContext(new[] { new Import("string", typeof(string)) }),
                 "string.empty",
                 String.Empty
             );
@@ -59,7 +59,7 @@ namespace Expressions.Test.Compilation
         public void Issue()
         {
             Resolve(
-                new ExpressionContext(new[] { new Import(typeof(Mouse), "Mouse") }, new ExpressionOwner()),
+                new ExpressionContext(new[] { new Import("Mouse", typeof(Mouse)) }, new ExpressionOwner()),
                 "DateTimeA.GetType().Name",
                 "DateTime",
                 new BoundExpressionOptions
