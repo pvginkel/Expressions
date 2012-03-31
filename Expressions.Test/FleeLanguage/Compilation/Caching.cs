@@ -19,15 +19,6 @@ namespace Expressions.Test.FleeLanguage.Compilation
         }
 
         [Test]
-        public void DifferentCultureDifferentCache()
-        {
-            Assert.AreNotSame(
-                new DynamicExpression("1", ExpressionLanguage.Flee, CultureInfo.GetCultureInfo("nl")).Cached,
-                new DynamicExpression("1", ExpressionLanguage.Flee, CultureInfo.GetCultureInfo("en")).Cached
-            );
-        }
-
-        [Test]
         public void SameTypes()
         {
             var dynamicExpression = new DynamicExpression("Variable", ExpressionLanguage.Flee);

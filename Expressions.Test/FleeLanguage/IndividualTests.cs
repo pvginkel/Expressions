@@ -300,15 +300,13 @@ namespace Expressions.Test.FleeLanguage
             context.Imports.Add(new Import("String", typeof(string)));
             context.Imports.Add(new Import("Math", typeof(Math)));
 
-            var culture = CultureInfo.GetCultureInfo("fr-FR");
-
-            GenericExpression<double> e = this.CreateGenericExpression<double>("1,25 + 0,75", context, null, culture);
+            GenericExpression<double> e = this.CreateGenericExpression<double>("1,25 + 0,75", context, null);
             Assert.AreEqual(1.25 + 0.75, e.Invoke());
 
-            e = this.CreateGenericExpression<double>("math.pow(1,25 + 0,75; 2)", context, null, culture);
+            e = this.CreateGenericExpression<double>("math.pow(1,25 + 0,75; 2)", context, null);
             Assert.AreEqual(Math.Pow(1.25 + 0.75, 2), e.Invoke());
 
-            GenericExpression<string> e2 = this.CreateGenericExpression<string>("string.concat(1;2;3;4)", context, null, culture);
+            GenericExpression<string> e2 = this.CreateGenericExpression<string>("string.concat(1;2;3;4)", context, null);
             Assert.AreEqual("1234", e2.Invoke());
         }
 
@@ -820,12 +818,7 @@ namespace Expressions.Test.FleeLanguage
 
         private GenericExpression<T> CreateGenericExpression<T>(string p, ExpressionContext expressionContext, BoundExpressionOptions options)
         {
-            return CreateGenericExpression<T>(p, expressionContext, options, null);
-        }
-
-        private GenericExpression<T> CreateGenericExpression<T>(string p, ExpressionContext expressionContext, BoundExpressionOptions options, CultureInfo parseCulture)
-        {
-            return new GenericExpression<T>(p, expressionContext, options, parseCulture, Language);
+            return new GenericExpression<T>(p, expressionContext, options, Language);
         }
 
         private class GenericExpression<T>
@@ -833,21 +826,19 @@ namespace Expressions.Test.FleeLanguage
             private readonly string _expression;
             private readonly ExpressionContext _expressionContext;
             private readonly BoundExpressionOptions _options;
-            private readonly CultureInfo _parseCulture;
             private readonly ExpressionLanguage _language;
 
-            public GenericExpression(string expression, ExpressionContext expressionContext, BoundExpressionOptions options, CultureInfo parseCulture, ExpressionLanguage language)
+            public GenericExpression(string expression, ExpressionContext expressionContext, BoundExpressionOptions options, ExpressionLanguage language)
             {
                 _expression = expression;
                 _expressionContext = expressionContext;
                 _options = options ?? new BoundExpressionOptions();
-                _parseCulture = parseCulture;
                 _language = language;
             }
 
             public T Invoke()
             {
-                var dynamicExpression = new DynamicExpression(_expression, _language, _parseCulture);
+                var dynamicExpression = new DynamicExpression(_expression, _language);
 
                 _options.ResultType = typeof(T);
 

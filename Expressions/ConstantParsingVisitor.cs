@@ -40,7 +40,7 @@ namespace Expressions
                         unparsedNumber = new UnparsedNumber("-" + unparsedNumber.Value, unparsedNumber.Type, unparsedNumber.NumberStyles | NumberStyles.AllowLeadingSign);
 
                         return new Constant(
-                            unparsedNumber.Parse(_resolver.DynamicExpression.ParsingCulture)
+                            unparsedNumber.Parse()
                         );
                     }
                 }
@@ -54,7 +54,7 @@ namespace Expressions
             var unparsedNumber = constant.Value as UnparsedNumber;
 
             if (unparsedNumber != null)
-                return new Constant(unparsedNumber.Parse(_resolver.DynamicExpression.ParsingCulture));
+                return new Constant(unparsedNumber.Parse());
 
             return base.Constant(constant);
         }

@@ -11,12 +11,9 @@ namespace Expressions.Csharp
     partial class CsharpParser
     {
         private readonly IdentifierCollection _identifiers = new IdentifierCollection(StringComparer.OrdinalIgnoreCase);
-        private CultureInfo _parsingCulture;
 
-        public static ParseResult Parse(string expression, CultureInfo parsingCulture)
+        public static ParseResult Parse(string expression)
         {
-            Require.NotNull(parsingCulture, "parsingCulture");
-
             try
             {
                 var inputStream = new ANTLRStringStream(expression);
@@ -24,8 +21,6 @@ namespace Expressions.Csharp
                 var lexer = new CsharpLexer(inputStream);
                 var tokenStream = new CommonTokenStream(lexer);
                 var parser = new CsharpParser(tokenStream);
-
-                parser._parsingCulture = parsingCulture;
 
                 var progResult = parser.prog();
                 var result = progResult.value;
@@ -205,7 +200,7 @@ namespace Expressions.Csharp
                         case 'U':
                             Debug.Assert(i < text.Length - 4);
 
-                            sb.Append((char)uint.Parse(text.Substring(i + 1, 4), NumberStyles.AllowHexSpecifier, _parsingCulture));
+                            sb.Append((char)uint.Parse(text.Substring(i + 1, 4), NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture));
 
                             i += 4;
                             break;

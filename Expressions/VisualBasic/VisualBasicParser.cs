@@ -11,12 +11,9 @@ namespace Expressions.VisualBasic
     partial class VisualBasicParser
     {
         private readonly IdentifierCollection _identifiers = new IdentifierCollection(StringComparer.OrdinalIgnoreCase);
-        private CultureInfo _parsingCulture;
 
-        public static ParseResult Parse(string expression, CultureInfo parsingCulture)
+        public static ParseResult Parse(string expression)
         {
-            Require.NotNull(parsingCulture, "parsingCulture");
-
             try
             {
                 var inputStream = new ANTLRStringStream(expression);
@@ -24,8 +21,6 @@ namespace Expressions.VisualBasic
                 var lexer = new VisualBasicLexer(inputStream);
                 var tokenStream = new CommonTokenStream(lexer);
                 var parser = new VisualBasicParser(tokenStream);
-
-                parser._parsingCulture = parsingCulture;
 
                 var progResult = parser.prog();
                 var result = progResult.value;
@@ -210,7 +205,7 @@ namespace Expressions.VisualBasic
                         case 'U':
                             Debug.Assert(i < text.Length - 4);
 
-                            sb.Append((char)uint.Parse(text.Substring(i + 1, 4), NumberStyles.AllowHexSpecifier, _parsingCulture));
+                            sb.Append((char)uint.Parse(text.Substring(i + 1, 4), NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture));
 
                             i += 4;
                             break;

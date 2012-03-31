@@ -13,22 +13,14 @@ namespace Expressions
 
         public ExpressionLanguage Language { get; private set; }
 
-        public CultureInfo ParsingCulture { get; private set; }
-
         public DynamicExpression(string expression, ExpressionLanguage language)
-            : this(expression, language, null)
-        {
-        }
-
-        public DynamicExpression(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
         {
             Require.NotNull(expression, "expression");
 
             Expression = expression;
             Language = language;
-            ParsingCulture = parsingCulture ?? CultureInfo.InvariantCulture;
 
-            Cached = DynamicExpressionCache.GetOrCreateCachedDynamicExpression(expression, language, ParsingCulture);
+            Cached = DynamicExpressionCache.GetOrCreateCachedDynamicExpression(expression, language);
         }
 
         public BoundExpression Bind()
@@ -91,7 +83,7 @@ namespace Expressions
         {
             Require.NotEmpty(expression, "expression");
 
-            DynamicExpressionCache.ParseExpression(expression, language, parsingCulture ?? CultureInfo.InvariantCulture);
+            DynamicExpressionCache.ParseExpression(expression, language);
         }
     }
 }

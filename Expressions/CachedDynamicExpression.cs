@@ -13,18 +13,14 @@ namespace Expressions
 
         public ExpressionLanguage Language { get; private set; }
 
-        public CultureInfo ParsingCulture { get; private set; }
-
-        public CachedDynamicExpression(ParseResult parseResult, ExpressionLanguage language, CultureInfo parsingCulture)
+        public CachedDynamicExpression(ParseResult parseResult, ExpressionLanguage language)
         {
             Require.NotNull(parseResult, "parseResult");
-            Require.NotNull(parsingCulture, "parsingCulture");
 
             _boundExpressionCache = new BoundExpressionCache(this);
 
             ParseResult = parseResult;
             Language = language;
-            ParsingCulture = parsingCulture;
         }
 
         public BoundExpression GetOrCreateBoundExpression(IBindingContext binder, BoundExpressionOptions options)

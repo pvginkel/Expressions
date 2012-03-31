@@ -19,15 +19,6 @@ namespace Expressions.Test.CsharpLanguage.Compilation
         }
 
         [Test]
-        public void DifferentCultureDifferentCache()
-        {
-            Assert.AreNotSame(
-                new DynamicExpression("1", ExpressionLanguage.Csharp, CultureInfo.GetCultureInfo("nl")).Cached,
-                new DynamicExpression("1", ExpressionLanguage.Csharp, CultureInfo.GetCultureInfo("en")).Cached
-            );
-        }
-
-        [Test]
         public void SameTypes()
         {
             var dynamicExpression = new DynamicExpression("Variable", ExpressionLanguage.Csharp);

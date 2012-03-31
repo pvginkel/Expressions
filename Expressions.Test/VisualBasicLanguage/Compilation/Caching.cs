@@ -19,15 +19,6 @@ namespace Expressions.Test.VisualBasicLanguage.Compilation
         }
 
         [Test]
-        public void DifferentCultureDifferentCache()
-        {
-            Assert.AreNotSame(
-                new DynamicExpression("1", ExpressionLanguage.VisualBasic, CultureInfo.GetCultureInfo("nl")).Cached,
-                new DynamicExpression("1", ExpressionLanguage.VisualBasic, CultureInfo.GetCultureInfo("en")).Cached
-            );
-        }
-
-        [Test]
         public void SameTypes()
         {
             var dynamicExpression = new DynamicExpression("Variable", ExpressionLanguage.VisualBasic);
