@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Expressions
 {
-    public sealed class DynamicExpression
+    public class DynamicExpression
     {
         internal CachedDynamicExpression Cached { get; private set; }
 
@@ -23,17 +23,17 @@ namespace Expressions
             Cached = DynamicExpressionCache.GetOrCreateCachedDynamicExpression(expression, language);
         }
 
-        public BoundExpression Bind()
+        public IBoundExpression Bind()
         {
             return Bind(null);
         }
 
-        public BoundExpression Bind(IBindingContext binder)
+        public IBoundExpression Bind(IBindingContext binder)
         {
             return Bind(binder, null);
         }
 
-        public BoundExpression Bind(IBindingContext binder, BoundExpressionOptions options)
+        public IBoundExpression Bind(IBindingContext binder, BoundExpressionOptions options)
         {
             if (binder == null)
                 binder = new ExpressionContext();
@@ -76,14 +76,58 @@ namespace Expressions
 
         public static void CheckSyntax(string expression, ExpressionLanguage language)
         {
-            CheckSyntax(expression, language, null);
-        }
-
-        public static void CheckSyntax(string expression, ExpressionLanguage language, CultureInfo parsingCulture)
-        {
             Require.NotEmpty(expression, "expression");
 
             DynamicExpressionCache.ParseExpression(expression, language);
+        }
+    }
+
+    public class DynamicExpression<T> : DynamicExpression
+    {
+        public DynamicExpression(string expression, ExpressionLanguage language)
+            : base(expression, language)
+        {
+        }
+
+        public new T Invoke()
+        {
+            return (T)base.Invoke();
+        }
+
+        public new T Invoke(IExpressionContext expressionContext)
+        {
+            var options = new BoundExpressionOptions
+            {
+                ResultType = typeof(T)
+            };
+
+            return (T)base.Invoke(expressionContext, options);
+        }
+
+        public new T Invoke(IExpressionContext expressionContext, BoundExpressionOptions options)
+        {
+            if (options.ResultType == null)
+            {
+                options = new BoundExpressionOptions(options);
+                options.ResultType = typeof(T);
+            }
+
+            return (T)base.Invoke(expressionContext, options);
+        }
+
+        public new IBoundExpression<T> Bind()
+        {
+            return new BoundExpression<T>(base.Bind());
+        }
+
+        public new IBoundExpression<T> Bind(IBindingContext binder)
+        {
+            return new BoundExpression<T>(base.Bind(binder));
+        }
+
+        public new IBoundExpression<T> Bind(IBindingContext binder, BoundExpressionOptions options)
+        {
+            return new BoundExpression<T>(base.Bind(binder, options));
         }
     }
 }

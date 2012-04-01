@@ -7,7 +7,7 @@ using Expressions.Expressions;
 
 namespace Expressions
 {
-    public sealed class BoundExpression
+    internal sealed class BoundExpression : IBoundExpression
     {
 #pragma warning disable 0649
         private readonly DynamicSignature _compiledMethod;
@@ -70,7 +70,7 @@ namespace Expressions
             new Compiler(il, resolver).Compile(expression);
 
 #if DEBUG
-            // WriteToDisk(expression, resolver);
+            //WriteToDisk(expression, resolver);
 #endif
 
             return (DynamicSignature)method.CreateDelegate(typeof(DynamicSignature));
@@ -140,5 +140,37 @@ namespace Expressions
         }
 
         private delegate object DynamicSignature(object[] parameters);
+    }
+
+    internal sealed class BoundExpression<T> : IBoundExpression<T>
+    {
+        private readonly IBoundExpression _outer;
+
+        internal BoundExpression(IBoundExpression outer)
+        {
+            Require.NotNull(outer, "outer");
+
+            _outer = outer;
+        }
+
+        public T Invoke()
+        {
+            return (T)_outer.Invoke();
+        }
+
+        public T Invoke(IExecutionContext executionContext)
+        {
+            return (T)_outer.Invoke(executionContext);
+        }
+
+        object IBoundExpression.Invoke()
+        {
+            return _outer.Invoke();
+        }
+
+        object IBoundExpression.Invoke(IExecutionContext executionContext)
+        {
+            return _outer.Invoke(executionContext);
+        }
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="CachedDynamicExpression.cs" />
     <Compile Include="CastType.cs" />
     <Compile Include="CompilerUtil.cs" />
+    <Compile Include="IBoundExpression.cs" />
     <Compile Include="VisualBasic\VisualBasicLexer.cs" />
     <Compile Include="VisualBasic\VisualBasicParser.cs" />
     <Compile Include="VisualBasic\Generated\VisualBasicLexer.cs" />

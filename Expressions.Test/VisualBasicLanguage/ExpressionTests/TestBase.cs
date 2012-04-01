@@ -36,7 +36,7 @@ namespace Expressions.Test.VisualBasicLanguage.ExpressionTests
             );
 
             string expected = new ExpressionPrinter(expectedResult).ToString();
-            string actual = new ExpressionPrinter(boundExpression.ResolvedExpression).ToString();
+            string actual = new ExpressionPrinter(((BoundExpression)boundExpression).ResolvedExpression).ToString();
 
             // TODO: Implement equals.
 
