@@ -86,8 +86,9 @@ namespace Expressions.Test
             ExpressionContext context = MyCurrentContext;
             //context.Options.ResultType = expressionType;
 
-            DynamicExpressionWithContext e = CreateDynamicExpression(arr[1], context);
-            DoTest(e, context, arr[2], expressionType, ExpressionTests.TestCulture);
+            var expression = new DynamicExpression(arr[1], Language);
+
+            DoTest(expression, context, arr[2], expressionType, ExpressionTests.TestCulture);
         }
 
         private void DoTestInvalidExpressions(string[] arr)
@@ -119,7 +120,7 @@ namespace Expressions.Test
 
             try
             {
-                DynamicExpressionWithContext e = CreateDynamicExpression(expression, context);
+                var e = new DynamicExpression(expression, Language);
                 e.Invoke(context, new BoundExpressionOptions
                 {
                     Checked = @checked

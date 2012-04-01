@@ -103,7 +103,7 @@ namespace Expressions.Test
         {
             try
             {
-                new DynamicExpressionWithContext(expression, Language);
+                new DynamicExpression(expression, Language);
                 Assert.Fail();
 
             }
@@ -121,7 +121,7 @@ namespace Expressions.Test
         {
             try
             {
-                new DynamicExpressionWithContext(expression, context, Language).Bind(options);
+                new DynamicExpression(expression, Language).Bind(context, options);
                 Assert.Fail("Compile exception expected");
             }
             catch
@@ -130,7 +130,7 @@ namespace Expressions.Test
             }
         }
 
-        protected void DoTest(DynamicExpressionWithContext expression, ExpressionContext expressionContext, string result, Type resultType, CultureInfo testCulture)
+        protected void DoTest(DynamicExpression expression, ExpressionContext expressionContext, string result, Type resultType, CultureInfo testCulture)
         {
             if (ReferenceEquals(resultType, typeof(object)))
             {
@@ -325,62 +325,6 @@ namespace Expressions.Test
             }
 
             return dict;
-        }
-
-        protected DynamicExpressionWithContext CreateDynamicExpression(string expression)
-        {
-            return CreateDynamicExpression(expression, null);
-        }
-
-        protected DynamicExpressionWithContext CreateDynamicExpression(string expression, IExpressionContext context)
-        {
-            return new DynamicExpressionWithContext(expression, context, Language);
-        }
-    }
-
-    public class DynamicExpressionWithContext
-    {
-        private readonly string _expression;
-        private readonly IExpressionContext _context;
-        private readonly ExpressionLanguage _language;
-
-        public DynamicExpressionWithContext(string expression, ExpressionLanguage Language)
-            : this(expression, null, Language)
-        {
-        }
-
-        public DynamicExpressionWithContext(string expression, IExpressionContext context, ExpressionLanguage Language)
-        {
-            _expression = expression;
-            _context = context;
-            _language = Language;
-        }
-
-        internal object Invoke()
-        {
-            return Invoke(null);
-        }
-
-        internal object Invoke(ExpressionContext expressionContext)
-        {
-            return Invoke(expressionContext, null);
-        }
-
-        internal object Invoke(ExpressionContext expressionContext, BoundExpressionOptions options)
-        {
-            if (_context != null && expressionContext != null)
-                throw new ArgumentException("Expression context already provided");
-
-            var expression = new DynamicExpression(_expression, _language);
-
-            return expression.Invoke(_context ?? expressionContext, options);
-        }
-
-        internal void Bind(BoundExpressionOptions options)
-        {
-            var expression = new DynamicExpression(_expression, _language);
-
-            expression.Bind(_context, options);
         }
     }
 }
