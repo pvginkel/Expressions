@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FleeLanguage\BulkTests\BulkTests.cs" />
+    <Compile Include="FleeLanguage\Compilation\CompilationFailures.cs" />
     <Compile Include="FleeLanguage\IndividualTests.cs" />
     <Compile Include="VisualBasicLanguage\BulkTests\BulkTests.cs" />
     <Compile Include="VisualBasicLanguage\Compilation\BinaryExpressions.cs" />
