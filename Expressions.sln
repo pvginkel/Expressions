@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expressions", "Expressions\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expressions.Test", "Expressions.Test\Expressions.Test.csproj", "{0BD2D942-77DA-4C6B-84C3-F33174E10BFF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{EDB2E9A9-F60D-4B21-8671-1977D34899D4}"
+	ProjectSection(SolutionItems) = preProject
+		License.txt = License.txt
+		README.markdown = README.markdown
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
