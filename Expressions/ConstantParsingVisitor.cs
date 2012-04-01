@@ -8,15 +8,6 @@ namespace Expressions
 {
     internal class ConstantParsingVisitor : AstVisitor
     {
-        private Resolver _resolver;
-
-        public ConstantParsingVisitor(Resolver resolver)
-        {
-            Require.NotNull(resolver, "resolver");
-
-            _resolver = resolver;
-        }
-
         public override IAstNode UnaryExpression(UnaryExpression unaryExpression)
         {
             if (unaryExpression.Type == ExpressionType.Minus)
