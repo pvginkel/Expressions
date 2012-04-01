@@ -54,9 +54,16 @@ namespace Expressions
 
         Type IBindingContext.GetVariableType(string variable, bool ignoreCase)
         {
-            object value = ((IExecutionContext)this).GetVariableValue(variable, ignoreCase);
+            if (Variables.Contains(variable))
+            {
+                object value = ((IExecutionContext)this).GetVariableValue(variable, ignoreCase);
 
-            return value == null ? null : value.GetType();
+                return value == null ? typeof(object) : value.GetType();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         object IExecutionContext.GetVariableValue(string variable, bool ignoreCase)
