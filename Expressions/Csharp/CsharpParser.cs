@@ -236,5 +236,7 @@ namespace Expressions.Csharp
                 return identifier;
             }
         }
+
+        private delegate void Action();
     }
 }

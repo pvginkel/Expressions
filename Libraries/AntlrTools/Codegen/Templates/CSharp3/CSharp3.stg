@@ -463,7 +463,7 @@ insertLexerSynpreds(synpreds) ::= <<
 insertSynpreds(synpreds) ::= <<
 <if(synpreds)>
 #region Synpreds
-private bool EvaluatePredicate(System.Action fragment)
+private bool EvaluatePredicate(Action fragment)
 {
 	bool success = false;
 	state.backtracking++;
