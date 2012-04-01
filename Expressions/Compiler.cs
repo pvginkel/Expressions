@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
@@ -508,12 +509,30 @@ namespace Expressions
 
                 if (!isStatic)
                 {
+                    bool emitBox = false;
+                    bool emitStoreLoad = false;
+
+                    if (
+                        (methodCall.Operand is FieldAccess || methodCall.Operand is Constant) &&
+                        methodCall.Operand.Type.IsValueType &&
+                        !methodCall.MethodInfo.DeclaringType.IsValueType
+                    )
+                        emitBox = true;
+                    else if (
+                        methodCall.Operand.Type.IsValueType && (
+                            !(methodCall.Operand is FieldAccess) ||
+                            methodCall.MethodInfo.DeclaringType.IsValueType
+                        )
+                    )
+                        emitStoreLoad = true;
+
                     // Signal field access that we're using the field as a
                     // parameter.
 
                     _fieldAsParameter =
                         methodCall.Operand is FieldAccess &&
-                        methodCall.MethodInfo.DeclaringType.IsValueType;
+                        methodCall.MethodInfo.DeclaringType.IsValueType &&
+                        !emitStoreLoad;
 
                     try
                     {
@@ -524,17 +543,14 @@ namespace Expressions
                         _fieldAsParameter = false;
                     }
 
-                    if (
-                        (methodCall.Operand is FieldAccess || methodCall.Operand is Constant) &&
-                        methodCall.Operand.Type.IsValueType &&
-                        !methodCall.MethodInfo.DeclaringType.IsValueType
-                    ) {
+                    if (emitBox)
+                    {
                         _il.Emit(OpCodes.Box, methodCall.Operand.Type);
                     }
-                    else if (
-                        methodCall.Operand.Type.IsValueType &&
-                        !(methodCall.Operand is FieldAccess)
-                    ) {
+                    else if (emitStoreLoad)
+                    {
+                        Debug.Assert(methodCall.Operand.Type == methodCall.MethodInfo.DeclaringType);
+
                         var builder = _il.DeclareLocal(methodCall.Operand.Type);
 
                         _il.Emit(OpCodes.Stloc, builder);
