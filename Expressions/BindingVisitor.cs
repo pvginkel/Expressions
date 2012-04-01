@@ -202,7 +202,7 @@ namespace Expressions
                     _resolver.IdentifierTypes[i] != null &&
                     _resolver.IdentifiersEqual(identifiers[i].Name, identifierAccess.Name)
                 )
-                    return new VariableAccess(_resolver.IdentifierTypes[i], _resolver.IdentifierIndexes[i]);
+                    return VariableAccess(_resolver.IdentifierIndexes[i], _resolver.IdentifierTypes[i]);
             }
 
             // Next, we go through the owner type.
@@ -254,6 +254,57 @@ namespace Expressions
                 return new TypeAccess(type);
 
             throw new NotSupportedException("Could not resolve identifier");
+        }
+
+        private static IExpression VariableAccess(int identifierIndex, Type identifierType)
+        {
+            var variableAccess = new VariableAccess(identifierType, identifierIndex);
+
+            if (typeof(DynamicExpression).IsAssignableFrom(identifierType))
+            {
+                var methodCall = new Expressions.MethodCall(
+                    variableAccess,
+                    typeof(DynamicExpression).GetMethod("Invoke", new Type[0]),
+                    null
+                );
+
+                if (variableAccess.Type.IsGenericType)
+                {
+                    var resultType = identifierType.GetGenericArguments()[0];
+
+                    return new Expressions.Cast(methodCall, resultType);
+                }
+                else
+                {
+                    return methodCall;
+                }
+            }
+            else if (typeof(IBoundExpression).IsAssignableFrom(identifierType))
+            {
+                var methodCall = new Expressions.MethodCall(
+                    variableAccess,
+                    typeof(IBoundExpression).GetMethod("Invoke", new Type[0]),
+                    null
+                );
+
+                foreach (var @interface in identifierType.GetInterfaces())
+                {
+                    if (
+                        @interface.IsGenericType &&
+                        @interface.GetGenericTypeDefinition() == typeof(IBoundExpression<>)
+                    ) {
+                        var resultType = identifierType.GetGenericArguments()[0];
+
+                        return new Expressions.Cast(methodCall, resultType);
+                    }
+                }
+
+                return methodCall;
+            }
+            else
+            {
+                return variableAccess;
+            }
         }
 
         private IExpression Resolve(IExpression operand, string member)
