@@ -10,7 +10,6 @@ namespace Expressions
         private bool _frozen;
         private bool _allowPrivateAccess;
         private bool _checked;
-        private bool _importBuildInTypes;
         private Type _resultType = typeof(object);
         private bool _restrictedSkipVisibility;
 
@@ -50,18 +49,6 @@ namespace Expressions
             }
         }
 
-        public bool ImportBuildInTypes
-        {
-            get { return _importBuildInTypes; }
-            set
-            {
-                if (_frozen)
-                    throw new InvalidOperationException("Options cannot be modified");
-
-                _importBuildInTypes = value;
-            }
-        }
-
         public bool RestrictedSkipVisibility
         {
             get { return _restrictedSkipVisibility; }
@@ -72,6 +59,20 @@ namespace Expressions
 
                 _restrictedSkipVisibility = value;
             }
+        }
+
+        public BoundExpressionOptions()
+        {
+        }
+
+        internal BoundExpressionOptions(BoundExpressionOptions other)
+        {
+            Require.NotNull(other, "other");
+
+            AllowPrivateAccess = other.AllowPrivateAccess;
+            Checked = other.Checked;
+            ResultType = other.ResultType;
+            RestrictedSkipVisibility = other.RestrictedSkipVisibility;
         }
 
         internal void Freeze()
@@ -92,7 +93,6 @@ namespace Expressions
                 _allowPrivateAccess == other._allowPrivateAccess &&
                 _checked == other._checked &&
                 _resultType == other._resultType &&
-                _importBuildInTypes == other._importBuildInTypes &&
                 _restrictedSkipVisibility == other._restrictedSkipVisibility;
         }
 
@@ -104,7 +104,6 @@ namespace Expressions
                     _allowPrivateAccess.GetHashCode(),
                     _checked.GetHashCode(),
                     _resultType.GetHashCode(),
-                    _importBuildInTypes.GetHashCode(),
                     _restrictedSkipVisibility.GetHashCode()
                 );
             }
