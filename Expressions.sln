@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{EDB2E9A9-F60D-4B21-8671-1977D34899D4}"
 	ProjectSection(SolutionItems) = preProject
 		License.txt = License.txt
+		Merge.bat = Merge.bat
 		README.markdown = README.markdown
 	EndProjectSection
 EndProject

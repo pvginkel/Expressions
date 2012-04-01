@@ -17,13 +17,10 @@ namespace Expressions.Expressions
 
         public Type CommonType { get; private set; }
 
-#if DEBUG
         public BinaryExpression(IExpression left, IExpression right, ExpressionType expressionType, Type type)
             : this(left, right, expressionType, type, type)
         {
-            // For unit testing.
         }
-#endif
 
         public BinaryExpression(IExpression left, IExpression right, ExpressionType expressionType, Type type, Type commonType)
         {
