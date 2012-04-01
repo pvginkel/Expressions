@@ -135,6 +135,19 @@ namespace Expressions.Test.FleeLanguage.Compilation
             );
         }
 
+        [Test]
+        public void ValidByteCast()
+        {
+            var context = new ExpressionContext();
+
+            context.Variables.Add("bytea", (byte)50);
+
+            Resolve(context, "cast(bytea,byte)", 50, new BoundExpressionOptions
+            {
+                ResultType = typeof(byte)
+            });
+        }
+
         public class Owner
         {
             public static implicit operator double(Owner value)

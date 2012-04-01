@@ -164,12 +164,8 @@ object;DirectCast(ValueTypeStructA, Valuetype);TestStruct
 ' Cast of reference type to reference type
 object;DirectCast(objectstringa, string);System.string
 object;DirectCast(ExceptionA, ArgumentException);System.ArgumentException
-'	Reference type to unimplemented interface
-object;DirectCast(ExceptionNull, IComparable);System.void
 '	interface to class
 object;DirectCast(IComparableString, string);System.string
-'	class to interface
-object;DirectCast(IComparableNull, Icloneable);System.void
 '	System.delegate to delegate type
 object;DirectCast(delegateANull, AppDomainInitializer);System.void
 '	System.delegate to implemented interface
@@ -378,12 +374,8 @@ object;CType(ValueTypeStructA, Valuetype);TestStruct
 ' Cast of reference type to reference type
 object;CType(objectstringa, string);System.string
 object;CType(ExceptionA, ArgumentException);System.ArgumentException
-'	Reference type to unimplemented interface
-object;CType(ExceptionNull, IComparable);System.void
 '	interface to class
 object;CType(IComparableString, string);System.string
-'	class to interface
-object;CType(IComparableNull, Icloneable);System.void
 '	System.delegate to delegate type
 object;CType(delegateANull, AppDomainInitializer);System.void
 '	System.delegate to implemented interface

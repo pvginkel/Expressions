@@ -439,7 +439,7 @@ namespace Expressions.Test.FleeLanguage
         }
 
         [Test(Description = "We should not allow access to the non-public members of a variable")]
-        [ExpectedException(typeof(NotSupportedException))]
+        [ExpectedException(typeof(ExpressionsException))]
         public void TestNonPublicVariableMemberAccess()
         {
             ExpressionContext context = new ExpressionContext();
@@ -600,7 +600,7 @@ namespace Expressions.Test.FleeLanguage
             ExpressionContext context3 = new ExpressionContext();
             context3.Variables.Add("a", boundExp1);
             context3.Variables.Add("b", boundExp2);
-            var exp3 = new DynamicExpression("a + b", ExpressionLanguage.Flee);
+            var exp3 = new DynamicExpression("cast(a, double) + b", ExpressionLanguage.Flee);
 
             double a = Math.Sin(Math.PI);
             double b = Math.Cos(Math.PI / 2);
@@ -610,7 +610,7 @@ namespace Expressions.Test.FleeLanguage
             ExpressionContext context4 = new ExpressionContext();
             context4.Variables.Add("a", boundExp1);
             context4.Variables.Add("b", boundExp2);
-            var exp4 = new DynamicExpression<double>("(a * b) + (b - a)", ExpressionLanguage.Flee);
+            var exp4 = new DynamicExpression<double>("(cast(a, double) * b) + (b - cast(a, double))", ExpressionLanguage.Flee);
 
             Assert.AreEqual((a * b) + (b - a), exp4.Invoke(context4));
         }

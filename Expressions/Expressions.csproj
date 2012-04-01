@@ -55,6 +55,8 @@
     <Compile Include="CachedDynamicExpression.cs" />
     <Compile Include="CastType.cs" />
     <Compile Include="CompilerUtil.cs" />
+    <Compile Include="ExpressionsException.cs" />
+    <Compile Include="ExpressionsExceptionType.cs" />
     <Compile Include="IBoundExpression.cs" />
     <Compile Include="VisualBasic\VisualBasicLexer.cs" />
     <Compile Include="VisualBasic\VisualBasicParser.cs" />
@@ -96,7 +98,6 @@
     <Compile Include="Require.cs" />
     <Compile Include="BoundExpression.cs" />
     <Compile Include="BoundExpressionCache.cs" />
-    <Compile Include="CompilationException.cs" />
     <Compile Include="Compiler.cs" />
     <Compile Include="DynamicExpression.cs" />
     <Compile Include="DynamicExpressionCache.cs" />

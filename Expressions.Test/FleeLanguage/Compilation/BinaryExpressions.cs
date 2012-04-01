@@ -125,5 +125,15 @@ namespace Expressions.Test.FleeLanguage.Compilation
                 1
             );
         }
+
+        [Test]
+        public void ComparingWithNull()
+        {
+            var context = new ExpressionContext();
+
+            context.Variables.Add("Variable", new List<int>());
+
+            Resolve(context, "Variable = null", false);
+        }
     }
 }

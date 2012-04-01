@@ -746,11 +746,16 @@ namespace Expressions
             }
         }
 
-
         private static void EmitCastToType(ILGenerator il, Type typeFrom, Type typeTo)
         {
             if (!typeFrom.IsValueType && typeTo.IsValueType)
             {
+                if (
+                    !typeTo.IsAssignableFrom(typeFrom) &&
+                    !typeFrom.IsAssignableFrom(typeTo)
+                )
+                    throw new NotSupportedException("Invalid cast");
+
                 il.Emit(OpCodes.Unbox_Any, typeTo);
             }
             else if (typeFrom.IsValueType && !typeTo.IsValueType)
@@ -763,6 +768,12 @@ namespace Expressions
             }
             else if (!typeFrom.IsValueType && !typeTo.IsValueType)
             {
+                if (
+                    !typeTo.IsAssignableFrom(typeFrom) &&
+                    !typeFrom.IsAssignableFrom(typeTo)
+                )
+                    throw new NotSupportedException("Invalid cast");
+
                 il.Emit(OpCodes.Castclass, typeTo);
             }
             else
@@ -771,10 +782,15 @@ namespace Expressions
             }
         }
 
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         private static void EmitNumericConversion(ILGenerator il, Type typeFrom, Type typeTo, bool isChecked)
         {
+            if (
+                !(typeFrom.IsEnum || TypeUtil.IsNumeric(typeFrom)) ||
+                !(typeTo.IsEnum || TypeUtil.IsNumeric(typeTo))
+            )
+                throw new InvalidOperationException("Unhandled convert");
+
             bool isFromUnsigned = TypeUtil.IsUnsigned(typeFrom);
             bool isFromFloatingPoint = TypeUtil.IsFloatingPoint(typeFrom);
             if (typeTo == typeof(Single))

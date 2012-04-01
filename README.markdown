@@ -202,7 +202,14 @@ Flee library, there are a number of unsupported features and limitations:
   the Expressions version of the Flee language. However, the ExpressionContext
   class does support an ignoreCase parameter which can be used to specify how
   the case of variables is treated. This argument defaults to false for all
-  languages supported by Expressions.
+  languages supported by Expressions;
+
+* Expressions is more relaxed in what casts are supported when the ResultType
+  (or the generic type parameter for DynamicExpression) has been provided.
+  With Flee, only implicit casts are allowed. Expressions treats specifying the
+  ResultType of an expression like the VB.NET CType construct;
+
+* The Flee calculation engine is not part of the Expressions library.
 
 The above list of unsupported features are features that will not be
 implemented in the Expression library. There are however a number

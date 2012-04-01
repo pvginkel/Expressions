@@ -27,13 +27,13 @@ namespace Expressions.Csharp
 
                 return new ParseResult(result, parser._identifiers);
             }
-            catch (CompilationException)
+            catch (ExpressionsException)
             {
                 throw;
             }
             catch (Exception ex)
             {
-                throw new CompilationException("Compilation failed", ex);
+                throw new ExpressionsException("Compilation failed", ExpressionsExceptionType.SyntaxError, ex);
             }
         }
 
@@ -49,7 +49,7 @@ namespace Expressions.Csharp
 
         public override void ReportError(RecognitionException ex)
         {
-            throw new CompilationException("Compilation failed", ex);
+            throw new ExpressionsException("Compilation failed", ExpressionsExceptionType.SyntaxError, ex);
         }
 
         private Constant ParseDateTime(string text)

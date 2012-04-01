@@ -30,10 +30,17 @@ namespace Expressions
             expression.Accept(new Visitor(this));
 
             if (
-                _resolver.Options.ResultType.IsValueType &&
+                (expression.Type.IsValueType || _resolver.Options.ResultType.IsValueType) &&
                 expression.Type != _resolver.Options.ResultType
             ) {
-                ExtendedConvertToType(expression.Type, _resolver.Options.ResultType, true);
+                try
+                {
+                    ExtendedConvertToType(expression.Type, _resolver.Options.ResultType, true);
+                }
+                catch (Exception ex)
+                {
+                    throw new ExpressionsException("Cannot convert expression result to expected result type", ExpressionsExceptionType.InvalidExplicitCast, ex);
+                }
 
                 _il.Emit(OpCodes.Box, _resolver.Options.ResultType);
             }
@@ -41,64 +48,79 @@ namespace Expressions
             {
                 _il.Emit(OpCodes.Box, expression.Type);
             }
+            else if (!_resolver.Options.ResultType.IsAssignableFrom(expression.Type))
+            {
+                throw new ExpressionsException("Cannot convert expression result to expected result type", ExpressionsExceptionType.TypeMismatch);
+            }
 
             _il.Emit(OpCodes.Ret);
         }
 
         private void ExtendedConvertToType(Type fromType, Type toType, bool allowExplicit)
         {
-            // See whether we can find a constructor on target type.
-
-            var constructor = _resolver.ResolveMethodGroup(
-                toType.GetConstructors(_resolver.Options.AccessBindingFlags | BindingFlags.CreateInstance),
-                new[] { fromType },
-                new[] { false }
-            );
-
-            if (constructor != null)
+            try
             {
-                ILUtil.EmitNew(_il, (ConstructorInfo)constructor);
+                // See whether we can find a constructor on target type.
 
-                return;
-            }
+                var constructor = _resolver.ResolveMethodGroup(
+                    toType.GetConstructors(_resolver.Options.AccessBindingFlags | BindingFlags.CreateInstance),
+                    new[] { fromType },
+                    new[] { false }
+                );
 
-            // See whether we have an implicit cast.
+                if (constructor != null)
+                {
+                    ILUtil.EmitNew(_il, (ConstructorInfo)constructor);
 
-            var castMethod = _resolver.FindOperatorMethod(
-                "op_Implicit",
-                new[] { fromType, toType },
-                toType,
-                new[] { fromType }
-            );
+                    return;
+                }
 
-            if (castMethod == null && allowExplicit)
-            {
-                castMethod = _resolver.FindOperatorMethod(
-                    "op_Explicit",
+                // See whether we have an implicit cast.
+
+                var castMethod = _resolver.FindOperatorMethod(
+                    "op_Implicit",
                     new[] { fromType, toType },
                     toType,
                     new[] { fromType }
                 );
-            }
 
-            if (castMethod != null)
+                if (castMethod == null && allowExplicit)
+                {
+                    castMethod = _resolver.FindOperatorMethod(
+                        "op_Explicit",
+                        new[] { fromType, toType },
+                        toType,
+                        new[] { fromType }
+                    );
+                }
+
+                if (castMethod != null)
+                {
+                    var parameterType = castMethod.GetParameters()[0].ParameterType;
+
+                    if (fromType != parameterType)
+                        ILUtil.EmitConvertToType(_il, fromType, parameterType, _resolver.Options.Checked);
+
+                    _il.Emit(OpCodes.Call, castMethod);
+
+                    if (toType != castMethod.ReturnType)
+                        ILUtil.EmitConvertToType(_il, castMethod.ReturnType, toType, _resolver.Options.Checked);
+
+                    return;
+                }
+
+                // Let ILUtill handle it.
+
+                ILUtil.EmitConvertToType(_il, fromType, toType, _resolver.Options.Checked);
+            }
+            catch (Exception ex)
             {
-                var parameterType = castMethod.GetParameters()[0].ParameterType;
-
-                if (fromType != parameterType)
-                    ILUtil.EmitConvertToType(_il, fromType, parameterType, _resolver.Options.Checked);
-
-                _il.Emit(OpCodes.Call, castMethod);
-
-                if (toType != castMethod.ReturnType)
-                    ILUtil.EmitConvertToType(_il, castMethod.ReturnType, toType, _resolver.Options.Checked);
-
-                return;
+                throw new ExpressionsException(
+                    "Invalid explicit cast",
+                    ExpressionsExceptionType.InvalidExplicitCast,
+                    ex
+                );
             }
-
-            // Let ILUtill handle it.
-
-            ILUtil.EmitConvertToType(_il, fromType, toType, _resolver.Options.Checked);
         }
 
         private class Visitor : IExpressionVisitor
@@ -695,7 +717,7 @@ namespace Expressions
 
             public void TypeAccess(TypeAccess typeAccess)
             {
-                throw new InvalidOperationException();
+                throw new ExpressionsException("Syntax error", ExpressionsExceptionType.TypeMismatch);
             }
 
             public void Conditional(Conditional conditional)

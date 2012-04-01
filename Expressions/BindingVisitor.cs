@@ -107,6 +107,10 @@ namespace Expressions
             {
                 case ExpressionType.ShiftLeft:
                 case ExpressionType.ShiftRight:
+                    if (!TypeUtil.IsInteger(left.Type))
+                        throw new ExpressionsException("Left operand of shift operations must be of an integer type", ExpressionsExceptionType.TypeMismatch);
+                    if (right.Type != typeof(int) && right.Type != typeof(byte))
+                        throw new ExpressionsException("Right operand of shift operations must be integer or byte type", ExpressionsExceptionType.TypeMismatch);
                     commonType = left.Type;
                     break;
 
@@ -114,8 +118,25 @@ namespace Expressions
                     commonType = typeof(double);
                     break;
 
+                case ExpressionType.Greater:
+                case ExpressionType.GreaterOrEquals:
+                case ExpressionType.Less:
+                case ExpressionType.LessOrEquals:
+                    commonType = ResolveExpressionCommonType(left.Type, right.Type, false, true, false);
+                    break;
+
+                case ExpressionType.Equals:
+                case ExpressionType.NotEquals:
+                case ExpressionType.Compares:
+                case ExpressionType.NotCompares:
+                    if (left.Type.IsValueType != right.Type.IsValueType)
+                        throw new ExpressionsException("Cannot resolve expression type", ExpressionsExceptionType.TypeMismatch);
+
+                    commonType = ResolveExpressionCommonType(left.Type, right.Type, false, false, true);
+                    break;
+
                 default:
-                    commonType = ResolveExpressionCommonType(left.Type, right.Type, binaryExpression.Type == ExpressionType.Add);
+                    commonType = ResolveExpressionCommonType(left.Type, right.Type, binaryExpression.Type == ExpressionType.Add, false, false);
                     break;
             }
             
@@ -171,7 +192,10 @@ namespace Expressions
                 }
                 else
                 {
-                    throw new NotSupportedException("Right operand of set must be an enumerable");
+                    throw new ExpressionsException(
+                        "Right operand of set must be an enumerable",
+                         ExpressionsExceptionType.TypeMismatch
+                        );
                 }
             }
         }
@@ -253,7 +277,10 @@ namespace Expressions
             if (type != null)
                 return new TypeAccess(type);
 
-            throw new NotSupportedException("Could not resolve identifier");
+            throw new ExpressionsException(
+                String.Format("Unresolved identifier '{0}'", identifierAccess.Name),
+                ExpressionsExceptionType.UndefinedName
+            );
         }
 
         private static IExpression VariableAccess(int identifierIndex, Type identifierType)
@@ -372,12 +399,22 @@ namespace Expressions
             if (resolvedOperand.Type.IsArray)
             {
                 if (resolvedArguments.Length != resolvedOperand.Type.GetArrayRank())
-                    throw new NotSupportedException("Rank of array is incorrect");
+                {
+                    throw new ExpressionsException(
+                        "Invalid array index rank",
+                        ExpressionsExceptionType.TypeMismatch
+                    );
+                }
 
                 foreach (var argument in resolvedArguments)
                 {
                     if (!TypeUtil.IsCastAllowed(argument.Type, typeof(int)))
-                        throw new NotSupportedException("Arguments of array index must be convertible to int");
+                    {
+                        throw new ExpressionsException(
+                            "Argument of array index must be convertable to integer",
+                            ExpressionsExceptionType.TypeMismatch
+                        );
+                    }
                 }
 
                 if (resolvedArguments.Length == 1)
@@ -389,12 +426,22 @@ namespace Expressions
             var defaultMemberAttributes = resolvedOperand.Type.GetCustomAttributes(typeof(DefaultMemberAttribute), true);
 
             if (defaultMemberAttributes.Length != 1)
-                throw new NotSupportedException("Operand does not support indexing");
+            {
+                throw new ExpressionsException(
+                    "Operand does not support indexing",
+                    ExpressionsExceptionType.TypeMismatch
+                );
+            }
 
             var result = _resolver.ResolveMethod(resolvedOperand, "get_" + ((DefaultMemberAttribute)defaultMemberAttributes[0]).MemberName, resolvedArguments);
 
             if (result == null)
-                throw new NotSupportedException("Cannot resolve index method");
+            {
+                throw new ExpressionsException(
+                    "Unresolved index method",
+                    ExpressionsExceptionType.UnresolvedMethod
+                );
+            }
 
             return result;
         }
@@ -412,7 +459,8 @@ namespace Expressions
                     if (
                         import.Namespace != null &&
                         _resolver.IdentifiersEqual(memberAccess.Member, import.Namespace)
-                    ) {
+                    )
+                    {
                         if (import.Type != null)
                             return new TypeAccess(import.Type);
                         else
@@ -427,16 +475,20 @@ namespace Expressions
                             return importResult;
                     }
                 }
+            }
+            else
+            {
 
-                throw new NotSupportedException("Could not resolve member");
+                var result = Resolve(operand, memberAccess.Member);
+
+                if (result != null)
+                    return result;
             }
 
-            var result = Resolve(operand, memberAccess.Member);
-
-            if (result == null)
-                throw new NotSupportedException("Could not resolve member");
-
-            return result;
+            throw new ExpressionsException(
+                String.Format("Unresolved identifier '{0}'", memberAccess.Member),
+                ExpressionsExceptionType.UndefinedName
+            );
         }
 
         public IExpression MethodCall(Ast.MethodCall methodCall)
@@ -455,7 +507,10 @@ namespace Expressions
                 if (_resolver.DynamicExpression.Language == ExpressionLanguage.VisualBasic)
                     return Index(methodCall.Operand, methodCall.Arguments);
 
-                throw new NotSupportedException("Cannot resolve global method");
+                throw new ExpressionsException(
+                    String.Format("Cannot resolve symbol '{0}'", identifierAccess.Name),
+                    ExpressionsExceptionType.UndefinedName
+                );
             }
 
             var memberAccess = methodCall.Operand as MemberAccess;
@@ -491,7 +546,7 @@ namespace Expressions
             if (_resolver.DynamicExpression.Language == ExpressionLanguage.VisualBasic)
                 return Index(methodCall.Operand, methodCall.Arguments);
 
-            throw new NotSupportedException("Cannot resolve method call on " + methodCall.Operand.GetType().Name);
+            throw new ExpressionsException("Cannot resolve symbol", ExpressionsExceptionType.UndefinedName);
         }
 
         private IExpression[] ResolveArguments(AstNodeCollection astArguments)
@@ -579,7 +634,7 @@ namespace Expressions
             {
                 case ExpressionType.Plus:
                     if (!TypeUtil.IsValidUnaryArgument(operand.Type))
-                        throw new NotSupportedException("Cannot plus non numeric type");
+                        throw new ExpressionsException("Operand of plus operation must be an integer type", ExpressionsExceptionType.TypeMismatch);
 
                     type = operand.Type;
                     break;
@@ -590,7 +645,7 @@ namespace Expressions
 
                 case ExpressionType.Minus:
                     if (!TypeUtil.IsValidUnaryArgument(operand.Type))
-                        throw new NotSupportedException("Cannot plus non numeric type");
+                        throw new ExpressionsException("Operand of minus operation must be an integer type", ExpressionsExceptionType.TypeMismatch);
 
                     // TODO: Make constants signed and handle minus on unsigned's.
 
@@ -599,14 +654,19 @@ namespace Expressions
 
                 case ExpressionType.LogicalNot:
                     if (operand.Type != typeof(bool))
-                        throw new NotSupportedException("Cannot not non boolean types");
+                        throw new ExpressionsException("Operand of not operation must be a boolean type", ExpressionsExceptionType.TypeMismatch);
 
                     type = typeof(bool);
                     break;
 
                 case ExpressionType.BitwiseNot:
                     if (!TypeUtil.IsInteger(operand.Type))
-                        throw new NotSupportedException("Cannot not bitwise not boolean types");
+                    {
+                        throw new ExpressionsException(
+                            "Cannot not bitwise not boolean types",
+                            ExpressionsExceptionType.TypeMismatch
+                        );
+                    }
 
                     type = operand.Type;
                     break;
@@ -619,7 +679,7 @@ namespace Expressions
                     else
                     {
                         if (operand.Type != typeof(bool))
-                            throw new NotSupportedException("Cannot not non boolean types");
+                            throw new ExpressionsException("Operand of not operation must be a boolean type", ExpressionsExceptionType.TypeMismatch);
 
                         type = typeof(bool);
                     }
@@ -649,7 +709,12 @@ namespace Expressions
                 result = FindTypeInImports(type);
 
             if (result == null)
-                throw new NotSupportedException(String.Format("Unknown type '{0}'", type));
+            {
+                throw new ExpressionsException(
+                    String.Format("Unknown type '{0}'", type),
+                    ExpressionsExceptionType.InvalidExplicitCast
+                );
+            }
 
             if (arrayIndex == 1)
                 result = result.MakeArrayType();
@@ -688,7 +753,7 @@ namespace Expressions
             return null;
         }
 
-        private Type ResolveExpressionCommonType(Type left, Type right, bool allowStringConcat)
+        private Type ResolveExpressionCommonType(Type left, Type right, bool allowStringConcat, bool allowBothImplicit, bool allowObjectCoercion)
         {
             Require.NotNull(left, "left");
             Require.NotNull(right, "right");
@@ -698,10 +763,13 @@ namespace Expressions
             if (left == right)
                 return left;
 
-            if (left == typeof(object))
-                return right;
-            if (right == typeof(object))
-                return left;
+            if (allowObjectCoercion)
+            {
+                if (left == typeof(object))
+                    return right;
+                if (right == typeof(object))
+                    return left;
+            }
 
             // Special cast for adding strings.
 
@@ -743,12 +811,23 @@ namespace Expressions
                 }
 
                 if (lowest != int.MaxValue)
-                    return rightTable[lowest];
+                {
+                    if (
+                        allowBothImplicit ||
+                        (IsAllowableImplicit(left, rightTable[lowest]) && IsAllowableImplicit(right, rightTable[lowest]))
+                    )
+                        return rightTable[lowest];
+                }
             }
 
             // We can't cast implicitly.
 
-            throw new NotSupportedException(String.Format("Cannot implicitly cast {0} and {1}", left, right));
+            throw new ExpressionsException("Cannot resolve expression type", ExpressionsExceptionType.TypeMismatch);
+        }
+
+        private bool IsAllowableImplicit(Type a, Type b)
+        {
+            return TypeUtil.IsInteger(a) == TypeUtil.IsInteger(b);
         }
 
         private Type ResolveExpressionType(Type left, Type right, Type commonType, ExpressionType type)
@@ -771,22 +850,48 @@ namespace Expressions
                         return commonType;
 
                     else if (left != typeof(bool) || right != typeof(bool))
-                        throw new NotSupportedException("Operands of logical operation must be logical");
+                        throw new ExpressionsException("Invalid operand for expression type", ExpressionsExceptionType.TypeMismatch);
+
+                    return typeof(bool);
+
+                case ExpressionType.Greater:
+                case ExpressionType.GreaterOrEquals:
+                case ExpressionType.Less:
+                case ExpressionType.LessOrEquals:
+                    if (
+                        !(left.IsEnum || TypeUtil.IsNumeric(left)) ||
+                        !(right.IsEnum || TypeUtil.IsNumeric(right))
+                    )
+                        throw new ExpressionsException("Invalid operand for expression type", ExpressionsExceptionType.TypeMismatch);
 
                     return typeof(bool);
 
                 case ExpressionType.Equals:
                 case ExpressionType.NotEquals:
-                case ExpressionType.Greater:
-                case ExpressionType.GreaterOrEquals:
-                case ExpressionType.Less:
-                case ExpressionType.LessOrEquals:
                 case ExpressionType.In:
                 case ExpressionType.LogicalAnd:
                 case ExpressionType.LogicalOr:
                 case ExpressionType.Compares:
                 case ExpressionType.NotCompares:
                     return typeof(bool);
+
+                case ExpressionType.Add:
+                    if (
+                        !(left == typeof(string) || right == typeof(string)) &&
+                        !(TypeUtil.IsNumeric(left) && TypeUtil.IsNumeric(right))
+                    )
+                        throw new ExpressionsException("Invalid operand for expression type", ExpressionsExceptionType.TypeMismatch);
+
+                    return commonType;
+
+                case ExpressionType.Subtract:
+                case ExpressionType.Multiply:
+                case ExpressionType.Divide:
+                case ExpressionType.Power:
+                    if (!TypeUtil.IsNumeric(left) || !TypeUtil.IsNumeric(right))
+                        throw new ExpressionsException("Invalid operand for expression type", ExpressionsExceptionType.TypeMismatch);
+
+                    return commonType;
 
                 default:
                     return commonType;
@@ -799,7 +904,10 @@ namespace Expressions
             var then = conditional.Then.Accept(this);
             var @else = conditional.Else.Accept(this);
 
-            var commonType = ResolveExpressionCommonType(then.Type, @else.Type, false);
+            if (condition.Type != typeof(bool))
+                throw new ExpressionsException("Condition of conditional must evaluate to a boolean", ExpressionsExceptionType.TypeMismatch);
+
+            var commonType = ResolveExpressionCommonType(then.Type, @else.Type, false, false, true);
 
             return new Expressions.Conditional(condition, then, @else, commonType);
         }

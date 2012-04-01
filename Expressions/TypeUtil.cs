@@ -257,10 +257,10 @@ namespace Expressions
         public static bool IsInteger(Type type)
         {
             type = GetNonNullableType(type);
+
             if (type.IsEnum)
-            {
                 return false;
-            }
+
             switch (Type.GetTypeCode(type))
             {
                 case TypeCode.Byte:
@@ -272,6 +272,7 @@ namespace Expressions
                 case TypeCode.UInt32:
                 case TypeCode.UInt64:
                     return true;
+
                 default:
                     return false;
             }

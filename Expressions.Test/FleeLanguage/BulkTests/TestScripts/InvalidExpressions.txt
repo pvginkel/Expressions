@@ -1,10 +1,4 @@
 ' Expressions that should generate a compile exception
-' Int32 overflow
-System.Int32;2147483648;ConstantOverflow
-System.Int32;2147483649;ConstantOverflow
-System.Int32;400000000000;ConstantOverflow
-System.Int32;-2147483649;ConstantOverflow
-System.Int32;-3000000000;ConstantOverflow
 ' Double overflow
 System.Object;1.34E+400;ConstantOverflow
 System.Double;-1.7976931348623157E+309;ConstantOverflow
@@ -14,13 +8,8 @@ System.Double;1.8976931348623157E+308;ConstantOverflow
 ' Single overflow
 System.Single;1.234e+100f;ConstantOverflow
 System.Single;-1.234e+100f;ConstantOverflow
-' Uint32 overflow
-System.uint32;4294967296U;ConstantOverflow
-System.uint32;10000000000U;ConstantOverflow
 ' Int64 overflow
-System.int64;9223372036854775808L;ConstantOverflow
 System.int64;-9223372036854775809L;ConstantOverflow
-System.int64;10000000000000000000L;ConstantOverflow
 System.int64;-10000000000000000000L;ConstantOverflow
 ' Uint64 overflow
 System.uint64;18446744073709551616LU;ConstantOverflow
@@ -53,12 +42,6 @@ System.object;100U ^ "a";TypeMismatch
 System.object;100L + true;TypeMismatch
 System.object;true / 100L;TypeMismatch
 System.object;100L ^ "a";TypeMismatch
-'	int64 and uint64
-System.object;100UL + 200L;TypeMismatch
-'	int32 and uint64
-system.object;100 + 200UL;TypeMismatch
-'	invalid negates
-System.object;-uint64.maxvalue;TypeMismatch
 ' Invalid comparisons
 System.Object;1 > "abc";TypeMismatch
 System.Object;true < 1;TypeMismatch
@@ -84,8 +67,7 @@ System.object;130000U = "a";TypeMismatch
 System.object;130000L > true;TypeMismatch
 System.object;-1L = "a";TypeMismatch
 '	64 bit signed/unsigned
-System.object;100L > 200UL;TypeMismatch
-System.object;uint64.minvalue = int64.minvalue;TypeMismatch
+System.object;ulong.minvalue = long.minvalue;TypeMismatch
 '	chained
 System.Object;1 > 2 > 3;TypeMismatch
 ' mismatched types - and/or/xor
@@ -107,23 +89,17 @@ System.Object;1 and 2 and false;TypeMismatch
 System.Object;1 or 2 or "ab";TypeMismatch
 System.Object;1 xor 2 xor false;TypeMismatch
 ' Result type not convertible expression type
-System.String;100;TypeMismatch
-System.String;true;TypeMismatch
-System.String;13.45;TypeMismatch
-System.boolean;100;TypeMismatch
-System.boolean;"abc";TypeMismatch
-System.boolean;-123.456;TypeMismatch
-System.int32;"a";TypeMismatch
-System.int32;true;TypeMismatch
-System.int32;800.34;TypeMismatch
-System.int32;2.0^4;TypeMismatch
-System.int32;2^4.0;TypeMismatch
-System.Double;"abc";TypeMismatch
-System.Double;1 > 100;TypeMismatch
+System.String;100;InvalidExplicitCast
+System.String;true;InvalidExplicitCast
+System.String;13.45;InvalidExplicitCast
+System.boolean;100;InvalidExplicitCast
+System.boolean;"abc";InvalidExplicitCast
+System.boolean;-123.456;InvalidExplicitCast
+System.int32;"a";InvalidExplicitCast
+System.int32;true;InvalidExplicitCast
+System.Double;"abc";InvalidExplicitCast
+System.Double;1 > 100;InvalidExplicitCast
 System.String;TypeA;TypeMismatch
-'	enum
-System.int32;DayOfWeek.Friday;TypeMismatch
-System.DayOfWeek;5;TypeMismatch
 ' Members
 '	Non-existant members
 System.object;FakeField + 1;UndefinedName
@@ -134,53 +110,45 @@ System.object;string.empty.stuff;UndefinedName
 '	Type access
 System.object;String;TypeMismatch
 '	Static member access through instance member
-System.object;StringA.Empty;TypeMismatch
-System.object;StringA.Length.MaxValue;TypeMismatch
+System.object;StringA.Empty;UndefinedName
+System.object;StringA.Length.MaxValue;UndefinedName
 '	Instance member access through static member
-system.object;string.length;TypeMismatch
-System.object;TypeA.name.empty;TypeMismatch
-'	Access of non-public member on non-owner
-System.object;string.alignConst;TypeMismatch
+system.object;string.length;UndefinedName
+System.object;TypeA.name.empty;UndefinedName
 ' Member chain gives wrong result type
-System.string;stringA.length;TypeMismatch
-System.boolean;gettype().name;TypeMismatch
-System.double;doublea.tostring();TypeMismatch
+System.string;stringA.length;InvalidExplicitCast
+System.boolean;gettype().name;InvalidExplicitCast
+System.double;doublea.tostring();InvalidExplicitCast
 ' Methods
 '	method that doesn't return a value
 System.object;DoStuff();FunctionHasNoReturnValue
 '	wrong argument count
-System.object;math.max(1,2,3);TypeMismatch
-System.object;math.cos();TypeMismatch
+System.object;math.max(1,2,3);UnresolvedMethod
+System.object;math.cos();UnresolvedMethod
 '	undefined name
 System.object;method();UndefinedName
 System.object;math.zzz();UndefinedName
 System.object;math.zzz(1,2,3);UndefinedName
 '	wrong arg types
-System.object;math.cos("abc");TypeMismatch
-System.object;math.cos(true);TypeMismatch
-System.object;string.copy(100);TypeMismatch
-System.object;string.copy(100);TypeMismatch
-System.object;Doubleit(3.45);TypeMismatch
-System.object;Doubleit();TypeMismatch
+System.object;math.cos("abc");UnresolvedMethod
+System.object;math.cos(true);UnresolvedMethod
+System.object;string.copy(100);UnresolvedMethod
+System.object;string.copy(100);UnresolvedMethod
+System.object;Doubleit(3.45);UnresolvedMethod
+System.object;Doubleit();UnresolvedMethod
 ' Conditional operator
 '	First argument not boolean
 System.object;if("a",100,200);TypeMismatch
 '	Not 3 arguments
-System.object;if();TypeMismatch
-System.object;if("a");TypeMismatch
-System.object;if("a",100);TypeMismatch
-System.object;if("a",100,200);TypeMismatch
-System.object;if("a",100,200,300);TypeMismatch
+System.object;if();SyntaxError
+System.object;if("a");SyntaxError
+System.object;if("a",100);SyntaxError
+System.object;if("a",100,200,300);SyntaxError
 '	True/false arguments not convertible
 System.object;if(true,"a", 100);TypeMismatch
 System.object;if(true,100, true);TypeMismatch
 System.object;if(true,true, "string");TypeMismatch
 System.object;if(true,1.2, gettype());TypeMismatch
-' Arithmetic on small integers gives a big int
-System.byte;bytea*bytea;TypeMismatch
-System.sbyte;sbytea*sbytea;TypeMismatch
-System.int16;int16a + int16a;TypeMismatch
-System.uint16;uint16a + uint16a;TypeMismatch
 ' Can't add sbyte + uint64
 System.object;sbytea + 100UL;TypeMismatch
 ' Can't add short + uint64
@@ -249,15 +217,12 @@ System.object;bytea[0];TypeMismatch
 System.object;intarr["a"];TypeMismatch
 system.object;intarr[true];TypeMismatch
 system.object;intarr[1.2];TypeMismatch
-System.object;stringdict[100];TypeMismatch
+System.object;stringdict[100];UnresolvedMethod
 ' Char
 '	invalid implicit conversion
-System.sbyte;'^';TypeMismatch
-System.byte;'^';TypeMismatch
-System.int16;'^';TypeMismatch
-System.string;'^';TypeMismatch
+System.string;'^';InvalidExplicitCast
 '	invalid cast
-System.string;cast('^',string);TypeMismatch
+System.string;cast('^',string);InvalidExplicitCast
 ' Shifts
 '	invalid argument types
 System.object;"a" >> 2;TypeMismatch
@@ -268,14 +233,9 @@ System.object;100 >> 2.3f;TypeMismatch
 System.object;100 >> 100U;TypeMismatch
 System.object;100 >> 100L;TypeMismatch
 System.object;100 >> 100LU;TypeMismatch
-'	invalid result type
-System.int32;100U >> 2;TypeMismatch
-System.uint32;100L >> 2;TypeMismatch
-System.uint64;100L >> 2;TypeMismatch
-System.int32;100LU >> 2;TypeMismatch
 ' Invalid escapes
-System.string;"\z";TypeMismatch
-System.string;"\Uzzzz";TypeMismatch
+System.string;"\z";SyntaxError
+System.string;"\Uzzzz";SyntaxError
 ' Invalid reference comparisons
 System.boolean;null > null;TypeMismatch
 System.boolean;null <= null;TypeMismatch
@@ -295,41 +255,32 @@ System.object;null / null;TypeMismatch
 System.object;null and null;TypeMismatch
 System.object;1 + -null;TypeMismatch
 System.object;true and not null;TypeMismatch
-System.object;cast(null, int);TypeMismatch
 '	call with null to method with a value type argument
-System.object;Math.cos(null);TypeMismatch
+System.object;Math.cos(null);UnresolvedMethod
 ' ParamArray calls
 '	ambiguous call between two paramArrays
-System.object;ParamArray4();AmbiguousMatch
+System.object;ParamArray4();UnresolvedMethod
 '	arguments not convertible to paramArray type
-System.object;sum4(100.24, 13.4);TypeMismatch
-System.object;sum4(100, "a");TypeMismatch
-System.object;sum4("a");TypeMismatch
-' With calc engine atoms
-System.object;StringA.$a;TypeMismatch
-System.object;$a.$b;TypeMismatch
+System.object;sum4(100.24, 13.4);UnresolvedMethod
+System.object;sum4(100, "a");UnresolvedMethod
+System.object;sum4("a");UnresolvedMethod
 ' In operator
-System.boolean;100 in 100;TypeMismatch
-System.boolean;"a" in stringDict;TypeMismatch
-System.boolean;"abc" in stringa;TypeMismatch
-System.boolean;100 in (1, 2, "abc");TypeMismatch
-System.boolean;'a' in ();TypeMismatch
-System.boolean;decimalA in (1.24, 3.45);TypeMismatch
-System.boolean;"abc" in intArr;TypeMismatch
-System.boolean;100 in GenericDict;TypeMismatch
+System.boolean;100 in 100;SyntaxError
+System.boolean;'a' in ();SyntaxError
 ' Compare of two different enums
 System.object;DayOfWeek.Friday = ConsoleModifiers.Alt;TypeMismatch
 ' DateTime
 System.object;#123/11/2008#;SyntaxError
-System.object;#12/13/2008#;SyntaxError
 System.object;#45/06/2008#;SyntaxError
 ' TimeSpan
 System.object;##1.44:30#;SyntaxError
 System.object;##0.4:77#;SyntaxError
-System.object;##0.24:00#;InvalidFormat
-System.object;##0.00:60#;InvalidFormat
-System.object;##0.00:44.12345678#;InvalidFormat
+System.object;##0.24:00#;SyntaxError
+System.object;##0.00:60#;SyntaxError
+System.object;##0.00:44.12345678#;SyntaxError
 ' Indexers with too many arguments
-System.int32;KeyboardA.structA["s", 100, 45.5];200
+System.int32;KeyboardA.structA["s", 100, 45.5];UnresolvedMethod
 ' Array index with multiple arguments
 System.object;intarr[1,2,3];TypeMismatch
+system.object;cast(ExceptionNull, IComparable);InvalidExplicitCast
+system.object;cast(IComparableNull, Icloneable);InvalidExplicitCast

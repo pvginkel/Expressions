@@ -58,13 +58,6 @@ namespace Expressions.Test
             ProcessScriptTests("SpecialConstructs.txt", DoTestValidExpressions);
         }
 
-        [Test(Description = "Expressions that should not be valid")]
-        [Ignore("Failure information has not yet been implemented")]
-        public void TestInvalidExpressions()
-        {
-            ProcessScriptTests("InvalidExpressions.txt", DoTestInvalidExpressions);
-        }
-
         [Test(Description = "Casts that should be valid")]
         public void TestValidCasts()
         {
@@ -89,20 +82,6 @@ namespace Expressions.Test
             var expression = new DynamicExpression(arr[1], Language);
 
             DoTest(expression, context, arr[2], expressionType, ExpressionTests.TestCulture);
-        }
-
-        private void DoTestInvalidExpressions(string[] arr)
-        {
-            Type expressionType = Type.GetType(arr[0], true, true);
-
-            //CompileExceptionReason reason = System.Enum.Parse(typeof(CompileExceptionReason), arr[2], true);
-
-            ExpressionContext context = MyGenericContext;
-            //ExpressionOptions options = context.Options;
-            //options.ResultType = expressionType;
-            //options.OwnerMemberAccess = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic;
-
-            AssertCompileException(arr[1], context);
         }
 
         private void DoTestCheckedExpressions(string[] arr)
@@ -133,5 +112,4 @@ namespace Expressions.Test
             }
         }
     }
-
 }

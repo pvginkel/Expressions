@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="FleeLanguage\BulkTests\BulkTests.cs" />
     <Compile Include="FleeLanguage\Compilation\CompilationFailures.cs" />
+    <Compile Include="FleeLanguage\Compilation\ExpectedExceptions.cs" />
     <Compile Include="FleeLanguage\IndividualTests.cs" />
     <Compile Include="VisualBasicLanguage\BulkTests\BulkTests.cs" />
     <Compile Include="VisualBasicLanguage\Compilation\BinaryExpressions.cs" />
@@ -168,9 +169,6 @@
     <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\IndividualTests.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\InvalidExpressions.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="CsharpLanguage\BulkTests\TestScripts\LongBranchLogicalTest.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -196,9 +194,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="VisualBasicLanguage\BulkTests\TestScripts\IndividualTests.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="VisualBasicLanguage\BulkTests\TestScripts\InvalidExpressions.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="VisualBasicLanguage\BulkTests\TestScripts\LongBranchLogicalTest.txt" />

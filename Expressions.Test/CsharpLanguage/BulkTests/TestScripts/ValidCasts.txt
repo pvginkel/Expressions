@@ -162,12 +162,8 @@ object;(ValueType)ValueTypeStructA;TestStruct
 ' Cast of reference type to reference type
 object;(string)ObjectStringA;System.string
 object;(ArgumentException)ExceptionA;System.ArgumentException
-'	Reference type to unimplemented interface
-object;(IComparable)ExceptionNull;System.void
 '	interface to class
 object;(string)IComparableString;System.string
-'	class to interface
-object;(ICloneable)IComparableNull;System.void
 '	System.delegate to delegate type
 object;(AppDomainInitializer)DelegateANull;System.void
 '	System.delegate to implemented interface

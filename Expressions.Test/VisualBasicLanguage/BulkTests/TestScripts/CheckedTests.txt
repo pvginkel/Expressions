@@ -18,7 +18,7 @@ long.maxvalue + long.maxvalue;false;false
 '	unsigned
 uinteger.maxvalue + 1ui;false;false
 uinteger.maxvalue + 1ui;true;true
-2147483647U + 1ui;true;false
+2147483647Ui + 1ui;true;false
 ulong.maxvalue + 1UL;false;false
 ulong.maxvalue + 1ul;true;true
 9223372036854775807ul + 1ul;true;false

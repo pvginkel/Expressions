@@ -84,10 +84,7 @@ namespace Expressions
 
             foreach (var method in methods)
             {
-                if (
-                    IdentifiersEqual(method.Name, name) &&
-                    method.ReturnType != typeof(void)
-                )
+                if (IdentifiersEqual(method.Name, name))
                     candidates.Add(method);
             }
 
@@ -96,7 +93,19 @@ namespace Expressions
                 var method = ResolveMethodGroup(candidates, arguments);
 
                 if (method == null)
-                    throw new NotSupportedException(String.Format("Cannot resolve method {0}", candidates[0].Name));
+                {
+                    throw new ExpressionsException(
+                        String.Format("Unresolved method '{0}'", candidates[0].Name),
+                        ExpressionsExceptionType.UnresolvedMethod
+                    );
+                }
+                if (method is MethodInfo && ((MethodInfo)method).ReturnType == typeof(void))
+                {
+                    throw new ExpressionsException(
+                        String.Format("Method '{0}' has void return type", candidates[0].Name),
+                        ExpressionsExceptionType.FunctionHasNoReturnValue
+                    );
+                }
 
                 return new Expressions.MethodCall(operand, (MethodInfo)method, arguments);
             }

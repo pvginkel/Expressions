@@ -126,7 +126,19 @@ namespace Expressions.Test
             }
             catch
             {
-                //Assert.AreEqual(expectedReason, ex.Reason, string.Format("Expected reason '{0}' but got '{1}'", expectedReason, ex.Reason));
+            }
+        }
+
+        protected void AssertCompileException(string expression, ExpressionContext context, BoundExpressionOptions options, ExpressionsExceptionType exceptionType)
+        {
+            try
+            {
+                new DynamicExpression(expression, Language).Bind(context, options);
+                Assert.Fail("Compile exception expected");
+            }
+            catch (ExpressionsException ex)
+            {
+                Assert.AreEqual(exceptionType, ex.Type, string.Format("Expected exception type '{0}' but got '{1}'", exceptionType, ex.Type));
             }
         }
 
