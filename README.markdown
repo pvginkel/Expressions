@@ -2,6 +2,8 @@
 
 LGPL License.
 
+[Download from NuGet](http://nuget.org/packages/Expressions).
+
 ## Introduction
 
 Expressions is an expression parser and evaluator with support for C#, VB.NET and Flee.
