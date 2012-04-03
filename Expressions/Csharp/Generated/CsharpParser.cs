@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4.1.9004 C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g 2012-04-01 11:19:11
+// $ANTLR 3.4.1.9004 C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g 2012-04-03 13:32:56
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 219
@@ -142,7 +142,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_prog();
 	partial void LeaveRule_prog();
 	// $ANTLR start "prog"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:31:1: prog returns [IAstNode value] : expression EOF ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:32:1: prog returns [IAstNode value] : expression EOF ;
 	[GrammarRule("prog")]
 	private CsharpParser.prog_return prog()
 	{
@@ -160,30 +160,30 @@ namespace  Expressions.Csharp
 
 		CommonTree EOF2_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "prog");
-		DebugLocation(31, 1);
+		DebugLocation(32, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 1)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:32:2: ( expression EOF )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:33:2: ( expression EOF )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:32:4: expression EOF
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:33:4: expression EOF
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(32, 4);
-			PushFollow(Follow._expression_in_prog104);
+			DebugLocation(33, 4);
+			PushFollow(Follow._expression_in_prog115);
 			expression1=expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, expression1.Tree);
-			DebugLocation(32, 15);
+			DebugLocation(33, 15);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (expression1!=null?expression1.value:default(IAstNode)); 
 			}
-			DebugLocation(32, 47);
-			EOF2=(CommonToken)Match(input,EOF,Follow._EOF_in_prog108); if (state.failed) return retval;
+			DebugLocation(33, 47);
+			EOF2=(CommonToken)Match(input,EOF,Follow._EOF_in_prog119); if (state.failed) return retval;
 			if (state.backtracking == 0) {
 			EOF2_tree = (CommonTree)adaptor.Create(EOF2);
 			adaptor.AddChild(root_0, EOF2_tree);
@@ -212,7 +212,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 1, prog_StartIndex); }
 
 		}
-		DebugLocation(33, 1);
+		DebugLocation(34, 1);
 		} finally { DebugExitRule(GrammarFileName, "prog"); }
 		return retval;
 
@@ -229,7 +229,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_expression();
 	partial void LeaveRule_expression();
 	// $ANTLR start "expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:35:1: expression returns [IAstNode value] : e= conditional_expression ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:36:1: expression returns [IAstNode value] : e= conditional_expression ;
 	[GrammarRule("expression")]
 	private CsharpParser.expression_return expression()
 	{
@@ -245,24 +245,24 @@ namespace  Expressions.Csharp
 		CsharpParser.conditional_expression_return e = default(CsharpParser.conditional_expression_return);
 
 		try { DebugEnterRule(GrammarFileName, "expression");
-		DebugLocation(35, 1);
+		DebugLocation(36, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 2)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:36:2: (e= conditional_expression )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:37:2: (e= conditional_expression )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:36:4: e= conditional_expression
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:37:4: e= conditional_expression
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(36, 5);
-			PushFollow(Follow._conditional_expression_in_expression125);
+			DebugLocation(37, 5);
+			PushFollow(Follow._conditional_expression_in_expression136);
 			e=conditional_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(36, 29);
+			DebugLocation(37, 29);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
@@ -291,7 +291,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 2, expression_StartIndex); }
 
 		}
-		DebugLocation(37, 1);
+		DebugLocation(38, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression"); }
 		return retval;
 
@@ -308,7 +308,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_conditional_expression();
 	partial void LeaveRule_conditional_expression();
 	// $ANTLR start "conditional_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:39:1: conditional_expression returns [IAstNode value] : e= logical_or_expression ( '?' t= expression ':' l= expression )? ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:40:1: conditional_expression returns [IAstNode value] : e= logical_or_expression ( '?' t= expression ':' l= expression )? ;
 	[GrammarRule("conditional_expression")]
 	private CsharpParser.conditional_expression_return conditional_expression()
 	{
@@ -330,30 +330,30 @@ namespace  Expressions.Csharp
 		CommonTree char_literal3_tree = default(CommonTree);
 		CommonTree char_literal4_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "conditional_expression");
-		DebugLocation(39, 1);
+		DebugLocation(40, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 3)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:40:2: (e= logical_or_expression ( '?' t= expression ':' l= expression )? )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:41:2: (e= logical_or_expression ( '?' t= expression ':' l= expression )? )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:40:4: e= logical_or_expression ( '?' t= expression ':' l= expression )?
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:41:4: e= logical_or_expression ( '?' t= expression ':' l= expression )?
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(40, 5);
-			PushFollow(Follow._logical_or_expression_in_conditional_expression144);
+			DebugLocation(41, 5);
+			PushFollow(Follow._logical_or_expression_in_conditional_expression155);
 			e=logical_or_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(40, 28);
+			DebugLocation(41, 28);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(41, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:41:3: ( '?' t= expression ':' l= expression )?
+			DebugLocation(42, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:42:3: ( '?' t= expression ':' l= expression )?
 			int alt1=2;
 			try { DebugEnterSubRule(1);
 			try { DebugEnterDecision(1, false);
@@ -368,33 +368,33 @@ namespace  Expressions.Csharp
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:41:5: '?' t= expression ':' l= expression
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:42:5: '?' t= expression ':' l= expression
 				{
-				DebugLocation(41, 5);
-				char_literal3=(CommonToken)Match(input,42,Follow._42_in_conditional_expression152); if (state.failed) return retval;
+				DebugLocation(42, 5);
+				char_literal3=(CommonToken)Match(input,42,Follow._42_in_conditional_expression163); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				char_literal3_tree = (CommonTree)adaptor.Create(char_literal3);
 				adaptor.AddChild(root_0, char_literal3_tree);
 				}
-				DebugLocation(41, 10);
-				PushFollow(Follow._expression_in_conditional_expression156);
+				DebugLocation(42, 10);
+				PushFollow(Follow._expression_in_conditional_expression167);
 				t=expression();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, t.Tree);
-				DebugLocation(41, 22);
-				char_literal4=(CommonToken)Match(input,34,Follow._34_in_conditional_expression158); if (state.failed) return retval;
+				DebugLocation(42, 22);
+				char_literal4=(CommonToken)Match(input,34,Follow._34_in_conditional_expression169); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				char_literal4_tree = (CommonTree)adaptor.Create(char_literal4);
 				adaptor.AddChild(root_0, char_literal4_tree);
 				}
-				DebugLocation(41, 27);
-				PushFollow(Follow._expression_in_conditional_expression162);
+				DebugLocation(42, 27);
+				PushFollow(Follow._expression_in_conditional_expression173);
 				l=expression();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, l.Tree);
-				DebugLocation(41, 39);
+				DebugLocation(42, 39);
 				if (state.backtracking == 0)
 				{
 					 retval.value = new Conditional((e!=null?e.value:default(IAstNode)), (t!=null?t.value:default(IAstNode)), (l!=null?l.value:default(IAstNode))); 
@@ -430,7 +430,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 3, conditional_expression_StartIndex); }
 
 		}
-		DebugLocation(43, 1);
+		DebugLocation(44, 1);
 		} finally { DebugExitRule(GrammarFileName, "conditional_expression"); }
 		return retval;
 
@@ -447,7 +447,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_logical_or_expression();
 	partial void LeaveRule_logical_or_expression();
 	// $ANTLR start "logical_or_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:45:1: logical_or_expression returns [IAstNode value] : e= logical_and_expression ( '||' e= logical_and_expression )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:46:1: logical_or_expression returns [IAstNode value] : e= logical_and_expression ( '||' e= logical_and_expression )* ;
 	[GrammarRule("logical_or_expression")]
 	private CsharpParser.logical_or_expression_return logical_or_expression()
 	{
@@ -465,30 +465,30 @@ namespace  Expressions.Csharp
 
 		CommonTree string_literal5_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "logical_or_expression");
-		DebugLocation(45, 1);
+		DebugLocation(46, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 4)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:46:2: (e= logical_and_expression ( '||' e= logical_and_expression )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:47:2: (e= logical_and_expression ( '||' e= logical_and_expression )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:46:4: e= logical_and_expression ( '||' e= logical_and_expression )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:47:4: e= logical_and_expression ( '||' e= logical_and_expression )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(46, 5);
-			PushFollow(Follow._logical_and_expression_in_logical_or_expression186);
+			DebugLocation(47, 5);
+			PushFollow(Follow._logical_and_expression_in_logical_or_expression197);
 			e=logical_and_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(46, 29);
+			DebugLocation(47, 29);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(47, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:47:3: ( '||' e= logical_and_expression )*
+			DebugLocation(48, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:48:3: ( '||' e= logical_and_expression )*
 			try { DebugEnterSubRule(2);
 			while (true)
 			{
@@ -507,21 +507,21 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:47:5: '||' e= logical_and_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:48:5: '||' e= logical_and_expression
 					{
-					DebugLocation(47, 5);
-					string_literal5=(CommonToken)Match(input,50,Follow._50_in_logical_or_expression194); if (state.failed) return retval;
+					DebugLocation(48, 5);
+					string_literal5=(CommonToken)Match(input,50,Follow._50_in_logical_or_expression205); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					string_literal5_tree = (CommonTree)adaptor.Create(string_literal5);
 					adaptor.AddChild(root_0, string_literal5_tree);
 					}
-					DebugLocation(47, 11);
-					PushFollow(Follow._logical_and_expression_in_logical_or_expression198);
+					DebugLocation(48, 11);
+					PushFollow(Follow._logical_and_expression_in_logical_or_expression209);
 					e=logical_and_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(48, 5);
+					DebugLocation(49, 5);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.LogicalOr); 
@@ -564,7 +564,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 4, logical_or_expression_StartIndex); }
 
 		}
-		DebugLocation(50, 1);
+		DebugLocation(51, 1);
 		} finally { DebugExitRule(GrammarFileName, "logical_or_expression"); }
 		return retval;
 
@@ -581,7 +581,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_logical_and_expression();
 	partial void LeaveRule_logical_and_expression();
 	// $ANTLR start "logical_and_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:52:1: logical_and_expression returns [IAstNode value] : e= bitwise_or_expression ( '&&' e= bitwise_or_expression )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:53:1: logical_and_expression returns [IAstNode value] : e= bitwise_or_expression ( '&&' e= bitwise_or_expression )* ;
 	[GrammarRule("logical_and_expression")]
 	private CsharpParser.logical_and_expression_return logical_and_expression()
 	{
@@ -599,30 +599,30 @@ namespace  Expressions.Csharp
 
 		CommonTree string_literal6_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "logical_and_expression");
-		DebugLocation(52, 1);
+		DebugLocation(53, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 5)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:53:2: (e= bitwise_or_expression ( '&&' e= bitwise_or_expression )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:54:2: (e= bitwise_or_expression ( '&&' e= bitwise_or_expression )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:53:4: e= bitwise_or_expression ( '&&' e= bitwise_or_expression )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:54:4: e= bitwise_or_expression ( '&&' e= bitwise_or_expression )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(53, 5);
-			PushFollow(Follow._bitwise_or_expression_in_logical_and_expression226);
+			DebugLocation(54, 5);
+			PushFollow(Follow._bitwise_or_expression_in_logical_and_expression237);
 			e=bitwise_or_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(53, 28);
+			DebugLocation(54, 28);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(54, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:54:3: ( '&&' e= bitwise_or_expression )*
+			DebugLocation(55, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:55:3: ( '&&' e= bitwise_or_expression )*
 			try { DebugEnterSubRule(3);
 			while (true)
 			{
@@ -641,21 +641,21 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:54:5: '&&' e= bitwise_or_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:55:5: '&&' e= bitwise_or_expression
 					{
-					DebugLocation(54, 5);
-					string_literal6=(CommonToken)Match(input,25,Follow._25_in_logical_and_expression234); if (state.failed) return retval;
+					DebugLocation(55, 5);
+					string_literal6=(CommonToken)Match(input,25,Follow._25_in_logical_and_expression245); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					string_literal6_tree = (CommonTree)adaptor.Create(string_literal6);
 					adaptor.AddChild(root_0, string_literal6_tree);
 					}
-					DebugLocation(54, 11);
-					PushFollow(Follow._bitwise_or_expression_in_logical_and_expression238);
+					DebugLocation(55, 11);
+					PushFollow(Follow._bitwise_or_expression_in_logical_and_expression249);
 					e=bitwise_or_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(55, 5);
+					DebugLocation(56, 5);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.LogicalAnd); 
@@ -698,7 +698,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 5, logical_and_expression_StartIndex); }
 
 		}
-		DebugLocation(57, 1);
+		DebugLocation(58, 1);
 		} finally { DebugExitRule(GrammarFileName, "logical_and_expression"); }
 		return retval;
 
@@ -715,7 +715,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_bitwise_or_expression();
 	partial void LeaveRule_bitwise_or_expression();
 	// $ANTLR start "bitwise_or_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:59:1: bitwise_or_expression returns [IAstNode value] : e= bitwise_xor_expression ( '|' e= bitwise_xor_expression )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:60:1: bitwise_or_expression returns [IAstNode value] : e= bitwise_xor_expression ( '|' e= bitwise_xor_expression )* ;
 	[GrammarRule("bitwise_or_expression")]
 	private CsharpParser.bitwise_or_expression_return bitwise_or_expression()
 	{
@@ -733,30 +733,30 @@ namespace  Expressions.Csharp
 
 		CommonTree char_literal7_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "bitwise_or_expression");
-		DebugLocation(59, 1);
+		DebugLocation(60, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 6)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:60:2: (e= bitwise_xor_expression ( '|' e= bitwise_xor_expression )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:61:2: (e= bitwise_xor_expression ( '|' e= bitwise_xor_expression )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:60:4: e= bitwise_xor_expression ( '|' e= bitwise_xor_expression )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:61:4: e= bitwise_xor_expression ( '|' e= bitwise_xor_expression )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(60, 5);
-			PushFollow(Follow._bitwise_xor_expression_in_bitwise_or_expression267);
+			DebugLocation(61, 5);
+			PushFollow(Follow._bitwise_xor_expression_in_bitwise_or_expression278);
 			e=bitwise_xor_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(60, 29);
+			DebugLocation(61, 29);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(61, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:61:3: ( '|' e= bitwise_xor_expression )*
+			DebugLocation(62, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:62:3: ( '|' e= bitwise_xor_expression )*
 			try { DebugEnterSubRule(4);
 			while (true)
 			{
@@ -775,21 +775,21 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:61:5: '|' e= bitwise_xor_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:62:5: '|' e= bitwise_xor_expression
 					{
-					DebugLocation(61, 5);
-					char_literal7=(CommonToken)Match(input,49,Follow._49_in_bitwise_or_expression275); if (state.failed) return retval;
+					DebugLocation(62, 5);
+					char_literal7=(CommonToken)Match(input,49,Follow._49_in_bitwise_or_expression286); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal7_tree = (CommonTree)adaptor.Create(char_literal7);
 					adaptor.AddChild(root_0, char_literal7_tree);
 					}
-					DebugLocation(61, 10);
-					PushFollow(Follow._bitwise_xor_expression_in_bitwise_or_expression279);
+					DebugLocation(62, 10);
+					PushFollow(Follow._bitwise_xor_expression_in_bitwise_or_expression290);
 					e=bitwise_xor_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(62, 5);
+					DebugLocation(63, 5);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.BitwiseOr); 
@@ -832,7 +832,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 6, bitwise_or_expression_StartIndex); }
 
 		}
-		DebugLocation(64, 1);
+		DebugLocation(65, 1);
 		} finally { DebugExitRule(GrammarFileName, "bitwise_or_expression"); }
 		return retval;
 
@@ -849,7 +849,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_bitwise_xor_expression();
 	partial void LeaveRule_bitwise_xor_expression();
 	// $ANTLR start "bitwise_xor_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:66:1: bitwise_xor_expression returns [IAstNode value] : e= bitwise_and_expression ( '^' e= bitwise_and_expression )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:67:1: bitwise_xor_expression returns [IAstNode value] : e= bitwise_and_expression ( '^' e= bitwise_and_expression )* ;
 	[GrammarRule("bitwise_xor_expression")]
 	private CsharpParser.bitwise_xor_expression_return bitwise_xor_expression()
 	{
@@ -867,30 +867,30 @@ namespace  Expressions.Csharp
 
 		CommonTree char_literal8_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "bitwise_xor_expression");
-		DebugLocation(66, 1);
+		DebugLocation(67, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 7)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:67:2: (e= bitwise_and_expression ( '^' e= bitwise_and_expression )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:68:2: (e= bitwise_and_expression ( '^' e= bitwise_and_expression )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:67:4: e= bitwise_and_expression ( '^' e= bitwise_and_expression )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:68:4: e= bitwise_and_expression ( '^' e= bitwise_and_expression )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(67, 5);
-			PushFollow(Follow._bitwise_and_expression_in_bitwise_xor_expression308);
+			DebugLocation(68, 5);
+			PushFollow(Follow._bitwise_and_expression_in_bitwise_xor_expression319);
 			e=bitwise_and_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(67, 29);
+			DebugLocation(68, 29);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(68, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:68:3: ( '^' e= bitwise_and_expression )*
+			DebugLocation(69, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:69:3: ( '^' e= bitwise_and_expression )*
 			try { DebugEnterSubRule(5);
 			while (true)
 			{
@@ -909,21 +909,21 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:68:5: '^' e= bitwise_and_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:69:5: '^' e= bitwise_and_expression
 					{
-					DebugLocation(68, 5);
-					char_literal8=(CommonToken)Match(input,45,Follow._45_in_bitwise_xor_expression316); if (state.failed) return retval;
+					DebugLocation(69, 5);
+					char_literal8=(CommonToken)Match(input,45,Follow._45_in_bitwise_xor_expression327); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal8_tree = (CommonTree)adaptor.Create(char_literal8);
 					adaptor.AddChild(root_0, char_literal8_tree);
 					}
-					DebugLocation(68, 10);
-					PushFollow(Follow._bitwise_and_expression_in_bitwise_xor_expression320);
+					DebugLocation(69, 10);
+					PushFollow(Follow._bitwise_and_expression_in_bitwise_xor_expression331);
 					e=bitwise_and_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(69, 5);
+					DebugLocation(70, 5);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.Xor); 
@@ -966,7 +966,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 7, bitwise_xor_expression_StartIndex); }
 
 		}
-		DebugLocation(71, 1);
+		DebugLocation(72, 1);
 		} finally { DebugExitRule(GrammarFileName, "bitwise_xor_expression"); }
 		return retval;
 
@@ -983,7 +983,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_bitwise_and_expression();
 	partial void LeaveRule_bitwise_and_expression();
 	// $ANTLR start "bitwise_and_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:73:1: bitwise_and_expression returns [IAstNode value] : e= unary_not_expression ( '&' e= unary_not_expression )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:74:1: bitwise_and_expression returns [IAstNode value] : e= unary_not_expression ( '&' e= unary_not_expression )* ;
 	[GrammarRule("bitwise_and_expression")]
 	private CsharpParser.bitwise_and_expression_return bitwise_and_expression()
 	{
@@ -1001,30 +1001,30 @@ namespace  Expressions.Csharp
 
 		CommonTree char_literal9_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "bitwise_and_expression");
-		DebugLocation(73, 1);
+		DebugLocation(74, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 8)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:74:2: (e= unary_not_expression ( '&' e= unary_not_expression )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:75:2: (e= unary_not_expression ( '&' e= unary_not_expression )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:74:4: e= unary_not_expression ( '&' e= unary_not_expression )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:75:4: e= unary_not_expression ( '&' e= unary_not_expression )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(74, 5);
-			PushFollow(Follow._unary_not_expression_in_bitwise_and_expression350);
+			DebugLocation(75, 5);
+			PushFollow(Follow._unary_not_expression_in_bitwise_and_expression361);
 			e=unary_not_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(74, 27);
+			DebugLocation(75, 27);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(75, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:75:3: ( '&' e= unary_not_expression )*
+			DebugLocation(76, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:76:3: ( '&' e= unary_not_expression )*
 			try { DebugEnterSubRule(6);
 			while (true)
 			{
@@ -1043,21 +1043,21 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:75:5: '&' e= unary_not_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:76:5: '&' e= unary_not_expression
 					{
-					DebugLocation(75, 5);
-					char_literal9=(CommonToken)Match(input,26,Follow._26_in_bitwise_and_expression358); if (state.failed) return retval;
+					DebugLocation(76, 5);
+					char_literal9=(CommonToken)Match(input,26,Follow._26_in_bitwise_and_expression369); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal9_tree = (CommonTree)adaptor.Create(char_literal9);
 					adaptor.AddChild(root_0, char_literal9_tree);
 					}
-					DebugLocation(75, 10);
-					PushFollow(Follow._unary_not_expression_in_bitwise_and_expression362);
+					DebugLocation(76, 10);
+					PushFollow(Follow._unary_not_expression_in_bitwise_and_expression373);
 					e=unary_not_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(76, 5);
+					DebugLocation(77, 5);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.BitwiseAnd); 
@@ -1100,7 +1100,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 8, bitwise_and_expression_StartIndex); }
 
 		}
-		DebugLocation(78, 1);
+		DebugLocation(79, 1);
 		} finally { DebugExitRule(GrammarFileName, "bitwise_and_expression"); }
 		return retval;
 
@@ -1117,7 +1117,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_unary_not_expression();
 	partial void LeaveRule_unary_not_expression();
 	// $ANTLR start "unary_not_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:80:1: unary_not_expression returns [IAstNode value] : (e= equality_expression | '!' u= unary_not_expression | '~' u= unary_not_expression );
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:81:1: unary_not_expression returns [IAstNode value] : (e= equality_expression | '!' u= unary_not_expression | '~' u= unary_not_expression );
 	[GrammarRule("unary_not_expression")]
 	private CsharpParser.unary_not_expression_return unary_not_expression()
 	{
@@ -1138,12 +1138,12 @@ namespace  Expressions.Csharp
 		CommonTree char_literal10_tree = default(CommonTree);
 		CommonTree char_literal11_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "unary_not_expression");
-		DebugLocation(80, 1);
+		DebugLocation(81, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 9)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:81:2: (e= equality_expression | '!' u= unary_not_expression | '~' u= unary_not_expression )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:82:2: (e= equality_expression | '!' u= unary_not_expression | '~' u= unary_not_expression )
 			int alt7=3;
 			try { DebugEnterDecision(7, false);
 			switch (input.LA(1))
@@ -1190,17 +1190,17 @@ namespace  Expressions.Csharp
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:81:4: e= equality_expression
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:82:4: e= equality_expression
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(81, 5);
-				PushFollow(Follow._equality_expression_in_unary_not_expression390);
+				DebugLocation(82, 5);
+				PushFollow(Follow._equality_expression_in_unary_not_expression401);
 				e=equality_expression();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-				DebugLocation(81, 26);
+				DebugLocation(82, 26);
 				if (state.backtracking == 0)
 				{
 					 retval.value = (e!=null?e.value:default(IAstNode)); 
@@ -1210,23 +1210,23 @@ namespace  Expressions.Csharp
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:82:4: '!' u= unary_not_expression
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:83:4: '!' u= unary_not_expression
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(82, 4);
-				char_literal10=(CommonToken)Match(input,22,Follow._22_in_unary_not_expression397); if (state.failed) return retval;
+				DebugLocation(83, 4);
+				char_literal10=(CommonToken)Match(input,22,Follow._22_in_unary_not_expression408); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				char_literal10_tree = (CommonTree)adaptor.Create(char_literal10);
 				adaptor.AddChild(root_0, char_literal10_tree);
 				}
-				DebugLocation(82, 9);
-				PushFollow(Follow._unary_not_expression_in_unary_not_expression401);
+				DebugLocation(83, 9);
+				PushFollow(Follow._unary_not_expression_in_unary_not_expression412);
 				u=unary_not_expression();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, u.Tree);
-				DebugLocation(82, 31);
+				DebugLocation(83, 31);
 				if (state.backtracking == 0)
 				{
 					 retval.value = new UnaryExpression((u!=null?u.value:default(IAstNode)), ExpressionType.LogicalNot); 
@@ -1236,23 +1236,23 @@ namespace  Expressions.Csharp
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:83:4: '~' u= unary_not_expression
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:84:4: '~' u= unary_not_expression
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(83, 4);
-				char_literal11=(CommonToken)Match(input,51,Follow._51_in_unary_not_expression408); if (state.failed) return retval;
+				DebugLocation(84, 4);
+				char_literal11=(CommonToken)Match(input,51,Follow._51_in_unary_not_expression419); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				char_literal11_tree = (CommonTree)adaptor.Create(char_literal11);
 				adaptor.AddChild(root_0, char_literal11_tree);
 				}
-				DebugLocation(83, 9);
-				PushFollow(Follow._unary_not_expression_in_unary_not_expression412);
+				DebugLocation(84, 9);
+				PushFollow(Follow._unary_not_expression_in_unary_not_expression423);
 				u=unary_not_expression();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, u.Tree);
-				DebugLocation(83, 31);
+				DebugLocation(84, 31);
 				if (state.backtracking == 0)
 				{
 					 retval.value = new UnaryExpression((u!=null?u.value:default(IAstNode)), ExpressionType.BitwiseNot); 
@@ -1283,7 +1283,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 9, unary_not_expression_StartIndex); }
 
 		}
-		DebugLocation(84, 1);
+		DebugLocation(85, 1);
 		} finally { DebugExitRule(GrammarFileName, "unary_not_expression"); }
 		return retval;
 
@@ -1300,7 +1300,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_equality_expression();
 	partial void LeaveRule_equality_expression();
 	// $ANTLR start "equality_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:86:1: equality_expression returns [IAstNode value] : e= relational_expression ( ( '==' e= relational_expression | '!=' e= relational_expression ) )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:87:1: equality_expression returns [IAstNode value] : e= relational_expression ( ( '==' e= relational_expression | '!=' e= relational_expression ) )* ;
 	[GrammarRule("equality_expression")]
 	private CsharpParser.equality_expression_return equality_expression()
 	{
@@ -1320,30 +1320,30 @@ namespace  Expressions.Csharp
 		CommonTree string_literal12_tree = default(CommonTree);
 		CommonTree string_literal13_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "equality_expression");
-		DebugLocation(86, 1);
+		DebugLocation(87, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 10)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:87:2: (e= relational_expression ( ( '==' e= relational_expression | '!=' e= relational_expression ) )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:88:2: (e= relational_expression ( ( '==' e= relational_expression | '!=' e= relational_expression ) )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:87:4: e= relational_expression ( ( '==' e= relational_expression | '!=' e= relational_expression ) )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:88:4: e= relational_expression ( ( '==' e= relational_expression | '!=' e= relational_expression ) )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(87, 5);
-			PushFollow(Follow._relational_expression_in_equality_expression431);
+			DebugLocation(88, 5);
+			PushFollow(Follow._relational_expression_in_equality_expression442);
 			e=relational_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(87, 28);
+			DebugLocation(88, 28);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(88, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:88:3: ( ( '==' e= relational_expression | '!=' e= relational_expression ) )*
+			DebugLocation(89, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:89:3: ( ( '==' e= relational_expression | '!=' e= relational_expression ) )*
 			try { DebugEnterSubRule(9);
 			while (true)
 			{
@@ -1362,10 +1362,10 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:89:4: ( '==' e= relational_expression | '!=' e= relational_expression )
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:90:4: ( '==' e= relational_expression | '!=' e= relational_expression )
 					{
-					DebugLocation(89, 4);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:89:4: ( '==' e= relational_expression | '!=' e= relational_expression )
+					DebugLocation(90, 4);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:90:4: ( '==' e= relational_expression | '!=' e= relational_expression )
 					int alt8=2;
 					try { DebugEnterSubRule(8);
 					try { DebugEnterDecision(8, false);
@@ -1391,21 +1391,21 @@ namespace  Expressions.Csharp
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:89:6: '==' e= relational_expression
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:90:6: '==' e= relational_expression
 						{
-						DebugLocation(89, 6);
-						string_literal12=(CommonToken)Match(input,38,Follow._38_in_equality_expression444); if (state.failed) return retval;
+						DebugLocation(90, 6);
+						string_literal12=(CommonToken)Match(input,38,Follow._38_in_equality_expression455); if (state.failed) return retval;
 						if (state.backtracking == 0) {
 						string_literal12_tree = (CommonTree)adaptor.Create(string_literal12);
 						adaptor.AddChild(root_0, string_literal12_tree);
 						}
-						DebugLocation(89, 12);
-						PushFollow(Follow._relational_expression_in_equality_expression448);
+						DebugLocation(90, 12);
+						PushFollow(Follow._relational_expression_in_equality_expression459);
 						e=relational_expression();
 						PopFollow();
 						if (state.failed) return retval;
 						if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-						DebugLocation(89, 35);
+						DebugLocation(90, 35);
 						if (state.backtracking == 0)
 						{
 							 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.Equals); 
@@ -1415,21 +1415,21 @@ namespace  Expressions.Csharp
 						break;
 					case 2:
 						DebugEnterAlt(2);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:90:6: '!=' e= relational_expression
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:91:6: '!=' e= relational_expression
 						{
-						DebugLocation(90, 6);
-						string_literal13=(CommonToken)Match(input,23,Follow._23_in_equality_expression457); if (state.failed) return retval;
+						DebugLocation(91, 6);
+						string_literal13=(CommonToken)Match(input,23,Follow._23_in_equality_expression468); if (state.failed) return retval;
 						if (state.backtracking == 0) {
 						string_literal13_tree = (CommonTree)adaptor.Create(string_literal13);
 						adaptor.AddChild(root_0, string_literal13_tree);
 						}
-						DebugLocation(90, 12);
-						PushFollow(Follow._relational_expression_in_equality_expression461);
+						DebugLocation(91, 12);
+						PushFollow(Follow._relational_expression_in_equality_expression472);
 						e=relational_expression();
 						PopFollow();
 						if (state.failed) return retval;
 						if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-						DebugLocation(90, 35);
+						DebugLocation(91, 35);
 						if (state.backtracking == 0)
 						{
 							 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.NotEquals); 
@@ -1479,7 +1479,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 10, equality_expression_StartIndex); }
 
 		}
-		DebugLocation(93, 1);
+		DebugLocation(94, 1);
 		} finally { DebugExitRule(GrammarFileName, "equality_expression"); }
 		return retval;
 
@@ -1496,7 +1496,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_relational_expression();
 	partial void LeaveRule_relational_expression();
 	// $ANTLR start "relational_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:95:1: relational_expression returns [IAstNode value] : e= shift_expression ( ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression ) )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:96:1: relational_expression returns [IAstNode value] : e= shift_expression ( ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression ) )* ;
 	[GrammarRule("relational_expression")]
 	private CsharpParser.relational_expression_return relational_expression()
 	{
@@ -1520,30 +1520,30 @@ namespace  Expressions.Csharp
 		CommonTree string_literal16_tree = default(CommonTree);
 		CommonTree string_literal17_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "relational_expression");
-		DebugLocation(95, 1);
+		DebugLocation(96, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 11)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:96:2: (e= shift_expression ( ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression ) )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:97:2: (e= shift_expression ( ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression ) )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:96:4: e= shift_expression ( ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression ) )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:97:4: e= shift_expression ( ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression ) )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(96, 5);
-			PushFollow(Follow._shift_expression_in_relational_expression490);
+			DebugLocation(97, 5);
+			PushFollow(Follow._shift_expression_in_relational_expression501);
 			e=shift_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(96, 23);
+			DebugLocation(97, 23);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(97, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:97:3: ( ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression ) )*
+			DebugLocation(98, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:98:3: ( ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression ) )*
 			try { DebugEnterSubRule(11);
 			while (true)
 			{
@@ -1562,10 +1562,10 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:98:4: ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression )
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:99:4: ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression )
 					{
-					DebugLocation(98, 4);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:98:4: ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression )
+					DebugLocation(99, 4);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:99:4: ( '<' e= shift_expression | '>' e= shift_expression | '<=' e= shift_expression | '>=' e= shift_expression )
 					int alt10=4;
 					try { DebugEnterSubRule(10);
 					try { DebugEnterDecision(10, false);
@@ -1605,21 +1605,21 @@ namespace  Expressions.Csharp
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:98:6: '<' e= shift_expression
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:99:6: '<' e= shift_expression
 						{
-						DebugLocation(98, 6);
-						char_literal14=(CommonToken)Match(input,35,Follow._35_in_relational_expression503); if (state.failed) return retval;
+						DebugLocation(99, 6);
+						char_literal14=(CommonToken)Match(input,35,Follow._35_in_relational_expression514); if (state.failed) return retval;
 						if (state.backtracking == 0) {
 						char_literal14_tree = (CommonTree)adaptor.Create(char_literal14);
 						adaptor.AddChild(root_0, char_literal14_tree);
 						}
-						DebugLocation(98, 11);
-						PushFollow(Follow._shift_expression_in_relational_expression507);
+						DebugLocation(99, 11);
+						PushFollow(Follow._shift_expression_in_relational_expression518);
 						e=shift_expression();
 						PopFollow();
 						if (state.failed) return retval;
 						if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-						DebugLocation(98, 29);
+						DebugLocation(99, 29);
 						if (state.backtracking == 0)
 						{
 							 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.Less); 
@@ -1629,21 +1629,21 @@ namespace  Expressions.Csharp
 						break;
 					case 2:
 						DebugEnterAlt(2);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:99:6: '>' e= shift_expression
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:100:6: '>' e= shift_expression
 						{
-						DebugLocation(99, 6);
-						char_literal15=(CommonToken)Match(input,39,Follow._39_in_relational_expression516); if (state.failed) return retval;
+						DebugLocation(100, 6);
+						char_literal15=(CommonToken)Match(input,39,Follow._39_in_relational_expression527); if (state.failed) return retval;
 						if (state.backtracking == 0) {
 						char_literal15_tree = (CommonTree)adaptor.Create(char_literal15);
 						adaptor.AddChild(root_0, char_literal15_tree);
 						}
-						DebugLocation(99, 11);
-						PushFollow(Follow._shift_expression_in_relational_expression520);
+						DebugLocation(100, 11);
+						PushFollow(Follow._shift_expression_in_relational_expression531);
 						e=shift_expression();
 						PopFollow();
 						if (state.failed) return retval;
 						if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-						DebugLocation(99, 29);
+						DebugLocation(100, 29);
 						if (state.backtracking == 0)
 						{
 							 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.Greater); 
@@ -1653,21 +1653,21 @@ namespace  Expressions.Csharp
 						break;
 					case 3:
 						DebugEnterAlt(3);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:100:6: '<=' e= shift_expression
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:101:6: '<=' e= shift_expression
 						{
-						DebugLocation(100, 6);
-						string_literal16=(CommonToken)Match(input,37,Follow._37_in_relational_expression529); if (state.failed) return retval;
+						DebugLocation(101, 6);
+						string_literal16=(CommonToken)Match(input,37,Follow._37_in_relational_expression540); if (state.failed) return retval;
 						if (state.backtracking == 0) {
 						string_literal16_tree = (CommonTree)adaptor.Create(string_literal16);
 						adaptor.AddChild(root_0, string_literal16_tree);
 						}
-						DebugLocation(100, 12);
-						PushFollow(Follow._shift_expression_in_relational_expression533);
+						DebugLocation(101, 12);
+						PushFollow(Follow._shift_expression_in_relational_expression544);
 						e=shift_expression();
 						PopFollow();
 						if (state.failed) return retval;
 						if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-						DebugLocation(100, 30);
+						DebugLocation(101, 30);
 						if (state.backtracking == 0)
 						{
 							 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.LessOrEquals); 
@@ -1677,21 +1677,21 @@ namespace  Expressions.Csharp
 						break;
 					case 4:
 						DebugEnterAlt(4);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:101:6: '>=' e= shift_expression
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:102:6: '>=' e= shift_expression
 						{
-						DebugLocation(101, 6);
-						string_literal17=(CommonToken)Match(input,40,Follow._40_in_relational_expression542); if (state.failed) return retval;
+						DebugLocation(102, 6);
+						string_literal17=(CommonToken)Match(input,40,Follow._40_in_relational_expression553); if (state.failed) return retval;
 						if (state.backtracking == 0) {
 						string_literal17_tree = (CommonTree)adaptor.Create(string_literal17);
 						adaptor.AddChild(root_0, string_literal17_tree);
 						}
-						DebugLocation(101, 12);
-						PushFollow(Follow._shift_expression_in_relational_expression546);
+						DebugLocation(102, 12);
+						PushFollow(Follow._shift_expression_in_relational_expression557);
 						e=shift_expression();
 						PopFollow();
 						if (state.failed) return retval;
 						if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-						DebugLocation(101, 30);
+						DebugLocation(102, 30);
 						if (state.backtracking == 0)
 						{
 							 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.GreaterOrEquals); 
@@ -1741,7 +1741,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 11, relational_expression_StartIndex); }
 
 		}
-		DebugLocation(104, 1);
+		DebugLocation(105, 1);
 		} finally { DebugExitRule(GrammarFileName, "relational_expression"); }
 		return retval;
 
@@ -1758,7 +1758,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_shift_expression();
 	partial void LeaveRule_shift_expression();
 	// $ANTLR start "shift_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:106:1: shift_expression returns [IAstNode value] : e= additive_expression ( ( '<<' e= additive_expression | '>>' e= additive_expression ) )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:107:1: shift_expression returns [IAstNode value] : e= additive_expression ( ( '<<' e= additive_expression | '>>' e= additive_expression ) )* ;
 	[GrammarRule("shift_expression")]
 	private CsharpParser.shift_expression_return shift_expression()
 	{
@@ -1778,30 +1778,30 @@ namespace  Expressions.Csharp
 		CommonTree string_literal18_tree = default(CommonTree);
 		CommonTree string_literal19_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "shift_expression");
-		DebugLocation(106, 1);
+		DebugLocation(107, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 12)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:107:2: (e= additive_expression ( ( '<<' e= additive_expression | '>>' e= additive_expression ) )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:108:2: (e= additive_expression ( ( '<<' e= additive_expression | '>>' e= additive_expression ) )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:107:4: e= additive_expression ( ( '<<' e= additive_expression | '>>' e= additive_expression ) )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:108:4: e= additive_expression ( ( '<<' e= additive_expression | '>>' e= additive_expression ) )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(107, 5);
-			PushFollow(Follow._additive_expression_in_shift_expression575);
+			DebugLocation(108, 5);
+			PushFollow(Follow._additive_expression_in_shift_expression586);
 			e=additive_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(107, 26);
+			DebugLocation(108, 26);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(108, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:108:3: ( ( '<<' e= additive_expression | '>>' e= additive_expression ) )*
+			DebugLocation(109, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:109:3: ( ( '<<' e= additive_expression | '>>' e= additive_expression ) )*
 			try { DebugEnterSubRule(13);
 			while (true)
 			{
@@ -1820,10 +1820,10 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:109:4: ( '<<' e= additive_expression | '>>' e= additive_expression )
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:110:4: ( '<<' e= additive_expression | '>>' e= additive_expression )
 					{
-					DebugLocation(109, 4);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:109:4: ( '<<' e= additive_expression | '>>' e= additive_expression )
+					DebugLocation(110, 4);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:110:4: ( '<<' e= additive_expression | '>>' e= additive_expression )
 					int alt12=2;
 					try { DebugEnterSubRule(12);
 					try { DebugEnterDecision(12, false);
@@ -1849,21 +1849,21 @@ namespace  Expressions.Csharp
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:109:6: '<<' e= additive_expression
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:110:6: '<<' e= additive_expression
 						{
-						DebugLocation(109, 6);
-						string_literal18=(CommonToken)Match(input,36,Follow._36_in_shift_expression588); if (state.failed) return retval;
+						DebugLocation(110, 6);
+						string_literal18=(CommonToken)Match(input,36,Follow._36_in_shift_expression599); if (state.failed) return retval;
 						if (state.backtracking == 0) {
 						string_literal18_tree = (CommonTree)adaptor.Create(string_literal18);
 						adaptor.AddChild(root_0, string_literal18_tree);
 						}
-						DebugLocation(109, 12);
-						PushFollow(Follow._additive_expression_in_shift_expression592);
+						DebugLocation(110, 12);
+						PushFollow(Follow._additive_expression_in_shift_expression603);
 						e=additive_expression();
 						PopFollow();
 						if (state.failed) return retval;
 						if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-						DebugLocation(109, 33);
+						DebugLocation(110, 33);
 						if (state.backtracking == 0)
 						{
 							 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.ShiftLeft); 
@@ -1873,21 +1873,21 @@ namespace  Expressions.Csharp
 						break;
 					case 2:
 						DebugEnterAlt(2);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:110:6: '>>' e= additive_expression
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:111:6: '>>' e= additive_expression
 						{
-						DebugLocation(110, 6);
-						string_literal19=(CommonToken)Match(input,41,Follow._41_in_shift_expression601); if (state.failed) return retval;
+						DebugLocation(111, 6);
+						string_literal19=(CommonToken)Match(input,41,Follow._41_in_shift_expression612); if (state.failed) return retval;
 						if (state.backtracking == 0) {
 						string_literal19_tree = (CommonTree)adaptor.Create(string_literal19);
 						adaptor.AddChild(root_0, string_literal19_tree);
 						}
-						DebugLocation(110, 12);
-						PushFollow(Follow._additive_expression_in_shift_expression605);
+						DebugLocation(111, 12);
+						PushFollow(Follow._additive_expression_in_shift_expression616);
 						e=additive_expression();
 						PopFollow();
 						if (state.failed) return retval;
 						if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-						DebugLocation(110, 33);
+						DebugLocation(111, 33);
 						if (state.backtracking == 0)
 						{
 							 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.ShiftRight); 
@@ -1937,7 +1937,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 12, shift_expression_StartIndex); }
 
 		}
-		DebugLocation(113, 1);
+		DebugLocation(114, 1);
 		} finally { DebugExitRule(GrammarFileName, "shift_expression"); }
 		return retval;
 
@@ -1954,7 +1954,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_additive_expression();
 	partial void LeaveRule_additive_expression();
 	// $ANTLR start "additive_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:115:1: additive_expression returns [IAstNode value] : e= multiplicative_expression ( '+' e= multiplicative_expression | '-' e= multiplicative_expression )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:116:1: additive_expression returns [IAstNode value] : e= multiplicative_expression ( '+' e= multiplicative_expression | '-' e= multiplicative_expression )* ;
 	[GrammarRule("additive_expression")]
 	private CsharpParser.additive_expression_return additive_expression()
 	{
@@ -1974,30 +1974,30 @@ namespace  Expressions.Csharp
 		CommonTree char_literal20_tree = default(CommonTree);
 		CommonTree char_literal21_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "additive_expression");
-		DebugLocation(115, 1);
+		DebugLocation(116, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 13)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:116:2: (e= multiplicative_expression ( '+' e= multiplicative_expression | '-' e= multiplicative_expression )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:117:2: (e= multiplicative_expression ( '+' e= multiplicative_expression | '-' e= multiplicative_expression )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:116:4: e= multiplicative_expression ( '+' e= multiplicative_expression | '-' e= multiplicative_expression )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:117:4: e= multiplicative_expression ( '+' e= multiplicative_expression | '-' e= multiplicative_expression )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(116, 5);
-			PushFollow(Follow._multiplicative_expression_in_additive_expression634);
+			DebugLocation(117, 5);
+			PushFollow(Follow._multiplicative_expression_in_additive_expression645);
 			e=multiplicative_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(116, 32);
+			DebugLocation(117, 32);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(117, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:117:3: ( '+' e= multiplicative_expression | '-' e= multiplicative_expression )*
+			DebugLocation(118, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:118:3: ( '+' e= multiplicative_expression | '-' e= multiplicative_expression )*
 			try { DebugEnterSubRule(14);
 			while (true)
 			{
@@ -2020,21 +2020,21 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:117:5: '+' e= multiplicative_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:118:5: '+' e= multiplicative_expression
 					{
-					DebugLocation(117, 5);
-					char_literal20=(CommonToken)Match(input,30,Follow._30_in_additive_expression642); if (state.failed) return retval;
+					DebugLocation(118, 5);
+					char_literal20=(CommonToken)Match(input,30,Follow._30_in_additive_expression653); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal20_tree = (CommonTree)adaptor.Create(char_literal20);
 					adaptor.AddChild(root_0, char_literal20_tree);
 					}
-					DebugLocation(117, 10);
-					PushFollow(Follow._multiplicative_expression_in_additive_expression646);
+					DebugLocation(118, 10);
+					PushFollow(Follow._multiplicative_expression_in_additive_expression657);
 					e=multiplicative_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(117, 37);
+					DebugLocation(118, 37);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.Add); 
@@ -2044,21 +2044,21 @@ namespace  Expressions.Csharp
 					break;
 				case 2:
 					DebugEnterAlt(2);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:118:5: '-' e= multiplicative_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:119:5: '-' e= multiplicative_expression
 					{
-					DebugLocation(118, 5);
-					char_literal21=(CommonToken)Match(input,32,Follow._32_in_additive_expression654); if (state.failed) return retval;
+					DebugLocation(119, 5);
+					char_literal21=(CommonToken)Match(input,32,Follow._32_in_additive_expression665); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal21_tree = (CommonTree)adaptor.Create(char_literal21);
 					adaptor.AddChild(root_0, char_literal21_tree);
 					}
-					DebugLocation(118, 10);
-					PushFollow(Follow._multiplicative_expression_in_additive_expression658);
+					DebugLocation(119, 10);
+					PushFollow(Follow._multiplicative_expression_in_additive_expression669);
 					e=multiplicative_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(118, 37);
+					DebugLocation(119, 37);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.Subtract); 
@@ -2101,7 +2101,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 13, additive_expression_StartIndex); }
 
 		}
-		DebugLocation(120, 1);
+		DebugLocation(121, 1);
 		} finally { DebugExitRule(GrammarFileName, "additive_expression"); }
 		return retval;
 
@@ -2118,7 +2118,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_multiplicative_expression();
 	partial void LeaveRule_multiplicative_expression();
 	// $ANTLR start "multiplicative_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:122:1: multiplicative_expression returns [IAstNode value] : e= cast_expression ( '*' e= cast_expression | '/' e= cast_expression | '%' e= cast_expression )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:123:1: multiplicative_expression returns [IAstNode value] : e= cast_expression ( '*' e= cast_expression | '/' e= cast_expression | '%' e= cast_expression )* ;
 	[GrammarRule("multiplicative_expression")]
 	private CsharpParser.multiplicative_expression_return multiplicative_expression()
 	{
@@ -2140,30 +2140,30 @@ namespace  Expressions.Csharp
 		CommonTree char_literal23_tree = default(CommonTree);
 		CommonTree char_literal24_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "multiplicative_expression");
-		DebugLocation(122, 1);
+		DebugLocation(123, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 14)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:123:2: (e= cast_expression ( '*' e= cast_expression | '/' e= cast_expression | '%' e= cast_expression )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:124:2: (e= cast_expression ( '*' e= cast_expression | '/' e= cast_expression | '%' e= cast_expression )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:123:4: e= cast_expression ( '*' e= cast_expression | '/' e= cast_expression | '%' e= cast_expression )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:124:4: e= cast_expression ( '*' e= cast_expression | '/' e= cast_expression | '%' e= cast_expression )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(123, 5);
-			PushFollow(Follow._cast_expression_in_multiplicative_expression682);
+			DebugLocation(124, 5);
+			PushFollow(Follow._cast_expression_in_multiplicative_expression693);
 			e=cast_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(123, 22);
+			DebugLocation(124, 22);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.value:default(IAstNode)); 
 			}
-			DebugLocation(124, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:124:3: ( '*' e= cast_expression | '/' e= cast_expression | '%' e= cast_expression )*
+			DebugLocation(125, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:125:3: ( '*' e= cast_expression | '/' e= cast_expression | '%' e= cast_expression )*
 			try { DebugEnterSubRule(15);
 			while (true)
 			{
@@ -2193,21 +2193,21 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:124:5: '*' e= cast_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:125:5: '*' e= cast_expression
 					{
-					DebugLocation(124, 5);
-					char_literal22=(CommonToken)Match(input,29,Follow._29_in_multiplicative_expression690); if (state.failed) return retval;
+					DebugLocation(125, 5);
+					char_literal22=(CommonToken)Match(input,29,Follow._29_in_multiplicative_expression701); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal22_tree = (CommonTree)adaptor.Create(char_literal22);
 					adaptor.AddChild(root_0, char_literal22_tree);
 					}
-					DebugLocation(124, 10);
-					PushFollow(Follow._cast_expression_in_multiplicative_expression694);
+					DebugLocation(125, 10);
+					PushFollow(Follow._cast_expression_in_multiplicative_expression705);
 					e=cast_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(124, 27);
+					DebugLocation(125, 27);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.Multiply); 
@@ -2217,21 +2217,21 @@ namespace  Expressions.Csharp
 					break;
 				case 2:
 					DebugEnterAlt(2);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:125:5: '/' e= cast_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:126:5: '/' e= cast_expression
 					{
-					DebugLocation(125, 5);
-					char_literal23=(CommonToken)Match(input,33,Follow._33_in_multiplicative_expression702); if (state.failed) return retval;
+					DebugLocation(126, 5);
+					char_literal23=(CommonToken)Match(input,33,Follow._33_in_multiplicative_expression713); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal23_tree = (CommonTree)adaptor.Create(char_literal23);
 					adaptor.AddChild(root_0, char_literal23_tree);
 					}
-					DebugLocation(125, 10);
-					PushFollow(Follow._cast_expression_in_multiplicative_expression706);
+					DebugLocation(126, 10);
+					PushFollow(Follow._cast_expression_in_multiplicative_expression717);
 					e=cast_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(125, 27);
+					DebugLocation(126, 27);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.Divide); 
@@ -2241,21 +2241,21 @@ namespace  Expressions.Csharp
 					break;
 				case 3:
 					DebugEnterAlt(3);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:126:5: '%' e= cast_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:127:5: '%' e= cast_expression
 					{
-					DebugLocation(126, 5);
-					char_literal24=(CommonToken)Match(input,24,Follow._24_in_multiplicative_expression714); if (state.failed) return retval;
+					DebugLocation(127, 5);
+					char_literal24=(CommonToken)Match(input,24,Follow._24_in_multiplicative_expression725); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal24_tree = (CommonTree)adaptor.Create(char_literal24);
 					adaptor.AddChild(root_0, char_literal24_tree);
 					}
-					DebugLocation(126, 10);
-					PushFollow(Follow._cast_expression_in_multiplicative_expression718);
+					DebugLocation(127, 10);
+					PushFollow(Follow._cast_expression_in_multiplicative_expression729);
 					e=cast_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(126, 27);
+					DebugLocation(127, 27);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new BinaryExpression(retval.value, (e!=null?e.value:default(IAstNode)), ExpressionType.Modulo); 
@@ -2298,7 +2298,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 14, multiplicative_expression_StartIndex); }
 
 		}
-		DebugLocation(128, 1);
+		DebugLocation(129, 1);
 		} finally { DebugExitRule(GrammarFileName, "multiplicative_expression"); }
 		return retval;
 
@@ -2315,7 +2315,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_cast_expression();
 	partial void LeaveRule_cast_expression();
 	// $ANTLR start "cast_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:130:1: cast_expression returns [IAstNode value] : ( '(' t= type_expression ')' e= cast_expression |u= unary_expression );
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:131:1: cast_expression returns [IAstNode value] : ( '(' t= type_expression ')' e= cast_expression |u= unary_expression );
 	[GrammarRule("cast_expression")]
 	private CsharpParser.cast_expression_return cast_expression()
 	{
@@ -2337,12 +2337,12 @@ namespace  Expressions.Csharp
 		CommonTree char_literal25_tree = default(CommonTree);
 		CommonTree char_literal26_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "cast_expression");
-		DebugLocation(130, 1);
+		DebugLocation(131, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 15)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:131:2: ( '(' t= type_expression ')' e= cast_expression |u= unary_expression )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:132:2: ( '(' t= type_expression ')' e= cast_expression |u= unary_expression )
 			int alt16=2;
 			try { DebugEnterDecision(16, false);
 			int LA16_1 = input.LA(1);
@@ -2399,35 +2399,35 @@ namespace  Expressions.Csharp
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:131:4: '(' t= type_expression ')' e= cast_expression
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:132:4: '(' t= type_expression ')' e= cast_expression
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(131, 4);
-				char_literal25=(CommonToken)Match(input,27,Follow._27_in_cast_expression740); if (state.failed) return retval;
+				DebugLocation(132, 4);
+				char_literal25=(CommonToken)Match(input,27,Follow._27_in_cast_expression751); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				char_literal25_tree = (CommonTree)adaptor.Create(char_literal25);
 				adaptor.AddChild(root_0, char_literal25_tree);
 				}
-				DebugLocation(131, 9);
-				PushFollow(Follow._type_expression_in_cast_expression744);
+				DebugLocation(132, 9);
+				PushFollow(Follow._type_expression_in_cast_expression755);
 				t=type_expression();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, t.Tree);
-				DebugLocation(131, 26);
-				char_literal26=(CommonToken)Match(input,28,Follow._28_in_cast_expression746); if (state.failed) return retval;
+				DebugLocation(132, 26);
+				char_literal26=(CommonToken)Match(input,28,Follow._28_in_cast_expression757); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				char_literal26_tree = (CommonTree)adaptor.Create(char_literal26);
 				adaptor.AddChild(root_0, char_literal26_tree);
 				}
-				DebugLocation(131, 31);
-				PushFollow(Follow._cast_expression_in_cast_expression750);
+				DebugLocation(132, 31);
+				PushFollow(Follow._cast_expression_in_cast_expression761);
 				e=cast_expression();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-				DebugLocation(131, 48);
+				DebugLocation(132, 48);
 				if (state.backtracking == 0)
 				{
 					 retval.value = new Cast((e!=null?e.value:default(IAstNode)), (t!=null?t.value:default(TypeIdentifier))); 
@@ -2437,17 +2437,17 @@ namespace  Expressions.Csharp
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:132:4: u= unary_expression
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:133:4: u= unary_expression
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(132, 5);
-				PushFollow(Follow._unary_expression_in_cast_expression759);
+				DebugLocation(133, 5);
+				PushFollow(Follow._unary_expression_in_cast_expression770);
 				u=unary_expression();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, u.Tree);
-				DebugLocation(132, 23);
+				DebugLocation(133, 23);
 				if (state.backtracking == 0)
 				{
 					 retval.value = (u!=null?u.value:default(IAstNode)); 
@@ -2478,7 +2478,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 15, cast_expression_StartIndex); }
 
 		}
-		DebugLocation(133, 1);
+		DebugLocation(134, 1);
 		} finally { DebugExitRule(GrammarFileName, "cast_expression"); }
 		return retval;
 
@@ -2495,7 +2495,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_type_expression();
 	partial void LeaveRule_type_expression();
 	// $ANTLR start "type_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:135:1: type_expression returns [TypeIdentifier value] : e= type_identifier ( '[' ( ',' )* ']' )? ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:136:1: type_expression returns [TypeIdentifier value] : e= type_identifier ( '[' ( ',' )* ']' )? ;
 	[GrammarRule("type_expression")]
 	private CsharpParser.type_expression_return type_expression()
 	{
@@ -2517,30 +2517,30 @@ namespace  Expressions.Csharp
 		CommonTree char_literal28_tree = default(CommonTree);
 		CommonTree char_literal29_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "type_expression");
-		DebugLocation(135, 1);
+		DebugLocation(136, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 16)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:136:2: (e= type_identifier ( '[' ( ',' )* ']' )? )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:137:2: (e= type_identifier ( '[' ( ',' )* ']' )? )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:136:4: e= type_identifier ( '[' ( ',' )* ']' )?
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:137:4: e= type_identifier ( '[' ( ',' )* ']' )?
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(136, 5);
-			PushFollow(Follow._type_identifier_in_type_expression778);
+			DebugLocation(137, 5);
+			PushFollow(Follow._type_identifier_in_type_expression789);
 			e=type_identifier();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(136, 22);
+			DebugLocation(137, 22);
 			if (state.backtracking == 0)
 			{
 				 retval.value = new TypeIdentifier((e!=null?e.value:default(string)), 0); 
 			}
-			DebugLocation(137, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:137:3: ( '[' ( ',' )* ']' )?
+			DebugLocation(138, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:138:3: ( '[' ( ',' )* ']' )?
 			int alt18=2;
 			try { DebugEnterSubRule(18);
 			try { DebugEnterDecision(18, false);
@@ -2555,21 +2555,21 @@ namespace  Expressions.Csharp
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:138:4: '[' ( ',' )* ']'
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:139:4: '[' ( ',' )* ']'
 				{
-				DebugLocation(138, 4);
-				char_literal27=(CommonToken)Match(input,43,Follow._43_in_type_expression789); if (state.failed) return retval;
+				DebugLocation(139, 4);
+				char_literal27=(CommonToken)Match(input,43,Follow._43_in_type_expression800); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				char_literal27_tree = (CommonTree)adaptor.Create(char_literal27);
 				adaptor.AddChild(root_0, char_literal27_tree);
 				}
-				DebugLocation(138, 8);
+				DebugLocation(139, 8);
 				if (state.backtracking == 0)
 				{
 					 retval.value = new TypeIdentifier(retval.value.Name, 1); 
 				}
-				DebugLocation(139, 5);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:139:5: ( ',' )*
+				DebugLocation(140, 5);
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:140:5: ( ',' )*
 				try { DebugEnterSubRule(17);
 				while (true)
 				{
@@ -2588,15 +2588,15 @@ namespace  Expressions.Csharp
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:139:7: ','
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:140:7: ','
 						{
-						DebugLocation(139, 7);
-						char_literal28=(CommonToken)Match(input,31,Follow._31_in_type_expression799); if (state.failed) return retval;
+						DebugLocation(140, 7);
+						char_literal28=(CommonToken)Match(input,31,Follow._31_in_type_expression810); if (state.failed) return retval;
 						if (state.backtracking == 0) {
 						char_literal28_tree = (CommonTree)adaptor.Create(char_literal28);
 						adaptor.AddChild(root_0, char_literal28_tree);
 						}
-						DebugLocation(139, 11);
+						DebugLocation(140, 11);
 						if (state.backtracking == 0)
 						{
 							 retval.value = new TypeIdentifier(retval.value.Name, retval.value.ArrayIndex + 1); 
@@ -2615,8 +2615,8 @@ namespace  Expressions.Csharp
 
 				} finally { DebugExitSubRule(17); }
 
-				DebugLocation(141, 4);
-				char_literal29=(CommonToken)Match(input,44,Follow._44_in_type_expression813); if (state.failed) return retval;
+				DebugLocation(142, 4);
+				char_literal29=(CommonToken)Match(input,44,Follow._44_in_type_expression824); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				char_literal29_tree = (CommonTree)adaptor.Create(char_literal29);
 				adaptor.AddChild(root_0, char_literal29_tree);
@@ -2652,7 +2652,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 16, type_expression_StartIndex); }
 
 		}
-		DebugLocation(143, 1);
+		DebugLocation(144, 1);
 		} finally { DebugExitRule(GrammarFileName, "type_expression"); }
 		return retval;
 
@@ -2669,7 +2669,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_type_identifier();
 	partial void LeaveRule_type_identifier();
 	// $ANTLR start "type_identifier"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:145:1: type_identifier returns [string value] : e= IDENTIFIER ( DOT e= IDENTIFIER )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:146:1: type_identifier returns [string value] : e= IDENTIFIER ( DOT e= IDENTIFIER )* ;
 	[GrammarRule("type_identifier")]
 	private CsharpParser.type_identifier_return type_identifier()
 	{
@@ -2688,30 +2688,30 @@ namespace  Expressions.Csharp
 		CommonTree e_tree = default(CommonTree);
 		CommonTree DOT30_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "type_identifier");
-		DebugLocation(145, 1);
+		DebugLocation(146, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 17)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:146:2: (e= IDENTIFIER ( DOT e= IDENTIFIER )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:147:2: (e= IDENTIFIER ( DOT e= IDENTIFIER )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:146:4: e= IDENTIFIER ( DOT e= IDENTIFIER )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:147:4: e= IDENTIFIER ( DOT e= IDENTIFIER )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(146, 5);
-			e=(CommonToken)Match(input,IDENTIFIER,Follow._IDENTIFIER_in_type_identifier835); if (state.failed) return retval;
+			DebugLocation(147, 5);
+			e=(CommonToken)Match(input,IDENTIFIER,Follow._IDENTIFIER_in_type_identifier846); if (state.failed) return retval;
 			if (state.backtracking == 0) {
 			e_tree = (CommonTree)adaptor.Create(e);
 			adaptor.AddChild(root_0, e_tree);
 			}
-			DebugLocation(146, 17);
+			DebugLocation(147, 17);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (e!=null?e.Text:null); 
 			}
-			DebugLocation(146, 39);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:146:39: ( DOT e= IDENTIFIER )*
+			DebugLocation(147, 39);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:147:39: ( DOT e= IDENTIFIER )*
 			try { DebugEnterSubRule(19);
 			while (true)
 			{
@@ -2730,21 +2730,21 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:146:41: DOT e= IDENTIFIER
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:147:41: DOT e= IDENTIFIER
 					{
-					DebugLocation(146, 41);
-					DOT30=(CommonToken)Match(input,DOT,Follow._DOT_in_type_identifier841); if (state.failed) return retval;
+					DebugLocation(147, 41);
+					DOT30=(CommonToken)Match(input,DOT,Follow._DOT_in_type_identifier852); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					DOT30_tree = (CommonTree)adaptor.Create(DOT30);
 					adaptor.AddChild(root_0, DOT30_tree);
 					}
-					DebugLocation(146, 46);
-					e=(CommonToken)Match(input,IDENTIFIER,Follow._IDENTIFIER_in_type_identifier845); if (state.failed) return retval;
+					DebugLocation(147, 46);
+					e=(CommonToken)Match(input,IDENTIFIER,Follow._IDENTIFIER_in_type_identifier856); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					e_tree = (CommonTree)adaptor.Create(e);
 					adaptor.AddChild(root_0, e_tree);
 					}
-					DebugLocation(146, 58);
+					DebugLocation(147, 58);
 					if (state.backtracking == 0)
 					{
 						 retval.value = retval.value + "." + (e!=null?e.Text:null); 
@@ -2787,7 +2787,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 17, type_identifier_StartIndex); }
 
 		}
-		DebugLocation(147, 1);
+		DebugLocation(148, 1);
 		} finally { DebugExitRule(GrammarFileName, "type_identifier"); }
 		return retval;
 
@@ -2804,7 +2804,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_unary_expression();
 	partial void LeaveRule_unary_expression();
 	// $ANTLR start "unary_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:149:1: unary_expression returns [IAstNode value] : (p= postfix_expression | ( '+' e= cast_expression | '-' e= cast_expression ) );
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:150:1: unary_expression returns [IAstNode value] : (p= postfix_expression | ( '+' e= cast_expression | '-' e= cast_expression ) );
 	[GrammarRule("unary_expression")]
 	private CsharpParser.unary_expression_return unary_expression()
 	{
@@ -2825,12 +2825,12 @@ namespace  Expressions.Csharp
 		CommonTree char_literal31_tree = default(CommonTree);
 		CommonTree char_literal32_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "unary_expression");
-		DebugLocation(149, 1);
+		DebugLocation(150, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 18)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:150:2: (p= postfix_expression | ( '+' e= cast_expression | '-' e= cast_expression ) )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:151:2: (p= postfix_expression | ( '+' e= cast_expression | '-' e= cast_expression ) )
 			int alt21=2;
 			try { DebugEnterDecision(21, false);
 			int LA21_1 = input.LA(1);
@@ -2855,17 +2855,17 @@ namespace  Expressions.Csharp
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:150:4: p= postfix_expression
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:151:4: p= postfix_expression
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(150, 5);
-				PushFollow(Follow._postfix_expression_in_unary_expression867);
+				DebugLocation(151, 5);
+				PushFollow(Follow._postfix_expression_in_unary_expression878);
 				p=postfix_expression();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, p.Tree);
-				DebugLocation(150, 25);
+				DebugLocation(151, 25);
 				if (state.backtracking == 0)
 				{
 					 retval.value = (p!=null?p.value:default(IAstNode)); 
@@ -2875,12 +2875,12 @@ namespace  Expressions.Csharp
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:152:3: ( '+' e= cast_expression | '-' e= cast_expression )
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:153:3: ( '+' e= cast_expression | '-' e= cast_expression )
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(152, 3);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:152:3: ( '+' e= cast_expression | '-' e= cast_expression )
+				DebugLocation(153, 3);
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:153:3: ( '+' e= cast_expression | '-' e= cast_expression )
 				int alt20=2;
 				try { DebugEnterSubRule(20);
 				try { DebugEnterDecision(20, false);
@@ -2906,21 +2906,21 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:152:5: '+' e= cast_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:153:5: '+' e= cast_expression
 					{
-					DebugLocation(152, 5);
-					char_literal31=(CommonToken)Match(input,30,Follow._30_in_unary_expression878); if (state.failed) return retval;
+					DebugLocation(153, 5);
+					char_literal31=(CommonToken)Match(input,30,Follow._30_in_unary_expression889); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal31_tree = (CommonTree)adaptor.Create(char_literal31);
 					adaptor.AddChild(root_0, char_literal31_tree);
 					}
-					DebugLocation(152, 10);
-					PushFollow(Follow._cast_expression_in_unary_expression882);
+					DebugLocation(153, 10);
+					PushFollow(Follow._cast_expression_in_unary_expression893);
 					e=cast_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(152, 27);
+					DebugLocation(153, 27);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new UnaryExpression((e!=null?e.value:default(IAstNode)), ExpressionType.Plus); 
@@ -2930,21 +2930,21 @@ namespace  Expressions.Csharp
 					break;
 				case 2:
 					DebugEnterAlt(2);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:153:5: '-' e= cast_expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:154:5: '-' e= cast_expression
 					{
-					DebugLocation(153, 5);
-					char_literal32=(CommonToken)Match(input,32,Follow._32_in_unary_expression890); if (state.failed) return retval;
+					DebugLocation(154, 5);
+					char_literal32=(CommonToken)Match(input,32,Follow._32_in_unary_expression901); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal32_tree = (CommonTree)adaptor.Create(char_literal32);
 					adaptor.AddChild(root_0, char_literal32_tree);
 					}
-					DebugLocation(153, 10);
-					PushFollow(Follow._cast_expression_in_unary_expression894);
+					DebugLocation(154, 10);
+					PushFollow(Follow._cast_expression_in_unary_expression905);
 					e=cast_expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(153, 27);
+					DebugLocation(154, 27);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new UnaryExpression((e!=null?e.value:default(IAstNode)), ExpressionType.Minus); 
@@ -2982,7 +2982,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 18, unary_expression_StartIndex); }
 
 		}
-		DebugLocation(155, 1);
+		DebugLocation(156, 1);
 		} finally { DebugExitRule(GrammarFileName, "unary_expression"); }
 		return retval;
 
@@ -2999,7 +2999,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_argument_expression_list();
 	partial void LeaveRule_argument_expression_list();
 	// $ANTLR start "argument_expression_list"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:157:1: argument_expression_list returns [AstNodeCollection value] : e= expression ( ',' e= expression )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:158:1: argument_expression_list returns [AstNodeCollection value] : e= expression ( ',' e= expression )* ;
 	[GrammarRule("argument_expression_list")]
 	private CsharpParser.argument_expression_list_return argument_expression_list()
 	{
@@ -3017,30 +3017,30 @@ namespace  Expressions.Csharp
 
 		CommonTree char_literal33_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "argument_expression_list");
-		DebugLocation(157, 1);
+		DebugLocation(158, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 19)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:158:2: (e= expression ( ',' e= expression )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:159:2: (e= expression ( ',' e= expression )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:158:4: e= expression ( ',' e= expression )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:159:4: e= expression ( ',' e= expression )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(158, 5);
-			PushFollow(Follow._expression_in_argument_expression_list917);
+			DebugLocation(159, 5);
+			PushFollow(Follow._expression_in_argument_expression_list928);
 			e=expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-			DebugLocation(158, 17);
+			DebugLocation(159, 17);
 			if (state.backtracking == 0)
 			{
 				 retval.value = new AstNodeCollection((e!=null?e.value:default(IAstNode))); 
 			}
-			DebugLocation(159, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:159:3: ( ',' e= expression )*
+			DebugLocation(160, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:160:3: ( ',' e= expression )*
 			try { DebugEnterSubRule(22);
 			while (true)
 			{
@@ -3059,21 +3059,21 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:159:5: ',' e= expression
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:160:5: ',' e= expression
 					{
-					DebugLocation(159, 5);
-					char_literal33=(CommonToken)Match(input,31,Follow._31_in_argument_expression_list925); if (state.failed) return retval;
+					DebugLocation(160, 5);
+					char_literal33=(CommonToken)Match(input,31,Follow._31_in_argument_expression_list936); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal33_tree = (CommonTree)adaptor.Create(char_literal33);
 					adaptor.AddChild(root_0, char_literal33_tree);
 					}
-					DebugLocation(159, 10);
-					PushFollow(Follow._expression_in_argument_expression_list929);
+					DebugLocation(160, 10);
+					PushFollow(Follow._expression_in_argument_expression_list940);
 					e=expression();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(159, 22);
+					DebugLocation(160, 22);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new AstNodeCollection(retval.value, (e!=null?e.value:default(IAstNode))); 
@@ -3116,7 +3116,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 19, argument_expression_list_StartIndex); }
 
 		}
-		DebugLocation(161, 1);
+		DebugLocation(162, 1);
 		} finally { DebugExitRule(GrammarFileName, "argument_expression_list"); }
 		return retval;
 
@@ -3133,7 +3133,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_postfix_expression();
 	partial void LeaveRule_postfix_expression();
 	// $ANTLR start "postfix_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:163:1: postfix_expression returns [IAstNode value] : p= primary_expression ( '[' e= argument_expression_list ']' | '(' ')' | '(' e= argument_expression_list ')' | DOT IDENTIFIER )* ;
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:164:1: postfix_expression returns [IAstNode value] : p= primary_expression ( '[' e= argument_expression_list ']' | '(' ')' | '(' e= argument_expression_list ')' | DOT IDENTIFIER )* ;
 	[GrammarRule("postfix_expression")]
 	private CsharpParser.postfix_expression_return postfix_expression()
 	{
@@ -3166,30 +3166,30 @@ namespace  Expressions.Csharp
 		CommonTree DOT40_tree = default(CommonTree);
 		CommonTree IDENTIFIER41_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "postfix_expression");
-		DebugLocation(163, 1);
+		DebugLocation(164, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 20)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:164:2: (p= primary_expression ( '[' e= argument_expression_list ']' | '(' ')' | '(' e= argument_expression_list ')' | DOT IDENTIFIER )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:165:2: (p= primary_expression ( '[' e= argument_expression_list ']' | '(' ')' | '(' e= argument_expression_list ')' | DOT IDENTIFIER )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:164:4: p= primary_expression ( '[' e= argument_expression_list ']' | '(' ')' | '(' e= argument_expression_list ')' | DOT IDENTIFIER )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:165:4: p= primary_expression ( '[' e= argument_expression_list ']' | '(' ')' | '(' e= argument_expression_list ')' | DOT IDENTIFIER )*
 			{
 			root_0 = (CommonTree)adaptor.Nil();
 
-			DebugLocation(164, 5);
-			PushFollow(Follow._primary_expression_in_postfix_expression953);
+			DebugLocation(165, 5);
+			PushFollow(Follow._primary_expression_in_postfix_expression964);
 			p=primary_expression();
 			PopFollow();
 			if (state.failed) return retval;
 			if (state.backtracking == 0) adaptor.AddChild(root_0, p.Tree);
-			DebugLocation(164, 25);
+			DebugLocation(165, 25);
 			if (state.backtracking == 0)
 			{
 				 retval.value = (p!=null?p.value:default(IAstNode)); 
 			}
-			DebugLocation(165, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:165:3: ( '[' e= argument_expression_list ']' | '(' ')' | '(' e= argument_expression_list ')' | DOT IDENTIFIER )*
+			DebugLocation(166, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:166:3: ( '[' e= argument_expression_list ']' | '(' ')' | '(' e= argument_expression_list ')' | DOT IDENTIFIER )*
 			try { DebugEnterSubRule(23);
 			while (true)
 			{
@@ -3230,27 +3230,27 @@ namespace  Expressions.Csharp
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:165:5: '[' e= argument_expression_list ']'
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:166:5: '[' e= argument_expression_list ']'
 					{
-					DebugLocation(165, 5);
-					char_literal34=(CommonToken)Match(input,43,Follow._43_in_postfix_expression961); if (state.failed) return retval;
+					DebugLocation(166, 5);
+					char_literal34=(CommonToken)Match(input,43,Follow._43_in_postfix_expression972); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal34_tree = (CommonTree)adaptor.Create(char_literal34);
 					adaptor.AddChild(root_0, char_literal34_tree);
 					}
-					DebugLocation(165, 10);
-					PushFollow(Follow._argument_expression_list_in_postfix_expression965);
+					DebugLocation(166, 10);
+					PushFollow(Follow._argument_expression_list_in_postfix_expression976);
 					e=argument_expression_list();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(165, 36);
-					char_literal35=(CommonToken)Match(input,44,Follow._44_in_postfix_expression967); if (state.failed) return retval;
+					DebugLocation(166, 36);
+					char_literal35=(CommonToken)Match(input,44,Follow._44_in_postfix_expression978); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal35_tree = (CommonTree)adaptor.Create(char_literal35);
 					adaptor.AddChild(root_0, char_literal35_tree);
 					}
-					DebugLocation(165, 40);
+					DebugLocation(166, 40);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new Index(retval.value, (e!=null?e.value:default(AstNodeCollection))); 
@@ -3260,21 +3260,21 @@ namespace  Expressions.Csharp
 					break;
 				case 2:
 					DebugEnterAlt(2);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:166:5: '(' ')'
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:167:5: '(' ')'
 					{
-					DebugLocation(166, 5);
-					char_literal36=(CommonToken)Match(input,27,Follow._27_in_postfix_expression975); if (state.failed) return retval;
+					DebugLocation(167, 5);
+					char_literal36=(CommonToken)Match(input,27,Follow._27_in_postfix_expression986); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal36_tree = (CommonTree)adaptor.Create(char_literal36);
 					adaptor.AddChild(root_0, char_literal36_tree);
 					}
-					DebugLocation(166, 9);
-					char_literal37=(CommonToken)Match(input,28,Follow._28_in_postfix_expression977); if (state.failed) return retval;
+					DebugLocation(167, 9);
+					char_literal37=(CommonToken)Match(input,28,Follow._28_in_postfix_expression988); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal37_tree = (CommonTree)adaptor.Create(char_literal37);
 					adaptor.AddChild(root_0, char_literal37_tree);
 					}
-					DebugLocation(166, 13);
+					DebugLocation(167, 13);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new MethodCall(retval.value); 
@@ -3284,27 +3284,27 @@ namespace  Expressions.Csharp
 					break;
 				case 3:
 					DebugEnterAlt(3);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:167:5: '(' e= argument_expression_list ')'
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:168:5: '(' e= argument_expression_list ')'
 					{
-					DebugLocation(167, 5);
-					char_literal38=(CommonToken)Match(input,27,Follow._27_in_postfix_expression985); if (state.failed) return retval;
+					DebugLocation(168, 5);
+					char_literal38=(CommonToken)Match(input,27,Follow._27_in_postfix_expression996); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal38_tree = (CommonTree)adaptor.Create(char_literal38);
 					adaptor.AddChild(root_0, char_literal38_tree);
 					}
-					DebugLocation(167, 10);
-					PushFollow(Follow._argument_expression_list_in_postfix_expression989);
+					DebugLocation(168, 10);
+					PushFollow(Follow._argument_expression_list_in_postfix_expression1000);
 					e=argument_expression_list();
 					PopFollow();
 					if (state.failed) return retval;
 					if (state.backtracking == 0) adaptor.AddChild(root_0, e.Tree);
-					DebugLocation(167, 36);
-					char_literal39=(CommonToken)Match(input,28,Follow._28_in_postfix_expression991); if (state.failed) return retval;
+					DebugLocation(168, 36);
+					char_literal39=(CommonToken)Match(input,28,Follow._28_in_postfix_expression1002); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					char_literal39_tree = (CommonTree)adaptor.Create(char_literal39);
 					adaptor.AddChild(root_0, char_literal39_tree);
 					}
-					DebugLocation(167, 40);
+					DebugLocation(168, 40);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new MethodCall(retval.value, (e!=null?e.value:default(AstNodeCollection))); 
@@ -3314,21 +3314,21 @@ namespace  Expressions.Csharp
 					break;
 				case 4:
 					DebugEnterAlt(4);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:168:5: DOT IDENTIFIER
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:169:5: DOT IDENTIFIER
 					{
-					DebugLocation(168, 5);
-					DOT40=(CommonToken)Match(input,DOT,Follow._DOT_in_postfix_expression999); if (state.failed) return retval;
+					DebugLocation(169, 5);
+					DOT40=(CommonToken)Match(input,DOT,Follow._DOT_in_postfix_expression1010); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					DOT40_tree = (CommonTree)adaptor.Create(DOT40);
 					adaptor.AddChild(root_0, DOT40_tree);
 					}
-					DebugLocation(168, 9);
-					IDENTIFIER41=(CommonToken)Match(input,IDENTIFIER,Follow._IDENTIFIER_in_postfix_expression1001); if (state.failed) return retval;
+					DebugLocation(169, 9);
+					IDENTIFIER41=(CommonToken)Match(input,IDENTIFIER,Follow._IDENTIFIER_in_postfix_expression1012); if (state.failed) return retval;
 					if (state.backtracking == 0) {
 					IDENTIFIER41_tree = (CommonTree)adaptor.Create(IDENTIFIER41);
 					adaptor.AddChild(root_0, IDENTIFIER41_tree);
 					}
-					DebugLocation(168, 20);
+					DebugLocation(169, 20);
 					if (state.backtracking == 0)
 					{
 						 retval.value = new MemberAccess(retval.value, (IDENTIFIER41!=null?IDENTIFIER41.Text:null)); 
@@ -3371,7 +3371,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 20, postfix_expression_StartIndex); }
 
 		}
-		DebugLocation(170, 1);
+		DebugLocation(171, 1);
 		} finally { DebugExitRule(GrammarFileName, "postfix_expression"); }
 		return retval;
 
@@ -3388,7 +3388,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_primary_expression();
 	partial void LeaveRule_primary_expression();
 	// $ANTLR start "primary_expression"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:172:1: primary_expression returns [IAstNode value] : ( IDENTIFIER | constant | '(' expression ')' );
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:173:1: primary_expression returns [IAstNode value] : ( IDENTIFIER | constant | '(' expression ')' );
 	[GrammarRule("primary_expression")]
 	private CsharpParser.primary_expression_return primary_expression()
 	{
@@ -3411,12 +3411,12 @@ namespace  Expressions.Csharp
 		CommonTree char_literal44_tree = default(CommonTree);
 		CommonTree char_literal46_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "primary_expression");
-		DebugLocation(172, 1);
+		DebugLocation(173, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 21)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:173:2: ( IDENTIFIER | constant | '(' expression ')' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:174:2: ( IDENTIFIER | constant | '(' expression ')' )
 			int alt24=3;
 			try { DebugEnterDecision(24, false);
 			switch (input.LA(1))
@@ -3459,17 +3459,17 @@ namespace  Expressions.Csharp
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:173:4: IDENTIFIER
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:174:4: IDENTIFIER
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(173, 4);
-				IDENTIFIER42=(CommonToken)Match(input,IDENTIFIER,Follow._IDENTIFIER_in_primary_expression1023); if (state.failed) return retval;
+				DebugLocation(174, 4);
+				IDENTIFIER42=(CommonToken)Match(input,IDENTIFIER,Follow._IDENTIFIER_in_primary_expression1034); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				IDENTIFIER42_tree = (CommonTree)adaptor.Create(IDENTIFIER42);
 				adaptor.AddChild(root_0, IDENTIFIER42_tree);
 				}
-				DebugLocation(173, 15);
+				DebugLocation(174, 15);
 				if (state.backtracking == 0)
 				{
 					 retval.value = CreateIdentifier((IDENTIFIER42!=null?IDENTIFIER42.Text:null)); 
@@ -3479,17 +3479,17 @@ namespace  Expressions.Csharp
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:174:4: constant
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:175:4: constant
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(174, 4);
-				PushFollow(Follow._constant_in_primary_expression1030);
+				DebugLocation(175, 4);
+				PushFollow(Follow._constant_in_primary_expression1041);
 				constant43=constant();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, constant43.Tree);
-				DebugLocation(174, 13);
+				DebugLocation(175, 13);
 				if (state.backtracking == 0)
 				{
 					 retval.value = (constant43!=null?constant43.value:default(Constant)); 
@@ -3499,29 +3499,29 @@ namespace  Expressions.Csharp
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:175:4: '(' expression ')'
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:176:4: '(' expression ')'
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(175, 4);
-				char_literal44=(CommonToken)Match(input,27,Follow._27_in_primary_expression1037); if (state.failed) return retval;
+				DebugLocation(176, 4);
+				char_literal44=(CommonToken)Match(input,27,Follow._27_in_primary_expression1048); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				char_literal44_tree = (CommonTree)adaptor.Create(char_literal44);
 				adaptor.AddChild(root_0, char_literal44_tree);
 				}
-				DebugLocation(175, 8);
-				PushFollow(Follow._expression_in_primary_expression1039);
+				DebugLocation(176, 8);
+				PushFollow(Follow._expression_in_primary_expression1050);
 				expression45=expression();
 				PopFollow();
 				if (state.failed) return retval;
 				if (state.backtracking == 0) adaptor.AddChild(root_0, expression45.Tree);
-				DebugLocation(175, 19);
-				char_literal46=(CommonToken)Match(input,28,Follow._28_in_primary_expression1041); if (state.failed) return retval;
+				DebugLocation(176, 19);
+				char_literal46=(CommonToken)Match(input,28,Follow._28_in_primary_expression1052); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				char_literal46_tree = (CommonTree)adaptor.Create(char_literal46);
 				adaptor.AddChild(root_0, char_literal46_tree);
 				}
-				DebugLocation(175, 23);
+				DebugLocation(176, 23);
 				if (state.backtracking == 0)
 				{
 					 retval.value = new UnaryExpression((expression45!=null?expression45.value:default(IAstNode)), ExpressionType.Group); 
@@ -3552,7 +3552,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 21, primary_expression_StartIndex); }
 
 		}
-		DebugLocation(176, 1);
+		DebugLocation(177, 1);
 		} finally { DebugExitRule(GrammarFileName, "primary_expression"); }
 		return retval;
 
@@ -3569,7 +3569,7 @@ namespace  Expressions.Csharp
 	partial void EnterRule_constant();
 	partial void LeaveRule_constant();
 	// $ANTLR start "constant"
-	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:178:1: constant returns [Constant value] : ( 'true' | 'false' | 'null' | DATETIME_LITERAL | TIMESPAN_LITERAL | HEX_LITERAL | DECIMAL_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | FLOATING_POINT_LITERAL );
+	// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:179:1: constant returns [Constant value] : ( 'true' | 'false' | 'null' | DATETIME_LITERAL | TIMESPAN_LITERAL | HEX_LITERAL | DECIMAL_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | FLOATING_POINT_LITERAL );
 	[GrammarRule("constant")]
 	private CsharpParser.constant_return constant()
 	{
@@ -3604,12 +3604,12 @@ namespace  Expressions.Csharp
 		CommonTree STRING_LITERAL55_tree = default(CommonTree);
 		CommonTree FLOATING_POINT_LITERAL56_tree = default(CommonTree);
 		try { DebugEnterRule(GrammarFileName, "constant");
-		DebugLocation(178, 1);
+		DebugLocation(179, 1);
 		try
 		{
 			if (state.backtracking > 0 && AlreadyParsedRule(input, 22)) { return retval; }
 
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:179:2: ( 'true' | 'false' | 'null' | DATETIME_LITERAL | TIMESPAN_LITERAL | HEX_LITERAL | DECIMAL_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | FLOATING_POINT_LITERAL )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:180:2: ( 'true' | 'false' | 'null' | DATETIME_LITERAL | TIMESPAN_LITERAL | HEX_LITERAL | DECIMAL_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | FLOATING_POINT_LITERAL )
 			int alt25=10;
 			try { DebugEnterDecision(25, false);
 			switch (input.LA(1))
@@ -3678,17 +3678,17 @@ namespace  Expressions.Csharp
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:179:4: 'true'
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:180:4: 'true'
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(179, 4);
-				string_literal47=(CommonToken)Match(input,48,Follow._48_in_constant1058); if (state.failed) return retval;
+				DebugLocation(180, 4);
+				string_literal47=(CommonToken)Match(input,48,Follow._48_in_constant1069); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				string_literal47_tree = (CommonTree)adaptor.Create(string_literal47);
 				adaptor.AddChild(root_0, string_literal47_tree);
 				}
-				DebugLocation(179, 11);
+				DebugLocation(180, 11);
 				if (state.backtracking == 0)
 				{
 					 retval.value = Constant.True; 
@@ -3698,17 +3698,17 @@ namespace  Expressions.Csharp
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:180:4: 'false'
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:181:4: 'false'
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(180, 4);
-				string_literal48=(CommonToken)Match(input,46,Follow._46_in_constant1065); if (state.failed) return retval;
+				DebugLocation(181, 4);
+				string_literal48=(CommonToken)Match(input,46,Follow._46_in_constant1076); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				string_literal48_tree = (CommonTree)adaptor.Create(string_literal48);
 				adaptor.AddChild(root_0, string_literal48_tree);
 				}
-				DebugLocation(180, 12);
+				DebugLocation(181, 12);
 				if (state.backtracking == 0)
 				{
 					 retval.value = Constant.False; 
@@ -3718,17 +3718,17 @@ namespace  Expressions.Csharp
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:181:4: 'null'
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:182:4: 'null'
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(181, 4);
-				string_literal49=(CommonToken)Match(input,47,Follow._47_in_constant1072); if (state.failed) return retval;
+				DebugLocation(182, 4);
+				string_literal49=(CommonToken)Match(input,47,Follow._47_in_constant1083); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				string_literal49_tree = (CommonTree)adaptor.Create(string_literal49);
 				adaptor.AddChild(root_0, string_literal49_tree);
 				}
-				DebugLocation(181, 11);
+				DebugLocation(182, 11);
 				if (state.backtracking == 0)
 				{
 					 retval.value = Constant.Null; 
@@ -3738,17 +3738,17 @@ namespace  Expressions.Csharp
 				break;
 			case 4:
 				DebugEnterAlt(4);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:182:4: DATETIME_LITERAL
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:183:4: DATETIME_LITERAL
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(182, 4);
-				DATETIME_LITERAL50=(CommonToken)Match(input,DATETIME_LITERAL,Follow._DATETIME_LITERAL_in_constant1079); if (state.failed) return retval;
+				DebugLocation(183, 4);
+				DATETIME_LITERAL50=(CommonToken)Match(input,DATETIME_LITERAL,Follow._DATETIME_LITERAL_in_constant1090); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				DATETIME_LITERAL50_tree = (CommonTree)adaptor.Create(DATETIME_LITERAL50);
 				adaptor.AddChild(root_0, DATETIME_LITERAL50_tree);
 				}
-				DebugLocation(182, 21);
+				DebugLocation(183, 21);
 				if (state.backtracking == 0)
 				{
 					 retval.value = ParseDateTime((DATETIME_LITERAL50!=null?DATETIME_LITERAL50.Text:null)); 
@@ -3758,17 +3758,17 @@ namespace  Expressions.Csharp
 				break;
 			case 5:
 				DebugEnterAlt(5);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:183:4: TIMESPAN_LITERAL
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:184:4: TIMESPAN_LITERAL
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(183, 4);
-				TIMESPAN_LITERAL51=(CommonToken)Match(input,TIMESPAN_LITERAL,Follow._TIMESPAN_LITERAL_in_constant1086); if (state.failed) return retval;
+				DebugLocation(184, 4);
+				TIMESPAN_LITERAL51=(CommonToken)Match(input,TIMESPAN_LITERAL,Follow._TIMESPAN_LITERAL_in_constant1097); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				TIMESPAN_LITERAL51_tree = (CommonTree)adaptor.Create(TIMESPAN_LITERAL51);
 				adaptor.AddChild(root_0, TIMESPAN_LITERAL51_tree);
 				}
-				DebugLocation(183, 21);
+				DebugLocation(184, 21);
 				if (state.backtracking == 0)
 				{
 					 retval.value = ParseTimeSpan((TIMESPAN_LITERAL51!=null?TIMESPAN_LITERAL51.Text:null)); 
@@ -3778,17 +3778,17 @@ namespace  Expressions.Csharp
 				break;
 			case 6:
 				DebugEnterAlt(6);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:184:4: HEX_LITERAL
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:185:4: HEX_LITERAL
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(184, 4);
-				HEX_LITERAL52=(CommonToken)Match(input,HEX_LITERAL,Follow._HEX_LITERAL_in_constant1093); if (state.failed) return retval;
+				DebugLocation(185, 4);
+				HEX_LITERAL52=(CommonToken)Match(input,HEX_LITERAL,Follow._HEX_LITERAL_in_constant1104); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				HEX_LITERAL52_tree = (CommonTree)adaptor.Create(HEX_LITERAL52);
 				adaptor.AddChild(root_0, HEX_LITERAL52_tree);
 				}
-				DebugLocation(184, 16);
+				DebugLocation(185, 16);
 				if (state.backtracking == 0)
 				{
 					 retval.value = ParseHex((HEX_LITERAL52!=null?HEX_LITERAL52.Text:null)); 
@@ -3798,17 +3798,17 @@ namespace  Expressions.Csharp
 				break;
 			case 7:
 				DebugEnterAlt(7);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:185:4: DECIMAL_LITERAL
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:186:4: DECIMAL_LITERAL
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(185, 4);
-				DECIMAL_LITERAL53=(CommonToken)Match(input,DECIMAL_LITERAL,Follow._DECIMAL_LITERAL_in_constant1100); if (state.failed) return retval;
+				DebugLocation(186, 4);
+				DECIMAL_LITERAL53=(CommonToken)Match(input,DECIMAL_LITERAL,Follow._DECIMAL_LITERAL_in_constant1111); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				DECIMAL_LITERAL53_tree = (CommonTree)adaptor.Create(DECIMAL_LITERAL53);
 				adaptor.AddChild(root_0, DECIMAL_LITERAL53_tree);
 				}
-				DebugLocation(185, 20);
+				DebugLocation(186, 20);
 				if (state.backtracking == 0)
 				{
 					 retval.value = ParseDecimal((DECIMAL_LITERAL53!=null?DECIMAL_LITERAL53.Text:null)); 
@@ -3818,17 +3818,17 @@ namespace  Expressions.Csharp
 				break;
 			case 8:
 				DebugEnterAlt(8);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:186:4: CHARACTER_LITERAL
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:187:4: CHARACTER_LITERAL
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(186, 4);
-				CHARACTER_LITERAL54=(CommonToken)Match(input,CHARACTER_LITERAL,Follow._CHARACTER_LITERAL_in_constant1107); if (state.failed) return retval;
+				DebugLocation(187, 4);
+				CHARACTER_LITERAL54=(CommonToken)Match(input,CHARACTER_LITERAL,Follow._CHARACTER_LITERAL_in_constant1118); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				CHARACTER_LITERAL54_tree = (CommonTree)adaptor.Create(CHARACTER_LITERAL54);
 				adaptor.AddChild(root_0, CHARACTER_LITERAL54_tree);
 				}
-				DebugLocation(186, 22);
+				DebugLocation(187, 22);
 				if (state.backtracking == 0)
 				{
 					 retval.value = ParseCharacter((CHARACTER_LITERAL54!=null?CHARACTER_LITERAL54.Text:null)); 
@@ -3838,17 +3838,17 @@ namespace  Expressions.Csharp
 				break;
 			case 9:
 				DebugEnterAlt(9);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:187:4: STRING_LITERAL
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:188:4: STRING_LITERAL
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(187, 4);
-				STRING_LITERAL55=(CommonToken)Match(input,STRING_LITERAL,Follow._STRING_LITERAL_in_constant1114); if (state.failed) return retval;
+				DebugLocation(188, 4);
+				STRING_LITERAL55=(CommonToken)Match(input,STRING_LITERAL,Follow._STRING_LITERAL_in_constant1125); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				STRING_LITERAL55_tree = (CommonTree)adaptor.Create(STRING_LITERAL55);
 				adaptor.AddChild(root_0, STRING_LITERAL55_tree);
 				}
-				DebugLocation(187, 19);
+				DebugLocation(188, 19);
 				if (state.backtracking == 0)
 				{
 					 retval.value = ParseString((STRING_LITERAL55!=null?STRING_LITERAL55.Text:null)); 
@@ -3858,17 +3858,17 @@ namespace  Expressions.Csharp
 				break;
 			case 10:
 				DebugEnterAlt(10);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:188:4: FLOATING_POINT_LITERAL
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:189:4: FLOATING_POINT_LITERAL
 				{
 				root_0 = (CommonTree)adaptor.Nil();
 
-				DebugLocation(188, 4);
-				FLOATING_POINT_LITERAL56=(CommonToken)Match(input,FLOATING_POINT_LITERAL,Follow._FLOATING_POINT_LITERAL_in_constant1121); if (state.failed) return retval;
+				DebugLocation(189, 4);
+				FLOATING_POINT_LITERAL56=(CommonToken)Match(input,FLOATING_POINT_LITERAL,Follow._FLOATING_POINT_LITERAL_in_constant1132); if (state.failed) return retval;
 				if (state.backtracking == 0) {
 				FLOATING_POINT_LITERAL56_tree = (CommonTree)adaptor.Create(FLOATING_POINT_LITERAL56);
 				adaptor.AddChild(root_0, FLOATING_POINT_LITERAL56_tree);
 				}
-				DebugLocation(188, 27);
+				DebugLocation(189, 27);
 				if (state.backtracking == 0)
 				{
 					 retval.value = ParseFloatingPoint((FLOATING_POINT_LITERAL56!=null?FLOATING_POINT_LITERAL56.Text:null)); 
@@ -3899,7 +3899,7 @@ namespace  Expressions.Csharp
 			if (state.backtracking > 0) { Memoize(input, 22, constant_StartIndex); }
 
 		}
-		DebugLocation(189, 1);
+		DebugLocation(190, 1);
 		} finally { DebugExitRule(GrammarFileName, "constant"); }
 		return retval;
 
@@ -3920,21 +3920,21 @@ namespace  Expressions.Csharp
 		TraceIn("synpred22_Csharp_fragment", 44);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:131:4: ( '(' t= type_expression ')' e= cast_expression )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:132:4: ( '(' t= type_expression ')' e= cast_expression )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:131:4: '(' t= type_expression ')' e= cast_expression
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:132:4: '(' t= type_expression ')' e= cast_expression
 			{
-			DebugLocation(131, 4);
-			Match(input,27,Follow._27_in_synpred22_Csharp740); if (state.failed) return;
-			DebugLocation(131, 9);
-			PushFollow(Follow._type_expression_in_synpred22_Csharp744);
+			DebugLocation(132, 4);
+			Match(input,27,Follow._27_in_synpred22_Csharp751); if (state.failed) return;
+			DebugLocation(132, 9);
+			PushFollow(Follow._type_expression_in_synpred22_Csharp755);
 			t=type_expression();
 			PopFollow();
 			if (state.failed) return;
-			DebugLocation(131, 26);
-			Match(input,28,Follow._28_in_synpred22_Csharp746); if (state.failed) return;
-			DebugLocation(131, 31);
-			PushFollow(Follow._cast_expression_in_synpred22_Csharp750);
+			DebugLocation(132, 26);
+			Match(input,28,Follow._28_in_synpred22_Csharp757); if (state.failed) return;
+			DebugLocation(132, 31);
+			PushFollow(Follow._cast_expression_in_synpred22_Csharp761);
 			e=cast_expression();
 			PopFollow();
 			if (state.failed) return;
@@ -3980,115 +3980,115 @@ namespace  Expressions.Csharp
 	#region Follow sets
 	private static class Follow
 	{
-		public static readonly BitSet _expression_in_prog104 = new BitSet(new ulong[]{0x0UL});
-		public static readonly BitSet _EOF_in_prog108 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _conditional_expression_in_expression125 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _logical_or_expression_in_conditional_expression144 = new BitSet(new ulong[]{0x40000000002UL});
-		public static readonly BitSet _42_in_conditional_expression152 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _expression_in_conditional_expression156 = new BitSet(new ulong[]{0x400000000UL});
-		public static readonly BitSet _34_in_conditional_expression158 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _expression_in_conditional_expression162 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _logical_and_expression_in_logical_or_expression186 = new BitSet(new ulong[]{0x4000000000002UL});
-		public static readonly BitSet _50_in_logical_or_expression194 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _logical_and_expression_in_logical_or_expression198 = new BitSet(new ulong[]{0x4000000000002UL});
-		public static readonly BitSet _bitwise_or_expression_in_logical_and_expression226 = new BitSet(new ulong[]{0x2000002UL});
-		public static readonly BitSet _25_in_logical_and_expression234 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _bitwise_or_expression_in_logical_and_expression238 = new BitSet(new ulong[]{0x2000002UL});
-		public static readonly BitSet _bitwise_xor_expression_in_bitwise_or_expression267 = new BitSet(new ulong[]{0x2000000000002UL});
-		public static readonly BitSet _49_in_bitwise_or_expression275 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _bitwise_xor_expression_in_bitwise_or_expression279 = new BitSet(new ulong[]{0x2000000000002UL});
-		public static readonly BitSet _bitwise_and_expression_in_bitwise_xor_expression308 = new BitSet(new ulong[]{0x200000000002UL});
-		public static readonly BitSet _45_in_bitwise_xor_expression316 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _bitwise_and_expression_in_bitwise_xor_expression320 = new BitSet(new ulong[]{0x200000000002UL});
-		public static readonly BitSet _unary_not_expression_in_bitwise_and_expression350 = new BitSet(new ulong[]{0x4000002UL});
-		public static readonly BitSet _26_in_bitwise_and_expression358 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _unary_not_expression_in_bitwise_and_expression362 = new BitSet(new ulong[]{0x4000002UL});
-		public static readonly BitSet _equality_expression_in_unary_not_expression390 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _22_in_unary_not_expression397 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _unary_not_expression_in_unary_not_expression401 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _51_in_unary_not_expression408 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _expression_in_prog115 = new BitSet(new ulong[]{0x0UL});
+		public static readonly BitSet _EOF_in_prog119 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _conditional_expression_in_expression136 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _logical_or_expression_in_conditional_expression155 = new BitSet(new ulong[]{0x40000000002UL});
+		public static readonly BitSet _42_in_conditional_expression163 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _expression_in_conditional_expression167 = new BitSet(new ulong[]{0x400000000UL});
+		public static readonly BitSet _34_in_conditional_expression169 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _expression_in_conditional_expression173 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _logical_and_expression_in_logical_or_expression197 = new BitSet(new ulong[]{0x4000000000002UL});
+		public static readonly BitSet _50_in_logical_or_expression205 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _logical_and_expression_in_logical_or_expression209 = new BitSet(new ulong[]{0x4000000000002UL});
+		public static readonly BitSet _bitwise_or_expression_in_logical_and_expression237 = new BitSet(new ulong[]{0x2000002UL});
+		public static readonly BitSet _25_in_logical_and_expression245 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _bitwise_or_expression_in_logical_and_expression249 = new BitSet(new ulong[]{0x2000002UL});
+		public static readonly BitSet _bitwise_xor_expression_in_bitwise_or_expression278 = new BitSet(new ulong[]{0x2000000000002UL});
+		public static readonly BitSet _49_in_bitwise_or_expression286 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _bitwise_xor_expression_in_bitwise_or_expression290 = new BitSet(new ulong[]{0x2000000000002UL});
+		public static readonly BitSet _bitwise_and_expression_in_bitwise_xor_expression319 = new BitSet(new ulong[]{0x200000000002UL});
+		public static readonly BitSet _45_in_bitwise_xor_expression327 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _bitwise_and_expression_in_bitwise_xor_expression331 = new BitSet(new ulong[]{0x200000000002UL});
+		public static readonly BitSet _unary_not_expression_in_bitwise_and_expression361 = new BitSet(new ulong[]{0x4000002UL});
+		public static readonly BitSet _26_in_bitwise_and_expression369 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _unary_not_expression_in_bitwise_and_expression373 = new BitSet(new ulong[]{0x4000002UL});
+		public static readonly BitSet _equality_expression_in_unary_not_expression401 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _22_in_unary_not_expression408 = new BitSet(new ulong[]{0x9C001484CA870UL});
 		public static readonly BitSet _unary_not_expression_in_unary_not_expression412 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _relational_expression_in_equality_expression431 = new BitSet(new ulong[]{0x4000800002UL});
-		public static readonly BitSet _38_in_equality_expression444 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _relational_expression_in_equality_expression448 = new BitSet(new ulong[]{0x4000800002UL});
-		public static readonly BitSet _23_in_equality_expression457 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _relational_expression_in_equality_expression461 = new BitSet(new ulong[]{0x4000800002UL});
-		public static readonly BitSet _shift_expression_in_relational_expression490 = new BitSet(new ulong[]{0x1A800000002UL});
-		public static readonly BitSet _35_in_relational_expression503 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _shift_expression_in_relational_expression507 = new BitSet(new ulong[]{0x1A800000002UL});
-		public static readonly BitSet _39_in_relational_expression516 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _shift_expression_in_relational_expression520 = new BitSet(new ulong[]{0x1A800000002UL});
-		public static readonly BitSet _37_in_relational_expression529 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _shift_expression_in_relational_expression533 = new BitSet(new ulong[]{0x1A800000002UL});
-		public static readonly BitSet _40_in_relational_expression542 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _shift_expression_in_relational_expression546 = new BitSet(new ulong[]{0x1A800000002UL});
-		public static readonly BitSet _additive_expression_in_shift_expression575 = new BitSet(new ulong[]{0x21000000002UL});
-		public static readonly BitSet _36_in_shift_expression588 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _additive_expression_in_shift_expression592 = new BitSet(new ulong[]{0x21000000002UL});
-		public static readonly BitSet _41_in_shift_expression601 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _additive_expression_in_shift_expression605 = new BitSet(new ulong[]{0x21000000002UL});
-		public static readonly BitSet _multiplicative_expression_in_additive_expression634 = new BitSet(new ulong[]{0x140000002UL});
-		public static readonly BitSet _30_in_additive_expression642 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _multiplicative_expression_in_additive_expression646 = new BitSet(new ulong[]{0x140000002UL});
-		public static readonly BitSet _32_in_additive_expression654 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _multiplicative_expression_in_additive_expression658 = new BitSet(new ulong[]{0x140000002UL});
-		public static readonly BitSet _cast_expression_in_multiplicative_expression682 = new BitSet(new ulong[]{0x221000002UL});
-		public static readonly BitSet _29_in_multiplicative_expression690 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _cast_expression_in_multiplicative_expression694 = new BitSet(new ulong[]{0x221000002UL});
-		public static readonly BitSet _33_in_multiplicative_expression702 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _cast_expression_in_multiplicative_expression706 = new BitSet(new ulong[]{0x221000002UL});
-		public static readonly BitSet _24_in_multiplicative_expression714 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _cast_expression_in_multiplicative_expression718 = new BitSet(new ulong[]{0x221000002UL});
-		public static readonly BitSet _27_in_cast_expression740 = new BitSet(new ulong[]{0x8000UL});
-		public static readonly BitSet _type_expression_in_cast_expression744 = new BitSet(new ulong[]{0x10000000UL});
-		public static readonly BitSet _28_in_cast_expression746 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _cast_expression_in_cast_expression750 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _unary_expression_in_cast_expression759 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _type_identifier_in_type_expression778 = new BitSet(new ulong[]{0x80000000002UL});
-		public static readonly BitSet _43_in_type_expression789 = new BitSet(new ulong[]{0x100080000000UL});
-		public static readonly BitSet _31_in_type_expression799 = new BitSet(new ulong[]{0x100080000000UL});
-		public static readonly BitSet _44_in_type_expression813 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _IDENTIFIER_in_type_identifier835 = new BitSet(new ulong[]{0x82UL});
-		public static readonly BitSet _DOT_in_type_identifier841 = new BitSet(new ulong[]{0x8000UL});
-		public static readonly BitSet _IDENTIFIER_in_type_identifier845 = new BitSet(new ulong[]{0x82UL});
-		public static readonly BitSet _postfix_expression_in_unary_expression867 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _30_in_unary_expression878 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _cast_expression_in_unary_expression882 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _32_in_unary_expression890 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _cast_expression_in_unary_expression894 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_in_argument_expression_list917 = new BitSet(new ulong[]{0x80000002UL});
-		public static readonly BitSet _31_in_argument_expression_list925 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _expression_in_argument_expression_list929 = new BitSet(new ulong[]{0x80000002UL});
-		public static readonly BitSet _primary_expression_in_postfix_expression953 = new BitSet(new ulong[]{0x80008000082UL});
-		public static readonly BitSet _43_in_postfix_expression961 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _argument_expression_list_in_postfix_expression965 = new BitSet(new ulong[]{0x100000000000UL});
-		public static readonly BitSet _44_in_postfix_expression967 = new BitSet(new ulong[]{0x80008000082UL});
-		public static readonly BitSet _27_in_postfix_expression975 = new BitSet(new ulong[]{0x10000000UL});
-		public static readonly BitSet _28_in_postfix_expression977 = new BitSet(new ulong[]{0x80008000082UL});
-		public static readonly BitSet _27_in_postfix_expression985 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _argument_expression_list_in_postfix_expression989 = new BitSet(new ulong[]{0x10000000UL});
-		public static readonly BitSet _28_in_postfix_expression991 = new BitSet(new ulong[]{0x80008000082UL});
-		public static readonly BitSet _DOT_in_postfix_expression999 = new BitSet(new ulong[]{0x8000UL});
-		public static readonly BitSet _IDENTIFIER_in_postfix_expression1001 = new BitSet(new ulong[]{0x80008000082UL});
-		public static readonly BitSet _IDENTIFIER_in_primary_expression1023 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _constant_in_primary_expression1030 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _27_in_primary_expression1037 = new BitSet(new ulong[]{0x9C001484CA870UL});
-		public static readonly BitSet _expression_in_primary_expression1039 = new BitSet(new ulong[]{0x10000000UL});
-		public static readonly BitSet _28_in_primary_expression1041 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _48_in_constant1058 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _46_in_constant1065 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _47_in_constant1072 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _DATETIME_LITERAL_in_constant1079 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _TIMESPAN_LITERAL_in_constant1086 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _HEX_LITERAL_in_constant1093 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _DECIMAL_LITERAL_in_constant1100 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _CHARACTER_LITERAL_in_constant1107 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _STRING_LITERAL_in_constant1114 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _FLOATING_POINT_LITERAL_in_constant1121 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _27_in_synpred22_Csharp740 = new BitSet(new ulong[]{0x8000UL});
-		public static readonly BitSet _type_expression_in_synpred22_Csharp744 = new BitSet(new ulong[]{0x10000000UL});
-		public static readonly BitSet _28_in_synpred22_Csharp746 = new BitSet(new ulong[]{0x1C001480CA870UL});
-		public static readonly BitSet _cast_expression_in_synpred22_Csharp750 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _51_in_unary_not_expression419 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _unary_not_expression_in_unary_not_expression423 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _relational_expression_in_equality_expression442 = new BitSet(new ulong[]{0x4000800002UL});
+		public static readonly BitSet _38_in_equality_expression455 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _relational_expression_in_equality_expression459 = new BitSet(new ulong[]{0x4000800002UL});
+		public static readonly BitSet _23_in_equality_expression468 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _relational_expression_in_equality_expression472 = new BitSet(new ulong[]{0x4000800002UL});
+		public static readonly BitSet _shift_expression_in_relational_expression501 = new BitSet(new ulong[]{0x1A800000002UL});
+		public static readonly BitSet _35_in_relational_expression514 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _shift_expression_in_relational_expression518 = new BitSet(new ulong[]{0x1A800000002UL});
+		public static readonly BitSet _39_in_relational_expression527 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _shift_expression_in_relational_expression531 = new BitSet(new ulong[]{0x1A800000002UL});
+		public static readonly BitSet _37_in_relational_expression540 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _shift_expression_in_relational_expression544 = new BitSet(new ulong[]{0x1A800000002UL});
+		public static readonly BitSet _40_in_relational_expression553 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _shift_expression_in_relational_expression557 = new BitSet(new ulong[]{0x1A800000002UL});
+		public static readonly BitSet _additive_expression_in_shift_expression586 = new BitSet(new ulong[]{0x21000000002UL});
+		public static readonly BitSet _36_in_shift_expression599 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _additive_expression_in_shift_expression603 = new BitSet(new ulong[]{0x21000000002UL});
+		public static readonly BitSet _41_in_shift_expression612 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _additive_expression_in_shift_expression616 = new BitSet(new ulong[]{0x21000000002UL});
+		public static readonly BitSet _multiplicative_expression_in_additive_expression645 = new BitSet(new ulong[]{0x140000002UL});
+		public static readonly BitSet _30_in_additive_expression653 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _multiplicative_expression_in_additive_expression657 = new BitSet(new ulong[]{0x140000002UL});
+		public static readonly BitSet _32_in_additive_expression665 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _multiplicative_expression_in_additive_expression669 = new BitSet(new ulong[]{0x140000002UL});
+		public static readonly BitSet _cast_expression_in_multiplicative_expression693 = new BitSet(new ulong[]{0x221000002UL});
+		public static readonly BitSet _29_in_multiplicative_expression701 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _cast_expression_in_multiplicative_expression705 = new BitSet(new ulong[]{0x221000002UL});
+		public static readonly BitSet _33_in_multiplicative_expression713 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _cast_expression_in_multiplicative_expression717 = new BitSet(new ulong[]{0x221000002UL});
+		public static readonly BitSet _24_in_multiplicative_expression725 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _cast_expression_in_multiplicative_expression729 = new BitSet(new ulong[]{0x221000002UL});
+		public static readonly BitSet _27_in_cast_expression751 = new BitSet(new ulong[]{0x8000UL});
+		public static readonly BitSet _type_expression_in_cast_expression755 = new BitSet(new ulong[]{0x10000000UL});
+		public static readonly BitSet _28_in_cast_expression757 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _cast_expression_in_cast_expression761 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _unary_expression_in_cast_expression770 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _type_identifier_in_type_expression789 = new BitSet(new ulong[]{0x80000000002UL});
+		public static readonly BitSet _43_in_type_expression800 = new BitSet(new ulong[]{0x100080000000UL});
+		public static readonly BitSet _31_in_type_expression810 = new BitSet(new ulong[]{0x100080000000UL});
+		public static readonly BitSet _44_in_type_expression824 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _IDENTIFIER_in_type_identifier846 = new BitSet(new ulong[]{0x82UL});
+		public static readonly BitSet _DOT_in_type_identifier852 = new BitSet(new ulong[]{0x8000UL});
+		public static readonly BitSet _IDENTIFIER_in_type_identifier856 = new BitSet(new ulong[]{0x82UL});
+		public static readonly BitSet _postfix_expression_in_unary_expression878 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _30_in_unary_expression889 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _cast_expression_in_unary_expression893 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _32_in_unary_expression901 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _cast_expression_in_unary_expression905 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_in_argument_expression_list928 = new BitSet(new ulong[]{0x80000002UL});
+		public static readonly BitSet _31_in_argument_expression_list936 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _expression_in_argument_expression_list940 = new BitSet(new ulong[]{0x80000002UL});
+		public static readonly BitSet _primary_expression_in_postfix_expression964 = new BitSet(new ulong[]{0x80008000082UL});
+		public static readonly BitSet _43_in_postfix_expression972 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _argument_expression_list_in_postfix_expression976 = new BitSet(new ulong[]{0x100000000000UL});
+		public static readonly BitSet _44_in_postfix_expression978 = new BitSet(new ulong[]{0x80008000082UL});
+		public static readonly BitSet _27_in_postfix_expression986 = new BitSet(new ulong[]{0x10000000UL});
+		public static readonly BitSet _28_in_postfix_expression988 = new BitSet(new ulong[]{0x80008000082UL});
+		public static readonly BitSet _27_in_postfix_expression996 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _argument_expression_list_in_postfix_expression1000 = new BitSet(new ulong[]{0x10000000UL});
+		public static readonly BitSet _28_in_postfix_expression1002 = new BitSet(new ulong[]{0x80008000082UL});
+		public static readonly BitSet _DOT_in_postfix_expression1010 = new BitSet(new ulong[]{0x8000UL});
+		public static readonly BitSet _IDENTIFIER_in_postfix_expression1012 = new BitSet(new ulong[]{0x80008000082UL});
+		public static readonly BitSet _IDENTIFIER_in_primary_expression1034 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _constant_in_primary_expression1041 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _27_in_primary_expression1048 = new BitSet(new ulong[]{0x9C001484CA870UL});
+		public static readonly BitSet _expression_in_primary_expression1050 = new BitSet(new ulong[]{0x10000000UL});
+		public static readonly BitSet _28_in_primary_expression1052 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _48_in_constant1069 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _46_in_constant1076 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _47_in_constant1083 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _DATETIME_LITERAL_in_constant1090 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _TIMESPAN_LITERAL_in_constant1097 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _HEX_LITERAL_in_constant1104 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _DECIMAL_LITERAL_in_constant1111 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _CHARACTER_LITERAL_in_constant1118 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _STRING_LITERAL_in_constant1125 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _FLOATING_POINT_LITERAL_in_constant1132 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _27_in_synpred22_Csharp751 = new BitSet(new ulong[]{0x8000UL});
+		public static readonly BitSet _type_expression_in_synpred22_Csharp755 = new BitSet(new ulong[]{0x10000000UL});
+		public static readonly BitSet _28_in_synpred22_Csharp757 = new BitSet(new ulong[]{0x1C001480CA870UL});
+		public static readonly BitSet _cast_expression_in_synpred22_Csharp761 = new BitSet(new ulong[]{0x2UL});
 	}
 	#endregion Follow sets
 }

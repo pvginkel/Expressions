@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4.1.9004 C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g 2012-04-01 11:19:11
+// $ANTLR 3.4.1.9004 C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g 2012-04-03 13:32:57
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 219
@@ -28,7 +28,7 @@ namespace  Expressions.Csharp
 {
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "3.4.1.9004")]
 [System.CLSCompliant(false)]
-public partial class CsharpLexer : Antlr.Runtime.Lexer
+ internal  partial class CsharpLexer : Antlr.Runtime.Lexer
 {
 	public const int EOF=-1;
 	public const int CHARACTER_LITERAL=4;
@@ -120,11 +120,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__22;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:10:7: ( '!' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:11:7: ( '!' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:10:9: '!'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:11:9: '!'
 			{
-			DebugLocation(10, 9);
+			DebugLocation(11, 9);
 			Match('!'); 
 
 			}
@@ -155,11 +155,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__23;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:11:7: ( '!=' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:12:7: ( '!=' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:11:9: '!='
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:12:9: '!='
 			{
-			DebugLocation(11, 9);
+			DebugLocation(12, 9);
 			Match("!="); 
 
 
@@ -191,11 +191,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__24;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:12:7: ( '%' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:13:7: ( '%' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:12:9: '%'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:13:9: '%'
 			{
-			DebugLocation(12, 9);
+			DebugLocation(13, 9);
 			Match('%'); 
 
 			}
@@ -226,11 +226,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__25;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:13:7: ( '&&' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:14:7: ( '&&' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:13:9: '&&'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:14:9: '&&'
 			{
-			DebugLocation(13, 9);
+			DebugLocation(14, 9);
 			Match("&&"); 
 
 
@@ -262,11 +262,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__26;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:14:7: ( '&' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:15:7: ( '&' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:14:9: '&'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:15:9: '&'
 			{
-			DebugLocation(14, 9);
+			DebugLocation(15, 9);
 			Match('&'); 
 
 			}
@@ -297,11 +297,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__27;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:15:7: ( '(' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:16:7: ( '(' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:15:9: '('
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:16:9: '('
 			{
-			DebugLocation(15, 9);
+			DebugLocation(16, 9);
 			Match('('); 
 
 			}
@@ -332,11 +332,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__28;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:16:7: ( ')' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:17:7: ( ')' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:16:9: ')'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:17:9: ')'
 			{
-			DebugLocation(16, 9);
+			DebugLocation(17, 9);
 			Match(')'); 
 
 			}
@@ -367,11 +367,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__29;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:17:7: ( '*' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:18:7: ( '*' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:17:9: '*'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:18:9: '*'
 			{
-			DebugLocation(17, 9);
+			DebugLocation(18, 9);
 			Match('*'); 
 
 			}
@@ -402,11 +402,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__30;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:18:7: ( '+' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:19:7: ( '+' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:18:9: '+'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:19:9: '+'
 			{
-			DebugLocation(18, 9);
+			DebugLocation(19, 9);
 			Match('+'); 
 
 			}
@@ -437,11 +437,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__31;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:19:7: ( ',' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:20:7: ( ',' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:19:9: ','
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:20:9: ','
 			{
-			DebugLocation(19, 9);
+			DebugLocation(20, 9);
 			Match(','); 
 
 			}
@@ -472,11 +472,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__32;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:20:7: ( '-' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:21:7: ( '-' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:20:9: '-'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:21:9: '-'
 			{
-			DebugLocation(20, 9);
+			DebugLocation(21, 9);
 			Match('-'); 
 
 			}
@@ -507,11 +507,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__33;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:21:7: ( '/' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:22:7: ( '/' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:21:9: '/'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:22:9: '/'
 			{
-			DebugLocation(21, 9);
+			DebugLocation(22, 9);
 			Match('/'); 
 
 			}
@@ -542,11 +542,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__34;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:22:7: ( ':' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:23:7: ( ':' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:22:9: ':'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:23:9: ':'
 			{
-			DebugLocation(22, 9);
+			DebugLocation(23, 9);
 			Match(':'); 
 
 			}
@@ -577,11 +577,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__35;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:23:7: ( '<' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:24:7: ( '<' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:23:9: '<'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:24:9: '<'
 			{
-			DebugLocation(23, 9);
+			DebugLocation(24, 9);
 			Match('<'); 
 
 			}
@@ -612,11 +612,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__36;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:24:7: ( '<<' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:25:7: ( '<<' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:24:9: '<<'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:25:9: '<<'
 			{
-			DebugLocation(24, 9);
+			DebugLocation(25, 9);
 			Match("<<"); 
 
 
@@ -648,11 +648,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__37;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:25:7: ( '<=' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:26:7: ( '<=' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:25:9: '<='
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:26:9: '<='
 			{
-			DebugLocation(25, 9);
+			DebugLocation(26, 9);
 			Match("<="); 
 
 
@@ -684,11 +684,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__38;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:26:7: ( '==' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:27:7: ( '==' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:26:9: '=='
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:27:9: '=='
 			{
-			DebugLocation(26, 9);
+			DebugLocation(27, 9);
 			Match("=="); 
 
 
@@ -720,11 +720,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__39;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:27:7: ( '>' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:28:7: ( '>' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:27:9: '>'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:28:9: '>'
 			{
-			DebugLocation(27, 9);
+			DebugLocation(28, 9);
 			Match('>'); 
 
 			}
@@ -755,11 +755,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__40;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:28:7: ( '>=' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:29:7: ( '>=' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:28:9: '>='
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:29:9: '>='
 			{
-			DebugLocation(28, 9);
+			DebugLocation(29, 9);
 			Match(">="); 
 
 
@@ -791,11 +791,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__41;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:29:7: ( '>>' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:30:7: ( '>>' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:29:9: '>>'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:30:9: '>>'
 			{
-			DebugLocation(29, 9);
+			DebugLocation(30, 9);
 			Match(">>"); 
 
 
@@ -827,11 +827,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__42;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:30:7: ( '?' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:31:7: ( '?' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:30:9: '?'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:31:9: '?'
 			{
-			DebugLocation(30, 9);
+			DebugLocation(31, 9);
 			Match('?'); 
 
 			}
@@ -862,11 +862,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__43;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:31:7: ( '[' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:32:7: ( '[' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:31:9: '['
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:32:9: '['
 			{
-			DebugLocation(31, 9);
+			DebugLocation(32, 9);
 			Match('['); 
 
 			}
@@ -897,11 +897,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__44;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:32:7: ( ']' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:33:7: ( ']' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:32:9: ']'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:33:9: ']'
 			{
-			DebugLocation(32, 9);
+			DebugLocation(33, 9);
 			Match(']'); 
 
 			}
@@ -932,11 +932,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__45;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:33:7: ( '^' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:34:7: ( '^' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:33:9: '^'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:34:9: '^'
 			{
-			DebugLocation(33, 9);
+			DebugLocation(34, 9);
 			Match('^'); 
 
 			}
@@ -967,11 +967,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__46;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:34:7: ( 'false' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:35:7: ( 'false' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:34:9: 'false'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:35:9: 'false'
 			{
-			DebugLocation(34, 9);
+			DebugLocation(35, 9);
 			Match("false"); 
 
 
@@ -1003,11 +1003,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__47;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:35:7: ( 'null' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:36:7: ( 'null' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:35:9: 'null'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:36:9: 'null'
 			{
-			DebugLocation(35, 9);
+			DebugLocation(36, 9);
 			Match("null"); 
 
 
@@ -1039,11 +1039,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__48;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:36:7: ( 'true' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:37:7: ( 'true' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:36:9: 'true'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:37:9: 'true'
 			{
-			DebugLocation(36, 9);
+			DebugLocation(37, 9);
 			Match("true"); 
 
 
@@ -1075,11 +1075,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__49;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:37:7: ( '|' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:38:7: ( '|' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:37:9: '|'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:38:9: '|'
 			{
-			DebugLocation(37, 9);
+			DebugLocation(38, 9);
 			Match('|'); 
 
 			}
@@ -1110,11 +1110,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__50;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:38:7: ( '||' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:39:7: ( '||' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:38:9: '||'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:39:9: '||'
 			{
-			DebugLocation(38, 9);
+			DebugLocation(39, 9);
 			Match("||"); 
 
 
@@ -1146,11 +1146,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = T__51;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:39:7: ( '~' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:40:7: ( '~' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:39:9: '~'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:40:9: '~'
 			{
-			DebugLocation(39, 9);
+			DebugLocation(40, 9);
 			Match('~'); 
 
 			}
@@ -1181,9 +1181,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = DOT;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:192:2: ()
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:193:2: ()
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:193:2: 
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:194:2: 
 			{
 			}
 
@@ -1213,14 +1213,14 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = CHARACTER_LITERAL;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:196:2: ( '\\'' (~ ( '\\\\' | '\\'' ) | EscapeSequence ) '\\'' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:197:2: ( '\\'' (~ ( '\\\\' | '\\'' ) | EscapeSequence ) '\\'' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:196:4: '\\'' (~ ( '\\\\' | '\\'' ) | EscapeSequence ) '\\''
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:197:4: '\\'' (~ ( '\\\\' | '\\'' ) | EscapeSequence ) '\\''
 			{
-			DebugLocation(196, 4);
+			DebugLocation(197, 4);
 			Match('\''); 
-			DebugLocation(196, 9);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:196:9: (~ ( '\\\\' | '\\'' ) | EscapeSequence )
+			DebugLocation(197, 9);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:197:9: (~ ( '\\\\' | '\\'' ) | EscapeSequence )
 			int alt1=2;
 			try { DebugEnterSubRule(1);
 			try { DebugEnterDecision(1, false);
@@ -1245,9 +1245,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:196:11: ~ ( '\\\\' | '\\'' )
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:197:11: ~ ( '\\\\' | '\\'' )
 				{
-				DebugLocation(196, 11);
+				DebugLocation(197, 11);
 				input.Consume();
 
 
@@ -1255,9 +1255,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:196:26: EscapeSequence
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:197:26: EscapeSequence
 				{
-				DebugLocation(196, 26);
+				DebugLocation(197, 26);
 				mEscapeSequence(); 
 
 				}
@@ -1266,7 +1266,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 			}
 			} finally { DebugExitSubRule(1); }
 
-			DebugLocation(196, 43);
+			DebugLocation(197, 43);
 			Match('\''); 
 
 			}
@@ -1297,16 +1297,16 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = TIMESPAN_LITERAL;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:200:2: ( '#' '#' (~ '#' )* '#' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:201:2: ( '#' '#' (~ '#' )* '#' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:200:4: '#' '#' (~ '#' )* '#'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:201:4: '#' '#' (~ '#' )* '#'
 			{
-			DebugLocation(200, 4);
+			DebugLocation(201, 4);
 			Match('#'); 
-			DebugLocation(200, 8);
+			DebugLocation(201, 8);
 			Match('#'); 
-			DebugLocation(200, 12);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:200:12: (~ '#' )*
+			DebugLocation(201, 12);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:201:12: (~ '#' )*
 			try { DebugEnterSubRule(2);
 			while (true)
 			{
@@ -1327,7 +1327,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					DebugEnterAlt(1);
 					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 					{
-					DebugLocation(200, 12);
+					DebugLocation(201, 12);
 					input.Consume();
 
 
@@ -1344,7 +1344,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 
 			} finally { DebugExitSubRule(2); }
 
-			DebugLocation(200, 22);
+			DebugLocation(201, 22);
 			Match('#'); 
 
 			}
@@ -1375,14 +1375,14 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = DATETIME_LITERAL;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:204:2: ( '#' (~ '#' )* '#' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:205:2: ( '#' (~ '#' )* '#' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:204:4: '#' (~ '#' )* '#'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:205:4: '#' (~ '#' )* '#'
 			{
-			DebugLocation(204, 4);
+			DebugLocation(205, 4);
 			Match('#'); 
-			DebugLocation(204, 8);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:204:8: (~ '#' )*
+			DebugLocation(205, 8);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:205:8: (~ '#' )*
 			try { DebugEnterSubRule(3);
 			while (true)
 			{
@@ -1403,7 +1403,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					DebugEnterAlt(1);
 					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 					{
-					DebugLocation(204, 8);
+					DebugLocation(205, 8);
 					input.Consume();
 
 
@@ -1420,7 +1420,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 
 			} finally { DebugExitSubRule(3); }
 
-			DebugLocation(204, 18);
+			DebugLocation(205, 18);
 			Match('#'); 
 
 			}
@@ -1451,14 +1451,14 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = STRING_LITERAL;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:208:2: ( '\"' (~ ( '\\\\' | '\"' ) | EscapeSequence )* '\"' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:209:2: ( '\"' (~ ( '\\\\' | '\"' ) | EscapeSequence )* '\"' )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:208:5: '\"' (~ ( '\\\\' | '\"' ) | EscapeSequence )* '\"'
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:209:5: '\"' (~ ( '\\\\' | '\"' ) | EscapeSequence )* '\"'
 			{
-			DebugLocation(208, 5);
+			DebugLocation(209, 5);
 			Match('\"'); 
-			DebugLocation(208, 9);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:208:9: (~ ( '\\\\' | '\"' ) | EscapeSequence )*
+			DebugLocation(209, 9);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:209:9: (~ ( '\\\\' | '\"' ) | EscapeSequence )*
 			try { DebugEnterSubRule(4);
 			while (true)
 			{
@@ -1481,9 +1481,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:208:11: ~ ( '\\\\' | '\"' )
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:209:11: ~ ( '\\\\' | '\"' )
 					{
-					DebugLocation(208, 11);
+					DebugLocation(209, 11);
 					input.Consume();
 
 
@@ -1491,9 +1491,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					break;
 				case 2:
 					DebugEnterAlt(2);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:208:25: EscapeSequence
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:209:25: EscapeSequence
 					{
-					DebugLocation(208, 25);
+					DebugLocation(209, 25);
 					mEscapeSequence(); 
 
 					}
@@ -1509,7 +1509,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 
 			} finally { DebugExitSubRule(4); }
 
-			DebugLocation(208, 43);
+			DebugLocation(209, 43);
 			Match('\"'); 
 
 			}
@@ -1538,9 +1538,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		TraceIn("HEX_LITERAL", 36);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:214:2: ()
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:215:2: ()
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:215:2: 
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:216:2: 
 			{
 			}
 
@@ -1566,9 +1566,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		TraceIn("DECIMAL_LITERAL", 37);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:219:2: ()
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:220:2: ()
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:220:2: 
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:221:2: 
 			{
 			}
 
@@ -1594,11 +1594,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		TraceIn("HexDigit", 38);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:223:10: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:224:10: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
 			DebugEnterAlt(1);
 			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 			{
-			DebugLocation(223, 10);
+			DebugLocation(224, 10);
 			if ((input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f'))
 			{
 				input.Consume();
@@ -1638,7 +1638,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = FLOATING_POINT_LITERAL;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:225:2: ( ( '0' )+ ( ( 'x' | 'X' ) ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+ ) |{...}? => '.' Digits ( Exponent )? ( FloatTypeSuffix )? | ( NumericTypeSuffix )? ) | ( '1' .. '9' ) ( Digits )? ({...}? => '.' ( Digits )? ( Exponent )? ( FloatTypeSuffix )? | Exponent ( FloatTypeSuffix )? | ( NumericTypeSuffix )? ) | '.' ( Digits ( Exponent )? ( FloatTypeSuffix )? |) )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:226:2: ( ( '0' )+ ( ( 'x' | 'X' ) ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+ ) |{...}? => '.' Digits ( Exponent )? ( FloatTypeSuffix )? | ( NumericTypeSuffix )? ) | ( '1' .. '9' ) ( Digits )? ({...}? => '.' ( Digits )? ( Exponent )? ( FloatTypeSuffix )? | Exponent ( FloatTypeSuffix )? | ( NumericTypeSuffix )? ) | '.' ( Digits ( Exponent )? ( FloatTypeSuffix )? |) )
 			int alt21=3;
 			try { DebugEnterDecision(21, false);
 			switch (input.LA(1))
@@ -1679,10 +1679,10 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:226:3: ( '0' )+ ( ( 'x' | 'X' ) ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+ ) |{...}? => '.' Digits ( Exponent )? ( FloatTypeSuffix )? | ( NumericTypeSuffix )? )
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:227:3: ( '0' )+ ( ( 'x' | 'X' ) ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+ ) |{...}? => '.' Digits ( Exponent )? ( FloatTypeSuffix )? | ( NumericTypeSuffix )? )
 				{
-				DebugLocation(226, 3);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:226:3: ( '0' )+
+				DebugLocation(227, 3);
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:227:3: ( '0' )+
 				int cnt5=0;
 				try { DebugEnterSubRule(5);
 				while (true)
@@ -1702,9 +1702,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:226:3: '0'
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:227:3: '0'
 						{
-						DebugLocation(226, 3);
+						DebugLocation(227, 3);
 						Match('0'); 
 
 						}
@@ -1725,8 +1725,8 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 
 				} finally { DebugExitSubRule(5); }
 
-				DebugLocation(227, 3);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:227:3: ( ( 'x' | 'X' ) ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+ ) |{...}? => '.' Digits ( Exponent )? ( FloatTypeSuffix )? | ( NumericTypeSuffix )? )
+				DebugLocation(228, 3);
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:228:3: ( ( 'x' | 'X' ) ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+ ) |{...}? => '.' Digits ( Exponent )? ( FloatTypeSuffix )? | ( NumericTypeSuffix )? )
 				int alt10=3;
 				try { DebugEnterSubRule(10);
 				try { DebugEnterDecision(10, false);
@@ -1749,20 +1749,20 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:228:4: ( 'x' | 'X' ) ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+ )
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:229:4: ( 'x' | 'X' ) ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+ )
 					{
-					DebugLocation(228, 4);
+					DebugLocation(229, 4);
 					input.Consume();
 
-					DebugLocation(228, 14);
+					DebugLocation(229, 14);
 					 _type = HEX_LITERAL; 
-					DebugLocation(229, 4);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:229:4: ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+ )
+					DebugLocation(230, 4);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:230:4: ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+ )
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:230:5: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:231:5: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+
 					{
-					DebugLocation(230, 5);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:230:5: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+
+					DebugLocation(231, 5);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:231:5: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' )+
 					int cnt6=0;
 					try { DebugEnterSubRule(6);
 					while (true)
@@ -1784,7 +1784,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 							DebugEnterAlt(1);
 							// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 							{
-							DebugLocation(230, 5);
+							DebugLocation(231, 5);
 							input.Consume();
 
 
@@ -1806,7 +1806,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 
 					} finally { DebugExitSubRule(6); }
 
-					DebugLocation(231, 5);
+					DebugLocation(232, 5);
 					 Text = Text.Substring(2); 
 
 					}
@@ -1816,19 +1816,19 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					break;
 				case 2:
 					DebugEnterAlt(2);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:233:6: {...}? => '.' Digits ( Exponent )? ( FloatTypeSuffix )?
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:234:6: {...}? => '.' Digits ( Exponent )? ( FloatTypeSuffix )?
 					{
-					DebugLocation(233, 6);
+					DebugLocation(234, 6);
 					if (!(( char.IsDigit((char)input.LA(2)) )))
 					{
 						throw new FailedPredicateException(input, "FLOATING_POINT_LITERAL", " char.IsDigit((char)input.LA(2)) ");
 					}
-					DebugLocation(233, 46);
+					DebugLocation(234, 46);
 					Match('.'); 
-					DebugLocation(233, 50);
+					DebugLocation(234, 50);
 					mDigits(); 
-					DebugLocation(233, 57);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:233:57: ( Exponent )?
+					DebugLocation(234, 57);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:234:57: ( Exponent )?
 					int alt7=2;
 					try { DebugEnterSubRule(7);
 					try { DebugEnterDecision(7, false);
@@ -1843,9 +1843,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:233:57: Exponent
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:234:57: Exponent
 						{
-						DebugLocation(233, 57);
+						DebugLocation(234, 57);
 						mExponent(); 
 
 						}
@@ -1854,8 +1854,8 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					}
 					} finally { DebugExitSubRule(7); }
 
-					DebugLocation(233, 67);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:233:67: ( FloatTypeSuffix )?
+					DebugLocation(234, 67);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:234:67: ( FloatTypeSuffix )?
 					int alt8=2;
 					try { DebugEnterSubRule(8);
 					try { DebugEnterDecision(8, false);
@@ -1872,7 +1872,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 						DebugEnterAlt(1);
 						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 						{
-						DebugLocation(233, 67);
+						DebugLocation(234, 67);
 						input.Consume();
 
 
@@ -1882,17 +1882,17 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					}
 					} finally { DebugExitSubRule(8); }
 
-					DebugLocation(233, 84);
+					DebugLocation(234, 84);
 					 _type = FLOATING_POINT_LITERAL; 
 
 					}
 					break;
 				case 3:
 					DebugEnterAlt(3);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:234:6: ( NumericTypeSuffix )?
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:235:6: ( NumericTypeSuffix )?
 					{
-					DebugLocation(234, 6);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:234:6: ( NumericTypeSuffix )?
+					DebugLocation(235, 6);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:235:6: ( NumericTypeSuffix )?
 					int alt9=2;
 					try { DebugEnterSubRule(9);
 					try { DebugEnterDecision(9, false);
@@ -1907,9 +1907,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:234:6: NumericTypeSuffix
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:235:6: NumericTypeSuffix
 						{
-						DebugLocation(234, 6);
+						DebugLocation(235, 6);
 						mNumericTypeSuffix(); 
 
 						}
@@ -1918,7 +1918,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					}
 					} finally { DebugExitSubRule(9); }
 
-					DebugLocation(234, 25);
+					DebugLocation(235, 25);
 					 _type = DECIMAL_LITERAL; 
 
 					}
@@ -1932,13 +1932,13 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:236:4: ( '1' .. '9' ) ( Digits )? ({...}? => '.' ( Digits )? ( Exponent )? ( FloatTypeSuffix )? | Exponent ( FloatTypeSuffix )? | ( NumericTypeSuffix )? )
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:237:4: ( '1' .. '9' ) ( Digits )? ({...}? => '.' ( Digits )? ( Exponent )? ( FloatTypeSuffix )? | Exponent ( FloatTypeSuffix )? | ( NumericTypeSuffix )? )
 				{
-				DebugLocation(236, 4);
+				DebugLocation(237, 4);
 				input.Consume();
 
-				DebugLocation(236, 15);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:236:15: ( Digits )?
+				DebugLocation(237, 15);
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:237:15: ( Digits )?
 				int alt11=2;
 				try { DebugEnterSubRule(11);
 				try { DebugEnterDecision(11, false);
@@ -1953,9 +1953,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:236:15: Digits
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:237:15: Digits
 					{
-					DebugLocation(236, 15);
+					DebugLocation(237, 15);
 					mDigits(); 
 
 					}
@@ -1964,8 +1964,8 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				}
 				} finally { DebugExitSubRule(11); }
 
-				DebugLocation(237, 3);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:237:3: ({...}? => '.' ( Digits )? ( Exponent )? ( FloatTypeSuffix )? | Exponent ( FloatTypeSuffix )? | ( NumericTypeSuffix )? )
+				DebugLocation(238, 3);
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:238:3: ({...}? => '.' ( Digits )? ( Exponent )? ( FloatTypeSuffix )? | Exponent ( FloatTypeSuffix )? | ( NumericTypeSuffix )? )
 				int alt17=3;
 				try { DebugEnterSubRule(17);
 				try { DebugEnterDecision(17, false);
@@ -1988,17 +1988,17 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:237:5: {...}? => '.' ( Digits )? ( Exponent )? ( FloatTypeSuffix )?
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:238:5: {...}? => '.' ( Digits )? ( Exponent )? ( FloatTypeSuffix )?
 					{
-					DebugLocation(237, 5);
+					DebugLocation(238, 5);
 					if (!(( char.IsDigit((char)input.LA(2)) )))
 					{
 						throw new FailedPredicateException(input, "FLOATING_POINT_LITERAL", " char.IsDigit((char)input.LA(2)) ");
 					}
-					DebugLocation(237, 45);
+					DebugLocation(238, 45);
 					Match('.'); 
-					DebugLocation(237, 49);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:237:49: ( Digits )?
+					DebugLocation(238, 49);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:238:49: ( Digits )?
 					int alt12=2;
 					try { DebugEnterSubRule(12);
 					try { DebugEnterDecision(12, false);
@@ -2013,9 +2013,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:237:49: Digits
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:238:49: Digits
 						{
-						DebugLocation(237, 49);
+						DebugLocation(238, 49);
 						mDigits(); 
 
 						}
@@ -2024,8 +2024,8 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					}
 					} finally { DebugExitSubRule(12); }
 
-					DebugLocation(237, 57);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:237:57: ( Exponent )?
+					DebugLocation(238, 57);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:238:57: ( Exponent )?
 					int alt13=2;
 					try { DebugEnterSubRule(13);
 					try { DebugEnterDecision(13, false);
@@ -2040,9 +2040,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:237:57: Exponent
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:238:57: Exponent
 						{
-						DebugLocation(237, 57);
+						DebugLocation(238, 57);
 						mExponent(); 
 
 						}
@@ -2051,8 +2051,8 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					}
 					} finally { DebugExitSubRule(13); }
 
-					DebugLocation(237, 67);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:237:67: ( FloatTypeSuffix )?
+					DebugLocation(238, 67);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:238:67: ( FloatTypeSuffix )?
 					int alt14=2;
 					try { DebugEnterSubRule(14);
 					try { DebugEnterDecision(14, false);
@@ -2069,7 +2069,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 						DebugEnterAlt(1);
 						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 						{
-						DebugLocation(237, 67);
+						DebugLocation(238, 67);
 						input.Consume();
 
 
@@ -2079,19 +2079,19 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					}
 					} finally { DebugExitSubRule(14); }
 
-					DebugLocation(237, 84);
+					DebugLocation(238, 84);
 					 _type = FLOATING_POINT_LITERAL; 
 
 					}
 					break;
 				case 2:
 					DebugEnterAlt(2);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:238:5: Exponent ( FloatTypeSuffix )?
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:239:5: Exponent ( FloatTypeSuffix )?
 					{
-					DebugLocation(238, 5);
+					DebugLocation(239, 5);
 					mExponent(); 
-					DebugLocation(238, 14);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:238:14: ( FloatTypeSuffix )?
+					DebugLocation(239, 14);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:239:14: ( FloatTypeSuffix )?
 					int alt15=2;
 					try { DebugEnterSubRule(15);
 					try { DebugEnterDecision(15, false);
@@ -2108,7 +2108,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 						DebugEnterAlt(1);
 						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 						{
-						DebugLocation(238, 14);
+						DebugLocation(239, 14);
 						input.Consume();
 
 
@@ -2118,17 +2118,17 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					}
 					} finally { DebugExitSubRule(15); }
 
-					DebugLocation(238, 31);
+					DebugLocation(239, 31);
 					 _type = FLOATING_POINT_LITERAL; 
 
 					}
 					break;
 				case 3:
 					DebugEnterAlt(3);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:239:5: ( NumericTypeSuffix )?
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:240:5: ( NumericTypeSuffix )?
 					{
-					DebugLocation(239, 5);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:239:5: ( NumericTypeSuffix )?
+					DebugLocation(240, 5);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:240:5: ( NumericTypeSuffix )?
 					int alt16=2;
 					try { DebugEnterSubRule(16);
 					try { DebugEnterDecision(16, false);
@@ -2143,9 +2143,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:239:5: NumericTypeSuffix
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:240:5: NumericTypeSuffix
 						{
-						DebugLocation(239, 5);
+						DebugLocation(240, 5);
 						mNumericTypeSuffix(); 
 
 						}
@@ -2154,7 +2154,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					}
 					} finally { DebugExitSubRule(16); }
 
-					DebugLocation(239, 24);
+					DebugLocation(240, 24);
 					 _type = DECIMAL_LITERAL; 
 
 					}
@@ -2168,12 +2168,12 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:242:3: '.' ( Digits ( Exponent )? ( FloatTypeSuffix )? |)
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:243:3: '.' ( Digits ( Exponent )? ( FloatTypeSuffix )? |)
 				{
-				DebugLocation(242, 3);
-				Match('.'); 
 				DebugLocation(243, 3);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:243:3: ( Digits ( Exponent )? ( FloatTypeSuffix )? |)
+				Match('.'); 
+				DebugLocation(244, 3);
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:244:3: ( Digits ( Exponent )? ( FloatTypeSuffix )? |)
 				int alt20=2;
 				try { DebugEnterSubRule(20);
 				try { DebugEnterDecision(20, false);
@@ -2192,12 +2192,12 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:243:5: Digits ( Exponent )? ( FloatTypeSuffix )?
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:244:5: Digits ( Exponent )? ( FloatTypeSuffix )?
 					{
-					DebugLocation(243, 5);
+					DebugLocation(244, 5);
 					mDigits(); 
-					DebugLocation(243, 12);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:243:12: ( Exponent )?
+					DebugLocation(244, 12);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:244:12: ( Exponent )?
 					int alt18=2;
 					try { DebugEnterSubRule(18);
 					try { DebugEnterDecision(18, false);
@@ -2212,9 +2212,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:243:12: Exponent
+						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:244:12: Exponent
 						{
-						DebugLocation(243, 12);
+						DebugLocation(244, 12);
 						mExponent(); 
 
 						}
@@ -2223,8 +2223,8 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					}
 					} finally { DebugExitSubRule(18); }
 
-					DebugLocation(243, 22);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:243:22: ( FloatTypeSuffix )?
+					DebugLocation(244, 22);
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:244:22: ( FloatTypeSuffix )?
 					int alt19=2;
 					try { DebugEnterSubRule(19);
 					try { DebugEnterDecision(19, false);
@@ -2241,7 +2241,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 						DebugEnterAlt(1);
 						// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 						{
-						DebugLocation(243, 22);
+						DebugLocation(244, 22);
 						input.Consume();
 
 
@@ -2251,16 +2251,16 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					}
 					} finally { DebugExitSubRule(19); }
 
-					DebugLocation(243, 39);
+					DebugLocation(244, 39);
 					 _type = FLOATING_POINT_LITERAL; 
 
 					}
 					break;
 				case 2:
 					DebugEnterAlt(2);
-					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:244:5: 
+					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:245:5: 
 					{
-					DebugLocation(244, 5);
+					DebugLocation(245, 5);
 					 _type = DOT; 
 
 					}
@@ -2298,12 +2298,12 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		TraceIn("Digits", 40);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:252:2: ( ( '0' .. '9' )+ )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:253:2: ( ( '0' .. '9' )+ )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:252:6: ( '0' .. '9' )+
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:253:6: ( '0' .. '9' )+
 			{
-			DebugLocation(252, 6);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:252:6: ( '0' .. '9' )+
+			DebugLocation(253, 6);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:253:6: ( '0' .. '9' )+
 			int cnt22=0;
 			try { DebugEnterSubRule(22);
 			while (true)
@@ -2325,7 +2325,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					DebugEnterAlt(1);
 					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 					{
-					DebugLocation(252, 6);
+					DebugLocation(253, 6);
 					input.Consume();
 
 
@@ -2372,11 +2372,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		TraceIn("Exponent", 41);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:257:2: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digits |) )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:258:2: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digits |) )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:257:6: ( 'e' | 'E' ) ( '+' | '-' )? ( Digits |)
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:258:6: ( 'e' | 'E' ) ( '+' | '-' )? ( Digits |)
 			{
-			DebugLocation(257, 6);
+			DebugLocation(258, 6);
 			if (input.LA(1)=='E'||input.LA(1)=='e')
 			{
 				input.Consume();
@@ -2389,8 +2389,8 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				throw mse;
 			}
 
-			DebugLocation(257, 16);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:257:16: ( '+' | '-' )?
+			DebugLocation(258, 16);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:258:16: ( '+' | '-' )?
 			int alt23=2;
 			try { DebugEnterSubRule(23);
 			try { DebugEnterDecision(23, false);
@@ -2407,7 +2407,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				DebugEnterAlt(1);
 				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 				{
-				DebugLocation(257, 16);
+				DebugLocation(258, 16);
 				input.Consume();
 
 
@@ -2417,8 +2417,8 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 			}
 			} finally { DebugExitSubRule(23); }
 
-			DebugLocation(258, 3);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:258:3: ( Digits |)
+			DebugLocation(259, 3);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:259:3: ( Digits |)
 			int alt24=2;
 			try { DebugEnterSubRule(24);
 			try { DebugEnterDecision(24, false);
@@ -2437,18 +2437,18 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:258:5: Digits
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:259:5: Digits
 				{
-				DebugLocation(258, 5);
+				DebugLocation(259, 5);
 				mDigits(); 
 
 				}
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:260:4: 
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:261:4: 
 				{
-				DebugLocation(260, 4);
+				DebugLocation(261, 4);
 
 								EmitErrorMessage("Malformed exponent");
 								Text = "0.0";
@@ -2485,7 +2485,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		TraceIn("NumericTypeSuffix", 42);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:269:2: ( ( 'u' | 'U' ) ( 'l' | 'L' )? | ( 'l' | 'L' ) ( 'u' | 'U' )? | FloatTypeSuffix )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:270:2: ( ( 'u' | 'U' ) ( 'l' | 'L' )? | ( 'l' | 'L' ) ( 'u' | 'U' )? | FloatTypeSuffix )
 			int alt27=3;
 			try { DebugEnterDecision(27, false);
 			switch (input.LA(1))
@@ -2525,13 +2525,13 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:269:4: ( 'u' | 'U' ) ( 'l' | 'L' )?
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:270:4: ( 'u' | 'U' ) ( 'l' | 'L' )?
 				{
-				DebugLocation(269, 4);
+				DebugLocation(270, 4);
 				input.Consume();
 
-				DebugLocation(269, 16);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:269:16: ( 'l' | 'L' )?
+				DebugLocation(270, 16);
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:270:16: ( 'l' | 'L' )?
 				int alt25=2;
 				try { DebugEnterSubRule(25);
 				try { DebugEnterDecision(25, false);
@@ -2548,7 +2548,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					DebugEnterAlt(1);
 					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 					{
-					DebugLocation(269, 16);
+					DebugLocation(270, 16);
 					input.Consume();
 
 
@@ -2563,13 +2563,13 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:270:4: ( 'l' | 'L' ) ( 'u' | 'U' )?
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:271:4: ( 'l' | 'L' ) ( 'u' | 'U' )?
 				{
-				DebugLocation(270, 4);
+				DebugLocation(271, 4);
 				input.Consume();
 
-				DebugLocation(270, 16);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:270:16: ( 'u' | 'U' )?
+				DebugLocation(271, 16);
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:271:16: ( 'u' | 'U' )?
 				int alt26=2;
 				try { DebugEnterSubRule(26);
 				try { DebugEnterDecision(26, false);
@@ -2586,7 +2586,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					DebugEnterAlt(1);
 					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 					{
-					DebugLocation(270, 16);
+					DebugLocation(271, 16);
 					input.Consume();
 
 
@@ -2601,9 +2601,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:271:4: FloatTypeSuffix
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:272:4: FloatTypeSuffix
 				{
-				DebugLocation(271, 4);
+				DebugLocation(272, 4);
 				mFloatTypeSuffix(); 
 
 				}
@@ -2632,11 +2632,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		TraceIn("FloatTypeSuffix", 43);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:276:2: ( ( 'f' | 'F' | 'd' | 'D' | 'm' | 'M' ) )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:277:2: ( ( 'f' | 'F' | 'd' | 'D' | 'm' | 'M' ) )
 			DebugEnterAlt(1);
 			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 			{
-			DebugLocation(276, 2);
+			DebugLocation(277, 2);
 			if (input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='M'||input.LA(1)=='d'||input.LA(1)=='f'||input.LA(1)=='m')
 			{
 				input.Consume();
@@ -2674,7 +2674,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		TraceIn("EscapeSequence", 44);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:281:2: ( '\\\\' ( 'B' | 'b' | 'T' | 't' | 'N' | 'n' | 'F' | 'f' | 'R' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UnicodeEscape )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:282:2: ( '\\\\' ( 'B' | 'b' | 'T' | 't' | 'N' | 'n' | 'F' | 'f' | 'R' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UnicodeEscape )
 			int alt28=2;
 			try { DebugEnterDecision(28, false);
 			int LA28_1 = input.LA(1);
@@ -2709,11 +2709,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:281:4: '\\\\' ( 'B' | 'b' | 'T' | 't' | 'N' | 'n' | 'F' | 'f' | 'R' | 'r' | '\\\"' | '\\'' | '\\\\' )
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:282:4: '\\\\' ( 'B' | 'b' | 'T' | 't' | 'N' | 'n' | 'F' | 'f' | 'R' | 'r' | '\\\"' | '\\'' | '\\\\' )
 				{
-				DebugLocation(281, 4);
+				DebugLocation(282, 4);
 				Match('\\'); 
-				DebugLocation(281, 9);
+				DebugLocation(282, 9);
 				input.Consume();
 
 
@@ -2721,9 +2721,9 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:282:4: UnicodeEscape
+				// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:283:4: UnicodeEscape
 				{
-				DebugLocation(282, 4);
+				DebugLocation(283, 4);
 				mUnicodeEscape(); 
 
 				}
@@ -2752,13 +2752,13 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		TraceIn("UnicodeEscape", 45);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:287:2: ( '\\\\' ( 'u' | 'U' ) HexDigit HexDigit HexDigit HexDigit )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:288:2: ( '\\\\' ( 'u' | 'U' ) HexDigit HexDigit HexDigit HexDigit )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:287:4: '\\\\' ( 'u' | 'U' ) HexDigit HexDigit HexDigit HexDigit
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:288:4: '\\\\' ( 'u' | 'U' ) HexDigit HexDigit HexDigit HexDigit
 			{
-			DebugLocation(287, 4);
+			DebugLocation(288, 4);
 			Match('\\'); 
-			DebugLocation(287, 9);
+			DebugLocation(288, 9);
 			if (input.LA(1)=='U'||input.LA(1)=='u')
 			{
 				input.Consume();
@@ -2771,13 +2771,13 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 				throw mse;
 			}
 
-			DebugLocation(287, 19);
+			DebugLocation(288, 19);
 			mHexDigit(); 
-			DebugLocation(287, 28);
+			DebugLocation(288, 28);
 			mHexDigit(); 
-			DebugLocation(287, 37);
+			DebugLocation(288, 37);
 			mHexDigit(); 
-			DebugLocation(287, 46);
+			DebugLocation(288, 46);
 			mHexDigit(); 
 
 			}
@@ -2806,14 +2806,14 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = IDENTIFIER;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:290:2: ( LETTER ( LETTER | '0' .. '9' )* )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:291:2: ( LETTER ( LETTER | '0' .. '9' )* )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:290:4: LETTER ( LETTER | '0' .. '9' )*
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:291:4: LETTER ( LETTER | '0' .. '9' )*
 			{
-			DebugLocation(290, 4);
+			DebugLocation(291, 4);
 			mLETTER(); 
-			DebugLocation(290, 11);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:290:11: ( LETTER | '0' .. '9' )*
+			DebugLocation(291, 11);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:291:11: ( LETTER | '0' .. '9' )*
 			try { DebugEnterSubRule(29);
 			while (true)
 			{
@@ -2834,7 +2834,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					DebugEnterAlt(1);
 					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 					{
-					DebugLocation(290, 11);
+					DebugLocation(291, 11);
 					input.Consume();
 
 
@@ -2878,11 +2878,11 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		TraceIn("LETTER", 47);
 		try
 		{
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:296:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:297:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )
 			DebugEnterAlt(1);
 			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 			{
-			DebugLocation(296, 2);
+			DebugLocation(297, 2);
 			if ((input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z'))
 			{
 				input.Consume();
@@ -2922,12 +2922,12 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 		{
 			int _type = WS;
 			int _channel = DefaultTokenChannel;
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:301:2: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:302:2: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
 			DebugEnterAlt(1);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:301:4: ( ' ' | '\\t' | '\\r' | '\\n' )+
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:302:4: ( ' ' | '\\t' | '\\r' | '\\n' )+
 			{
-			DebugLocation(301, 4);
-			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:301:4: ( ' ' | '\\t' | '\\r' | '\\n' )+
+			DebugLocation(302, 4);
+			// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:302:4: ( ' ' | '\\t' | '\\r' | '\\n' )+
 			int cnt30=0;
 			try { DebugEnterSubRule(30);
 			while (true)
@@ -2949,7 +2949,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 					DebugEnterAlt(1);
 					// C:\\Projects\\Expressions\\Expressions\\Csharp\\Csharp.g:
 					{
-					DebugLocation(301, 4);
+					DebugLocation(302, 4);
 					input.Consume();
 
 
@@ -2971,7 +2971,7 @@ public partial class CsharpLexer : Antlr.Runtime.Lexer
 
 			} finally { DebugExitSubRule(30); }
 
-			DebugLocation(302, 2);
+			DebugLocation(303, 2);
 
 			// This construct is to make ANTLRWorks happy.
 			#if true

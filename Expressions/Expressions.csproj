@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Expressions.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -130,14 +131,16 @@
     <Antlr3 Include="VisualBasic\VisualBasic.g">
       <Generator>MSBuild:Compile</Generator>
     </Antlr3>
+    <None Include="Expressions.nuspec" />
     <None Include="Key.snk" />
+    <None Include="Pack NuGet Package.bat" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>rem $(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Flee\Flee.g -o $(ProjectDir)Flee\Generated
-rem $(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Csharp\Csharp.g -o $(ProjectDir)Csharp\Generated
-rem $(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)VisualBasic\VisualBasic.g -o $(ProjectDir)VisualBasic\Generated</PreBuildEvent>
+    <PreBuildEvent>$(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Flee\Flee.g -o $(ProjectDir)Flee\Generated
+$(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)Csharp\Csharp.g -o $(ProjectDir)Csharp\Generated
+$(SolutionDir)Libraries\AntlrTools\Antlr3.exe $(ProjectDir)VisualBasic\VisualBasic.g -o $(ProjectDir)VisualBasic\Generated</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

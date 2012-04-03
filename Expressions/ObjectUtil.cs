@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Expressions
 {
-    public static class ObjectUtil
+    internal static class ObjectUtil
     {
         public static int CombineHashCodes(int hash1, int hash2)
         {

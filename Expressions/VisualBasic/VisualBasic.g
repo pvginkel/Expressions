@@ -23,7 +23,8 @@ options
 
 @lexer::namespace { Expressions.VisualBasic }
 @parser::namespace { Expressions.VisualBasic }
-@modifier { internal }
+@lexer::modifier { internal }
+@parser::modifier { internal }
 
 prog returns [IAstNode value]
 	: expression { $value = $expression.value; } EOF

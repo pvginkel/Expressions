@@ -26,7 +26,8 @@ options
 
 @lexer::namespace { Expressions.Csharp }
 @parser::namespace { Expressions.Csharp }
-@modifier { internal }
+@lexer::modifier { internal }
+@parser::modifier { internal }
 
 prog returns [IAstNode value]
 	: expression { $value = $expression.value; } EOF

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Expressions
 {
+    /// <summary>
+    /// Describes the options available when binding an expression.
+    /// </summary>
     public class BoundExpressionOptions
     {
         private bool _frozen;
@@ -13,6 +16,9 @@ namespace Expressions
         private Type _resultType = typeof(object);
         private bool _restrictedSkipVisibility;
 
+        /// <summary>
+        /// Get or set whether the expression may access private members.
+        /// </summary>
         public bool AllowPrivateAccess
         {
             get { return _allowPrivateAccess; }
@@ -25,6 +31,11 @@ namespace Expressions
             }
         }
 
+        /// <summary>
+        /// Get or set the result type of the expression (when left at the default
+        /// value, using <see cref="DynamicExpression{T}"/> will automatically
+        /// provide the value for this parameter).
+        /// </summary>
         public Type ResultType
         {
             get { return _resultType; }
@@ -37,6 +48,9 @@ namespace Expressions
             }
         }
 
+        /// <summary>
+        /// Get or set whether the expression must perform checked arithmetic.
+        /// </summary>
         public bool Checked
         {
             get { return _checked; }
@@ -49,6 +63,10 @@ namespace Expressions
             }
         }
 
+        /// <summary>
+        /// Get or set whether the visibility checkes must be skipped when
+        /// the expression is compiled.
+        /// </summary>
         public bool RestrictedSkipVisibility
         {
             get { return _restrictedSkipVisibility; }
@@ -61,6 +79,10 @@ namespace Expressions
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BoundExpressionOptions"/>
+        /// class.
+        /// </summary>
         public BoundExpressionOptions()
         {
         }
@@ -81,6 +103,15 @@ namespace Expressions
             _restrictedSkipVisibility = true;
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+        /// </summary>
+        /// <returns>
+        /// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+        /// </returns>
+        /// <param name="obj">The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>. 
+        ///                 </param><exception cref="T:System.NullReferenceException">The <paramref name="obj"/> parameter is null.
+        ///                 </exception><filterpriority>2</filterpriority>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj))
@@ -96,6 +127,13 @@ namespace Expressions
                 _restrictedSkipVisibility == other._restrictedSkipVisibility;
         }
 
+        /// <summary>
+        /// Serves as a hash function for a particular type. 
+        /// </summary>
+        /// <returns>
+        /// A hash code for the current <see cref="T:System.Object"/>.
+        /// </returns>
+        /// <filterpriority>2</filterpriority>
         public override int GetHashCode()
         {
             unchecked

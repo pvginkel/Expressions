@@ -23,7 +23,8 @@ options
 
 @lexer::namespace { Expressions.Flee }
 @parser::namespace { Expressions.Flee }
-@modifier { internal }
+@lexer::modifier { internal }
+@parser::modifier { internal }
 
 prog returns [IAstNode value]
 	: expression { $value = $expression.value; } EOF

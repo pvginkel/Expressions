@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Expressions</id>
+    <version>$version$</version>
+    <title>Expressions</title>
+    <authors>Pieter van Ginkel</authors>
+    <owners>Pieter van Ginkel</owners>
+    <licenseUrl>http://www.gnu.org/licenses/lgpl-3.0.txt</licenseUrl>
+    <projectUrl>http://github.com/pvginkel/Expressions</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Expression parser for C#, Flee and Visual Basic.</description>
+    <copyright>Pieter van Ginkel © 2012</copyright>
+    <tags>expressions parser compiler msil c# vb vb.net flee visualbasic</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\Expressions.xml" target="lib\net20" />
+  </files>
+</package>
