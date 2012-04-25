@@ -131,7 +131,7 @@ namespace Expressions.VisualBasic
             Debug.Assert(text.Substring(0, 1) == "'");
             Debug.Assert(text.Substring(text.Length - 1) == "'");
 
-            text = ParseEscapes(text.Substring(1, text.Length - 2));
+            text = text.Substring(1, text.Length - 2);
 
             Debug.Assert(text.Length == 1);
 
@@ -143,87 +143,9 @@ namespace Expressions.VisualBasic
             Debug.Assert(text.Substring(0, 1) == "\"");
             Debug.Assert(text.Substring(text.Length - 1) == "\"");
 
-            text = ParseEscapes(text.Substring(1, text.Length - 2));
+            text = text.Substring(1, text.Length - 2).Replace("\"\"", "\"");
 
             return new Constant(text);
-        }
-
-        private string ParseEscapes(string text)
-        {
-            var sb = new StringBuilder(text.Length);
-
-            bool hadEscape = false;
-
-            for (int i = 0; i < text.Length; i++)
-            {
-                char c = text[i];
-
-                if (hadEscape)
-                {
-                    hadEscape = false;
-
-                    switch (c)
-                    {
-                        case 'B':
-                        case 'b':
-                            sb.Append('\b');
-                            break;
-
-                        case 'T':
-                        case 't':
-                            sb.Append('\t');
-                            break;
-
-                        case 'N':
-                        case 'n':
-                            sb.Append('\n');
-                            break;
-
-                        case 'R':
-                        case 'r':
-                            sb.Append('\r');
-                            break;
-
-                        case 'F':
-                        case 'f':
-                            sb.Append('\f');
-                            break;
-
-                        case '"':
-                            sb.Append('"');
-                            break;
-
-                        case '\'':
-                            sb.Append('\'');
-                            break;
-
-                        case '\\':
-                            sb.Append('\\');
-                            break;
-
-                        case 'u':
-                        case 'U':
-                            Debug.Assert(i < text.Length - 4);
-
-                            sb.Append((char)uint.Parse(text.Substring(i + 1, 4), NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture));
-
-                            i += 4;
-                            break;
-
-                        default:
-                            throw new ArgumentOutOfRangeException(text);
-                    }
-                }
-                else
-                {
-                    if (c == '\\')
-                        hadEscape = true;
-                    else
-                        sb.Append(c);
-                }
-            }
-
-            return sb.ToString();
         }
 
         private IdentifierAccess CreateIdentifier(string text)

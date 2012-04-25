@@ -226,7 +226,7 @@ DOT
 	;
 
 CHARACTER_LITERAL
-	: '\'' ( ~('\\'|'\'') | EscapeSequence ) '\''
+	: '\'' ~'\'' '\''
 	;
 
 TIMESPAN_LITERAL
@@ -238,7 +238,7 @@ DATETIME_LITERAL
 	;
 
 STRING_LITERAL
-	:  '"' ( ~('\\'|'"') | EscapeSequence )* '"'
+	:  '"' ( ~'"' | '""' )* '"'
 	;
 
 HEX_LITERAL
@@ -300,17 +300,6 @@ NumericTypeSuffix
 fragment
 FloatTypeSuffix
 	: ('F'|'f'|'R'|'r'|'D'|'d')
-	;
-
-fragment
-EscapeSequence
-	: '\\' ('B'|'b'|'T'|'t'|'N'|'n'|'F'|'f'|'R'|'r'|'\"'|'\''|'\\')
-	| UnicodeEscape
-	;
-
-fragment
-UnicodeEscape
-	: '\\' ('u'|'U') HexDigit HexDigit HexDigit HexDigit
 	;
 
 IDENTIFIER

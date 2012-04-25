@@ -87,13 +87,8 @@ String;"abc";abc
 string;"abcdefghijklmnopqrstuvwxyz1234567890[]_+<>!@#$%^&*()=";abcdefghijklmnopqrstuvwxyz1234567890[]_+<>!@#$%^&*()=
 String;"";
 String;"1+1";1+1
-String;"quoted \"word\" is quoted";quoted "word" is quoted
-string;"\"\\";"\
-string;"a\u0064";ad
-string;"A\ttab";A	tab
-string;"a\Ttab";a	tab
-string;"A \u0042 \U0024";A B $
-string;"a\\n\\t";a\n\t
+String;"quoted ""word"" is quoted";quoted "word" is quoted
+string;"""\";"\
 ' Hex literals
 int32;&hA;10
 int32;-&ha;-10
@@ -1060,12 +1055,7 @@ string;datetimea.gettype().fullname.split(chararr)(1);DateTime
 char;'a';a
 char;' '; 
 char;'"';"
-char;'\'';'
-char;'\\';\
-char;'\u005E';^
-char;'\u005e';^
-char;'\t';	
-char;'\T';	
+char;'\';\
 '	implicit conversions
 uint16;'^';94
 int32;'^';94
