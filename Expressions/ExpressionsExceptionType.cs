@@ -48,6 +48,10 @@ namespace Expressions
         /// <summary>
         /// Exception is because a method could not be resolved.
         /// </summary>
-        UnresolvedMethod
+        UnresolvedMethod,
+        /// <summary>
+        /// Exception is because of an undefined invalid operation.
+        /// </summary>
+        InvalidOperation
     }
 }

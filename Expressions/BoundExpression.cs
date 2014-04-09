@@ -112,6 +112,8 @@ namespace Expressions
 
         public object Invoke(IExecutionContext executionContext)
         {
+            bool hadExecutionContext = executionContext != null;
+
             if (executionContext == null)
                 executionContext = new ExpressionContext();
 
@@ -126,6 +128,14 @@ namespace Expressions
 
                 if (index == -1)
                 {
+                    if (!hadExecutionContext)
+                    {
+                        throw new ExpressionsException(
+                            "An owner was expected but no execution context has been provided",
+                            ExpressionsExceptionType.InvalidOperation
+                        );
+                    }
+
                     parameters[i] = executionContext.Owner;
                 }
                 else

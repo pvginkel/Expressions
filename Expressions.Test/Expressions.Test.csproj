@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CsharpLanguage\Issues\Issue14Fixture.cs" />
     <Compile Include="FleeLanguage\BulkTests\BulkTests.cs" />
     <Compile Include="FleeLanguage\Compilation\CompilationFailures.cs" />
     <Compile Include="FleeLanguage\Compilation\ExpectedExceptions.cs" />
