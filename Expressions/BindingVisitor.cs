@@ -64,8 +64,6 @@ namespace Expressions
                 case ExpressionType.Xor:
                     operatorName = "op_ExclusiveOr";
                     break;
-                default:
-                    throw new ExpressionsException("No Operator found for Expression: " + type.ToString(), ExpressionsExceptionType.UndefinedName);
             }
 
             return operatorName;
@@ -92,7 +90,7 @@ namespace Expressions
             {
                 var method = _resolver.FindOperatorMethod(
                     operatorName,
-                    new[] { left.Type, right.Type, commonType },
+                    commonType != null ? new[] { left.Type, right.Type, commonType } : new[] { left.Type, right.Type },
                     null,
                     new[] { left.Type, right.Type },
                     new[] { left is Expressions.Constant && ((Expressions.Constant)left).Value == null, right is Expressions.Constant && ((Expressions.Constant)right).Value == null }
@@ -842,9 +840,9 @@ namespace Expressions
             var leftTypes = GetTypeHierarchy(left);
             var rightTypes = GetTypeHierarchy(right);
 
-            foreach (var l in GetTypeHierarchy(left))
+            foreach (var l in leftTypes)
             {
-                foreach (var r in GetTypeHierarchy(right))
+                foreach (var r in rightTypes)
                 {
                     if (r == l)
                         return l;
@@ -856,11 +854,12 @@ namespace Expressions
 
         private static List<Type> GetTypeHierarchy(Type t)
         {
+            Require.NotNull(t, "t");
+
             // Recursively list inherited classes, excluding System.Object, since will not help with most operators
             var types = new List<Type>() { t };
             var current = t.BaseType;
-            current = t.BaseType;
-            if (current != typeof(object))
+            if (current != null && current != typeof(object) && current != typeof(ValueType))
                 types.AddRange(GetTypeHierarchy(current));
             return types;
         }
@@ -879,7 +878,7 @@ namespace Expressions
 
             // Look whether operator is overloaded in commontype
             string operatorName = GetOperatorName(left, right, type);
-            if (IsOperatorOverloaded(commonType, type, operatorName))
+            if (!string.IsNullOrEmpty(operatorName) && IsOperatorOverloaded(commonType, type, operatorName))
                 return commonType;
 
             // Boolean operators.
@@ -945,6 +944,10 @@ namespace Expressions
 
         private static bool IsOperatorOverloaded(Type t, ExpressionType type, string operatorName)
         {
+            Require.NotNull(t, "t");
+            Require.NotNull(type, "type");
+            Require.NotEmpty(operatorName, "operatorName");
+
             foreach (var baseType in GetTypeHierarchy(t))
             {
                 if (baseType.GetMethod(operatorName) != null)
