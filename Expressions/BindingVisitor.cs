@@ -77,11 +77,13 @@ namespace Expressions
                     break;
             }
 
+            Type commonType = FindCommonType(left.Type, right.Type);
+
             if (operatorName != null)
             {
                 var method = _resolver.FindOperatorMethod(
                     operatorName,
-                    new[] { left.Type, right.Type },
+                    new[] { left.Type, right.Type, commonType },
                     null,
                     new[] { left.Type, right.Type },
                     new[] { left is Expressions.Constant && ((Expressions.Constant)left).Value == null, right is Expressions.Constant && ((Expressions.Constant)right).Value == null }
@@ -100,8 +102,6 @@ namespace Expressions
                     );
                 }
             }
-
-            Type commonType;
 
             switch (binaryExpression.Type)
             {
@@ -820,9 +820,52 @@ namespace Expressions
                 }
             }
 
-            // We can't cast implicitly.
+            // Look for common interface or base-class which might support this operator
+            // Useful for overloaded operators
+
+            foreach (var l in left.GetInterfaces())
+            {
+                foreach (var r in right.GetInterfaces())
+                {
+                    if (r == l)
+                        return l;
+                }
+            }
+
+            // Try again on inherited classes
+            var commonType = FindCommonType(left, right);
+            if (commonType != null)
+                return commonType;
 
             throw new ExpressionsException("Cannot resolve expression type", ExpressionsExceptionType.TypeMismatch);
+        }
+
+        private static Type FindCommonType(Type left, Type right, bool includeObject = false)
+        {
+            // Try again on inherited classes
+            var leftTypes = GetTypeHierarchy(left);
+            var rightTypes = GetTypeHierarchy(right);
+
+            foreach (var l in GetTypeHierarchy(left))
+            {
+                foreach (var r in GetTypeHierarchy(right))
+                {
+                    if (r == l)
+                        return l;
+                }
+            }
+
+            return null;
+        }
+
+        private static List<Type> GetTypeHierarchy(Type t)
+        {
+            var types = new List<Type>() { t };
+            var current = t.BaseType;
+            current = t.BaseType;
+            if (current != typeof(object))
+                types.AddRange(GetTypeHierarchy(current));
+            return types;
         }
 
         private bool IsAllowableImplicit(Type a, Type b)
@@ -836,6 +879,10 @@ namespace Expressions
             Require.NotNull(right, "right");
 
             // TODO: Implicit/explicit operators and operators for the expression type.
+
+            // Look whether operator is overloaded in commontype
+            if (IsOperatorOverloaded(commonType, type))
+                return commonType;
 
             // Boolean operators.
 
@@ -896,6 +943,14 @@ namespace Expressions
                 default:
                     return commonType;
             }
+        }
+
+        private static bool IsOperatorOverloaded(Type t, ExpressionType type)
+        {
+            var r = t.BaseType;
+
+            return true;
+
         }
 
         public IExpression Conditional(Ast.Conditional conditional)
