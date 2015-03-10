@@ -86,11 +86,18 @@ namespace Expressions
 
             Type commonType = FindCommonType(left.Type, right.Type);
 
+            var types = new List<Type>();
+            if (commonType != null)
+                types.Add(commonType);
+            types.AddRange(GetTypeHierarchy(left.Type));
+            types.AddRange(GetTypeHierarchy(right.Type));
+            types = ListExtension<Type>.Distinct(types);
+            
             if (operatorName != null)
             {
                 var method = _resolver.FindOperatorMethod(
                     operatorName,
-                    commonType != null ? new[] { left.Type, right.Type, commonType } : new[] { left.Type, right.Type },
+                    types.ToArray(),
                     null,
                     new[] { left.Type, right.Type },
                     new[] { left is Expressions.Constant && ((Expressions.Constant)left).Value == null, right is Expressions.Constant && ((Expressions.Constant)right).Value == null }
@@ -831,6 +838,9 @@ namespace Expressions
             var commonType = FindCommonType(left, right);
             if (commonType != null)
                 return commonType;
+
+            // Look for an operator in one of the types which is compatible with the left/right parameters
+
 
             throw new ExpressionsException("Cannot resolve expression type", ExpressionsExceptionType.TypeMismatch);
         }

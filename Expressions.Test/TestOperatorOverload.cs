@@ -14,6 +14,21 @@ namespace Expressions.Test
         {
             return first.Val + second.Val;
         }
+
+        public static double operator +(BaseClass first, double second)
+        {
+            return first.Val + second;
+        }
+
+        public static double operator +(double first, BaseClass second)
+        {
+            return first + second.Val;
+        }
+
+        public static double operator -(BaseClass first, BaseClass second)
+        {
+            return first.Val - second.Val;
+        }
     }
 
     class FirstClass : BaseClass
@@ -35,7 +50,7 @@ namespace Expressions.Test
     class TestOperatorOverload
     {
         [Test]
-        public void TestOverload()
+        public void CanSum2ObjectsOfDifferentTypes()
         {
             var a = new FirstClass(5);
             var b = new SecondClass(7);
@@ -49,7 +64,43 @@ namespace Expressions.Test
             var expr = new DynamicExpression<double>("a + b", ExpressionLanguage.Csharp);
 
             var s = expr.Invoke(context);
+            Assert.That(s, Is.EqualTo(c));
         }
 
+        [Test]
+        public void CanSubstract2ObjectsOfDifferentTypes()
+        {
+            var a = new FirstClass(5);
+            var b = new SecondClass(7);
+
+            var c = a - b;
+
+            var context = new ExpressionContext();
+            context.Variables.Add("a", a);
+            context.Variables.Add("b", b);
+
+            var expr = new DynamicExpression<double>("a - b", ExpressionLanguage.Csharp);
+
+            var s = expr.Invoke(context);
+            Assert.That(s, Is.EqualTo(c));
+        }
+
+        [Test]
+        public void CanSum2AnObjectAndADouble()
+        {
+            var a = new FirstClass(5);
+            var b = 7.0;
+
+            var c = a + b;
+
+            var context = new ExpressionContext();
+            context.Variables.Add("a", a);
+            context.Variables.Add("b", b);
+
+            var expr = new DynamicExpression<double>("a + b", ExpressionLanguage.Csharp);
+
+            var s = expr.Invoke(context);
+            Assert.That(s, Is.EqualTo(c));
+        }
     }
 }
