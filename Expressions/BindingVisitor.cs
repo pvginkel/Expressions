@@ -21,22 +21,11 @@ namespace Expressions
             _resolver = resolver;
         }
 
-        public IExpression BinaryExpression(Ast.BinaryExpression binaryExpression)
+        private static string GetOperatorName(Type left, Type right, ExpressionType type)
         {
-            // In expressions are converted to method calls.
-
-            if (binaryExpression.Type == ExpressionType.In)
-                return BinaryInExpression(binaryExpression);
-
-            // We need to do this here and not in the conversion phase because
-            // we need the return type of the method to fully bind the tree.
-
-            var left = binaryExpression.Left.Accept(this);
-            var right = binaryExpression.Right.Accept(this);
-
             string operatorName = null;
 
-            switch (binaryExpression.Type)
+            switch (type)
             {
                 case ExpressionType.Add: operatorName = "op_Addition"; break;
                 case ExpressionType.Divide: operatorName = "op_Division"; break;
@@ -59,23 +48,43 @@ namespace Expressions
                 case ExpressionType.BitwiseOr: operatorName = "op_BitwiseOr"; break;
 
                 case ExpressionType.And:
-                    if (left.Type == typeof(bool) && right.Type == typeof(bool))
+                    if (left == typeof(bool) && right == typeof(bool))
                         operatorName = "op_LogicalAnd";
                     else
                         operatorName = "op_BitwiseAnd";
                     break;
 
                 case ExpressionType.Or:
-                    if (left.Type == typeof(bool) && right.Type == typeof(bool))
+                    if (left == typeof(bool) && right == typeof(bool))
                         operatorName = "op_LogicalOr";
                     else
                         operatorName = "op_BitwiseOr";
                     break;
-                    
+
                 case ExpressionType.Xor:
                     operatorName = "op_ExclusiveOr";
                     break;
+                default:
+                    throw new ExpressionsException("No Operator found for Expression: " + type.ToString(), ExpressionsExceptionType.UndefinedName);
             }
+
+            return operatorName;
+        }
+
+        public IExpression BinaryExpression(Ast.BinaryExpression binaryExpression)
+        {
+            // In expressions are converted to method calls.
+
+            if (binaryExpression.Type == ExpressionType.In)
+                return BinaryInExpression(binaryExpression);
+
+            // We need to do this here and not in the conversion phase because
+            // we need the return type of the method to fully bind the tree.
+
+            var left = binaryExpression.Left.Accept(this);
+            var right = binaryExpression.Right.Accept(this);
+
+            string operatorName = GetOperatorName(left.Type, right.Type, binaryExpression.Type);
 
             Type commonType = FindCommonType(left.Type, right.Type);
 
@@ -820,19 +829,7 @@ namespace Expressions
                 }
             }
 
-            // Look for common interface or base-class which might support this operator
-            // Useful for overloaded operators
-
-            foreach (var l in left.GetInterfaces())
-            {
-                foreach (var r in right.GetInterfaces())
-                {
-                    if (r == l)
-                        return l;
-                }
-            }
-
-            // Try again on inherited classes
+            // Look for a common base-class which might support this operator
             var commonType = FindCommonType(left, right);
             if (commonType != null)
                 return commonType;
@@ -842,7 +839,6 @@ namespace Expressions
 
         private static Type FindCommonType(Type left, Type right, bool includeObject = false)
         {
-            // Try again on inherited classes
             var leftTypes = GetTypeHierarchy(left);
             var rightTypes = GetTypeHierarchy(right);
 
@@ -860,6 +856,7 @@ namespace Expressions
 
         private static List<Type> GetTypeHierarchy(Type t)
         {
+            // Recursively list inherited classes, excluding System.Object, since will not help with most operators
             var types = new List<Type>() { t };
             var current = t.BaseType;
             current = t.BaseType;
@@ -881,7 +878,8 @@ namespace Expressions
             // TODO: Implicit/explicit operators and operators for the expression type.
 
             // Look whether operator is overloaded in commontype
-            if (IsOperatorOverloaded(commonType, type))
+            string operatorName = GetOperatorName(left, right, type);
+            if (IsOperatorOverloaded(commonType, type, operatorName))
                 return commonType;
 
             // Boolean operators.
@@ -945,11 +943,16 @@ namespace Expressions
             }
         }
 
-        private static bool IsOperatorOverloaded(Type t, ExpressionType type)
+        private static bool IsOperatorOverloaded(Type t, ExpressionType type, string operatorName)
         {
-            var r = t.BaseType;
+            foreach (var baseType in GetTypeHierarchy(t))
+            {
+                if (baseType.GetMethod(operatorName) != null)
+                    return true;
+            }
 
-            return true;
+            // We didn't find the operator in any of the base-types.
+            return false;
 
         }
 
