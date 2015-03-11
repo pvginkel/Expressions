@@ -58,6 +58,7 @@
     <Compile Include="FleeLanguage\Compilation\ExpectedExceptions.cs" />
     <Compile Include="FleeLanguage\IndividualTests.cs" />
     <Compile Include="TestOperatorOverload.cs" />
+    <Compile Include="MyTests.cs" />
     <Compile Include="VisualBasicLanguage\BulkTests\BulkTests.cs" />
     <Compile Include="VisualBasicLanguage\Compilation\BinaryExpressions.cs" />
     <Compile Include="VisualBasicLanguage\Compilation\Caching.cs" />
