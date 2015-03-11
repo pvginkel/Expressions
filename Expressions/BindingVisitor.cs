@@ -291,6 +291,13 @@ namespace Expressions
             if (type != null)
                 return new TypeAccess(type);
 
+            // Call out to handler if not null
+            if (_resolver.TypeResolutionHandler != null)
+                type = _resolver.TypeResolutionHandler(identifierAccess.Name, _resolver.IgnoreCase);
+
+            if (type != null)
+                return new TypeAccess(type);
+
             throw new ExpressionsException(
                 String.Format("Unresolved identifier '{0}'", identifierAccess.Name),
                 ExpressionsExceptionType.UndefinedName

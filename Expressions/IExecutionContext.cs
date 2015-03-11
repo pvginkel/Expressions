@@ -23,5 +23,18 @@ namespace Expressions
         /// <param name="ignoreCase">True to ignore case when resolving the variable; otherwise false.</param>
         /// <returns></returns>
         object GetVariableValue(string variable, bool ignoreCase);
+
+        /// <summary>
+        /// Event which will be raised in case a variable value cannot be defined from the execution context
+        /// </summary>
+        event ResolveVariableValueHandler ResolveVariableValue;
     }
+
+    /// <summary>
+    /// Delegate for the ResolveVariableValue event.
+    /// </summary>
+    /// <param name="variable">The name of the variable.</param>
+    /// <param name="ignoreCase">True to ignore case when resolving the variable; otherwise false.</param>
+    /// <returns></returns>
+    public delegate object ResolveVariableValueHandler(string variable, bool ignoreCase);
 }

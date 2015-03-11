@@ -73,5 +73,28 @@ namespace Expressions.Test
                 Assert.AreEqual(reason, ex.Type, string.Format("Expected exception type '{0}' but got '{1}'", reason, ex.Type));
             }
         }
+
+        [Test]
+        public void RaisesGetVariableTypeEvent()
+        {
+            var context = new ExpressionContext();
+            context.ResolveVariableType += GetVariableType;
+            context.ResolveVariableValue += GetVariableValue;
+
+            var expr = new DynamicExpression<int>("a + b", ExpressionLanguage.Csharp);
+            var s = expr.Invoke(context);
+            Assert.That(s, Is.EqualTo("a".GetHashCode() + "b".GetHashCode()));
+        }
+
+        private Type GetVariableType(string variable, bool ignoreCase)
+        {
+            return typeof(int);
+        }
+
+        private object GetVariableValue(string variable, bool ignoreCase)
+        {
+            return variable.GetHashCode();
+        }
+
     }
 }

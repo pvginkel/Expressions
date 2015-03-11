@@ -41,7 +41,8 @@ namespace Expressions
                         key.OwnerType,
                         key.Imports,
                         key.IdentifierTypes,
-                        key.Options
+                        key.Options,
+                        binder.GetVariableType
                     );
 
                     _cache.Add(key, boundExpression);

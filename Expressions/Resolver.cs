@@ -24,7 +24,9 @@ namespace Expressions
 
         public bool IgnoreCase { get; private set; }
 
-        public Resolver(CachedDynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, int[] parameterMap, BoundExpressionOptions options)
+        public ResolveVariableTypeHandler TypeResolutionHandler { get; private set; }
+
+        public Resolver(CachedDynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, int[] parameterMap, BoundExpressionOptions options, ResolveVariableTypeHandler typeResolutionHandler = null)
         {
             Require.NotNull(dynamicExpression, "dynamicExpression");
             Require.NotNull(imports, "imports");
@@ -36,6 +38,7 @@ namespace Expressions
             Imports = imports;
             IdentifierTypes = identifierTypes;
             Options = options;
+            TypeResolutionHandler = typeResolutionHandler;
 
             // Inverse the parameter map.
 
