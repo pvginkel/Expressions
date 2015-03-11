@@ -7,10 +7,5 @@ Thumbs.db
 /*.dotCover
 /Everything.sln
 /_ReSharper.*
-<<<<<<< HEAD
-Expressions/Csharp/Generated/CsharpLexer.cs
-Expressions/Csharp/Generated/CsharpParser.cs
-=======
 Expressions/Csharp/Generated/CsharpParser.cs
 Expressions/Csharp/Generated/CsharpLexer.cs
->>>>>>> Original-Release
