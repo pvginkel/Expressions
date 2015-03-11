@@ -886,10 +886,7 @@ namespace Expressions
 
             // TODO: Implicit/explicit operators and operators for the expression type.
 
-            // Look whether operator is overloaded in commontype
             string operatorName = GetOperatorName(left, right, type);
-            if (!string.IsNullOrEmpty(operatorName) && IsOperatorOverloaded(commonType, type, operatorName))
-                return commonType;
 
             // Boolean operators.
 
@@ -902,7 +899,9 @@ namespace Expressions
                 case ExpressionType.OrBoth:
                     if (TypeUtil.IsInteger(commonType))
                         return commonType;
-
+                    // Look whether operator is overloaded in commontype
+                    else if (!string.IsNullOrEmpty(operatorName) && IsOperatorOverloaded(commonType, type, operatorName))
+                        return commonType;
                     else if (left != typeof(bool) || right != typeof(bool))
                         throw new ExpressionsException("Invalid operand for expression type", ExpressionsExceptionType.TypeMismatch);
 
@@ -942,7 +941,10 @@ namespace Expressions
                 case ExpressionType.Multiply:
                 case ExpressionType.Divide:
                 case ExpressionType.Power:
-                    if (!TypeUtil.IsNumeric(left) || !TypeUtil.IsNumeric(right))
+                    // Look whether operator is overloaded in commontype
+                    if (!string.IsNullOrEmpty(operatorName) && IsOperatorOverloaded(commonType, type, operatorName))
+                        return commonType;
+                    else if (!TypeUtil.IsNumeric(left) || !TypeUtil.IsNumeric(right))
                         throw new ExpressionsException("Invalid operand for expression type", ExpressionsExceptionType.TypeMismatch);
 
                     return commonType;
