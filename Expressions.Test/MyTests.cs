@@ -28,6 +28,13 @@ namespace Expressions.Test
             TestValidExpression(str);
         }
 
+        [Test]
+        public void ShouldFail()
+        {
+            var str = "System.object;DayOfWeek.Friday = ConsoleModifiers.Alt;TypeMismatch";
+            TestInvalidValidExpression(str);
+        }
+
         private void TestValidExpression(string expr)
         {
             MyCurrentContext = MyGenericContext;
@@ -45,6 +52,26 @@ namespace Expressions.Test
 
         }
 
+        private void TestInvalidValidExpression(string expr)
+        {
+            var arr = expr.Split(';');
+            var reason = (ExpressionsExceptionType)Enum.Parse(typeof(ExpressionsExceptionType), arr[2], true);
 
+            var options = new BoundExpressionOptions
+            {
+                ResultType = Type.GetType(arr[0], true, true),
+                AllowPrivateAccess = true
+            };
+
+            try
+            {
+                new DynamicExpression(arr[1], ExpressionLanguage.Flee).Bind(MyGenericContext, options);
+                Assert.Fail("Compile exception expected");
+            }
+            catch (ExpressionsException ex)
+            {
+                Assert.AreEqual(reason, ex.Type, string.Format("Expected exception type '{0}' but got '{1}'", reason, ex.Type));
+            }
+        }
     }
 }
