@@ -986,5 +986,20 @@ namespace Expressions
 
             return true;
         }
+
+    }
+    
+    public class ListExtension<T>
+    {
+        public static List<T> Distinct(List<T> me)
+        {
+            var distinctList = new List<T>();
+            foreach (var element in me)
+            {
+                if (!distinctList.Contains(element))
+                    distinctList.Add(element);
+            }
+            return distinctList;
+        }
     }
 }

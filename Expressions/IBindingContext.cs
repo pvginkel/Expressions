@@ -28,5 +28,19 @@ namespace Expressions
         /// <param name="ignoreCase">True to ignore case when resolving the variable; otherwise false.</param>
         /// <returns></returns>
         Type GetVariableType(string variable, bool ignoreCase);
+
+        /// <summary>
+        /// Event which will be raised in case a variable type cannot be defined from the binding context
+        /// </summary>
+        event ResolveVariableTypeHandler ResolveVariableType;
     }
+
+    /// <summary>
+    /// Delegate for the ResolveVariableType event.
+    /// </summary>
+    /// <param name="variable">The name of the variable.</param>
+    /// <param name="ignoreCase">True to ignore case when resolving the variable; otherwise false.</param>
+    /// <returns></returns>
+    public delegate Type ResolveVariableTypeHandler(string variable, bool ignoreCase);
+
 }
