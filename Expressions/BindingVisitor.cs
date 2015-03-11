@@ -869,7 +869,7 @@ namespace Expressions
             // Recursively list inherited classes, excluding System.Object, since will not help with most operators
             var types = new List<Type>() { t };
             var current = t.BaseType;
-            if (current != null && current != typeof(object) && current != typeof(ValueType))
+            if (current != null && current != typeof(object) && current != typeof(ValueType) && current != typeof(Enum))
                 types.AddRange(GetTypeHierarchy(current));
             return types;
         }
