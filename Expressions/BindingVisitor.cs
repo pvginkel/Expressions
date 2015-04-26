@@ -83,21 +83,13 @@ namespace Expressions
             var right = binaryExpression.Right.Accept(this);
 
             string operatorName = GetOperatorName(left.Type, right.Type, binaryExpression.Type);
-
-            Type commonType = FindCommonType(left.Type, right.Type);
-
-            var types = new List<Type>();
-            if (commonType != null)
-                types.Add(commonType);
-            types.AddRange(GetTypeHierarchy(left.Type));
-            types.AddRange(GetTypeHierarchy(right.Type));
-            types = ListExtension<Type>.Distinct(types);
+            var types = GetTypeHierarchy(left.Type, right.Type);
             
             if (operatorName != null)
             {
                 var method = _resolver.FindOperatorMethod(
                     operatorName,
-                    types.ToArray(),
+                    types,
                     null,
                     new[] { left.Type, right.Type },
                     new[] { left is Expressions.Constant && ((Expressions.Constant)left).Value == null, right is Expressions.Constant && ((Expressions.Constant)right).Value == null }
@@ -116,6 +108,8 @@ namespace Expressions
                     );
                 }
             }
+
+            Type commonType;
 
             switch (binaryExpression.Type)
             {
@@ -852,33 +846,60 @@ namespace Expressions
             throw new ExpressionsException("Cannot resolve expression type", ExpressionsExceptionType.TypeMismatch);
         }
 
-        private static Type FindCommonType(Type left, Type right, bool includeObject = false)
+        private static Type FindCommonType(Type left, Type right)
         {
-            var leftTypes = GetTypeHierarchy(left);
-            var rightTypes = GetTypeHierarchy(right);
+            var rightCopy = right;
 
-            foreach (var l in leftTypes)
+            while (left != null)
             {
-                foreach (var r in rightTypes)
+                right = rightCopy;
+
+                while (right != null)
                 {
-                    if (r == l)
-                        return l;
+                    if (left == right)
+                        return IsUninterestingType(left) ? null : left;
+
+                    right = right.BaseType;
                 }
+
+                left = left.BaseType;
             }
 
             return null;
         }
 
-        private static List<Type> GetTypeHierarchy(Type t)
+        private static List<Type> GetTypeHierarchy(Type leftType, Type rightType)
         {
-            Require.NotNull(t, "t");
+            Require.NotNull(leftType, "leftType");
+            Require.NotNull(rightType, "rightType");
+
+            var types = new List<Type>();
 
             // Recursively list inherited classes, excluding System.Object, since will not help with most operators
-            var types = new List<Type>() { t };
-            var current = t.BaseType;
-            if (current != null && current != typeof(object) && current != typeof(ValueType) && current != typeof(Enum))
-                types.AddRange(GetTypeHierarchy(current));
+
+            while (leftType != null && !IsUninterestingType(leftType))
+            {
+                types.Add(leftType);
+                leftType = leftType.BaseType;
+            }
+
+            // Add the right types until we find a common (base) type.
+
+            while (rightType != null && !IsUninterestingType(rightType))
+            {
+                if (types.Contains(rightType))
+                    break;
+
+                types.Add(rightType);
+                rightType = rightType.BaseType;
+            }
+
             return types;
+        }
+
+        private static bool IsUninterestingType(Type type)
+        {
+            return type == typeof(object) || type == typeof(ValueType) || type == typeof(Enum);
         }
 
         private bool IsAllowableImplicit(Type a, Type b)
@@ -961,21 +982,22 @@ namespace Expressions
             }
         }
 
-        private static bool IsOperatorOverloaded(Type t, ExpressionType type, string operatorName)
+        private static bool IsOperatorOverloaded(Type type, ExpressionType expressionType, string operatorName)
         {
-            Require.NotNull(t, "t");
             Require.NotNull(type, "type");
+            Require.NotNull(expressionType, "expressionType");
             Require.NotEmpty(operatorName, "operatorName");
 
-            foreach (var baseType in GetTypeHierarchy(t))
+            while (type != null && !IsUninterestingType(type))
             {
-                if (baseType.GetMethod(operatorName) != null)
+                if (type.GetMethod(operatorName) != null)
                     return true;
+
+                type = type.BaseType;
             }
 
             // We didn't find the operator in any of the base-types.
             return false;
-
         }
 
         public IExpression Conditional(Ast.Conditional conditional)

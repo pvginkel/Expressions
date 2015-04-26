@@ -293,12 +293,12 @@ namespace Expressions
                 implicitMatch = false;
         }
 
-        internal MethodInfo FindOperatorMethod(string methodName, Type[] sourceTypes, Type returnType, Type[] parameterTypes)
+        internal MethodInfo FindOperatorMethod(string methodName, IList<Type> sourceTypes, Type returnType, Type[] parameterTypes)
         {
             return FindOperatorMethod(methodName, sourceTypes, returnType, parameterTypes, null);
         }
 
-        internal MethodInfo FindOperatorMethod(string methodName, Type[] sourceTypes, Type returnType, Type[] parameterTypes, bool[] parametersNull)
+        internal MethodInfo FindOperatorMethod(string methodName, IList<Type> sourceTypes, Type returnType, Type[] parameterTypes, bool[] parametersNull)
         {
             var candidates = new List<MethodInfo>();
 
