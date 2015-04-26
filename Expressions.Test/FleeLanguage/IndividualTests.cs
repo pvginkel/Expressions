@@ -665,9 +665,9 @@ namespace Expressions.Test.FleeLanguage
                 return 100;
             }
 
-            public event ResolveVariableValueHandler ResolveVariableValue;
+            public event ResolveVariableValueEventHandler ResolveVariableValue;
 
-            public event ResolveVariableTypeHandler ResolveVariableType;
+            public event ResolveVariableTypeEventHandler ResolveVariableType;
         }
     }
 }

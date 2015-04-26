@@ -91,7 +91,7 @@ namespace Expressions
             get { return Owner == null ? null : Owner.GetType(); }
         }
 
-        Type IBindingContext.GetVariableType(string variable, bool ignoreCase)
+        Type IVariableTypeResolver.GetVariableType(string variable, bool ignoreCase)
         {
             if (Variables.Contains(variable))
             {
@@ -99,24 +99,38 @@ namespace Expressions
 
                 return value == null ? typeof(object) : value.GetType();
             }
-            else if (ResolveVariableType != null)
-                return ResolveVariableType(variable, ignoreCase);
-            else
-                return null;
+
+            var ev = ResolveVariableType;
+            if (ev != null)
+            {
+                var eventArgs = new ResolveVariableTypeEventArgs(variable, ignoreCase);
+                ev(this, eventArgs);
+
+                return eventArgs.Result;
+            }
+
+            return null;
         }
 
         object IExecutionContext.GetVariableValue(string variable, bool ignoreCase)
         {
             if (Variables.Contains(variable))
                 return Variables[variable].Value;
-            else if (this.ResolveVariableValue != null)
-                return ResolveVariableValue(variable, ignoreCase);
-            else
-                return null;
+
+            var ev = ResolveVariableValue;
+            if (ev != null)
+            {
+                var eventArgs = new ResolveVariableValueEventArgs(variable, ignoreCase);
+                ev(this, eventArgs);
+
+                return eventArgs.Result;
+            }
+
+            return null;
         }
 
-        public event ResolveVariableValueHandler ResolveVariableValue;
+        public event ResolveVariableValueEventHandler ResolveVariableValue;
 
-        public event ResolveVariableTypeHandler ResolveVariableType;
+        public event ResolveVariableTypeEventHandler ResolveVariableType;
     }
 }

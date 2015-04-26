@@ -42,7 +42,7 @@ namespace Expressions
                         key.Imports,
                         key.IdentifierTypes,
                         key.Options,
-                        binder.GetVariableType
+                        binder
                     );
 
                     _cache.Add(key, boundExpression);

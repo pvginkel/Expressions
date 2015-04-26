@@ -175,7 +175,7 @@ namespace Expressions.Test
             {
                 TypeConverter tc = TypeDescriptor.GetConverter(resultType);
 
-                object expectedResult = tc.ConvertFromString(null, CultureInfo.CurrentCulture, result);
+                object expectedResult = tc.ConvertFromString(null, CultureInfo.InvariantCulture, result);
                 object actualResult = expression.Invoke(expressionContext, new BoundExpressionOptions
                 {
                     AllowPrivateAccess = true,

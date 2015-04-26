@@ -19,7 +19,7 @@ namespace Expressions
         internal IExpression ResolvedExpression { get; private set; }
 #endif
 
-        internal BoundExpression(CachedDynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, BoundExpressionOptions options, ResolveVariableTypeHandler typeResolutionHandler = null)
+        internal BoundExpression(CachedDynamicExpression dynamicExpression, Type ownerType, Import[] imports, Type[] identifierTypes, BoundExpressionOptions options, IVariableTypeResolver typeResolver)
         {
             Require.NotNull(dynamicExpression, "dynamicExpression");
             Require.NotNull(imports, "imports");
@@ -29,7 +29,7 @@ namespace Expressions
 
             _parameterMap = BuildParameterMap(ownerType, identifierTypes);
 
-            var resolver = new Resolver(_dynamicExpression, ownerType, imports, identifierTypes, _parameterMap, options, typeResolutionHandler);
+            var resolver = new Resolver(_dynamicExpression, ownerType, imports, identifierTypes, _parameterMap, options, typeResolver);
 
             var resolvedTree = resolver.Resolve(_dynamicExpression.ParseResult.RootNode);
 
